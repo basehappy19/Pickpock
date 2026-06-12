@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const fullPrompt = `
       คุณคือผู้ช่วยอัจฉริยะสำหรับระบบ E-commerce ชื่อ "MSU FOUNDER"

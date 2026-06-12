@@ -4,8 +4,10 @@ import { useState } from "react";
 import { Product } from "@/types";
 import { Sparkles, Loader2, MessageSquareText } from "lucide-react";
 import { aiService } from "@/services/api-service";
+import { useLanguage } from "@/hooks/use-language";
 
 export default function AIInsights({ product }: { product: Product }) {
+  const { t } = useLanguage();
   const [insight, setInsight] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
