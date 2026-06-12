@@ -1,22 +1,45 @@
 export interface Product {
-  id: string | number;
+  id: string;
   name: string;
   description: string;
+  fullDescription?: string;
   price: number;
   category: string;
-  image?: string;
-  rating?: number;
-  reviews?: Review[];
+  image: string;
+  rating: number;
+  reviews: Review[];
   stock: number;
+  status: 'active' | 'out_of_stock' | 'draft';
   createdAt: string;
+  specs?: Record<string, string>;
 }
 
 export interface Review {
   id: string;
   user: string;
+  avatar?: string;
   rating: number;
   comment: string;
   date: string;
+  sentiment?: 'positive' | 'negative' | 'neutral';
+}
+
+export interface Order {
+  id: string;
+  customerId: string;
+  customerName: string;
+  items: OrderItem[];
+  totalAmount: number;
+  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  createdAt: string;
+  paymentStatus: 'paid' | 'unpaid';
+}
+
+export interface OrderItem {
+  productId: string;
+  productName: string;
+  quantity: number;
+  price: number;
 }
 
 export interface FilterOptions {
@@ -25,10 +48,4 @@ export interface FilterOptions {
   minPrice?: number;
   maxPrice?: number;
   sortBy?: 'price-asc' | 'price-desc' | 'rating' | 'newest';
-}
-
-export interface ApiResponse<T> {
-  data: T;
-  message?: string;
-  status: number;
 }

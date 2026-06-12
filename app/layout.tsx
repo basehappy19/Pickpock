@@ -5,11 +5,12 @@ import Navbar from "@/components/shared/navbar";
 import { LanguageProvider } from "@/hooks/use-language";
 import { cookies } from "next/headers";
 import { Language } from "@/lib/translations";
+import { ThemeProvider } from "@/components/shared/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: "swap", // Best for Lighthouse
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -34,15 +35,23 @@ export default async function RootLayout({
   return (
     <html
       lang={lang}
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-gray-50/50">
-        <LanguageProvider initialLanguage={lang}>
-          <Navbar />
-          <main className="flex-1">
-            {children}
-          </main>
-        </LanguageProvider>
+      <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <LanguageProvider initialLanguage={lang}>
+            <Navbar />
+            <main className="flex-1">
+              {children}
+            </main>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
