@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -21,8 +21,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    const ai = new GoogleGenAI({ apiKey });
 
     const prompt = `
       คุณคือระบบ AI Smart Search สำหรับร้านค้า E-commerce
@@ -48,9 +47,12 @@ export async function POST(req: Request) {
       - ตอบเฉพาะ JSON เท่านั้น ห้ามมีคำอธิบายอื่น
     `;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    let text = response.text().trim();
+    const response = await ai.models.generateContent({
+      model: 'gemini-3.5-flash',
+      contents: prompt
+    });
+    
+    let text = response.text?.trim() || "";
     
     // Clean up potential markdown formatting from Gemini
     if (text.startsWith('```json')) {

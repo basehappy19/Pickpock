@@ -6,6 +6,7 @@ import { LanguageProvider } from "@/hooks/use-language";
 import { cookies } from "next/headers";
 import { Language } from "@/lib/translations";
 import { ThemeProvider } from "@/components/shared/theme-provider";
+import { CartProvider } from "@/hooks/use-cart";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,10 +47,12 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider initialLanguage={lang}>
-            <Navbar />
-            <main className="flex-1">
-              {children}
-            </main>
+            <CartProvider>
+              <Navbar />
+              <main className="flex-1">
+                {children}
+              </main>
+            </CartProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>
