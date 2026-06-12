@@ -38,7 +38,7 @@ export default function ProductInfo({ product }: { product: Product }) {
                 {product.rating}
               </div>
               <span className="text-muted-foreground font-medium">
-                {product.reviews.length} reviews
+                {product.reviews.length} {t.products.reviews}
               </span>
             </div>
           </div>
@@ -56,22 +56,22 @@ export default function ProductInfo({ product }: { product: Product }) {
               <div className="p-2 rounded-xl bg-muted text-primary">
                 <ShieldCheck className="h-5 w-5" />
               </div>
-              1 Year Warranty
+              {t.products.warranty}
             </div>
             <div className="flex items-center gap-3 text-sm font-semibold">
               <div className="p-2 rounded-xl bg-muted text-primary">
                 <Truck className="h-5 w-5" />
               </div>
-              Free Shipping
+              {t.products.shipping}
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <button className="flex-1 h-14 rounded-2xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2">
-              <ShoppingCart className="h-5 w-5" /> Add to Cart
+            <button className="flex-1 h-14 rounded-2xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2 cursor-pointer">
+              <ShoppingCart className="h-5 w-5" /> {t.products.addToCart}
             </button>
-            <button className="px-8 h-14 rounded-2xl border-2 font-bold hover:bg-muted transition-all">
-              Buy Now
+            <button className="px-8 h-14 rounded-2xl border-2 font-bold hover:bg-muted transition-all cursor-pointer">
+              {t.products.buyNow}
             </button>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function ProductInfo({ product }: { product: Product }) {
           <AIInsights product={product} />
           
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold">Product Specifications</h2>
+            <h2 className="text-2xl font-bold">{t.products.specs}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {Object.entries(product.specs || {}).map(([key, value]) => (
                 <div key={key} className="flex justify-between p-4 rounded-2xl bg-muted/50 border">
@@ -96,7 +96,7 @@ export default function ProductInfo({ product }: { product: Product }) {
         </div>
 
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold">Customer Reviews</h2>
+          <h2 className="text-2xl font-bold">{t.products.customerReviews}</h2>
           <div className="space-y-4">
             {product.reviews.map((review) => (
               <div key={review.id} className="p-5 rounded-2xl border bg-card space-y-3">
@@ -112,7 +112,7 @@ export default function ProductInfo({ product }: { product: Product }) {
               </div>
             ))}
             {product.reviews.length === 0 && (
-              <p className="text-muted-foreground italic">No reviews yet. Be the first!</p>
+              <p className="text-muted-foreground italic">{t.products.noReviews}</p>
             )}
           </div>
         </div>

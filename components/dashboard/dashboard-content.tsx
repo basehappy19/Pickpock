@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useFilter } from "@/hooks/use-filter";
 import { useLanguage } from "@/hooks/use-language";
+import { useRouter } from "next/navigation";
 
 interface DashboardContentProps {
   initialProducts: Product[];
@@ -23,6 +24,11 @@ interface DashboardContentProps {
 export default function DashboardContent({ initialProducts }: DashboardContentProps) {
   const { t } = useLanguage();
   const { filteredData, filters, updateFilter } = useFilter(initialProducts);
+  const router = useRouter();
+
+  const handleNotImplemented = (feature: string) => {
+    alert(`${feature} is not implemented in this MVP demo.`);
+  };
 
   const stats = [
     { 
@@ -72,10 +78,16 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all shadow-sm">
+          <button 
+            onClick={() => handleNotImplemented("Export")}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all shadow-sm cursor-pointer"
+          >
             <Download className="h-4 w-4" /> Export
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-md shadow-primary/20">
+          <button 
+            onClick={() => handleNotImplemented("View Filter")}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-md shadow-primary/20 cursor-pointer"
+          >
             {t.common.daily} view
           </button>
         </div>
@@ -139,7 +151,10 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
               </div>
             </div>
             <div className="flex items-center gap-2 self-end lg:self-center">
-              <button className="p-3 rounded-xl border hover:bg-muted transition-colors">
+              <button 
+                onClick={() => handleNotImplemented("More Actions")}
+                className="p-3 rounded-xl border hover:bg-muted transition-colors cursor-pointer"
+              >
                 <MoreVertical className="h-5 w-5 text-muted-foreground" />
               </button>
             </div>
@@ -163,7 +178,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
                   <tr 
                     key={item.id} 
                     className="group hover:bg-muted/50 transition-colors cursor-pointer"
-                    onClick={() => window.location.href = `/products/${item.id}`}
+                    onClick={() => router.push(`/products/${item.id}`)}
                   >
                     <td className="px-8 py-5 font-bold text-foreground/90">{item.name}</td>
                     <td className="px-8 py-5">
@@ -186,7 +201,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
                       </div>
                     </td>
                     <td className="px-8 py-5 text-right">
-                      <button className="p-2 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-background transition-all border shadow-sm">
+                      <button className="p-2 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-background transition-all border shadow-sm cursor-pointer">
                         <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
                       </button>
                     </td>
@@ -206,10 +221,20 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
 
           {/* Footer/Pagination Placeholder */}
           <div className="px-8 py-6 bg-muted/10 border-t flex justify-between items-center text-sm text-muted-foreground font-medium">
-            <p>Showing {filteredData.length} of {initialProducts.length} products</p>
+            <p>{t.common.showing} {filteredData.length} {t.common.of} {initialProducts.length} {t.nav.products}</p>
             <div className="flex gap-2">
-              <button className="px-4 py-2 rounded-xl border hover:bg-background disabled:opacity-50 transition-all" disabled>Previous</button>
-              <button className="px-4 py-2 rounded-xl border hover:bg-background disabled:opacity-50 transition-all" disabled>Next</button>
+              <button 
+                onClick={() => handleNotImplemented(t.common.previous)}
+                className="px-4 py-2 rounded-xl border hover:bg-background disabled:opacity-50 transition-all cursor-pointer"
+              >
+                {t.common.previous}
+              </button>
+              <button 
+                onClick={() => handleNotImplemented(t.common.next)}
+                className="px-4 py-2 rounded-xl border hover:bg-background disabled:opacity-50 transition-all cursor-pointer"
+              >
+                {t.common.next}
+              </button>
             </div>
           </div>
         </div>

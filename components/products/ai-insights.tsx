@@ -24,7 +24,7 @@ export default function AIInsights({ product }: { product: Product }) {
       setInsight(result);
     } catch (error) {
       console.error(error);
-      setInsight("ขออภัยครับ ระบบ AI ขัดข้องชั่วคราว ลองใหม่อีกครั้งนะ");
+      setInsight(t.products.aiInsights.error);
     } finally {
       setLoading(false);
     }
@@ -39,10 +39,10 @@ export default function AIInsights({ product }: { product: Product }) {
       <div className="relative space-y-4">
         <div className="flex items-center gap-2 text-primary font-bold tracking-tight">
           <Sparkles className="h-5 w-5 fill-current animate-pulse" />
-          AI Review Insights
+          {t.products.aiInsights.title}
         </div>
         
-        <h3 className="text-xl font-bold">สรุปความคิดเห็นด้วย AI</h3>
+        <h3 className="text-xl font-bold">{t.products.aiInsights.subtitle}</h3>
         
         {insight ? (
           <div className="bg-background/80 backdrop-blur-sm p-6 rounded-2xl border-2 border-primary/10 shadow-sm animate-in zoom-in-95 duration-500 text-foreground/90 leading-relaxed whitespace-pre-line">
@@ -50,17 +50,17 @@ export default function AIInsights({ product }: { product: Product }) {
           </div>
         ) : (
           <p className="text-muted-foreground font-medium">
-            ให้ AI ช่วยวิเคราะห์รีวิวจากลูกค้าทั้งหมด เพื่อตัดสินใจได้ง่ายขึ้น
+            {t.products.aiInsights.placeholder}
           </p>
         )}
 
         <button
           onClick={generateInsight}
           disabled={loading}
-          className="h-12 px-6 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-all flex items-center gap-2 disabled:opacity-50 shadow-lg shadow-primary/20"
+          className="h-12 px-6 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-all flex items-center gap-2 disabled:opacity-50 shadow-lg shadow-primary/20 cursor-pointer"
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageSquareText className="h-4 w-4" />}
-          {insight ? "ขอความเห็นใหม่" : "วิเคราะห์เลย"}
+          {insight ? t.products.aiInsights.buttonRetry : t.products.aiInsights.button}
         </button>
       </div>
     </div>

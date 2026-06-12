@@ -1,8 +1,13 @@
 import { dataService } from "@/services/data-service";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { Package, Truck, CheckCircle2, Clock, Search } from "lucide-react";
+import { cookies } from "next/headers";
+import { Language, translations } from "@/lib/translations";
 
 export default async function OrdersPage() {
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("language")?.value as Language) || "th";
+  const t = translations[lang];
   const orders = await dataService.getOrders();
 
   const getStatusIcon = (status: string) => {
@@ -14,18 +19,22 @@ export default async function OrdersPage() {
     }
   };
 
+  const getStatusText = (status: string) => {
+    return t.orders.status[status as keyof typeof t.orders.status] || status;
+  };
+
   return (
     <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-extrabold tracking-tight">Order Management</h1>
-          <p className="text-muted-foreground">ติดตามและจัดการคำสั่งซื้อทั้งหมดของร้านคุณ</p>
+          <h1 className="text-4xl font-extrabold tracking-tight">{t.orders.title}</h1>
+          <p className="text-muted-foreground">{t.orders.subtitle}</p>
         </div>
         <div className="relative group flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <input 
             type="text" 
-            placeholder="Search order ID or customer..."
+            placeholder={t.orders.searchPlaceholder}
             className="w-full pl-10 pr-4 py-2 rounded-xl border bg-card focus:ring-2 focus:ring-primary outline-none transition-all"
           />
         </div>
@@ -46,12 +55,12 @@ export default async function OrdersPage() {
               </div>
               <div className="flex items-center gap-4">
                 <div className="text-right hidden sm:block">
-                  <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Total Amount</p>
+                  <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">{t.orders.totalAmount}</p>
                   <p className="text-xl font-black text-primary">{formatCurrency(order.totalAmount)}</p>
                 </div>
                 <div className="px-4 py-2 rounded-full border bg-background flex items-center gap-2 font-bold text-sm">
                   {getStatusIcon(order.status)}
-                  <span className="capitalize">{order.status}</span>
+                  <span className="capitalize">{getStatusText(order.status)}</span>
                 </div>
               </div>
             </div>
@@ -59,8 +68,8 @@ export default async function OrdersPage() {
             <div className="p-6">
               <div className="space-y-4">
                 <div className="flex items-center justify-between pb-2 border-b">
-                  <span className="text-sm font-bold text-muted-foreground uppercase">Items</span>
-                  <span className="text-sm font-bold text-muted-foreground uppercase">Qty / Price</span>
+                  <span className="text-sm font-bold text-muted-foreground uppercase">{t.orders.items}</span>
+                  <span className="text-sm font-bold text-muted-foreground uppercase">{t.orders.qtyPrice}</span>
                 </div>
                 {order.items.map((item, idx) => (
                   <div key={idx} className="flex justify-between items-center">
@@ -80,11 +89,11 @@ export default async function OrdersPage() {
                   </div>
                   <div>
                     <p className="text-sm font-bold">{order.customerName}</p>
-                    <p className="text-xs text-muted-foreground">Customer ID: {order.customerId}</p>
+                    <p className="text-xs text-muted-foreground">{t.orders.customer} ID: {order.customerId}</p>
                   </div>
                 </div>
-                <button className="px-6 py-2 rounded-xl bg-secondary text-secondary-foreground font-bold text-sm hover:bg-secondary/80 transition-all">
-                  View Details
+                <button className="px-6 py-2 rounded-xl bg-secondary text-secondary-foreground font-bold text-sm hover:bg-secondary/80 transition-all cursor-pointer">
+                  {t.orders.viewDetails}
                 </button>
               </div>
             </div>

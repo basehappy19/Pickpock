@@ -48,7 +48,7 @@ export default function Navbar() {
           <div className="flex items-center border-l pl-4 gap-2 sm:gap-3">
             <button 
               onClick={() => setLanguage(language === "th" ? "en" : "th")}
-              className="flex items-center gap-2 rounded-full border border-input px-3 py-1.5 text-xs font-semibold hover:bg-accent transition-colors uppercase"
+              className="flex items-center gap-2 rounded-full border border-input px-3 py-1.5 text-xs font-semibold hover:bg-accent transition-colors uppercase cursor-pointer"
             >
               <Globe className="h-3.5 w-3.5" />
               {language}
@@ -56,14 +56,14 @@ export default function Navbar() {
 
             <ThemeToggle />
 
-            <button className="relative rounded-full p-2.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border">
+            <button className="relative rounded-full p-2.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border cursor-pointer">
               <ShoppingCart className="h-5 w-5" />
               <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground shadow-sm">
                 2
               </span>
             </button>
 
-            <button className="lg:hidden rounded-full p-2.5 text-muted-foreground hover:bg-accent transition-colors border">
+            <button className="lg:hidden rounded-full p-2.5 text-muted-foreground hover:bg-accent transition-colors border cursor-pointer">
               <Menu className="h-5 w-5" />
             </button>
           </div>
