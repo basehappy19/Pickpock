@@ -285,7 +285,9 @@ export const translations = {
       updateQuantity: "Update quantity",
       continueShopping: "Continue Shopping",
       itemAdded: "Item added to cart!",
-      itemRemoved: "Item removed from cart"
+      itemRemoved: "Item removed from cart",
+      restrictedTitle: "Management Account Restricted",
+      restrictedDesc: "Founders and Partners are not allowed to make purchases. Please use a member account."
     },
     wishlist: {
       title: "My Wishlist",
@@ -490,9 +492,9 @@ export const translations = {
     dashboard: {
       title: "ภาพรวมระบบ",
       subtitle: "ยินดีต้อนรับกลับ นี่คือสถานะร้านค้าของคุณวันนี้",
-      founderTitle: "แผงควบคุมผู้ดูแลระบบ (Founder)",
+      founderTitle: "แผงควบคุมผู้ดูแลระบบ",
       founderSubtitle: "บริหารอาณาจักรร้านค้าของคุณและขยายธุรกิจสู่ระดับสากล",
-      sellerTitle: "ศูนย์จัดการร้านค้า (Seller)",
+      sellerTitle: "ศูนย์จัดการร้านค้า",
       sellerSubtitle: "จัดการสินค้าและคำสั่งซื้อของคุณอย่างมีประสิทธิภาพ",
       managing: "กำลังจัดการ:",
       stats: {
@@ -714,7 +716,9 @@ export const translations = {
       updateQuantity: "อัปเดตจำนวน",
       continueShopping: "ช้อปต่อ",
       itemAdded: "เพิ่มสินค้าลงในรถเข็นแล้ว!",
-      itemRemoved: "ลบสินค้าออกจากรถเข็นแล้ว"
+      itemRemoved: "ลบสินค้าออกจากรถเข็นแล้ว",
+      restrictedTitle: "จำกัดการใช้งานบัญชีผู้ดูแล",
+      restrictedDesc: "บัญชี Founder และ Partner ไม่ได้รับอนุญาตให้ทำการสั่งซื้อสินค้า กรุณาใช้บัญชีสมาชิกทั่วไปเพื่อใช้งาน"
     },
     wishlist: {
       title: "รายการโปรดของฉัน",

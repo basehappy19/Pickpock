@@ -2,19 +2,30 @@
 
 import { useCart } from "@/hooks/use-cart";
 import { formatCurrency, getImgSrc, cn } from "@/lib/utils";
-import { Trash2, ShoppingBag, ArrowLeft, Plus, Minus, CreditCard, Tag, CheckCircle2, LogIn } from "lucide-react";
+import { Trash2, ShoppingBag, ArrowLeft, Plus, Minus, CreditCard, Tag, CheckCircle2, LogIn, ChevronRight, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import NextImage from "next/image";
 import { useLanguage } from "@/hooks/use-language";
-import { useState } from "react";
-import { initialCoupons } from "@/lib/initial-data";
+import { useState, useEffect } from "react";
 import { useGlobalData } from "@/hooks/use-global-data";
 import { useRole } from "@/hooks/use-role";
+import { Coupon } from "@/types";
 
 export default function CartPage() {
-  const { items, removeFromCart, addToCart, updateQuantity, totalCount, totalPrice, discountedTotal, discountSummary, appliedCoupon, applyCoupon, removeCoupon, clearCart } = useCart();
-  const { addOrder, purchaseItems } = useGlobalData();
+  const { 
+    items, 
+    removeFromCart, 
+    updateQuantity, 
+    totalCount, 
+    discountedTotal, 
+    discountSummary, 
+    appliedCoupon, 
+    applyCoupon, 
+    removeCoupon, 
+    clearCart 
+  } = useCart();
+  const { addOrder, purchaseItems, coupons: allCoupons } = useGlobalData();
   const { t } = useLanguage();
   const { user, tier, role } = useRole();
   const router = useRouter();
@@ -24,9 +35,24 @@ export default function CartPage() {
   const [couponCode, setCouponCode] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [isPaid, setIsPaid] = useState(false);
+  const [showCouponSelector, setShowCouponSelector] = useState(false);
+  const [usedCoupons, setUsedCoupons] = useState<string[]>([]);
 
-  const handleApplyCoupon = () => {
-    const coupon = initialCoupons.find(c => c.code === couponCode.toUpperCase());
+  // Load used coupons from local storage (simplified for hackathon)
+  useEffect(() => {
+    if (user) {
+      const saved = localStorage.getItem(`used_coupons_${user.id}`);
+      if (saved) setUsedCoupons(JSON.parse(saved));
+    }
+  }, [user]);
+
+  const handleApplyCouponInput = () => {
+    const code = couponCode.toUpperCase().trim();
+    if (usedCoupons.includes(code)) {
+      alert("You have already used this coupon / คุณใช้โค้ดนี้ไปแล้ว");
+      return;
+    }
+    const coupon = allCoupons.find(c => c.code === code);
     if (coupon) {
       applyCoupon(coupon);
       setCouponCode("");
@@ -35,8 +61,16 @@ export default function CartPage() {
     }
   };
 
+  const selectCoupon = (coupon: Coupon) => {
+    if (usedCoupons.includes(coupon.code)) {
+      alert("You have already used this coupon / คุณใช้โค้ดนี้ไปแล้ว");
+      return;
+    }
+    applyCoupon(coupon);
+    setShowCouponSelector(false);
+  };
+
   const handleCheckout = async () => {
-    // Check if user is logged in
     if (!user) {
       alert("Please login to checkout / กรุณาเข้าสู่ระบบก่อนชำระเงิน");
       router.push("/login");
@@ -48,10 +82,15 @@ export default function CartPage() {
       return;
     }
 
-    // Reduce stock globally and sync to JSON
+    // Mark coupon as used if applied
+    if (appliedCoupon) {
+      const newUsed = [...usedCoupons, appliedCoupon.code];
+      setUsedCoupons(newUsed);
+      localStorage.setItem(`used_coupons_${user.id}`, JSON.stringify(newUsed));
+    }
+
     await purchaseItems(items.map(i => ({ productId: i.id, quantity: i.quantity })));
 
-    // Create real order object with discount summary
     const newOrder: any = {
       id: `ORD-${Math.floor(Math.random() * 10000).toString().padStart(5, '0')}`,
       customerId: user.id,
@@ -77,12 +116,9 @@ export default function CartPage() {
       reviewedItems: []
     };
 
-    // Add order to global state and sync to ecommerce_orders.json
     await addOrder(newOrder);
-
-    // Finalize process
     setIsPaid(true);
-    clearCart(); // This now correctly clears from server if logged in
+    clearCart();
   };
 
   if (isPaid) {
@@ -129,8 +165,8 @@ export default function CartPage() {
               <CreditCard className="h-5 w-5 text-rose-600 dark:text-rose-400" />
             </div>
             <div>
-              <p className="font-black text-rose-900 dark:text-rose-100">Management Account Restricted</p>
-              <p className="text-sm text-rose-700 dark:text-rose-300">Founders and Partners are not allowed to make purchases. Please use a member account.</p>
+              <p className="font-black text-rose-900 dark:text-rose-100">{t.cart.restrictedTitle}</p>
+              <p className="text-sm text-rose-700 dark:text-rose-300">{t.cart.restrictedDesc}</p>
             </div>
           </div>
         </div>
@@ -162,14 +198,16 @@ export default function CartPage() {
         {/* Items List */}
         <div className="lg:col-span-2 space-y-4">
           {items.map((item) => (
-            <div key={item.id} className="bg-card border rounded-2xl p-4 lg:p-6 flex flex-col sm:flex-row gap-4 lg:gap-6 shadow-sm hover:shadow-md transition-shadow group">
-              <div className="relative h-24 w-24 sm:h-32 sm:w-32 rounded-xl overflow-hidden border bg-muted flex-shrink-0 mx-auto sm:mx-0">
+            <div key={item.id} className="bg-card border rounded-2xl p-4 lg:p-6 flex flex-col sm:flex-row gap-4 lg:gap-6 shadow-sm hover:shadow-md transition-shadow group relative">
+              <Link href={`/products/${item.id}`} className="relative h-24 w-24 sm:h-32 sm:w-32 rounded-xl overflow-hidden border bg-muted flex-shrink-0 mx-auto sm:mx-0 cursor-pointer block">
                 <NextImage src={getImgSrc(item.image)} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
-              </div>
+              </Link>
               <div className="flex-1 flex flex-col justify-between text-center sm:text-left">
                 <div className="flex justify-between items-start gap-4">
                   <div className="flex-1">
-                    <h3 className="text-lg lg:text-xl font-black tracking-tight leading-tight">{item.name}</h3>
+                    <Link href={`/products/${item.id}`} className="text-lg lg:text-xl font-black tracking-tight leading-tight hover:text-primary transition-colors cursor-pointer block">
+                      {item.name}
+                    </Link>
                     <p className="text-[10px] lg:text-xs text-muted-foreground font-bold uppercase tracking-widest mt-1">{item.category}</p>
                   </div>
                   <button onClick={() => removeFromCart(item.id)} className="p-2 rounded-lg border text-muted-foreground hover:text-rose-500 hover:bg-rose-50 transition-all cursor-pointer hidden sm:block">
@@ -178,9 +216,19 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between items-end mt-4">
                   <div className="flex items-center gap-3 bg-muted/50 p-1 rounded-lg border mx-auto sm:mx-0">
-                    <button onClick={() => removeFromCart(item.id)} className="p-1 rounded-md hover:bg-background transition-colors cursor-pointer"><Minus className="h-3 w-3 lg:h-4 lg:w-4" /></button>
+                    <button 
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)} 
+                      className="p-1 rounded-md hover:bg-background transition-colors cursor-pointer"
+                    >
+                      <Minus className="h-3 w-3 lg:h-4 lg:w-4" />
+                    </button>
                     <span className="font-black text-xs lg:text-sm px-1 lg:px-2 w-4 text-center">{item.quantity}</span>
-                    <button onClick={() => addToCart(item)} className="p-1 rounded-md hover:bg-background transition-colors cursor-pointer"><Plus className="h-3 w-3 lg:h-4 lg:w-4" /></button>
+                    <button 
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)} 
+                      className="p-1 rounded-md hover:bg-background transition-colors cursor-pointer"
+                    >
+                      <Plus className="h-3 w-3 lg:h-4 lg:w-4" />
+                    </button>
                   </div>
                   <div className="text-lg lg:text-xl font-black text-primary">{formatCurrency(item.price * item.quantity)}</div>
                 </div>
@@ -212,19 +260,32 @@ export default function CartPage() {
             </div>
 
             {/* Coupon Section */}
-            <div className="flex gap-2">
-              <div className="relative flex-1 group">
-                <Tag className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4 group-focus-within:text-primary transition-colors" />
-                <input 
-                  type="text" 
-                  placeholder={t.cart.discountCode}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-transparent bg-muted/50 focus:bg-background focus:border-primary/20 outline-none transition-all font-bold uppercase text-sm"
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(e.target.value)}
-                />
+            <div className="space-y-3">
+              <div className="flex gap-2">
+                <div className="relative flex-1 group">
+                  <Tag className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4 group-focus-within:text-primary transition-colors" />
+                  <input 
+                    type="text" 
+                    placeholder={t.cart.discountCode}
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-transparent bg-muted/50 focus:bg-background focus:border-primary/20 outline-none transition-all font-bold uppercase text-sm"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value)}
+                  />
+                </div>
+                <button onClick={handleApplyCouponInput} className="px-4 lg:px-6 rounded-xl bg-secondary font-black text-xs lg:text-sm hover:bg-secondary/80 transition-all cursor-pointer">
+                  {t.cart.apply}
+                </button>
               </div>
-              <button onClick={handleApplyCoupon} className="px-4 lg:px-6 rounded-xl bg-secondary font-black text-xs lg:text-sm hover:bg-secondary/80 transition-all cursor-pointer">
-                {t.cart.apply}
+              
+              <button 
+                onClick={() => setShowCouponSelector(true)}
+                className="w-full flex items-center justify-between p-4 rounded-2xl bg-primary/5 border-2 border-primary/10 hover:bg-primary/10 transition-all group cursor-pointer"
+              >
+                <div className="flex items-center gap-3">
+                  <Tag className="h-5 w-5 text-primary" />
+                  <span className="text-xs font-black uppercase tracking-widest text-primary">เลือกคูปองส่วนลดของคุณ</span>
+                </div>
+                <ChevronRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
 
@@ -303,11 +364,74 @@ export default function CartPage() {
                   : "bg-primary text-primary-foreground shadow-primary/20 hover:opacity-90 active:scale-95"
               )}
             >
-              <CreditCard className="h-5 w-5 lg:h-6 lg:w-6" /> {isRestricted ? "Restricted for Management" : t.cart.checkout}
+              <CreditCard className="h-5 w-5 lg:h-6 lg:w-6" /> {isRestricted ? t.cart.restrictedTitle : t.cart.checkout}
             </button>
           </div>
         </div>
       </div>
+
+      {/* Coupon Selector Modal */}
+      {showCouponSelector && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-card w-full max-w-md rounded-[2.5rem] border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            <div className="p-6 bg-primary text-primary-foreground flex justify-between items-center">
+              <h3 className="text-xl font-black uppercase tracking-widest flex items-center gap-3">
+                <Tag className="h-6 w-6" /> {t.home.vouchers}
+              </h3>
+              <button onClick={() => setShowCouponSelector(false)} className="p-2 hover:bg-white/10 rounded-full cursor-pointer"><X /></button>
+            </div>
+            
+            <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
+              {allCoupons.length > 0 ? allCoupons.map((coupon) => {
+                const isUsed = usedCoupons.includes(coupon.code);
+                const isSelected = appliedCoupon?.code === coupon.code;
+
+                return (
+                  <div 
+                    key={coupon.code}
+                    onClick={() => !isUsed && selectCoupon(coupon)}
+                    className={cn(
+                      "p-5 rounded-2xl border-2 transition-all flex justify-between items-center group relative overflow-hidden",
+                      isUsed ? "bg-muted opacity-50 grayscale cursor-not-allowed" : 
+                      isSelected ? "border-primary bg-primary/5 cursor-default" : 
+                      "border-muted hover:border-primary/30 bg-card cursor-pointer"
+                    )}
+                  >
+                    <div className="space-y-1 relative z-10">
+                      <div className="flex items-center gap-2">
+                        <span className="font-black text-lg tracking-tight">{coupon.code}</span>
+                        {isSelected && <CheckCircle2 className="h-4 w-4 text-primary" />}
+                        {isUsed && <span className="text-[8px] font-black uppercase bg-muted-foreground text-white px-2 py-0.5 rounded">USED</span>}
+                      </div>
+                      <p className="text-xs font-bold text-muted-foreground">{coupon.description}</p>
+                    </div>
+                    <div className="text-right relative z-10">
+                      <p className="text-2xl font-black text-primary tracking-tighter">
+                        {coupon.type === 'percent' ? `-${coupon.discount}%` : `-฿${coupon.discount}`}
+                      </p>
+                    </div>
+                    {!isUsed && !isSelected && (
+                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors" />
+                    )}
+                  </div>
+                );
+              }) : (
+                <div className="text-center py-12 text-muted-foreground font-bold">
+                  ไม่มีคูปองที่เก็บไว้ / No coupons found
+                </div>
+              )}
+            </div>
+            <div className="p-6 border-t bg-muted/20">
+              <button 
+                onClick={() => setShowCouponSelector(false)}
+                className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-black uppercase tracking-widest text-xs shadow-lg shadow-primary/20 hover:opacity-90 transition-all cursor-pointer"
+              >
+                {t.common.close}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
