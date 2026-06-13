@@ -69,15 +69,15 @@ export default function ProductListContent({ initialProducts }: { initialProduct
 
       {/* AI Smart Search Bar */}
       <form onSubmit={handleAISearch} className="relative group z-10">
-        <div className="absolute -inset-1 bg-rainbow-gradient rounded-[2.5rem] blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200 -z-10"></div>
-        <div className="relative flex flex-col md:flex-row gap-2 bg-card p-3 rounded-[2.2rem] border shadow-xl">
+        <div className="absolute -inset-1 bg-rainbow-gradient rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200 -z-10"></div>
+        <div className="relative flex flex-col md:flex-row gap-2 bg-card p-3 rounded-2xl border shadow-xl">
 
           <div className="flex-1 relative flex items-center">
             <Sparkles className="absolute left-4 h-5 w-5 text-rainbow animate-pulse" />
             <input 
               type="text" 
               placeholder="ลองพิมพ์ค้นหาแบบมนุษย์ เช่น 'อยากได้หูฟังเอาไปใส่วิ่ง'"
-              className="w-full pl-12 pr-6 py-4 rounded-2xl bg-transparent outline-none text-base font-medium placeholder:text-muted-foreground/70"
+              className="w-full pl-12 pr-6 py-4 rounded-xl bg-transparent outline-none text-base font-medium placeholder:text-muted-foreground/70"
               value={aiSearchQuery}
               onChange={(e) => setAiSearchQuery(e.target.value)}
             />
@@ -85,7 +85,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           <button 
             type="submit"
             disabled={isSearching}
-            className="px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-black hover:opacity-90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 min-w-[140px] cursor-pointer overflow-hidden group/btn"
+            className="px-8 py-4 rounded-xl bg-primary text-primary-foreground font-black hover:opacity-90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 min-w-[140px] cursor-pointer overflow-hidden group/btn"
           >
             <div className="absolute inset-0 bg-rainbow-gradient opacity-0 group-hover/btn:opacity-20 transition-opacity" />
             {isSearching ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
@@ -101,7 +101,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           <input 
             type="text" 
             placeholder={t.dashboard.filters.search}
-            className="w-full pl-12 pr-6 py-3 rounded-2xl border-2 border-transparent bg-card focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-sm font-medium shadow-sm"
+            className="w-full pl-12 pr-6 py-3 rounded-xl border-2 border-transparent bg-card focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-sm font-medium shadow-sm"
             value={filters.search}
             onChange={(e) => {
               setAiMatchedIds(null); 
@@ -114,7 +114,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           <div className="relative w-full sm:w-48">
             <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4 pointer-events-none" />
             <select 
-              className="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-transparent bg-card focus:border-primary/20 outline-none transition-all text-sm font-semibold appearance-none cursor-pointer shadow-sm"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-transparent bg-card focus:border-primary/20 outline-none transition-all text-sm font-semibold appearance-none cursor-pointer shadow-sm"
               value={filters.category}
               onChange={(e) => {
                 setAiMatchedIds(null);
@@ -131,12 +131,12 @@ export default function ProductListContent({ initialProducts }: { initialProduct
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {displayData.map((product) => (
           <div 
             key={product.id}
             onClick={() => router.push(`/products/${product.id}`)}
-            className="group bg-card rounded-[2.5rem] border overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+            className="group bg-card rounded-2xl border overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 cursor-pointer"
           >
             <div className="aspect-[4/3] overflow-hidden bg-muted relative">
               <NextImage 
@@ -146,11 +146,11 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-md text-[10px] font-black uppercase tracking-widest border shadow-sm">
+              <div className="absolute top-4 right-4 px-3 py-1 rounded-lg bg-background/80 backdrop-blur-md text-[10px] font-black uppercase tracking-widest border shadow-sm">
                 {product.category}
               </div>
             </div>
-            <div className="p-8 space-y-4">
+            <div className="p-6 lg:p-8 space-y-4">
               <div className="flex justify-between items-start">
                 <h3 className="text-xl font-bold leading-tight group-hover:text-primary transition-colors line-clamp-1">
                   {product.name}
@@ -167,8 +167,8 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 <div className="text-2xl font-black text-primary">
                   {formatCurrency(product.price)}
                 </div>
-                <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                  <ArrowRight className="h-5 w-5" />
+                <div className="h-12 w-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                  <ArrowRight className="h-6 w-6" />
                 </div>
               </div>
             </div>
@@ -177,7 +177,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
       </div>
 
       {displayData.length === 0 && (
-        <div className="p-20 text-center space-y-3 bg-muted/30 rounded-[3rem] border-2 border-dashed">
+        <div className="p-12 lg:p-20 text-center space-y-3 bg-muted/30 rounded-3xl border-2 border-dashed">
           <div className="inline-flex p-4 rounded-full bg-muted">
             <Search className="h-8 w-8 text-muted-foreground/50" />
           </div>

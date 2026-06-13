@@ -23,7 +23,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Image Gallery */}
         <div className="space-y-4">
-          <div className="relative aspect-square rounded-[2.5rem] overflow-hidden border bg-muted shadow-inner group">
+          <div className="relative aspect-square rounded-2xl overflow-hidden border bg-muted shadow-inner group">
             <NextImage 
               src={product.image} 
               alt={product.name}
@@ -44,11 +44,11 @@ export default function ProductInfo({ product, allProducts }: { product: Product
         <div className="space-y-8">
           <div className="space-y-4">
             <div className="flex gap-2">
-              <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-black uppercase tracking-widest">
+              <span className="px-4 py-1.5 rounded-lg bg-primary/10 text-primary text-xs font-black uppercase tracking-widest">
                 {product.category}
               </span>
               {product.storeName && (
-                <span className="px-4 py-1.5 rounded-full border border-muted-foreground/20 text-muted-foreground text-xs font-bold">
+                <span className="px-4 py-1.5 rounded-lg border border-muted-foreground/20 text-muted-foreground text-xs font-bold">
                   {product.storeName}
                 </span>
               )}
@@ -96,7 +96,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button 
               onClick={() => addToCart(product)}
-              className="flex-1 h-16 rounded-2xl bg-primary text-primary-foreground font-black text-lg hover:opacity-90 active:scale-95 transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 cursor-pointer group"
+              className="flex-1 h-16 rounded-xl bg-primary text-primary-foreground font-black text-lg hover:opacity-90 active:scale-95 transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 cursor-pointer group"
             >
               <ShoppingCart className="h-6 w-6 group-hover:rotate-12 transition-transform" /> {t.products.addToCart}
             </button>
@@ -105,7 +105,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 addToCart(product);
                 alert("Proceeding to checkout... (MVP Demo)");
               }}
-              className="px-8 h-16 rounded-2xl border-2 border-primary/10 font-black text-lg hover:bg-muted active:scale-95 transition-all cursor-pointer"
+              className="px-8 h-16 rounded-xl border-2 border-primary/10 font-black text-lg hover:bg-muted active:scale-95 transition-all cursor-pointer"
             >
               {t.products.buyNow}
             </button>
@@ -127,7 +127,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             <h2 className="text-3xl font-black tracking-tight">{t.products.specs}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {Object.entries(product.specs || {}).map(([key, value]) => (
-                <div key={key} className="flex justify-between items-center p-5 rounded-2xl bg-card border shadow-sm group hover:border-primary/20 transition-colors">
+                <div key={key} className="flex justify-between items-center p-5 rounded-xl bg-card border shadow-sm group hover:border-primary/20 transition-colors">
                   <span className="text-muted-foreground font-black uppercase text-xs tracking-widest">{key}</span>
                   <span className="font-black text-foreground">{value}</span>
                 </div>
@@ -140,7 +140,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           <h2 className="text-3xl font-black tracking-tight">{t.products.customerReviews}</h2>
           <div className="space-y-4">
             {product.reviews.map((review) => (
-              <div key={review.id} className="p-6 rounded-3xl border bg-card space-y-4 shadow-sm hover:shadow-md transition-shadow">
+              <div key={review.id} className="p-6 rounded-2xl border bg-card space-y-4 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex justify-between items-center">
                   <span className="font-black text-primary">{review.user}</span>
                   <div className="flex gap-0.5 text-amber-500">
@@ -154,7 +154,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
               </div>
             ))}
             {product.reviews.length === 0 && (
-              <div className="p-10 text-center rounded-3xl border-2 border-dashed bg-muted/20">
+              <div className="p-10 text-center rounded-2xl border-2 border-dashed bg-muted/20">
                 <p className="text-muted-foreground font-bold italic">{t.products.noReviews}</p>
               </div>
             )}

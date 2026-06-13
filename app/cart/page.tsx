@@ -50,7 +50,7 @@ export default function CartPage() {
           <h2 className="text-4xl font-black tracking-tight text-emerald-600">{t.cart.paymentSuccess}</h2>
           <p className="text-muted-foreground font-bold text-lg">{t.cart.paymentSuccessDesc}</p>
         </div>
-        <Link href="/" className="mt-8 h-14 px-8 rounded-2xl bg-primary text-primary-foreground font-black flex items-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer">
+        <Link href="/" className="mt-8 h-14 px-8 rounded-xl bg-primary text-primary-foreground font-black flex items-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer">
           <ArrowLeft className="h-5 w-5" /> {t.cart.startShopping}
         </Link>
       </div>
@@ -67,7 +67,7 @@ export default function CartPage() {
           <h2 className="text-3xl font-black tracking-tight">{t.cart.empty}</h2>
           <p className="text-muted-foreground font-medium">{t.cart.emptyDesc}</p>
         </div>
-        <Link href="/products" className="h-14 px-8 rounded-2xl bg-primary text-primary-foreground font-black flex items-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer">
+        <Link href="/products" className="h-14 px-8 rounded-xl bg-primary text-primary-foreground font-black flex items-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer">
           <ArrowLeft className="h-5 w-5" /> {t.cart.startShopping}
         </Link>
       </div>
@@ -79,38 +79,42 @@ export default function CartPage() {
   return (
     <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700">
       <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-black tracking-tight">{t.cart.title} ({totalCount})</h1>
+        <h1 className="text-3xl lg:text-4xl font-black tracking-tight">{t.cart.title} ({totalCount})</h1>
         <button onClick={clearCart} className="text-sm font-bold text-rose-500 hover:text-rose-600 transition-colors cursor-pointer flex items-center gap-2">
           <Trash2 className="h-4 w-4" /> {t.cart.clearAll}
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
         {/* Items List */}
         <div className="lg:col-span-2 space-y-4">
           {items.map((item) => (
-            <div key={item.id} className="bg-card border rounded-[2rem] p-6 flex flex-col sm:flex-row gap-6 shadow-sm hover:shadow-md transition-shadow group">
-              <div className="relative h-32 w-full sm:w-32 rounded-2xl overflow-hidden border bg-muted flex-shrink-0">
+            <div key={item.id} className="bg-card border rounded-2xl p-4 lg:p-6 flex flex-col sm:flex-row gap-4 lg:gap-6 shadow-sm hover:shadow-md transition-shadow group">
+              <div className="relative h-24 w-24 sm:h-32 sm:w-32 rounded-xl overflow-hidden border bg-muted flex-shrink-0 mx-auto sm:mx-0">
                 <NextImage src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
-              <div className="flex-1 flex flex-col justify-between">
+              <div className="flex-1 flex flex-col justify-between text-center sm:text-left">
                 <div className="flex justify-between items-start gap-4">
-                  <div>
-                    <h3 className="text-xl font-black tracking-tight leading-tight">{item.name}</h3>
-                    <p className="text-sm text-muted-foreground font-bold uppercase tracking-widest mt-1">{item.category}</p>
+                  <div className="flex-1">
+                    <h3 className="text-lg lg:text-xl font-black tracking-tight leading-tight">{item.name}</h3>
+                    <p className="text-[10px] lg:text-xs text-muted-foreground font-bold uppercase tracking-widest mt-1">{item.category}</p>
                   </div>
-                  <button onClick={() => removeFromCart(item.id)} className="p-2.5 rounded-xl border text-muted-foreground hover:text-rose-500 hover:bg-rose-50 transition-all cursor-pointer">
-                    <Trash2 className="h-5 w-5" />
+                  <button onClick={() => removeFromCart(item.id)} className="p-2 rounded-lg border text-muted-foreground hover:text-rose-500 hover:bg-rose-50 transition-all cursor-pointer hidden sm:block">
+                    <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
                 <div className="flex justify-between items-end mt-4">
-                  <div className="flex items-center gap-3 bg-muted/50 p-1 rounded-xl border">
-                    <button onClick={() => removeFromCart(item.id)} className="p-1.5 rounded-lg hover:bg-background transition-colors cursor-pointer"><Minus className="h-4 w-4" /></button>
-                    <span className="font-black text-sm px-2 w-4 text-center">{item.quantity}</span>
-                    <button onClick={() => addToCart(item)} className="p-1.5 rounded-lg hover:bg-background transition-colors cursor-pointer"><Plus className="h-4 w-4" /></button>
+                  <div className="flex items-center gap-3 bg-muted/50 p-1 rounded-lg border mx-auto sm:mx-0">
+                    <button onClick={() => removeFromCart(item.id)} className="p-1 rounded-md hover:bg-background transition-colors cursor-pointer"><Minus className="h-3 w-3 lg:h-4 lg:w-4" /></button>
+                    <span className="font-black text-xs lg:text-sm px-1 lg:px-2 w-4 text-center">{item.quantity}</span>
+                    <button onClick={() => addToCart(item)} className="p-1 rounded-md hover:bg-background transition-colors cursor-pointer"><Plus className="h-3 w-3 lg:h-4 lg:w-4" /></button>
                   </div>
-                  <div className="text-xl font-black text-primary">{formatCurrency(item.price * item.quantity)}</div>
+                  <div className="text-lg lg:text-xl font-black text-primary">{formatCurrency(item.price * item.quantity)}</div>
                 </div>
+                {/* Mobile Delete */}
+                <button onClick={() => removeFromCart(item.id)} className="mt-4 p-2 text-rose-500 font-bold text-xs flex items-center justify-center gap-1 sm:hidden">
+                   <Trash2 className="h-3 w-3" /> Remove Item
+                </button>
               </div>
             </div>
           ))}
@@ -118,7 +122,7 @@ export default function CartPage() {
 
         {/* Summary */}
         <div className="space-y-6">
-          <div className="bg-card border-2 border-primary/10 rounded-[2.5rem] p-8 shadow-xl shadow-primary/5 space-y-6 sticky top-24">
+          <div className="bg-card border-2 border-primary/10 rounded-3xl p-6 lg:p-8 shadow-xl shadow-primary/5 space-y-6 sticky top-24">
             <h3 className="text-2xl font-black tracking-tight">{t.cart.summary}</h3>
             
             {/* Coupon Section */}
@@ -128,42 +132,42 @@ export default function CartPage() {
                 <input 
                   type="text" 
                   placeholder={t.cart.discountCode}
-                  className="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-transparent bg-muted/50 focus:bg-background focus:border-primary/20 outline-none transition-all font-bold uppercase"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-transparent bg-muted/50 focus:bg-background focus:border-primary/20 outline-none transition-all font-bold uppercase text-sm"
                   value={couponCode}
                   onChange={(e) => setCouponCode(e.target.value)}
                 />
               </div>
-              <button onClick={handleApplyCoupon} className="px-6 rounded-2xl bg-secondary font-black hover:bg-secondary/80 transition-all cursor-pointer">
+              <button onClick={handleApplyCoupon} className="px-4 lg:px-6 rounded-xl bg-secondary font-black text-xs lg:text-sm hover:bg-secondary/80 transition-all cursor-pointer">
                 {t.cart.apply}
               </button>
             </div>
 
             <div className="space-y-4">
-              <div className="flex justify-between font-bold text-muted-foreground uppercase text-xs tracking-widest">
+              <div className="flex justify-between font-bold text-muted-foreground uppercase text-[10px] tracking-widest">
                 <span>{t.cart.subtotal}</span>
                 <span>{formatCurrency(totalPrice)}</span>
               </div>
-              <div className="flex justify-between font-bold text-muted-foreground uppercase text-xs tracking-widest">
+              <div className="flex justify-between font-bold text-muted-foreground uppercase text-[10px] tracking-widest">
                 <span>{t.cart.shipping}</span>
                 <span className="text-emerald-500">{t.cart.free}</span>
               </div>
               {appliedDiscount > 0 && (
-                <div className="flex justify-between font-bold text-rose-500 uppercase text-xs tracking-widest">
+                <div className="flex justify-between font-bold text-rose-500 uppercase text-[10px] tracking-widest">
                   <span>{t.cart.discountApplied}</span>
                   <span>-{formatCurrency(appliedDiscount)}</span>
                 </div>
               )}
-              <div className="h-px bg-muted w-full my-4" />
+              <div className="h-px bg-muted w-full my-2" />
               <div className="flex justify-between items-end">
-                <span className="font-black text-lg">{t.cart.total}</span>
-                <span className="text-3xl font-black text-primary tracking-tighter">{formatCurrency(finalTotal)}</span>
+                <span className="font-black text-base lg:text-lg">{t.cart.total}</span>
+                <span className="text-2xl lg:text-3xl font-black text-primary tracking-tighter">{formatCurrency(finalTotal)}</span>
               </div>
             </div>
             <button 
               onClick={handleCheckout}
-              className="w-full h-16 rounded-2xl bg-primary text-primary-foreground font-black text-lg shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3 cursor-pointer"
+              className="w-full h-14 lg:h-16 rounded-xl bg-primary text-primary-foreground font-black text-base lg:text-lg shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3 cursor-pointer"
             >
-              <CreditCard className="h-6 w-6" /> {t.cart.checkout}
+              <CreditCard className="h-5 w-5 lg:h-6 lg:w-6" /> {t.cart.checkout}
             </button>
           </div>
         </div>

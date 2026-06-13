@@ -1,16 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Store } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Store, Home, LayoutDashboard, Package } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { ThemeToggle } from "./theme-toggle";
 import { useCart } from "@/hooks/use-cart";
 import { useRole } from "@/hooks/use-role";
+import { cn } from "@/lib/utils";
 
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
   const { totalCount } = useCart();
   const { role, setRole } = useRole();
+  const pathname = usePathname();
 
   const cycleRole = () => {
     if (role === "customer") setRole("seller");
@@ -19,9 +22,9 @@ export default function Navbar() {
   };
 
   const getRoleIcon = () => {
-    if (role === "founder") return <ShieldCheck className="h-3.5 w-3.5" />;
-    if (role === "seller") return <Store className="h-3.5 w-3.5" />;
-    return <User className="h-3.5 w-3.5" />;
+    if (role === "founder") return <ShieldCheck className="h-4 w-4" />;
+    if (role === "seller") return <Store className="h-4 w-4" />;
+    return <User className="h-4 w-4" />;
   };
 
   const getRoleColor = () => {
@@ -30,84 +33,131 @@ export default function Navbar() {
     return "bg-blue-500/10 border-blue-500/20 text-blue-600";
   };
 
+  const navLinks = [
+    { href: "/", label: t.nav.home, icon: Home },
+    { href: "/products", label: t.nav.products, icon: Package },
+    ...(role !== "customer" ? [
+      { href: "/dashboard", label: t.nav.dashboard, icon: LayoutDashboard },
+      { href: "/orders", label: t.nav.orders, icon: Store },
+    ] : []),
+  ];
+
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md transition-all">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-8">
-        <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity">
-            <div className="bg-primary p-1 rounded-lg shadow-lg shadow-primary/20">
-              <Box className="h-6 w-6 text-primary-foreground" />
+    <>
+      {/* Top Navbar (Desktop & Mobile Logo/Settings) */}
+      <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md transition-all">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-8">
+          <div className="flex items-center gap-8">
+            <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity">
+              <div className="bg-primary p-1.5 rounded-xl shadow-lg shadow-primary/20">
+                <Box className="h-6 w-6 text-primary-foreground" />
+              </div>
+              <span>
+                MSU <span className="text-primary">{role === "customer" ? "MALL" : "FOUNDER"}</span>
+              </span>
+            </Link>
+            
+            {/* Desktop Links */}
+            <div className="hidden lg:flex gap-6">
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.href}
+                  href={link.href} 
+                  className={cn(
+                    "text-sm font-bold transition-colors hover:text-primary",
+                    pathname === link.href ? "text-primary" : "text-muted-foreground"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
-            <span>
-              MSU <span className="text-primary">{role === "customer" ? "MALL" : "FOUNDER"}</span>
-            </span>
-          </Link>
+          </div>
           
-          <div className="hidden lg:flex gap-6">
-            <Link href="/" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors">
-              {t.nav.home}
-            </Link>
-            {(role === "founder" || role === "seller") && (
-              <>
-                <Link href="/dashboard" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors">
-                  {t.nav.dashboard}
-                </Link>
-                <Link href="/orders" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors">
-                  {t.nav.orders}
-                </Link>
-              </>
-            )}
-            <Link href="/products" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors">
-              {t.nav.products}
-            </Link>
-          </div>
-        </div>
-        
-        <div className="flex items-center gap-2 sm:gap-4">
-          {/* Role Switcher (Hackathon Demo Only) */}
-          <button 
-            onClick={cycleRole}
-            className={`hidden sm:flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-black uppercase transition-all border-2 cursor-pointer ${getRoleColor()}`}
-          >
-            {getRoleIcon()}
-            {role}
-          </button>
-
-          <div className="relative hidden md:block group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-            <input
-              type="search"
-              placeholder={t.nav.search}
-              className="h-10 w-48 lg:w-64 rounded-full border border-input bg-muted/50 pl-10 pr-4 text-sm focus:bg-background focus:ring-2 focus:ring-primary focus:outline-none transition-all font-medium"
-            />
-          </div>
-
-          <div className="flex items-center border-l pl-4 gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* Role Switcher */}
             <button 
-              onClick={() => setLanguage(language === "th" ? "en" : "th")}
-              className="flex items-center gap-2 rounded-full border border-input px-3 py-1.5 text-xs font-black hover:bg-accent transition-colors uppercase cursor-pointer"
+              onClick={cycleRole}
+              className={cn(
+                "flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-black uppercase transition-all border-2 cursor-pointer",
+                getRoleColor()
+              )}
             >
-              <Globe className="h-3.5 w-3.5" />
-              {language}
+              {getRoleIcon()}
+              <span className="hidden xs:inline">{role}</span>
             </button>
 
-            <ThemeToggle />
+            <div className="relative hidden md:block group">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+              <input
+                type="search"
+                placeholder={t.nav.search}
+                className="h-10 w-48 lg:w-64 rounded-xl border border-input bg-muted/50 pl-10 pr-4 text-sm focus:bg-background focus:ring-2 focus:ring-primary focus:outline-none transition-all font-medium"
+              />
+            </div>
 
-            <Link href="/cart" className="relative rounded-full p-2.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border cursor-pointer group">
-              <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center border-l pl-4 gap-2">
+              <button 
+                onClick={() => setLanguage(language === "th" ? "en" : "th")}
+                className="flex items-center gap-2 rounded-xl border border-input px-3 py-2 text-xs font-black hover:bg-accent transition-colors uppercase cursor-pointer"
+              >
+                <Globe className="h-3.5 w-3.5" />
+                {language}
+              </button>
+
+              <ThemeToggle />
+
+              <Link href="/cart" className="relative hidden lg:flex rounded-xl p-2.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border cursor-pointer group">
+                <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                {totalCount > 0 && (
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-primary-foreground shadow-sm">
+                    {totalCount}
+                  </span>
+                )}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Bottom Navbar (Mobile only) */}
+      <nav className="lg:hidden fixed bottom-0 left-0 z-50 w-full bg-background/95 backdrop-blur-lg border-t border-border px-4 py-2 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+        <div className="flex justify-around items-center h-14">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.href}
+              href={link.href}
+              className={cn(
+                "flex flex-col items-center justify-center gap-1 min-w-[64px] transition-all",
+                pathname === link.href ? "text-primary scale-110" : "text-muted-foreground"
+              )}
+            >
+              <link.icon className="h-6 w-6" />
+              <span className="text-[10px] font-black uppercase tracking-tighter">{link.label}</span>
+            </Link>
+          ))}
+          <Link 
+            href="/cart"
+            className={cn(
+              "relative flex flex-col items-center justify-center gap-1 min-w-[64px] transition-all",
+              pathname === "/cart" ? "text-primary scale-110" : "text-muted-foreground"
+            )}
+          >
+            <div className="relative">
+              <ShoppingCart className="h-6 w-6" />
               {totalCount > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-primary-foreground shadow-sm animate-in zoom-in duration-300">
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-primary-foreground shadow-sm">
                   {totalCount}
                 </span>
               )}
-            </Link>
-
-            <button className="lg:hidden rounded-full p-2.5 text-muted-foreground hover:bg-accent transition-colors border cursor-pointer">
-              <Menu className="h-5 w-5" />
-            </button>
-          </div>
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-tighter">Cart</span>
+          </Link>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Spacer for bottom nav on mobile */}
+      <div className="lg:hidden h-20" />
+    </>
   );
 }
