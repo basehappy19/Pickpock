@@ -9,9 +9,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import NextImage from "next/image";
 
+import { useGlobalData } from "@/hooks/use-global-data";
+
 export default function ProductListContent({ initialProducts }: { initialProducts: Product[] }) {
   const { t } = useLanguage();
-  const { filteredData, filters, updateFilter } = useFilter(initialProducts);
+  const { products } = useGlobalData();
+  const { filteredData, filters, updateFilter } = useFilter(products.length > 0 ? products : initialProducts);
   const router = useRouter();
   
   const [aiSearchQuery, setAiSearchQuery] = useState("");

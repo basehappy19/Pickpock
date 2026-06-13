@@ -8,6 +8,7 @@ import { Language } from "@/lib/translations";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { CartProvider } from "@/hooks/use-cart";
 import { RoleProvider } from "@/hooks/use-role";
+import { DataProvider } from "@/hooks/use-global-data";
 import AIChatbot from "@/components/shared/ai-chatbot";
 
 const geistSans = Geist({
@@ -50,13 +51,15 @@ export default async function RootLayout({
         >
           <LanguageProvider initialLanguage={lang}>
             <RoleProvider>
-              <CartProvider>
-                <Navbar />
-                <main className="flex-1">
-                  {children}
-                </main>
-                <AIChatbot />
-              </CartProvider>
+              <DataProvider>
+                <CartProvider>
+                  <Navbar />
+                  <main className="flex-1">
+                    {children}
+                  </main>
+                  <AIChatbot />
+                </CartProvider>
+              </DataProvider>
             </RoleProvider>
           </LanguageProvider>
         </ThemeProvider>

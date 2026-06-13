@@ -11,7 +11,6 @@ import {
   Search,
   Filter,
   MoreVertical,
-  Download,
   Plus,
   Pencil,
   Trash2,
@@ -29,6 +28,7 @@ import { useRole } from "@/hooks/use-role";
 import { cn } from "@/lib/utils";
 import { uploadProductImage } from "@/lib/supabase";
 import NextImage from "next/image";
+import { useGlobalData } from "@/hooks/use-global-data";
 
 interface DashboardContentProps {
   initialProducts: Product[];
@@ -37,7 +37,7 @@ interface DashboardContentProps {
 export default function DashboardContent({ initialProducts }: DashboardContentProps) {
   const { t } = useLanguage();
   const { role } = useRole();
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const { products, addProduct, updateProduct, deleteProduct } = useGlobalData();
   const { filteredData, filters, updateFilter } = useFilter(products);
   const router = useRouter();
 
@@ -52,15 +52,6 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
     else setImageUrl("");
   }, [editingProduct, isModalOpen]);
 
-  // Redirect if customer
-  useEffect(() => {
-    if (role === "customer") {
-      router.push("/");
-    }
-  }, [role, router]);
-
-  if (role === "customer") return null;
-
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -71,23 +62,16 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       setImageUrl(url);
       alert("Image uploaded successfully!");
     } else {
-      alert("Upload failed. Make sure Supabase env variables are set.");
-      // Fallback for demo
+      alert("Upload failed. Make sure Supabase env variables are set and RLS policy allows uploads.");
       setImageUrl(URL.createObjectURL(file));
     }
     setUploading(false);
   };
 
-  const handleDelete = (id: string) => {
-    if (confirm("Are you sure you want to delete this product?")) {
-      setProducts(products.filter(p => p.id !== id));
-    }
-  };
-
   const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const newProd: Partial<Product> = {
+    const newProdData: Partial<Product> = {
       name: formData.get("name") as string,
       price: Number(formData.get("price")),
       category: formData.get("category") as string,
@@ -96,18 +80,18 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
     };
 
     if (editingProduct) {
-      setProducts(products.map(p => p.id === editingProduct.id ? { ...p, ...newProd } : p));
+      updateProduct({ ...editingProduct, ...newProdData } as Product);
     } else {
       const addedProd: Product = {
         ...products[0],
         id: `p${Date.now()}`,
-        ...newProd as any,
+        ...newProdData as any,
         reviews: [],
         rating: 0,
         storeName: role === "founder" ? "MSU Official" : "Partner Store",
         isOfficial: role === "founder",
       };
-      setProducts([addedProd, ...products]);
+      addProduct(addedProd);
     }
     setIsModalOpen(false);
     setEditingProduct(null);
@@ -121,9 +105,9 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
   ];
 
   return (
-    <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700">
+    <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700 pb-20 lg:pb-8">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div className="space-y-1">
+        <div className="space-y-1 text-center md:text-left">
           <h1 className="text-3xl lg:text-5xl font-black tracking-tight lg:bg-clip-text lg:text-transparent lg:bg-gradient-to-r from-foreground to-foreground/70 text-foreground">
             {role === "founder" ? "Founder Dashboard" : "Seller Center"}
           </h1>
@@ -133,9 +117,9 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
         </div>
         <button 
           onClick={() => { setEditingProduct(null); setIsModalOpen(true); }}
-          className="flex items-center gap-2 px-6 py-3 text-sm font-black rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer"
+          className="flex items-center justify-center gap-2 px-6 py-4 text-sm font-black rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer"
         >
-          <Plus className="h-5 w-5" /> {editingProduct ? "Edit Product" : "Add New Product"}
+          <Plus className="h-5 w-5" /> Add New Product
         </button>
       </div>
 
@@ -163,14 +147,14 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       </div>
 
       <div className="bg-card rounded-2xl border shadow-sm overflow-hidden flex flex-col">
-        <div className="p-4 lg:p-8 border-b bg-muted/30 flex flex-col lg:flex-row justify-between gap-4 lg:gap-6">
+        <div className="p-4 lg:p-8 border-b bg-muted/30 flex flex-col lg:flex-row justify-between gap-4 lg:gap-6 text-center md:text-left">
           <div className="flex flex-col sm:flex-row gap-4 items-center flex-1 max-w-3xl">
             <div className="relative flex-1 w-full group">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4 group-focus-within:text-primary transition-colors" />
               <input 
                 type="text" 
                 placeholder={t.dashboard.filters.search}
-                className="w-full pl-10 pr-6 py-2.5 lg:py-3 rounded-xl border-2 border-transparent bg-background focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-sm font-medium"
+                className="w-full pl-10 pr-6 py-3 rounded-xl border-2 border-transparent bg-background focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-sm font-medium"
                 value={filters.search}
                 onChange={(e) => updateFilter({ search: e.target.value })}
               />
@@ -193,17 +177,13 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
               {filteredData.map((item) => (
                 <tr key={item.id} className="group hover:bg-muted/50 transition-colors">
                   <td className="px-6 lg:px-8 py-4 lg:py-5 font-bold text-sm text-foreground/90">{item.name}</td>
-                  <td className="px-6 lg:px-8 py-4 lg:py-5">
-                    <span className="px-2 py-0.5 rounded-lg bg-secondary text-secondary-foreground text-[10px] font-bold">
-                      {item.category}
-                    </span>
-                  </td>
+                  <td className="px-6 lg:px-8 py-4 lg:py-5 text-[10px] font-bold uppercase">{item.category}</td>
                   <td className="px-6 lg:px-8 py-4 lg:py-5 font-mono font-bold text-sm text-primary">{formatCurrency(item.price)}</td>
                   <td className="px-6 lg:px-8 py-4 lg:py-5 font-medium text-sm hidden sm:table-cell">{item.stock}</td>
                   <td className="px-6 lg:px-8 py-4 lg:py-5 text-right">
                     <div className="flex gap-2 justify-end opacity-0 group-hover:opacity-100 transition-opacity">
                       <button onClick={() => { setEditingProduct(item); setIsModalOpen(true); }} className="p-1.5 rounded-lg hover:bg-primary/10 text-primary transition-all cursor-pointer border shadow-sm"><Pencil className="h-3.5 w-3.5" /></button>
-                      <button onClick={() => handleDelete(item.id)} className="p-1.5 rounded-lg hover:bg-rose-100 text-rose-500 transition-all cursor-pointer border shadow-sm"><Trash2 className="h-3.5 w-3.5" /></button>
+                      <button onClick={() => deleteProduct(item.id)} className="p-1.5 rounded-lg hover:bg-rose-100 text-rose-500 transition-all cursor-pointer border shadow-sm"><Trash2 className="h-3.5 w-3.5" /></button>
                     </div>
                   </td>
                 </tr>
@@ -217,7 +197,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-card w-full max-w-lg rounded-2xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="p-6 lg:p-8 bg-rainbow-gradient border-b flex justify-between items-center">
-              <h3 className="text-xl lg:text-2xl font-black tracking-tight flex items-center gap-2">
+              <h3 className="text-xl lg:text-2xl font-black tracking-tight flex items-center gap-2 uppercase tracking-tighter">
                 <ShieldCheck className="h-6 w-6 text-primary" />
                 {editingProduct ? "Edit Product" : "Add New Product"}
               </h3>

@@ -1,23 +1,23 @@
-import { dataService } from "@/services/data-service";
-import { notFound } from "next/navigation";
+"use client";
+
+import { useGlobalData } from "@/hooks/use-global-data";
+import { notFound, useParams } from "next/navigation";
 import ProductInfo from "@/components/products/product-info";
 
-export default async function ProductDetailPage({ 
-  params 
-}: { 
-  params: Promise<{ id: string }> 
-}) {
-  const { id } = await params;
-  const product = await dataService.getProductById(id);
-  const allProducts = await dataService.getProducts();
+export default function ProductDetailPage() {
+  const { id } = useParams();
+  const { products } = useGlobalData();
+  const product = products.find(p => p.id === id);
 
-  if (!product) {
+  if (!product && products.length > 0) {
     notFound();
   }
 
+  if (products.length === 0) return null; // Wait for hydration
+
   return (
     <div className="container mx-auto p-4 lg:p-8">
-      <ProductInfo product={product} allProducts={allProducts} />
+      <ProductInfo product={product!} allProducts={products} />
     </div>
   );
 }

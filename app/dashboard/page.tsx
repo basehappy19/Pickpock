@@ -1,11 +1,17 @@
-import { dataService } from "@/services/data-service";
+"use client";
+
 import DashboardContent from "@/components/dashboard/dashboard-content";
+import { useGlobalData } from "@/hooks/use-global-data";
+import { useRole } from "@/hooks/use-role";
+import AccessRestricted from "@/components/shared/access-restricted";
 
-// This is a Server Component (Best for Performance & SEO)
-export default async function DashboardPage() {
-  // Fetch data on the server
-  const products = await dataService.getProducts();
+export default function DashboardPage() {
+  const { products } = useGlobalData();
+  const { role } = useRole();
 
-  // Pass data to Client Component for interactivity
+  if (role === "customer") {
+    return <AccessRestricted requiredRole={["seller", "founder"]} currentPage="Dashboard" />;
+  }
+
   return <DashboardContent initialProducts={products} />;
 }

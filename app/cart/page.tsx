@@ -8,9 +8,11 @@ import NextImage from "next/image";
 import { useLanguage } from "@/hooks/use-language";
 import { useState } from "react";
 import { mockCoupons } from "@/lib/mock-data";
+import { useGlobalData } from "@/hooks/use-global-data";
 
 export default function CartPage() {
   const { items, removeFromCart, addToCart, totalCount, totalPrice, clearCart } = useCart();
+  const { addOrder } = useGlobalData();
   const { t } = useLanguage();
   
   const [couponCode, setCouponCode] = useState("");
@@ -52,6 +54,10 @@ export default function CartPage() {
         reviewedItems: []
       };
 
+      addOrder(newOrder);
+      
+      // Also keep orderHistory for the history page's local state if needed, 
+      // though useGlobalData handles it now.
       const existingHistory = JSON.parse(localStorage.getItem("orderHistory") || "[]");
       localStorage.setItem("orderHistory", JSON.stringify([newOrder, ...existingHistory]));
 

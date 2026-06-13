@@ -1,14 +1,20 @@
-import { dataService } from "@/services/data-service";
+"use client";
+
+import { useGlobalData } from "@/hooks/use-global-data";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { Package, Truck, CheckCircle2, Clock, Search } from "lucide-react";
-import { cookies } from "next/headers";
-import { Language, translations } from "@/lib/translations";
+import { useLanguage } from "@/hooks/use-language";
+import { useRole } from "@/hooks/use-role";
+import AccessRestricted from "@/components/shared/access-restricted";
 
-export default async function OrdersPage() {
-  const cookieStore = await cookies();
-  const lang = (cookieStore.get("language")?.value as Language) || "th";
-  const t = translations[lang];
-  const orders = await dataService.getOrders();
+export default function OrdersPage() {
+  const { t } = useLanguage();
+  const { orders } = useGlobalData();
+  const { role } = useRole();
+
+  if (role === "customer") {
+    return <AccessRestricted requiredRole={["seller", "founder"]} currentPage="Orders Management" />;
+  }
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -35,22 +41,22 @@ export default async function OrdersPage() {
           <input 
             type="text" 
             placeholder={t.orders.searchPlaceholder}
-            className="w-full pl-10 pr-4 py-2 rounded-xl border bg-card focus:ring-2 focus:ring-primary outline-none transition-all"
+            className="w-full pl-10 pr-4 py-2 rounded-xl border bg-card focus:ring-2 focus:ring-primary outline-none transition-all font-medium"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
         {orders.map((order) => (
-          <div key={order.id} className="bg-card rounded-3xl border shadow-sm hover:shadow-md transition-all overflow-hidden">
+          <div key={order.id} className="bg-card border rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all">
             <div className="p-6 border-b bg-muted/30 flex flex-wrap justify-between items-center gap-4">
               <div className="flex items-center gap-4">
                 <div className="p-3 rounded-2xl bg-background border shadow-sm">
                   <Package className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">{order.id}</h3>
-                  <p className="text-sm text-muted-foreground">{formatDate(order.createdAt)}</p>
+                  <h3 className="font-black text-lg">{order.id}</h3>
+                  <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest">{formatDate(order.createdAt)}</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -84,7 +90,7 @@ export default async function OrdersPage() {
               
               <div className="mt-8 flex justify-between items-center pt-6 border-t">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">
+                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary uppercase">
                     {order.customerName.charAt(0)}
                   </div>
                   <div>

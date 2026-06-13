@@ -7,9 +7,12 @@ import { formatCurrency, formatDate } from "@/lib/utils";
 import { Package, Star, MessageSquare, CheckCircle2, ChevronRight, X, Loader2 } from "lucide-react";
 import NextImage from "next/image";
 import { mockProducts } from "@/lib/mock-data";
+import { useRole } from "@/hooks/use-role";
+import AccessRestricted from "@/components/shared/access-restricted";
 
 export default function HistoryPage() {
   const { t } = useLanguage();
+  const { role } = useRole();
   const [orders, setOrders] = useState<Order[]>([]);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<{orderId: string, productId: string, productName: string} | null>(null);
@@ -24,6 +27,10 @@ export default function HistoryPage() {
       setOrders(JSON.parse(savedOrders));
     }
   }, []);
+
+  if (role !== "customer") {
+    return <AccessRestricted requiredRole={["customer"]} currentPage="Purchase History" />;
+  }
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
