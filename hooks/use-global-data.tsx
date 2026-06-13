@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Product, Order, Coupon } from "@/types";
-import { mockProducts, mockOrders, mockCoupons } from "@/lib/initial-data";
+import { initialProducts, initialOrders, initialCoupons } from "@/lib/initial-data";
 
 interface DataContextType {
   products: Product[];
@@ -22,7 +22,7 @@ const DataContext = createContext<DataContextType | undefined>(undefined);
 export function DataProvider({ children }: { children: React.ReactNode }) {
   const [products, setProductsState] = useState<Product[]>([]);
   const [orders, setOrdersState] = useState<Order[]>([]);
-  const [coupons, setCoupons] = useState<Coupon[]>(mockCoupons);
+  const [coupons, setCoupons] = useState<Coupon[]>(initialCoupons);
 
   // Initialize data from API
   useEffect(() => {
@@ -41,12 +41,12 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
             price: p.price,
             stock: p.stock,
             image: p.image,
-            rating: 4.5, // Dummy default
+            rating: 4.5,
             reviews: [],
             status: 'active',
             createdAt: new Date().toISOString(),
-            storeName: p.product_id.includes('101') ? "MSU Official" : "Partner Store",
-            isOfficial: p.product_id.includes('101'),
+            storeName: p.product_id.includes('p-101') ? "MSU Official" : "Partner Store",
+            isOfficial: p.product_id.includes('p-101'),
           }));
           setProductsState(mappedProds);
         }
@@ -61,14 +61,14 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
             status: o.status.toLowerCase(),
             createdAt: o.timestamp,
             paymentStatus: 'paid',
-            items: [] // Simplified for sync
+            items: []
           }));
           setOrdersState(mappedOrds);
         }
       } catch (e) {
         console.error("Failed to fetch data from API, using initial-data", e);
-        setProductsState(mockProducts);
-        setOrdersState(mockOrders);
+        setProductsState(initialProducts);
+        setOrdersState(initialOrders);
       }
     };
 
@@ -112,7 +112,6 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       const item = boughtItems.find(i => i.productId === p.id);
       if (item) {
         const updated = { ...p, stock: Math.max(0, p.stock - item.quantity) };
-        // Trigger update to file system
         updateProduct(updated);
         return updated;
       }
