@@ -68,9 +68,10 @@ export default function ProductListContent({ initialProducts }: { initialProduct
       </div>
 
       {/* AI Smart Search Bar */}
-      <form onSubmit={handleAISearch} className="relative group">
-        <div className="absolute -inset-1 bg-rainbow-gradient rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-        <div className="relative flex flex-col md:flex-row gap-2 bg-card p-2 rounded-[2rem] border shadow-lg">
+      <form onSubmit={handleAISearch} className="relative group z-10">
+        <div className="absolute -inset-1 bg-rainbow-gradient rounded-[2.5rem] blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200 -z-10"></div>
+        <div className="relative flex flex-col md:flex-row gap-2 bg-card p-3 rounded-[2.2rem] border shadow-xl">
+
           <div className="flex-1 relative flex items-center">
             <Sparkles className="absolute left-4 h-5 w-5 text-rainbow animate-pulse" />
             <input 

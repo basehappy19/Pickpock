@@ -11,11 +11,19 @@ import {
   Search,
   Filter,
   MoreVertical,
-  Download
+  Download,
+  Plus,
+  Pencil,
+  Trash2,
+  X,
+  Save,
+  ShieldCheck
 } from "lucide-react";
 import { useFilter } from "@/hooks/use-filter";
 import { useLanguage } from "@/hooks/use-language";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useRole } from "@/hooks/use-role";
 
 interface DashboardContentProps {
   initialProducts: Product[];
@@ -23,11 +31,49 @@ interface DashboardContentProps {
 
 export default function DashboardContent({ initialProducts }: DashboardContentProps) {
   const { t } = useLanguage();
-  const { filteredData, filters, updateFilter } = useFilter(initialProducts);
+  const { role } = useRole();
+  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const { filteredData, filters, updateFilter } = useFilter(products);
   const router = useRouter();
+
+  // Admin Modal States
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   const handleNotImplemented = (feature: string) => {
     alert(`${feature} is not implemented in this MVP demo.`);
+  };
+
+  const handleDelete = (id: string) => {
+    if (confirm("Are you sure you want to delete this product?")) {
+      setProducts(products.filter(p => p.id !== id));
+    }
+  };
+
+  const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const newProd: Partial<Product> = {
+      name: formData.get("name") as string,
+      price: Number(formData.get("price")),
+      category: formData.get("category") as string,
+      stock: Number(formData.get("stock")),
+    };
+
+    if (editingProduct) {
+      setProducts(products.map(p => p.id === editingProduct.id ? { ...p, ...newProd } : p));
+    } else {
+      const addedProd: Product = {
+        ...products[0], // Copy dummy data
+        id: `p${Date.now()}`,
+        ...newProd as any,
+        reviews: [],
+        rating: 0,
+      };
+      setProducts([addedProd, ...products]);
+    }
+    setIsModalOpen(false);
+    setEditingProduct(null);
   };
 
   const stats = [
@@ -49,7 +95,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
     },
     { 
       title: t.dashboard.stats.products, 
-      value: initialProducts.length, 
+      value: products.length, 
       icon: Package, 
       trend: "0%", 
       color: "from-emerald-600/20 to-emerald-600/5",
@@ -71,25 +117,36 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-1">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
-            {t.dashboard.title}
+            {role === "founder" ? "Founder Dashboard" : t.dashboard.title}
           </h1>
           <p className="text-lg text-muted-foreground max-w-[600px]">
-            {t.dashboard.subtitle}
+            {role === "founder" ? "Manage your store empire and scale to new heights." : t.dashboard.subtitle}
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <button 
-            onClick={() => handleNotImplemented("Export")}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all shadow-sm cursor-pointer"
-          >
-            <Download className="h-4 w-4" /> Export
-          </button>
-          <button 
-            onClick={() => handleNotImplemented("View Filter")}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-md shadow-primary/20 cursor-pointer"
-          >
-            {t.common.daily} view
-          </button>
+          {role === "founder" ? (
+            <button 
+              onClick={() => { setEditingProduct(null); setIsModalOpen(true); }}
+              className="flex items-center gap-2 px-6 py-3 text-sm font-black rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer"
+            >
+              <Plus className="h-5 w-5" /> Add New Product
+            </button>
+          ) : (
+            <>
+              <button 
+                onClick={() => handleNotImplemented(t.common.export)}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all shadow-sm cursor-pointer"
+              >
+                <Download className="h-4 w-4" /> {t.common.export}
+              </button>
+              <button 
+                onClick={() => handleNotImplemented(t.common.view)}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-md shadow-primary/20 cursor-pointer"
+              >
+                {t.common.daily} {t.common.view}
+              </button>
+            </>
+          )}
         </div>
       </div>
 
@@ -98,7 +155,6 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
         {stats.map((stat, i) => (
           <div key={i} className="group relative overflow-hidden bg-card p-6 rounded-3xl border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
             <div className={`absolute top-0 right-0 h-32 w-32 bg-gradient-to-br ${stat.color} rounded-full -mr-16 -mt-16 blur-3xl opacity-50 group-hover:opacity-100 transition-opacity`} />
-            
             <div className="relative space-y-4">
               <div className="flex items-center justify-between">
                 <div className={`p-3 rounded-2xl bg-muted transition-colors group-hover:bg-background ${stat.iconColor}`}>
@@ -119,7 +175,6 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
 
       {/* Main Content Area */}
       <div className="grid grid-cols-1 gap-8">
-        {/* Filter & Table Container */}
         <div className="bg-card rounded-[2rem] border shadow-sm overflow-hidden flex flex-col">
           {/* Toolbar */}
           <div className="p-6 lg:p-8 border-b bg-muted/30 flex flex-col lg:flex-row justify-between gap-6">
@@ -143,20 +198,12 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
                     onChange={(e) => updateFilter({ category: e.target.value })}
                   >
                     <option value="all">{t.dashboard.filters.allCategories}</option>
-                    {Array.from(new Set(initialProducts.map(p => p.category))).map(cat => (
+                    {Array.from(new Set(products.map(p => p.category))).map(cat => (
                       <option key={cat} value={cat}>{cat}</option>
                     ))}
                   </select>
                 </div>
               </div>
-            </div>
-            <div className="flex items-center gap-2 self-end lg:self-center">
-              <button 
-                onClick={() => handleNotImplemented("More Actions")}
-                className="p-3 rounded-xl border hover:bg-muted transition-colors cursor-pointer"
-              >
-                <MoreVertical className="h-5 w-5 text-muted-foreground" />
-              </button>
             </div>
           </div>
 
@@ -175,11 +222,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
               </thead>
               <tbody className="divide-y divide-muted">
                 {filteredData.map((item) => (
-                  <tr 
-                    key={item.id} 
-                    className="group hover:bg-muted/50 transition-colors cursor-pointer"
-                    onClick={() => router.push(`/products/${item.id}`)}
-                  >
+                  <tr key={item.id} className="group hover:bg-muted/50 transition-colors">
                     <td className="px-8 py-5 font-bold text-foreground/90">{item.name}</td>
                     <td className="px-8 py-5">
                       <span className="px-3 py-1 rounded-lg bg-secondary text-secondary-foreground text-xs font-bold">
@@ -201,44 +244,77 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
                       </div>
                     </td>
                     <td className="px-8 py-5 text-right">
-                      <button className="p-2 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-background transition-all border shadow-sm cursor-pointer">
-                        <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
-                      </button>
+                      <div className="flex gap-2 justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+                        {role === "founder" ? (
+                          <>
+                            <button 
+                              onClick={() => { setEditingProduct(item); setIsModalOpen(true); }}
+                              className="p-2 rounded-lg hover:bg-primary/10 text-primary transition-all cursor-pointer border shadow-sm"
+                            >
+                              <Pencil className="h-4 w-4" />
+                            </button>
+                            <button 
+                              onClick={() => handleDelete(item.id)}
+                              className="p-2 rounded-lg hover:bg-rose-100 text-rose-500 transition-all cursor-pointer border shadow-sm"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </>
+                        ) : (
+                          <button 
+                            onClick={() => router.push(`/products/${item.id}`)}
+                            className="p-2 rounded-lg hover:bg-background transition-all border shadow-sm cursor-pointer"
+                          >
+                            <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {filteredData.length === 0 && (
-              <div className="p-20 text-center space-y-3">
-                <div className="inline-flex p-4 rounded-full bg-muted">
-                  <Search className="h-8 w-8 text-muted-foreground/50" />
-                </div>
-                <h3 className="text-lg font-bold text-muted-foreground">{t.dashboard.table.noData}</h3>
-              </div>
-            )}
-          </div>
-
-          {/* Footer/Pagination Placeholder */}
-          <div className="px-8 py-6 bg-muted/10 border-t flex justify-between items-center text-sm text-muted-foreground font-medium">
-            <p>{t.common.showing} {filteredData.length} {t.common.of} {initialProducts.length} {t.nav.products}</p>
-            <div className="flex gap-2">
-              <button 
-                onClick={() => handleNotImplemented(t.common.previous)}
-                className="px-4 py-2 rounded-xl border hover:bg-background disabled:opacity-50 transition-all cursor-pointer"
-              >
-                {t.common.previous}
-              </button>
-              <button 
-                onClick={() => handleNotImplemented(t.common.next)}
-                className="px-4 py-2 rounded-xl border hover:bg-background disabled:opacity-50 transition-all cursor-pointer"
-              >
-                {t.common.next}
-              </button>
-            </div>
           </div>
         </div>
       </div>
+
+      {/* Admin Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-card w-full max-w-lg rounded-[2.5rem] border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center">
+              <h3 className="text-2xl font-black tracking-tight flex items-center gap-2">
+                <ShieldCheck className="h-6 w-6 text-primary" />
+                {editingProduct ? "Edit Product" : "Add New Product"}
+              </h3>
+              <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-black/5 rounded-full cursor-pointer"><X /></button>
+            </div>
+            <form onSubmit={handleSave} className="p-8 space-y-6">
+              <div className="space-y-2">
+                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Product Name</label>
+                <input name="name" defaultValue={editingProduct?.name} required className="w-full px-5 py-4 rounded-2xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Price (THB)</label>
+                  <input name="price" type="number" defaultValue={editingProduct?.price} required className="w-full px-5 py-4 rounded-2xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Stock</label>
+                  <input name="stock" type="number" defaultValue={editingProduct?.stock} required className="w-full px-5 py-4 rounded-2xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Category</label>
+                <input name="category" defaultValue={editingProduct?.category} required className="w-full px-5 py-4 rounded-2xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold" />
+              </div>
+              <button type="submit" className="w-full h-16 rounded-2xl bg-primary text-primary-foreground font-black text-lg shadow-xl shadow-primary/20 hover:opacity-90 transition-all flex items-center justify-center gap-3 cursor-pointer">
+                <Save className="h-6 w-6" /> Save Product Changes
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

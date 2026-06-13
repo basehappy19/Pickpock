@@ -116,7 +116,7 @@ export const mockProducts: Product[] = [
     fullDescription: "เปลี่ยนมุมเดิมๆ ให้ดูมีคลาสด้วยชุดแจกันเซรามิก 3 ชิ้น ที่มีรูปทรงและขนาดต่างกัน ผลิตด้วยกรรมวิธีแฮนด์เมด ให้ผิวสัมผัสที่เป็นธรรมชาติและโทนสีที่อบอุ่น เข้าได้กับทุกสไตล์การแต่งบ้าน",
     price: 2400,
     category: "Home & Living",
-    image: "https://images.unsplash.com/photo-1612196808214-b7e239e5f6b7?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1578500484721-f39c764e9c6d?w=800&q=80",
     stock: 50,
     rating: 4.7,
     status: 'active',

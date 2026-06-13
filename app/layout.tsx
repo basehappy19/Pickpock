@@ -7,6 +7,8 @@ import { cookies } from "next/headers";
 import { Language } from "@/lib/translations";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { CartProvider } from "@/hooks/use-cart";
+import { RoleProvider } from "@/hooks/use-role";
+import AIChatbot from "@/components/shared/ai-chatbot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,12 +49,15 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider initialLanguage={lang}>
-            <CartProvider>
-              <Navbar />
-              <main className="flex-1">
-                {children}
-              </main>
-            </CartProvider>
+            <RoleProvider>
+              <CartProvider>
+                <Navbar />
+                <main className="flex-1">
+                  {children}
+                </main>
+                <AIChatbot />
+              </CartProvider>
+            </RoleProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>
