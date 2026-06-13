@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Home, LayoutDashboard, Package, LogOut, LogIn, Heart, GitCompare, X, ShoppingBag } from "lucide-react";
+import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Home, LayoutDashboard, Package, LogOut, LogIn, Heart, GitCompare, X, ShoppingBag, Gift } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { ThemeToggle } from "./theme-toggle";
 import { useCart } from "@/hooks/use-cart";
@@ -24,6 +24,7 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: t.nav.home, icon: Home },
     { href: "/products", label: t.nav.products, icon: Package },
+    { href: "/vouchers", label: t.home.vouchers, icon: Gift },
     ...(role !== "founder" && role !== "partner" ? [{ href: "/history", label: t.nav.history, icon: LayoutDashboard }] : []),
     ...(role === "founder" || role === "partner" ? [
       { 

@@ -428,6 +428,23 @@ export const translations = {
       viewAll: "View All",
       seeMore: "See More",
       showLess: "Show Less"
+    },
+    vouchers: {
+      title: "Rewards & Missions",
+      subtitle: "Complete tasks to earn exclusive discount vouchers",
+      missions: "Active Missions",
+      claimed: "Claimed",
+      claim: "Claim Now",
+      collect: "Collect Voucher",
+      collected: "Collected",
+      loginMission: "Daily Explorer",
+      loginMissionDesc: "Login to the platform today",
+      shareMission: "Brand Ambassador",
+      shareMissionDesc: "Share any product to social media",
+      buyMission: "Super Shopper",
+      buyMissionDesc: "Make your first purchase",
+      available: "Available Rewards",
+      noMissions: "Check back later for more missions!"
     }
   },
   th: {
@@ -859,6 +876,23 @@ export const translations = {
       viewAll: "ดูทั้งหมด",
       seeMore: "ดูเพิ่มเติม",
       showLess: "ดูน้อยลง"
+    },
+    vouchers: {
+      title: "ภารกิจและรางวัล",
+      subtitle: "พิชิตภารกิจเพื่อรับคูปองส่วนลดสุดพิเศษ",
+      missions: "ภารกิจปัจจุบัน",
+      claimed: "รับแล้ว",
+      claim: "รับรางวัล",
+      collect: "เก็บคูปอง",
+      collected: "เก็บแล้ว",
+      loginMission: "นักสำรวจประจำวัน",
+      loginMissionDesc: "เข้าสู่ระบบแพลตฟอร์มในวันนี้",
+      shareMission: "ทูตประชาสัมพันธ์",
+      shareMissionDesc: "แชร์สินค้าใดก็ได้ลงโซเชียลมีเดีย",
+      buyMission: "สุดยอดนักช้อป",
+      buyMissionDesc: "ทำการสั่งซื้อสินค้าครั้งแรก",
+      available: "รางวัลที่รอคุณอยู่",
+      noMissions: "ยังไม่มีภารกิจใหม่ในขณะนี้ กลับมาตรวจสอบใหม่ภายหลังนะ!"
     }
   }
 };
