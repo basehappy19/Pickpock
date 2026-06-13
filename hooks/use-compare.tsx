@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { Product } from "@/types";
 
 interface CompareContextType {
@@ -29,7 +29,7 @@ export function CompareProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("compareList", JSON.stringify(compareList));
   }, [compareList]);
 
-  const addToCompare = (product: Product) => {
+  const addToCompare = useCallback((product: Product) => {
     setCompareList((prev) => {
       if (prev.find((p) => p.id === product.id)) {
         return prev;
@@ -39,19 +39,19 @@ export function CompareProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, product];
     });
-  };
+  }, []);
 
-  const removeFromCompare = (productId: string) => {
+  const removeFromCompare = useCallback((productId: string) => {
     setCompareList((prev) => prev.filter((p) => p.id !== productId));
-  };
+  }, []);
 
-  const isInCompare = (productId: string) => {
+  const isInCompare = useCallback((productId: string) => {
     return compareList.some((p) => p.id === productId);
-  };
+  }, [compareList]);
 
-  const clearCompare = () => {
+  const clearCompare = useCallback(() => {
     setCompareList([]);
-  };
+  }, []);
 
   return (
     <CompareContext.Provider

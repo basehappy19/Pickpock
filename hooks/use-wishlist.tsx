@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { Product } from "@/types";
 
 interface WishlistContextType {
@@ -28,31 +28,30 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   }, [wishlist]);
 
-  const addToWishlist = (product: Product) => {
+  const addToWishlist = useCallback((product: Product) => {
     setWishlist((prev) => {
       if (prev.find((p) => p.id === product.id)) {
         return prev;
       }
       return [...prev, product];
     });
-  };
+  }, []);
 
-  const removeFromWishlist = (productId: string) => {
+  const removeFromWishlist = useCallback((productId: string) => {
     setWishlist((prev) => prev.filter((p) => p.id !== productId));
-  };
+  }, []);
 
-  const isInWishlist = (productId: string) => {
+  const isInWishlist = useCallback((productId: string) => {
     return wishlist.some((p) => p.id === productId);
-  };
+  }, [wishlist]);
 
-  const clearWishlist = () => {
+  const clearWishlist = useCallback(() => {
     setWishlist([]);
-  };
+  }, []);
 
-  const moveToCart = (productId: string) => {
-    // Will be handled by cart context integration
+  const moveToCart = useCallback((productId: string) => {
     removeFromWishlist(productId);
-  };
+  }, [removeFromWishlist]);
 
   return (
     <WishlistContext.Provider
