@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Product, Order, Coupon } from "@/types";
-import { mockProducts, mockOrders, mockCoupons } from "@/lib/mock-data";
+import { mockProducts, mockOrders, mockCoupons } from "@/lib/initial-data";
 
 interface DataContextType {
   products: Product[];

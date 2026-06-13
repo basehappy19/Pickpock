@@ -1,5 +1,5 @@
 import { Product, Order } from "@/types";
-import { mockProducts, mockOrders } from "@/lib/mock-data";
+import { mockProducts, mockOrders } from "@/lib/initial-data";
 
 // This service runs ONLY on the server for initial SSR
 export const dataService = {

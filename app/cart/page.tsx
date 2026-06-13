@@ -7,7 +7,7 @@ import Link from "next/link";
 import NextImage from "next/image";
 import { useLanguage } from "@/hooks/use-language";
 import { useState } from "react";
-import { mockCoupons } from "@/lib/mock-data";
+import { mockCoupons } from "@/lib/initial-data";
 import { useGlobalData } from "@/hooks/use-global-data";
 
 export default function CartPage() {

@@ -7,7 +7,7 @@ import { ArrowRight, Star, ShieldCheck, Tag, Sparkles, Gift } from "lucide-react
 import { Product } from "@/types";
 import { formatCurrency } from "@/lib/utils";
 import { useState } from "react";
-import { mockCoupons } from "@/lib/mock-data";
+import { mockCoupons } from "@/lib/initial-data";
 
 export default function HomepageClient({ products }: { products: Product[] }) {
   const { t } = useLanguage();
