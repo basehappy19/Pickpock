@@ -221,7 +221,7 @@ export default function OrdersPage() {
 
       {/* Order Detail Modal */}
       {selectedOrder && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-background/80 backdrop-blur-md animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
            <div className="bg-card w-full max-w-4xl max-h-[90vh] rounded-[3rem] border-2 border-primary/10 shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-300">
               {/* Modal Header */}
               <div className="p-8 border-b bg-muted/30 flex justify-between items-center">
@@ -234,7 +234,11 @@ export default function OrdersPage() {
                        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest opacity-60">ID: {selectedOrder.id}</p>
                     </div>
                  </div>
-                 <button onClick={() => setSelectedOrder(null)} className="p-3 hover:bg-rose-500 hover:text-white rounded-2xl transition-all cursor-pointer">
+                 <button 
+                   onClick={() => setSelectedOrder(null)} 
+                   className="p-3 hover:bg-rose-500 hover:text-white rounded-2xl transition-all cursor-pointer z-10"
+                   type="button"
+                 >
                     <X className="h-6 w-6" />
                  </button>
               </div>
@@ -347,16 +351,22 @@ export default function OrdersPage() {
               </div>
 
               {/* Modal Footer */}
-              <div className="p-8 border-t bg-muted/30 flex justify-end gap-4 no-print">
+              <div className="p-8 border-t bg-muted/30 flex justify-end gap-4 no-print shrink-0">
                  <button 
-                  onClick={() => setSelectedOrder(null)}
-                  className="px-8 py-3 rounded-2xl border-2 border-muted-foreground/10 font-black text-[10px] uppercase tracking-widest hover:bg-muted transition-all cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedOrder(null);
+                  }}
+                  className="px-8 py-3 rounded-2xl border-2 border-muted-foreground/10 font-black text-[10px] uppercase tracking-widest hover:bg-muted transition-all cursor-pointer z-10"
                  >
                     {t.common.close}
                  </button>
                  <button 
-                  onClick={() => handlePrint(selectedOrder)}
-                  className="px-8 py-3 rounded-2xl bg-primary text-white font-black text-[10px] uppercase tracking-widest hover:opacity-90 shadow-xl shadow-primary/20 transition-all cursor-pointer flex items-center gap-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePrint(selectedOrder);
+                  }}
+                  className="px-8 py-3 rounded-2xl bg-primary text-white font-black text-[10px] uppercase tracking-widest hover:opacity-90 shadow-xl shadow-primary/20 transition-all cursor-pointer flex items-center gap-2 z-10"
                  >
                     <Printer className="h-4 w-4" />
                     {t.common.monthly === "รายเดือน" ? "พิมพ์ใบเสร็จ" : "Print Receipt"}
