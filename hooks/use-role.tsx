@@ -17,6 +17,7 @@ interface RoleContextType {
   logout: () => void;
   setRole: (role: Role) => void;
   updateUserStore: (store: any) => void;
+  updateUserInfo: (info: Partial<User>) => void;
   upgradeToVIP: () => Promise<boolean>;
   getUserDiscount: () => number;
   hasFreeShipping: () => boolean;
@@ -54,6 +55,7 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
         const data = await res.json();
         setUser(data.user);
         setRoleState(data.user.role);
+        setTierState(data.user.tier || 'MEMBER');
         localStorage.setItem("authUser", JSON.stringify(data.user));
         return true;
       }
@@ -66,6 +68,7 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     setUser(null);
     setRoleState("customer");
+    setTierState("MEMBER");
     localStorage.removeItem("authUser");
     router.push("/");
   };
@@ -79,18 +82,9 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const setTier = (newTier: Tier) => {
-    setTierState(newTier);
-    if (user) {
-      const updatedUser = { ...user, tier: newTier };
-      setUser(updatedUser);
-      localStorage.setItem("authUser", JSON.stringify(updatedUser));
-    }
-  };
-
   const updateUserStore = (store: any) => {
     if (user) {
-      const updatedUser = { 
+      const updatedUser: User = { 
         ...user, 
         store,
         role: (user.role === 'founder' ? 'founder' : 'partner') as Role
@@ -101,17 +95,26 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const updateUserInfo = (info: Partial<User>) => {
+    if (user) {
+      const updatedUser: User = { ...user, ...info };
+      setUser(updatedUser);
+      if (info.role) setRoleState(info.role);
+      if (info.tier) setTierState(info.tier);
+      localStorage.setItem("authUser", JSON.stringify(updatedUser));
+    }
+  };
+
   const getUserDiscount = (): number => {
-    if (!user || user.tier !== 'VIP') return 0;
-    // Check if VIP is expired
+    if (!user || tier !== 'VIP') return 0;
     if (user.vipExpiresAt && new Date(user.vipExpiresAt) < new Date()) {
       return 0;
     }
-    return 10; // 10% discount for VIP
+    return 10;
   };
 
   const hasFreeShipping = (): boolean => {
-    return user?.tier === 'VIP';
+    return tier === 'VIP';
   };
 
   const canAccessPartnerFeatures = (): boolean => {
@@ -133,12 +136,11 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (res.ok) {
-        const data = await res.json();
         const expiresAt = new Date();
         expiresAt.setFullYear(expiresAt.getFullYear() + 1);
 
         setTierState('VIP');
-        const updatedUser = {
+        const updatedUser: User = {
           ...user,
           tier: 'VIP' as Tier,
           vipExpiresAt: expiresAt.toISOString()
@@ -154,7 +156,6 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Add discount properties to user object
   const userWithDiscounts: UserWithDiscounts | null = user ? {
     ...user,
     discountPercent: getUserDiscount(),
@@ -170,6 +171,7 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
       logout,
       setRole,
       updateUserStore,
+      updateUserInfo,
       upgradeToVIP,
       getUserDiscount,
       hasFreeShipping,

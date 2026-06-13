@@ -33,6 +33,7 @@ import { useState, useEffect, useMemo } from "react";
 import AccessRestricted from "@/components/shared/access-restricted";
 import { uploadProductImage } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Product, Order, User, Store } from "@/types";
 import {
   AreaChart,
@@ -154,8 +155,6 @@ export default function FounderDashboardPage() {
       status: 'active' as any
     };
 
-import { toast } from "sonner";
-...
     if (isEditing) {
       await updateProduct(productData);
       toast.success("อัปเดตข้อมูลสินค้าเรียบร้อยแล้ว");

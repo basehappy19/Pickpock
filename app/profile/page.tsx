@@ -3,13 +3,13 @@
 import { useRole } from "@/hooks/use-role";
 import { useLanguage } from "@/hooks/use-language";
 import { useState, useEffect } from "react";
-import { User, Mail, Phone, Lock, ShieldCheck, Loader2, Save, LogOut } from "lucide-react";
+import { User as UserIcon, Mail, Phone, Lock, ShieldCheck, Loader2, Save, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
-  const { user, setUser, logout } = useRole();
+  const { user, updateUserInfo, logout } = useRole();
   const { t } = useLanguage();
   const router = useRouter();
 
@@ -28,7 +28,6 @@ export default function ProfilePage() {
     if (user) {
       setName(user.name || "");
       setEmail(user.email || "");
-      // Fetch full details if needed
       const fetchFullDetails = async () => {
         try {
           const res = await fetch("/api/users");
@@ -74,7 +73,7 @@ export default function ProfilePage() {
 
       const data = await res.json();
       if (data.success) {
-        setUser({ ...user, name, email });
+        updateUserInfo({ name, email });
         toast.success("อัปเดตข้อมูลส่วนตัวเรียบร้อยแล้ว");
       } else {
         toast.error(data.error || "เกิดข้อผิดพลาด");
@@ -129,7 +128,6 @@ export default function ProfilePage() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
-        {/* Basic Info */}
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-xl shadow-primary/5 space-y-6">
           <div className="flex items-center gap-4 border-b pb-6 mb-2">
              <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center font-black text-2xl text-primary uppercase">
@@ -147,7 +145,7 @@ export default function ProfilePage() {
             <div className="space-y-1">
               <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">ชื่อ-นามสกุล</label>
               <div className="relative group">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 <input 
                   type="text" 
                   className="w-full pl-11 pr-4 py-3 rounded-xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none font-bold text-sm transition-all"
@@ -195,7 +193,6 @@ export default function ProfilePage() {
           </form>
         </div>
 
-        {/* Password Management */}
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-xl shadow-primary/5 space-y-6">
           <h3 className="text-xl font-black tracking-tight uppercase flex items-center gap-2 border-b pb-6 mb-2">
             <Lock className="h-5 w-5 text-primary" /> เปลี่ยนรหัสผ่าน
