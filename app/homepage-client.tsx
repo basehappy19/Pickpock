@@ -88,36 +88,26 @@ export default function HomepageClient({ products }: { products: Product[] }) {
           </div>
         </section>
 
-        {/* Official Stores */}
-        {officialProducts.length > 0 && (
-          <section className="space-y-6 p-6 lg:p-10 rounded-3xl bg-gradient-to-r from-amber-500/10 to-rose-500/10 border-2 border-amber-500/20">
-            <div className="flex items-center gap-3">
-              <ShieldCheck className="h-8 w-8 text-amber-600" />
-              <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-amber-700 dark:text-amber-500">{t.home.officialStores}</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {officialProducts.map(product => (
-                <Link key={product.id} href={`/products/${product.id}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left">
-                  <div className="aspect-square relative bg-muted">
-                    <NextImage src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 25vw" />
-                    <div className="absolute top-3 left-3 px-2 py-1 bg-amber-500 text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-sm">
-                      {t.products.officialBadge}
-                    </div>
-                  </div>
-                  <div className="p-5 space-y-2">
-                    <h3 className="font-bold line-clamp-1 group-hover:text-primary transition-colors">{product.name}</h3>
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg font-black text-primary">{formatCurrency(product.price)}</span>
-                      <div className="flex items-center gap-1 text-amber-500 text-xs font-bold">
-                        <Star className="h-3 w-3 fill-current" /> {product.rating}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        {/* AI Recommended Picks */}
+        <section className="space-y-6 p-6 lg:p-10 rounded-3xl bg-rainbow-gradient border-2 border-primary/10">
+          <div className="flex items-center gap-3">
+            <Sparkles className="h-8 w-8 text-primary animate-pulse" />
+            <h2 className="text-2xl lg:text-3xl font-black tracking-tight">{t.home.officialStores}</h2>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+            {featuredProducts.slice(0, 4).map(product => (
+              <Link key={product.id} href={`/products/${product.id}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left">
+                <div className="aspect-square relative bg-muted">
+                  <NextImage src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
+                </div>
+                <div className="p-4 space-y-2">
+                  <h3 className="font-bold line-clamp-1 group-hover:text-primary transition-colors text-sm">{product.name}</h3>
+                  <span className="text-base font-black text-primary block">{formatCurrency(product.price)}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* Daily Discover */}
         <section className="space-y-6">

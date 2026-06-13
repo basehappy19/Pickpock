@@ -40,10 +40,9 @@ export default function Navbar() {
                 <Box className="h-6 w-6 text-primary-foreground" />
               </div>
               <span>
-                MSU <span className="text-primary">{role === "customer" ? "MALL" : "FOUNDER"}</span>
+                MSU <span className="text-primary">FOUNDER</span>
               </span>
             </Link>
-            
             <div className="hidden lg:flex gap-6">
               {navLinks.map((link) => (
                 <Link 

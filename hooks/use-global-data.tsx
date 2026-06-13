@@ -45,8 +45,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
             reviews: [],
             status: 'active',
             createdAt: new Date().toISOString(),
-            storeName: p.product_id.includes('p-101') ? "MSU Official" : "Partner Store",
-            isOfficial: p.product_id.includes('p-101'),
+            storeName: "MSU MALL Official",
+            isOfficial: true,
           }));
           setProductsState(mappedProds);
         }

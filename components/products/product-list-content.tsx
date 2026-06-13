@@ -1,7 +1,7 @@
 "use client";
 
 import { Product } from "@/types";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, cn } from "@/lib/utils";
 import { Search, Filter, Star, ArrowRight, Sparkles, Loader2, Package } from "lucide-react";
 import { useFilter } from "@/hooks/use-filter";
 import { useLanguage } from "@/hooks/use-language";
