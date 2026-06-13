@@ -26,6 +26,12 @@ export default function AIChatbot() {
   const { role } = useRole();
 
   useEffect(() => {
+    const handleOpenChat = () => setIsOpen(true);
+    window.addEventListener('openChat', handleOpenChat);
+    return () => window.removeEventListener('openChat', handleOpenChat);
+  }, []);
+
+  useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }

@@ -3,7 +3,7 @@
  * Handles all data analysis for Founder and Partner dashboards
  */
 
-import { Product, Order } from '@/types';
+import { Product, Order, User, Store } from '@/types';
 
 // Type definitions
 export interface KPIMetrics {
@@ -50,7 +50,7 @@ export interface ProductAnalytics {
 export function calculateFounderKPIs(
   orders: Order[],
   products: Product[],
-  users: any[]
+  users: User[]
 ): KPIMetrics {
   const totalRevenue = orders.reduce((sum, o) => sum + o.totalAmount, 0);
   const totalOrders = orders.length;
@@ -180,7 +180,7 @@ export function generateCategoryDistribution(products: Product[]): Array<{ categ
 export function calculateStorePerformance(
   orders: Order[],
   products: Product[],
-  stores: any[]
+  stores: Store[]
 ): StorePerformance[] {
   return stores.map(store => {
     const storeProducts = products.filter(p => p.storeId === store.store_id);

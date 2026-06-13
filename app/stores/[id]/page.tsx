@@ -103,7 +103,7 @@ export default function StoreDetailPage() {
               </div>
               <div className="flex flex-wrap items-center gap-8 text-sm font-black uppercase tracking-widest opacity-90">
                  <span className="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-xl backdrop-blur-md">
-                    <Star className="h-4 w-4 fill-amber-500 text-amber-500" /> {displayStore.rating} (2.4k+ Ratings)
+                    <Star className="h-4 w-4 fill-amber-500 text-amber-500" /> {Number(displayStore.rating).toFixed(1)} (2.4k+ Ratings)
                  </span>
                  <span className="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-xl backdrop-blur-md">
                     <Package className="h-4 w-4" /> {storeProducts.length} {t.nav.products}

@@ -62,6 +62,7 @@ export interface Store {
   description: string;
   status: string;
   rating: number;
+  products?: string[];
   joined_at?: string;
   views?: number;
 }

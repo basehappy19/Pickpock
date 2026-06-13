@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
+import { Product } from "@/types";
 
 export async function POST(req: Request) {
   try {
@@ -12,7 +13,9 @@ export async function POST(req: Request) {
       );
     }
 
-    const { query, products } = await req.json();
+    const body = await req.json();
+    const query = body.query as string;
+    const products = body.products as Product[];
 
     if (!query) {
       return NextResponse.json(
@@ -22,7 +25,7 @@ export async function POST(req: Request) {
     }
 
     // Optimized: Create compact product list for faster processing
-    const compactProducts = products.map((p: any) => ({
+    const compactProducts = products.map((p) => ({
       i: p.id,
       n: p.name,
       c: p.category,
@@ -39,7 +42,7 @@ Products: ${JSON.stringify(compactProducts)}
 Return ONLY JSON array of matching product IDs (most relevant first). Example: ["p1", "p3"]. Empty array if no matches: []`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash', // Updated to faster model
+      model: 'gemini-2.0-flash-exp', // Using stable model name from codebase
       contents: prompt
     });
 
@@ -59,8 +62,9 @@ Return ONLY JSON array of matching product IDs (most relevant first). Example: [
     }
 
     return NextResponse.json({ matchedIds });
-  } catch (error: any) {
-    console.error("AI Search Error:", error);
+  } catch (error) {
+    const err = error as Error;
+    console.error("AI Search Error:", err);
     return NextResponse.json(
       { error: "เกิดข้อผิดพลาดในระบบค้นหา AI" },
       { status: 500 }

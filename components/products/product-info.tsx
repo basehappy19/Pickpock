@@ -2,16 +2,17 @@
 
 import { useLanguage } from "@/hooks/use-language";
 import { formatCurrency, cn, getImgSrc } from "@/lib/utils";
-import { Star, ShieldCheck, ShoppingCart, Heart, Truck, MessageSquare, Store, ArrowRight, Share2, CheckCircle2, GitCompare, Info } from "lucide-react";
+import { Star, ShieldCheck, ShoppingCart, Heart, Truck, MessageSquare, Store as StoreIcon, ArrowRight, Share2, CheckCircle2, GitCompare, Info } from "lucide-react";
 import { useState, useEffect } from "react";
 import NextImage from "next/image";
-import { Product } from "@/types";
+import { Product, Store } from "@/types";
 import { useCart } from "@/hooks/use-cart";
 import { useWishlist } from "@/hooks/use-wishlist";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 import { useCompare } from "@/hooks/use-compare";
 import { useRouter } from "next/navigation";
 import { useRole } from "@/hooks/use-role";
+import AIBundleSuggest from "./ai-bundle-suggest";
 
 export default function ProductInfo({ product, allProducts }: { product: Product, allProducts: Product[] }) {
   const { t, language } = useLanguage();
@@ -23,7 +24,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
   const [activeTab, setActiveTab] = useState<"description" | "specs" | "reviews">("description");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
-  const [storeData, setStoreData] = useState<any>(null);
+  const [storeData, setStoreData] = useState<Store | null>(null);
   const router = useRouter();
 
   const isRestricted = role === "founder" || role === "partner";
@@ -36,8 +37,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
         try {
           const res = await fetch("/api/stores");
           if (res.ok) {
-            const stores = await res.json();
-            const found = stores.find((s: any) => s.store_id === product.storeId || (product.isOfficial && s.store_id === 's-001'));
+            const stores: Store[] = await res.json();
+            const found = stores.find((s) => s.store_id === product.storeId || (product.isOfficial && s.store_id === 's-001'));
             if (found) setStoreData(found);
           }
         } catch (e) {
@@ -60,6 +61,28 @@ export default function ProductInfo({ product, allProducts }: { product: Product
     }
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 2000);
+  };
+
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: product.name,
+          text: product.description,
+          url: window.location.href,
+        });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("คัดลอกลิงก์ไปยังคลิปบอร์ดแล้ว / Link copied to clipboard!");
+      }
+    } catch (err) {
+      console.error("Error sharing:", err);
+    }
+  };
+
+  const handleInquiry = () => {
+    // Open AI Chatbot and send a message about this product
+    window.dispatchEvent(new CustomEvent('openChat'));
   };
 
   const placeholderImg = "https://placehold.co/800x800?text=Product+Not+Found";
@@ -222,17 +245,28 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             </div>
 
             <div className="flex items-center justify-between px-2">
-              <div className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group">
+              <div 
+                onClick={handleShare}
+                className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group"
+              >
                 <Share2 className="h-4 w-4 group-hover:scale-110 transition-transform" />
                 <span className="text-[10px] font-black uppercase tracking-widest">แชร์สินค้านี้</span>
               </div>
-              <div className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group">
+              <div 
+                onClick={handleInquiry}
+                className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group"
+              >
                 <MessageSquare className="h-4 w-4 group-hover:scale-110 transition-transform" />
                 <span className="text-[10px] font-black uppercase tracking-widest">สอบถามข้อมูล</span>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* AI Bundle Suggestion */}
+      <div className="pt-8">
+        <AIBundleSuggest currentProduct={product} allProducts={allProducts} />
       </div>
 
       {/* Tabs Section */}
@@ -289,7 +323,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           )}
           {activeTab === "reviews" && (
             <div className="space-y-8">
-              <div className="flex flex-col sm:flex-row items-center gap-8 p-8 rounded-[2rem] bg-muted/30 border-2 border-primary/5">
+              <div className="flex flex-col sm:flex-row items-center gap-8 p-8 rounded-4xl bg-muted/30 border-2 border-primary/5">
                 <div className="text-center space-y-2">
                   <p className="text-7xl font-black tracking-tighter text-primary">{Number(product.rating).toFixed(1)}</p>
                   <div className="flex items-center justify-center gap-1 text-amber-500">
@@ -318,7 +352,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
 
               <div className="space-y-6">
                 {product.reviews.length > 0 ? product.reviews.map((review) => (
-                  <div key={review.id} className="p-8 rounded-[2rem] bg-card border-2 border-primary/5 shadow-xl shadow-primary/5 space-y-4">
+                  <div key={review.id} className="p-8 rounded-4xl bg-card border-2 border-primary/5 shadow-xl shadow-primary/5 space-y-4">
                     <div className="flex justify-between items-start">
                       <div className="flex items-center gap-4">
                         <div className="h-12 w-12 rounded-xl bg-muted flex items-center justify-center font-black text-primary">
@@ -361,7 +395,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
       <div className="bg-secondary border border-border rounded-xl p-4 flex items-center justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-lg bg-background border border-border flex items-center justify-center shrink-0">
-            <Store className="w-5 h-5 text-muted-foreground" />
+            <StoreIcon className="w-5 h-5 text-muted-foreground" />
           </div>
           <div>
             <p className="text-[15px] font-medium text-foreground mb-0.5">
@@ -370,7 +404,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <span>
                 <Star className="inline w-3 h-3 fill-amber-400 text-amber-400 mr-0.5" />
-                {storeData?.rating || "4.9"}
+                {Number(storeData?.rating || 4.9).toFixed(1)}
               </span>
               <span>·</span>
               <span className="text-emerald-700 font-medium">ตอบกลับรวดเร็ว</span>
@@ -384,7 +418,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
 
         <button
           onClick={() => router.push(`/stores/${storeData?.store_id || "mall"}`)}
-          className="h-[34px] px-4 rounded-lg bg-background text-foreground border border-border text-[13px] hover:bg-accent transition-colors cursor-pointer whitespace-nowrap"
+          className="h-8.5 px-4 rounded-lg bg-background text-foreground border border-border text-[13px] hover:bg-accent transition-colors cursor-pointer whitespace-nowrap"
         >
           เยี่ยมชมร้านค้า →
         </button>

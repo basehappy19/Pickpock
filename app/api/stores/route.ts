@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { Store, User } from "@/types";
 
 const storesFilePath = path.join(process.cwd(), "lib", "stores.json");
 
 // Helper to read JSON
-const readStores = () => {
+const readStores = (): Store[] => {
   const data = fs.readFileSync(storesFilePath, "utf8");
   return JSON.parse(data);
 };
 
 // Helper to write JSON
-const writeStores = (stores: any[]) => {
+const writeStores = (stores: Store[]) => {
   fs.writeFileSync(storesFilePath, JSON.stringify(stores, null, 2), "utf8");
 };
 
@@ -35,13 +36,13 @@ export async function POST(req: Request) {
     const stores = readStores();
 
     // Check if user already has a store
-    const existingStore = stores.find((s: any) => s.owner_id === owner_id);
+    const existingStore = stores.find((s) => s.owner_id === owner_id);
     if (existingStore) {
       return NextResponse.json({ error: "User already has a store" }, { status: 400 });
     }
 
-    const newStore = {
-      store_id: "s-" + Math.random().toString(36).substr(2, 9),
+    const newStore: Store = {
+      store_id: "s-" + Math.random().toString(36).substring(2, 11),
       name,
       owner_id,
       description,
@@ -58,8 +59,8 @@ export async function POST(req: Request) {
     try {
       const usersFilePath = path.join(process.cwd(), "lib", "users.json");
       const usersData = fs.readFileSync(usersFilePath, "utf8");
-      let users = JSON.parse(usersData);
-      const userIndex = users.findIndex((u: any) => u.id === owner_id);
+      let users: User[] = JSON.parse(usersData);
+      const userIndex = users.findIndex((u) => u.id === owner_id);
       
       if (userIndex !== -1 && users[userIndex].role !== 'founder') {
         users[userIndex].role = 'partner';
@@ -85,9 +86,9 @@ export async function PUT(req: Request) {
     }
 
     let stores = readStores();
-    let updatedStore = null;
+    let updatedStore: Store | null = null;
 
-    stores = stores.map((s: any) => {
+    stores = stores.map((s) => {
       if (s.store_id === store_id) {
         updatedStore = {
           ...s,

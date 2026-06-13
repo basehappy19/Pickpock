@@ -7,9 +7,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
 import ordersJson from '@/lib/ecommerce_orders.json';
 import productsJson from '@/lib/products.json';
+import { Product } from '@/types';
 
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
 const genAI = new GoogleGenAI({ apiKey });
+
+interface RawOrder {
+  order_id: string;
+  user_id: string;
+  total_price: number;
+  status: string;
+  timestamp: string;
+  items: {
+    product_id: string;
+    qty: number;
+  }[];
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,22 +33,22 @@ export async function POST(request: NextRequest) {
     }
 
     // Find product
-    const product = productsJson.find((p: any) =>
+    const product = (productsJson as any[]).find((p) =>
       p.product_id === productId || p.id === productId
-    );
+    ) as Product | undefined;
 
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
 
     // Get sales data for this product
-    const productSales = ordersJson
-      .filter((order: any) =>
-        order.items.some((item: any) => item.product_id === productId)
+    const productSales = (ordersJson as RawOrder[])
+      .filter((order) =>
+        order.items.some((item) => item.product_id === productId)
       )
-      .map((order: any) => ({
+      .map((order) => ({
         date: order.timestamp,
-        quantity: order.items.find((item: any) => item.product_id === productId)?.qty || 0,
+        quantity: order.items.find((item) => item.product_id === productId)?.qty || 0,
         revenue: order.total_price
       }));
 

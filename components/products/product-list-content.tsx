@@ -1,12 +1,12 @@
 "use client";
 
-import { Product } from "@/types";
+import { Product, FilterOptions } from "@/types";
 import { formatCurrency, cn, getImgSrc } from "@/lib/utils";
-import { Search, Filter, Star, ArrowRight, Sparkles, Loader2, Package, Heart, GitCompare, ChevronDown, ChevronUp, X as CloseIcon } from "lucide-react";
+import { Search, Filter, Star, ArrowRight, Sparkles, Loader2, Package, Heart, GitCompare, X as CloseIcon } from "lucide-react";
 import { useFilter } from "@/hooks/use-filter";
 import { useLanguage } from "@/hooks/use-language";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import NextImage from "next/image";
 import { useGlobalData } from "@/hooks/use-global-data";
 import { useWishlist } from "@/hooks/use-wishlist";
@@ -33,22 +33,28 @@ export default function ProductListContent({ initialProducts }: { initialProduct
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPriceFilter, setMaxPriceFilter] = useState(10000);
+  const [hasPriceSynced, setHasPriceSynced] = useState(false);
   const [inStockOnly, setInStockOnly] = useState(false);
   const [isOfficialFilter, setIsOfficialFilter] = useState(false);
   const [isPartnerFilter, setIsPartnerFilter] = useState(false);
 
-  // Sync maxPrice when products load
+  // Sync maxPrice when products load once
   useEffect(() => {
-    setMaxPriceFilter(maxPrice);
-  }, [maxPrice]);
+    if (!hasPriceSynced && maxPrice > 0) {
+      setMaxPriceFilter(maxPrice);
+      setHasPriceSynced(true);
+    }
+  }, [maxPrice, hasPriceSynced]);
+
+  const stableUpdateFilter = useCallback(updateFilter, [updateFilter]);
 
   // Sync URL category param with filter
   useEffect(() => {
     const cat = searchParams.get("category");
     if (cat) {
-      updateFilter({ category: cat });
+      stableUpdateFilter({ category: cat });
     }
-  }, [searchParams]);
+  }, [searchParams, stableUpdateFilter]);
   
   const [aiSearchQuery, setAiSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
@@ -80,7 +86,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
   };
 
   const finalFilteredData = useMemo(() => {
-    let data = aiMatchedIds 
+    const data = aiMatchedIds 
       ? allProducts.filter(p => aiMatchedIds.includes(p.id))
       : filteredData;
     
@@ -121,7 +127,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           <button 
             type="submit"
             disabled={isSearching}
-            className="px-8 py-4 rounded-xl bg-primary text-primary-foreground font-black hover:opacity-90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 min-w-[140px] cursor-pointer overflow-hidden group/btn shadow-lg"
+            className="px-8 py-4 rounded-xl bg-primary text-primary-foreground font-black hover:opacity-90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 min-w-35 cursor-pointer overflow-hidden group/btn shadow-lg"
           >
             <div className="absolute inset-0 bg-rainbow-gradient opacity-0 group-hover/btn:opacity-20 transition-opacity" />
             {isSearching ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
@@ -134,7 +140,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
         {/* Sidebar Filters */}
         <aside className={cn(
           "lg:w-72 space-y-8 shrink-0",
-          showMobileFilters ? "fixed inset-0 z-[60] bg-background p-8 overflow-y-auto" : "hidden lg:block"
+          showMobileFilters ? "fixed inset-0 z-60 bg-background p-8 overflow-y-auto" : "hidden lg:block"
         )}>
           {showMobileFilters && (
             <div className="flex items-center justify-between mb-8">
@@ -156,7 +162,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                   onChange={(e) => {
                     setAiMatchedIds(null); 
                     setAiSearchQuery("");
-                    updateFilter({ search: e.target.value })
+                    stableUpdateFilter({ search: e.target.value })
                   }}
                 />
               </div>
@@ -166,7 +172,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
               <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.home.categories}</h3>
               <div className="flex flex-wrap gap-2">
                 <button
-                  onClick={() => updateFilter({ category: "all" })}
+                  onClick={() => stableUpdateFilter({ category: "all" })}
                   className={cn(
                     "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-tighter border-2 transition-all",
                     filters.category === "all" ? "bg-primary border-primary text-primary-foreground" : "bg-card border-transparent hover:border-primary/20"
@@ -177,7 +183,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 {categories.map(cat => (
                   <button
                     key={cat}
-                    onClick={() => updateFilter({ category: cat })}
+                    onClick={() => stableUpdateFilter({ category: cat })}
                     className={cn(
                       "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-tighter border-2 transition-all",
                       filters.category === cat ? "bg-primary border-primary text-primary-foreground" : "bg-card border-transparent hover:border-primary/20"
@@ -233,7 +239,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                   <div 
                     onClick={() => {
                       setIsOfficialFilter(!isOfficialFilter);
-                      updateFilter({ isOfficial: !isOfficialFilter });
+                      stableUpdateFilter({ isOfficial: !isOfficialFilter });
                     }}
                     className={cn(
                       "w-12 h-6 rounded-full p-1 transition-all duration-300",
@@ -251,7 +257,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                   <div 
                     onClick={() => {
                       setIsPartnerFilter(!isPartnerFilter);
-                      updateFilter({ isPartner: !isPartnerFilter });
+                      stableUpdateFilter({ isPartner: !isPartnerFilter });
                     }}
                     className={cn(
                       "w-12 h-6 rounded-full p-1 transition-all duration-300",
@@ -327,7 +333,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
               <select 
                 className="bg-transparent font-black text-xs uppercase tracking-widest outline-none cursor-pointer"
                 value={filters.sortBy}
-                onChange={(e) => updateFilter({ sortBy: e.target.value as any })}
+                onChange={(e) => stableUpdateFilter({ sortBy: e.target.value as FilterOptions['sortBy'] })}
               >
                 <option value="newest">{t.filters.newest}</option>
                 <option value="price-asc">{t.filters.priceLow}</option>
@@ -411,7 +417,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1 text-amber-500">
                           <Star className="h-3 w-3 fill-current" />
-                          <span className="text-[10px] font-black">{product.rating}</span>
+                          <span className="text-[10px] font-black">{Number(product.rating).toFixed(1)}</span>
                         </div>
                         <div className={cn(
                           "flex items-center gap-1 text-[10px] font-black uppercase",

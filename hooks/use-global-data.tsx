@@ -25,7 +25,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [products, setProductsState] = useState<Product[]>([]);
   const [orders, setOrdersState] = useState<Order[]>([]);
   const [stores, setStoresState] = useState<Store[]>([]);
-  const [coupons, setCoupons] = useState<Coupon[]>(initialCoupons);
+  const [coupons] = useState<Coupon[]>(initialCoupons);
 
   const fetchData = async () => {
     try {
@@ -33,13 +33,12 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       const ordRes = await fetch("/api/orders");
       const storeRes = await fetch("/api/stores");
       
-      let currentProds: any[] = [];
+      let currentProds: Product[] = [];
 
       if (prodRes.ok) {
         const rawProds = await prodRes.json();
-        currentProds = rawProds;
         // Map JSON back to App Type
-        const mappedProds = rawProds.map((p: any) => ({
+        const mappedProds: Product[] = rawProds.map((p: any) => ({
           id: p.product_id || p.id,
           name: p.name,
           category: p.category,
@@ -47,12 +46,13 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           stock: p.stock,
           image: p.image,
           description: p.description,
-          rating: p.rating || 0,
+          rating: parseFloat(Number(p.rating || 0).toFixed(1)),
           reviews: Array.isArray(p.reviews) ? p.reviews : [],
           storeId: p.storeId,
           isOfficial: p.isOfficial || false,
           createdAt: p.createdAt || new Date().toISOString()
         }));
+        currentProds = mappedProds;
         setProductsState(mappedProds);
       }
 
@@ -63,7 +63,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
 
       if (ordRes.ok) {
         const rawOrds = await ordRes.json();
-        const mappedOrds = rawOrds.map((o: any) => ({
+        const mappedOrds: Order[] = rawOrds.map((o: any) => ({
           id: o.order_id,
           customerId: o.user_id,
           customerName: o.customerName || "User " + o.user_id,
@@ -81,7 +81,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           reviewedItems: o.reviewed_items || [],
           items: (o.items || []).map((item: any) => {
             const pId = item.productId || item.product_id;
-            const product = currentProds.find((p: any) => (p.product_id || p.id) === pId);
+            const product = currentProds.find((p) => p.id === pId);
 
             return {
               productId: pId,

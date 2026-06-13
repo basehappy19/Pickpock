@@ -6,7 +6,7 @@ import { Product } from "@/types";
 const productsFilePath = path.join(process.cwd(), "lib", "products.json");
 
 // Helper to read JSON
-const readProducts = () => {
+const readProducts = (): any[] => {
   const data = fs.readFileSync(productsFilePath, "utf8");
   return JSON.parse(data);
 };
@@ -26,7 +26,7 @@ const toJSON = (p: Product) => ({
   stock: p.stock,
   image: p.image,
   description: p.description,
-  rating: p.rating || 0,
+  rating: parseFloat(Number(p.rating || 0).toFixed(1)),
   reviews: Array.isArray(p.reviews) ? p.reviews : [],
   storeId: p.storeId,
   isOfficial: p.isOfficial || false,
@@ -48,11 +48,11 @@ export async function POST(req: Request) {
     const products = readProducts();
     
     // Ensure ID exists
-    const pid = newProduct.id || (newProduct as any).product_id;
+    const pid = newProduct.id;
     if (!pid) return NextResponse.json({ error: "Missing product ID" }, { status: 400 });
 
     // Add to list, avoiding duplicates if possible
-    const existingIndex = products.findIndex((p: any) => (p.product_id || p.id) === pid);
+    const existingIndex = products.findIndex((p) => (p.product_id || p.id) === pid);
     if (existingIndex !== -1) {
        products[existingIndex] = toJSON(newProduct);
     } else {
@@ -69,14 +69,14 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const updatedProduct: Product = await req.json();
-    const pid = updatedProduct.id || (updatedProduct as any).product_id;
+    const pid = updatedProduct.id;
     
     if (!pid) return NextResponse.json({ error: "Missing product ID" }, { status: 400 });
 
     let products = readProducts();
     let found = false;
     
-    products = products.map((p: any) => {
+    products = products.map((p) => {
       if ((p.product_id || p.id) === pid) {
         found = true;
         return toJSON(updatedProduct);
@@ -102,7 +102,7 @@ export async function DELETE(req: Request) {
     const id = searchParams.get("id");
     
     let products = readProducts();
-    products = products.filter((p: any) => (p.product_id || p.id) !== id);
+    products = products.filter((p) => (p.product_id || p.id) !== id);
     
     writeProducts(products);
     return NextResponse.json({ success: true });

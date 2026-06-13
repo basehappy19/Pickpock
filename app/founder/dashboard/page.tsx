@@ -31,6 +31,7 @@ import { useState, useEffect, useMemo } from "react";
 import AccessRestricted from "@/components/shared/access-restricted";
 import { uploadProductImage } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
+import { Product, Order, User, Store } from "@/types";
 import {
   AreaChart,
   Area,
@@ -46,11 +47,19 @@ import {
   Pie
 } from "recharts";
 
+interface DashboardData {
+  orders: Order[];
+  users: User[];
+  products: Product[];
+  stores: Store[];
+  loading: boolean;
+}
+
 export default function FounderDashboardPage() {
-  const { role, user } = useRole();
+  const { role, user: currentUser } = useRole();
   const { t } = useLanguage();
   const router = useRouter();
-  const [dashboardData, setDashboardData] = useState<any>({
+  const [dashboardData, setDashboardData] = useState<DashboardData>({
     orders: [],
     users: [],
     products: [],
@@ -100,7 +109,7 @@ export default function FounderDashboardPage() {
       });
     } catch (error) {
       console.error("Failed to fetch dashboard data", error);
-      setDashboardData((prev: any) => ({ ...prev, loading: false }));
+      setDashboardData((prev) => ({ ...prev, loading: false }));
     }
   };
 
@@ -160,7 +169,7 @@ export default function FounderDashboardPage() {
     e.preventDefault();
     const isEditing = !!newProduct.id;
     const method = isEditing ? "PUT" : "POST";
-    const productId = isEditing ? newProduct.id : "p-" + Math.random().toString(36).substr(2, 9);
+    const productId = isEditing ? newProduct.id : "p-" + Math.random().toString(36).substring(2, 11);
 
     try {
       const res = await fetch("/api/products", {
@@ -196,9 +205,9 @@ export default function FounderDashboardPage() {
     }
   };
 
-  const openEditModal = (product: any) => {
+  const openEditModal = (product: Product) => {
     setNewProduct({
-      id: product.product_id || product.id,
+      id: product.id,
       name: product.name,
       price: product.price,
       category: product.category,
@@ -217,28 +226,28 @@ export default function FounderDashboardPage() {
   const analyticsData = useMemo(() => {
     if (dashboardData.loading) {
       return {
-        categoryDistribution: [],
+        categoryDistribution: [] as { label: string; count: number; color: string }[],
         revenueShare: { official: 0, partners: 0 },
-        salesTrend: [],
-        topProducts: [],
-        topStores: [],
+        salesTrend: [] as { day: string; amount: number }[],
+        topProducts: [] as { name: string; sales: number; revenue: number }[],
+        topStores: [] as { name: string; sales: number; revenue: number }[],
         percentChange: 0,
-        lowStockProducts: []
+        lowStockProducts: [] as Product[]
       };
     }
 
     const { orders, products, stores } = dashboardData;
     
     // Product and Store mapping
-    const productMap = products.reduce((acc: any, p: any) => {
-      acc[p.id || p.product_id] = p;
+    const productMap = products.reduce((acc, p) => {
+      acc[p.id] = p;
       return acc;
-    }, {});
+    }, {} as Record<string, Product>);
 
-    const storeMap = stores.reduce((acc: any, s: any) => {
+    const storeMap = stores.reduce((acc, s) => {
       acc[s.store_id] = s;
       return acc;
-    }, {});
+    }, {} as Record<string, Store>);
 
     // Time ranges setup
     const now = new Date("2026-06-13T23:59:59Z"); // Simulated current date
@@ -266,9 +275,9 @@ export default function FounderDashboardPage() {
       prevYearStart.setFullYear(prevYearStart.getFullYear() - 1);
       const prevYearEnd = comparisonStartDate;
 
-      orders.forEach((order: any) => {
-        const orderTime = new Date(order.timestamp);
-        const total = order.total_price || 0;
+      orders.forEach((order) => {
+        const orderTime = new Date(order.createdAt);
+        const total = order.totalAmount || 0;
         const label = orderTime.toLocaleString('th-TH', { month: 'short', year: '2-digit' });
 
         if (salesByLabel[label] !== undefined) {
@@ -298,10 +307,10 @@ export default function FounderDashboardPage() {
       prev30DaysStart.setDate(prev30DaysStart.getDate() - 30);
       const prev30DaysEnd = comparisonStartDate;
 
-      orders.forEach((order: any) => {
-        const orderDate = order.timestamp.split('T')[0];
-        const orderTime = new Date(order.timestamp);
-        const total = order.total_price || 0;
+      orders.forEach((order) => {
+        const orderDate = order.createdAt.split('T')[0];
+        const orderTime = new Date(order.createdAt);
+        const total = order.totalAmount || 0;
 
         if (salesByLabel[orderDate] !== undefined) {
           salesByLabel[orderDate] += total;
@@ -329,25 +338,25 @@ export default function FounderDashboardPage() {
     const productSalesStats: Record<string, { name: string, sales: number, revenue: number }> = {};
     const storeSalesStats: Record<string, { name: string, sales: number, revenue: number }> = {};
 
-    orders.forEach((order: any) => {
-      const orderTime = new Date(order.timestamp);
+    orders.forEach((order) => {
+      const orderTime = new Date(order.createdAt);
       if (orderTime < comparisonStartDate || orderTime > now) return;
 
-      const netTotal = order.total_price || 0;
-      const originalTotal = order.original_amount || netTotal || 1;
+      const netTotal = order.totalAmount || 0;
+      const originalTotal = order.originalAmount || netTotal || 1;
       
       let remainingNet = netTotal;
       const items = order.items || [];
 
-      items.forEach((item: any, idx: number) => {
-        const pId = item.productId || item.product_id;
+      items.forEach((item, idx) => {
+        const pId = item.productId;
         const product = productMap[pId];
         
         // Unified store ID logic
         const sId = product?.storeId || "mall";
         const storeName = storeMap[sId]?.name || t.dashboard.officialMall;
         
-        const itemQty = item.quantity || item.qty || 1;
+        const itemQty = item.quantity || 1;
         const itemPrice = item.price || product?.price || 0;
         const itemSubtotal = itemPrice * itemQty;
 
@@ -385,17 +394,17 @@ export default function FounderDashboardPage() {
       .slice(0, 5);
 
     // Category distribution
-    const categoryCounts = products.reduce((acc: any, p: any) => {
+    const categoryCounts = products.reduce((acc, p) => {
       const cat = p.category || 'Other';
       acc[cat] = (acc[cat] || 0) + 1;
       return acc;
-    }, {});
+    }, {} as Record<string, number>);
 
     const totalProducts = products.length;
     const categoryDistribution = Object.entries(categoryCounts)
       .map(([label, count]) => ({
         label,
-        count: Math.round(((count as number) / totalProducts) * 100),
+        count: Math.round((count / totalProducts) * 100),
         color: ['bg-blue-500', 'bg-rose-500', 'bg-amber-500', 'bg-emerald-500', 'bg-purple-500'][Object.keys(categoryCounts).indexOf(label) % 5]
       }))
       .sort((a, b) => b.count - a.count);
@@ -407,7 +416,7 @@ export default function FounderDashboardPage() {
       topStores,
       categoryDistribution,
       revenueShare: { official: 100, partners: 0 },
-      lowStockProducts: products.filter((p: any) => (p.stock || 0) < 10)
+      lowStockProducts: products.filter((p) => (p.stock || 0) < 10)
     };
   }, [dashboardData, timeRange, t]);
 
@@ -437,9 +446,9 @@ export default function FounderDashboardPage() {
     let currentTotal = 0;
     let prevTotal = 0;
 
-    dashboardData.orders.forEach((o: any) => {
-      const orderTime = new Date(o.timestamp);
-      const val = o.total_price || 0;
+    dashboardData.orders.forEach((o) => {
+      const orderTime = new Date(o.createdAt);
+      const val = o.totalAmount || 0;
 
       if (orderTime >= comparisonStartDate && orderTime <= now) {
         currentTotal += val;
@@ -541,7 +550,7 @@ export default function FounderDashboardPage() {
       {/* Main Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-[2rem] p-6 shadow-xl shadow-primary/5 space-y-4">
+          <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-4xl p-6 shadow-xl shadow-primary/5 space-y-4">
             <div className="flex justify-between items-start">
               <div className={cn("p-3 rounded-2xl bg-muted", stat.color)}>
                 <stat.icon className="h-6 w-6" />
@@ -579,7 +588,7 @@ export default function FounderDashboardPage() {
             </div>
           </div>
 
-          <div className="h-[300px] w-full pt-4">
+          <div className="h-75 w-full pt-4">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={analyticsData.salesTrend}>
                 <defs>
@@ -609,7 +618,7 @@ export default function FounderDashboardPage() {
                     fontWeight: 900,
                     textTransform: 'uppercase'
                   }}
-                  formatter={(value: any) => [formatCurrency(value), "ยอดขาย"]}
+                  formatter={(value: any) => [formatCurrency(Number(value)), "ยอดขาย"]}
                 />
                 <Area 
                   type="monotone" 
@@ -627,7 +636,7 @@ export default function FounderDashboardPage() {
         {/* Top Products - Bar Chart */}
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
           <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.topProducts}</h3>
-          <div className="h-[300px] w-full">
+          <div className="h-75 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={analyticsData.topProducts} layout="vertical">
                 <XAxis type="number" hide />
@@ -659,7 +668,7 @@ export default function FounderDashboardPage() {
         {/* Top Stores - Bar Chart */}
         <div className="lg:col-span-2 bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
           <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.topStores}</h3>
-          <div className="h-[300px] w-full">
+          <div className="h-75 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={analyticsData.topStores}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} strokeOpacity={0.1} />
@@ -800,7 +809,7 @@ export default function FounderDashboardPage() {
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {dashboardData.stores.map((store: any) => (
+                {dashboardData.stores.map((store) => (
                   <tr key={store.store_id} className="hover:bg-muted/30 transition-colors">
                     <td className="px-8 py-6">
                       <div className="flex items-center gap-3">
@@ -816,7 +825,7 @@ export default function FounderDashboardPage() {
                     <td className="px-8 py-6">
                       <div className="flex items-center gap-1 text-amber-500">
                         <Star className="h-3 w-3 fill-current" />
-                        <span className="text-[10px] font-black">{store.rating}</span>
+                        <span className="text-[10px] font-black">{Number(store.rating).toFixed(1)}</span>
                       </div>
                     </td>
                     <td className="px-8 py-6">
@@ -836,11 +845,11 @@ export default function FounderDashboardPage() {
            <div className="bg-card border-2 border-primary/10 rounded-[2.5rem] p-8 shadow-xl shadow-primary/5 space-y-6">
              <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.inventoryAlerts}</h3>
              <div className="space-y-4">
-               {dashboardData.products.filter((p: any) => p.stock < 10).slice(0, 5).map((p: any) => (
-                 <div key={p.product_id || p.id} className="flex items-center justify-between p-4 rounded-2xl bg-muted/50">
+               {dashboardData.products.filter((p) => p.stock < 10).slice(0, 5).map((p) => (
+                 <div key={p.id} className="flex items-center justify-between p-4 rounded-2xl bg-muted/50">
                     <div className="flex items-center gap-3">
                       <Package className="h-4 w-4 text-amber-500" />
-                      <p className="text-[10px] font-black uppercase truncate max-w-[120px]">{p.name}</p>
+                      <p className="text-[10px] font-black uppercase truncate max-w-30">{p.name}</p>
                     </div>
                     <span className="text-[10px] font-black text-amber-600">{p.stock} {t.product.quantity}</span>
                  </div>
@@ -853,7 +862,7 @@ export default function FounderDashboardPage() {
       {/* Product Management Section */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-black tracking-tight uppercase">{t.dashboard.platformInventory}</h2>
+          <h2 className="text-2xl font-black tracking-tighter uppercase">{t.dashboard.platformInventory}</h2>
           <button
              onClick={() => {
                setNewProduct({ id: "", name: "", price: 0, category: "อิเล็กทรอนิกส์", stock: 0, image: "", description: "", storeId: "mall", isOfficial: true });
@@ -878,15 +887,15 @@ export default function FounderDashboardPage() {
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {dashboardData.products.map((product: any) => (
-                  <tr key={product.product_id || product.id} className="hover:bg-muted/30 transition-colors group">
+                {dashboardData.products.map((product) => (
+                  <tr key={product.id} className="hover:bg-muted/30 transition-colors group">
                     <td className="px-8 py-6">
                       <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden">
-                          <img src={getImgSrc(product.image)} className="w-full h-full object-cover" />
+                          <img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt={product.name} />
                         </div>
                         <div>
-                          <p className="font-black text-sm max-w-[200px] truncate">{product.name}</p>
+                          <p className="font-black text-sm max-w-50 truncate">{product.name}</p>
                           <p className="text-[10px] font-bold text-muted-foreground">{product.category}</p>
                         </div>
                       </div>
@@ -896,7 +905,7 @@ export default function FounderDashboardPage() {
                          "px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest",
                          product.isOfficial ? "bg-amber-500/10 text-amber-600" : "bg-blue-500/10 text-blue-600"
                        )}>
-                         {product.isOfficial ? t.dashboard.officialMall : (dashboardData.stores.find((s:any) => s.store_id === product.storeId)?.name || t.dashboard.partnerStore)}
+                         {product.isOfficial ? t.dashboard.officialMall : (dashboardData.stores.find((s) => s.store_id === product.storeId)?.name || t.dashboard.partnerStore)}
                        </span>
                     </td>
                     <td className="px-8 py-6">
@@ -912,7 +921,7 @@ export default function FounderDashboardPage() {
                           <Edit className="h-4 w-4" />
                         </button>
                         <button 
-                          onClick={() => handleDeleteProduct(product.product_id || product.id)}
+                          onClick={() => handleDeleteProduct(product.id)}
                           className="p-2 rounded-lg hover:bg-rose-50 text-rose-500 transition-colors"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -932,7 +941,7 @@ export default function FounderDashboardPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-card w-full max-w-lg rounded-[2.5rem] border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary">
-              <h3 className="text-2xl font-black tracking-tight flex items-center gap-3 uppercase tracking-tighter">
+              <h3 className="text-2xl font-black tracking-tighter flex items-center gap-3 uppercase">
                 {newProduct.id ? <Edit className="h-6 w-6" /> : <Plus className="h-6 w-6" />}
                 {newProduct.id ? t.dashboard.editProduct : t.dashboard.addProduct}
               </h3>
@@ -968,7 +977,7 @@ export default function FounderDashboardPage() {
                     }}
                   >
                     <option value="mall">{t.dashboard.officialMall}</option>
-                    {dashboardData.stores.map((s: any) => (
+                    {dashboardData.stores.map((s) => (
                       <option key={s.store_id} value={s.store_id}>{s.name}</option>
                     ))}
                   </select>
@@ -999,7 +1008,7 @@ export default function FounderDashboardPage() {
                   <div className="flex items-center gap-4">
                     <div className="h-24 w-24 rounded-2xl bg-muted border-2 border-dashed border-primary/20 flex items-center justify-center overflow-hidden shrink-0 relative group">
                       {newProduct.image ? (
-                        <img src={getImgSrc(newProduct.image)} className="h-full w-full object-cover" />
+                        <img src={getImgSrc(newProduct.image)} className="h-full w-full object-cover" alt="Preview" />
                       ) : (
                         <ImageIcon className="h-8 w-8 text-primary/20" />
                       )}
@@ -1053,7 +1062,7 @@ export default function FounderDashboardPage() {
                       type="button"
                       onClick={generateAIDescription}
                       disabled={isGeneratingDesc || !newProduct.name}
-                      className="flex items-center gap-1 px-3 py-1 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer"
+                      className="flex items-center gap-1 px-3 py-1 rounded-lg bg-linear-to-r from-purple-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer"
                     >
                       <Sparkles className="h-3 w-3" />
                       {isGeneratingDesc ? t.dashboard.generating : t.dashboard.aiWrite}

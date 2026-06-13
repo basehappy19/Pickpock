@@ -114,7 +114,7 @@ export default function WishlistPage() {
                       <span key={i} className={`text-xs ${i < Math.floor(product.rating) ? "fill-current" : "opacity-30"}`}>★</span>
                     ))}
                   </div>
-                  <span className="text-[10px] font-bold text-muted-foreground">({product.rating})</span>
+                  <span className="text-[10px] font-bold text-muted-foreground">({Number(product.rating).toFixed(1)})</span>
                 </div>
               </div>
 

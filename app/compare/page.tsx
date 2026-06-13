@@ -43,7 +43,7 @@ export default function ComparePage() {
     { key: "category", label: "หมวดหมู่ / Category" },
     { key: "price", label: "ราคา / Price", format: (v: any) => formatCurrency(v) },
     { key: "stock", label: "สต็อก / Stock" },
-    { key: "rating", label: "คะแนน / Rating", format: (v: any) => `${v} / 5` },
+    { key: "rating", label: "คะแนน / Rating", format: (v: any) => `${Number(v).toFixed(1)} / 5` },
     { key: "storeName", label: "ร้านค้า / Store" },
     { key: "isOfficial", label: "ร้านค้าทางการ / Official", format: (v: any) => v ? "✓" : "-" },
   ];

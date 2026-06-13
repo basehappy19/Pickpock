@@ -5,17 +5,30 @@ import { Order } from "@/types";
 
 const ordersFilePath = path.join(process.cwd(), "lib", "ecommerce_orders.json");
 
-const readOrders = () => {
+interface RawOrder {
+  order_id: string;
+  user_id: string;
+  total_price: number;
+  status: string;
+  timestamp: string;
+  items: {
+    product_id: string;
+    qty: number;
+  }[];
+  reviewed_items?: string[];
+}
+
+const readOrders = (): RawOrder[] => {
   const data = fs.readFileSync(ordersFilePath, "utf8");
   return JSON.parse(data);
 };
 
-const writeOrders = (orders: any[]) => {
+const writeOrders = (orders: RawOrder[]) => {
   fs.writeFileSync(ordersFilePath, JSON.stringify(orders, null, 2), "utf8");
 };
 
 // Map Internal Order to JSON Schema
-const toJSON = (o: Order) => ({
+const toJSON = (o: Order): RawOrder => ({
   order_id: o.id,
   user_id: o.customerId,
   items: o.items.map(i => ({
@@ -56,7 +69,7 @@ export async function PUT(req: Request) {
     const updatedOrder: Order = await req.json();
     let orders = readOrders();
 
-    orders = orders.map((o: any) =>
+    orders = orders.map((o) =>
       o.order_id === updatedOrder.id ? toJSON(updatedOrder) : o
     );
 
@@ -77,7 +90,7 @@ export async function DELETE(req: Request) {
     }
 
     let orders = readOrders();
-    orders = orders.filter((o: any) => o.order_id !== id);
+    orders = orders.filter((o) => o.order_id !== id);
 
     writeOrders(orders);
     return NextResponse.json({ success: true });
