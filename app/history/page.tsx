@@ -6,7 +6,7 @@ import { useLanguage } from "@/hooks/use-language";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { Package, Star, MessageSquare, CheckCircle2, ChevronRight, X, Loader2 } from "lucide-react";
 import NextImage from "next/image";
-import { mockProducts } from "@/lib/initial-data";
+import { initialProducts } from "@/lib/initial-data";
 import { useRole } from "@/hooks/use-role";
 import AccessRestricted from "@/components/shared/access-restricted";
 
@@ -105,7 +105,7 @@ export default function HistoryPage() {
             <div className="p-6 space-y-4">
               {order.items.map((item, idx) => {
                 const isReviewed = order.reviewedItems?.includes(item.productId);
-                const productData = mockProducts.find(p => p.id === item.productId);
+                const productData = initialProducts.find(p => p.id === item.productId);
 
                 return (
                   <div key={idx} className="flex flex-col sm:flex-row sm:items-center gap-4 py-4 first:pt-0 last:pb-0 border-b last:border-0 border-muted/50">

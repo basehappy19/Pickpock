@@ -1,11 +1,11 @@
 import { Product, Order } from "@/types";
-import { mockProducts, mockOrders } from "@/lib/initial-data";
+import { initialProducts, initialOrders } from "@/lib/initial-data";
 
 // This service runs ONLY on the server for initial SSR
 export const dataService = {
   async getProducts(): Promise<Product[]> {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(mockProducts), 20);
+      setTimeout(() => resolve(initialProducts), 20);
     });
   },
 
@@ -16,7 +16,7 @@ export const dataService = {
 
   async getOrders(): Promise<Order[]> {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(mockOrders), 20);
+      setTimeout(() => resolve(initialOrders), 20);
     });
   },
 

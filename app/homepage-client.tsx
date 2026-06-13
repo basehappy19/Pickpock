@@ -7,7 +7,7 @@ import { ArrowRight, Star, ShieldCheck, Tag, Sparkles, Gift } from "lucide-react
 import { Product } from "@/types";
 import { formatCurrency } from "@/lib/utils";
 import { useState } from "react";
-import { mockCoupons } from "@/lib/initial-data";
+import { initialCoupons } from "@/lib/initial-data";
 
 export default function HomepageClient({ products }: { products: Product[] }) {
   const { t } = useLanguage();
@@ -23,11 +23,11 @@ export default function HomepageClient({ products }: { products: Product[] }) {
   };
 
   return (
-    <div className="space-y-12 lg:space-y-16 pb-20 lg:pb-16 animate-in fade-in duration-700">
+    <div className="space-y-12 lg:space-y-16 pb-20 lg:pb-16 animate-in fade-in duration-700 text-center lg:text-left">
       {/* Hero Banner */}
       <div className="relative bg-primary text-primary-foreground overflow-hidden">
         <div className="absolute inset-0 bg-rainbow-gradient opacity-10 animate-shimmer" />
-        <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-32 relative z-10 text-center lg:text-left">
+        <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-32 relative z-10">
           <div className="max-w-2xl space-y-6 mx-auto lg:mx-0">
             <h1 className="text-5xl lg:text-7xl font-black tracking-tighter leading-tight drop-shadow-sm">
               {t.home.heroTitle}
@@ -53,7 +53,7 @@ export default function HomepageClient({ products }: { products: Product[] }) {
              <h2 className="text-2xl lg:text-3xl font-black tracking-tight">{t.home.vouchers}</h2>
           </div>
           <div className="flex overflow-x-auto pb-4 gap-4 no-scrollbar">
-            {mockCoupons.map((coupon) => (
+            {initialCoupons.map((coupon) => (
               <div key={coupon.code} className="min-w-[280px] bg-rose-500 text-white rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between group">
                 <div className="absolute top-0 right-0 -mr-8 -mt-8 h-24 w-24 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
                 <div className="relative z-10 space-y-1">
@@ -97,7 +97,7 @@ export default function HomepageClient({ products }: { products: Product[] }) {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {officialProducts.map(product => (
-                <Link key={product.id} href={`/products/${product.id}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer">
+                <Link key={product.id} href={`/products/${product.id}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left">
                   <div className="aspect-square relative bg-muted">
                     <NextImage src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 25vw" />
                     <div className="absolute top-3 left-3 px-2 py-1 bg-amber-500 text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-sm">
@@ -127,7 +127,7 @@ export default function HomepageClient({ products }: { products: Product[] }) {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6 px-1">
             {featuredProducts.map(product => (
-              <Link key={product.id} href={`/products/${product.id}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer">
+              <Link key={product.id} href={`/products/${product.id}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left">
                 <div className="aspect-square relative bg-muted">
                   <NextImage src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
                   <div className="absolute bottom-3 left-3 px-2 py-1 bg-background/90 backdrop-blur text-[10px] font-black uppercase tracking-widest rounded-lg border shadow-sm">
