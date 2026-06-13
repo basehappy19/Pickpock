@@ -9,6 +9,7 @@ export default async function ProductDetailPage({
 }) {
   const { id } = await params;
   const product = await dataService.getProductById(id);
+  const allProducts = await dataService.getProducts();
 
   if (!product) {
     notFound();
@@ -16,7 +17,7 @@ export default async function ProductDetailPage({
 
   return (
     <div className="container mx-auto p-4 lg:p-8">
-      <ProductInfo product={product} />
+      <ProductInfo product={product} allProducts={allProducts} />
     </div>
   );
 }

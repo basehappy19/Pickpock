@@ -12,6 +12,8 @@ export interface Product {
   status: 'active' | 'out_of_stock' | 'draft';
   createdAt: string;
   specs?: Record<string, string>;
+  storeName?: string;
+  isOfficial?: boolean;
 }
 
 export interface Review {
@@ -48,4 +50,10 @@ export interface FilterOptions {
   minPrice?: number;
   maxPrice?: number;
   sortBy?: 'price-asc' | 'price-desc' | 'rating' | 'newest';
+}
+
+export interface Coupon {
+  code: string;
+  discount: number;
+  type: 'percent' | 'fixed';
 }

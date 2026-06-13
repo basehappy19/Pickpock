@@ -1,14 +1,25 @@
 export const translations = {
   en: {
     nav: {
+      home: "Home",
       dashboard: "Dashboard",
       orders: "Orders",
       products: "Products",
       search: "Search items...",
+      login: "Login / Register"
+    },
+    home: {
+      heroTitle: "Discover the Future of Shopping",
+      heroSubtitle: "AI-curated selections, official stores, and seamless experiences.",
+      shopNow: "Shop Now",
+      categories: "Categories",
+      officialStores: "Official Stores",
+      dailyDiscover: "Daily Discover",
+      flashSale: "Flash Sale"
     },
     dashboard: {
       title: "Dashboard Overview",
-      subtitle: "Welcome back, Admin. Here's what's happening today.",
+      subtitle: "Welcome back. Here's your store's performance today.",
       stats: {
         revenue: "Total Revenue",
         users: "Active Users",
@@ -59,6 +70,11 @@ export const translations = {
       specs: "Product Specifications",
       customerReviews: "Customer Reviews",
       noReviews: "No reviews yet. Be the first!",
+      officialBadge: "Official Store",
+      deliveryEst: "Est. Delivery",
+      aiBundleTitle: "Frequently Bought Together",
+      aiBundleLoading: "AI is finding the perfect match...",
+      aiBundleAdd: "Add Bundle to Cart",
       aiInsights: {
         title: "AI Review Insights",
         subtitle: "Summarize opinions with AI",
@@ -67,6 +83,24 @@ export const translations = {
         buttonRetry: "Re-analyze",
         error: "Sorry, AI system is temporary unavailable. Please try again."
       }
+    },
+    cart: {
+      title: "Shopping Cart",
+      empty: "Your cart is empty",
+      emptyDesc: "Looks like you haven't added anything to your cart yet.",
+      startShopping: "Start Shopping",
+      clearAll: "Clear All",
+      summary: "Order Summary",
+      subtotal: "Subtotal",
+      shipping: "Shipping",
+      free: "FREE",
+      total: "Total",
+      checkout: "Checkout Now",
+      discountCode: "Discount Code",
+      apply: "Apply",
+      discountApplied: "Discount Applied",
+      paymentSuccess: "Payment Successful!",
+      paymentSuccessDesc: "Your order has been placed. Thank you for shopping with us."
     },
     common: {
       daily: "Daily",
@@ -77,27 +111,39 @@ export const translations = {
       showing: "Showing",
       of: "of",
       previous: "Previous",
-      next: "Next"
+      next: "Next",
+      close: "Close"
     }
   },
   th: {
     nav: {
-      dashboard: "แผงควบคุม",
+      home: "หน้าแรก",
+      dashboard: "ระบบจัดการร้าน",
       orders: "คำสั่งซื้อ",
-      products: "สินค้า",
-      search: "ค้นหาสินค้า...",
+      products: "สินค้าทั้งหมด",
+      search: "ค้นหาสินค้าแบรนด์แท้...",
+      login: "เข้าสู่ระบบ"
+    },
+    home: {
+      heroTitle: "ค้นพบอนาคตแห่งการช้อปปิ้ง",
+      heroSubtitle: "คัดสรรโดย AI, ร้านค้าทางการ, และประสบการณ์ที่เหนือกว่า",
+      shopNow: "ช้อปเลย",
+      categories: "หมวดหมู่",
+      officialStores: "MSU Mall (ร้านค้าทางการ)",
+      dailyDiscover: "แนะนำประจำวัน",
+      flashSale: "แฟลชเซลล์"
     },
     dashboard: {
       title: "ภาพรวมระบบ",
-      subtitle: "ยินดีต้อนรับกลับ, ผู้ดูแลระบบ นี่คือสถานะปัจจุบันของวันนี้",
+      subtitle: "ยินดีต้อนรับกลับ นี่คือสถานะร้านค้าของคุณวันนี้",
       stats: {
-        revenue: "รายได้รวม",
-        users: "ผู้ใช้งาน",
+        revenue: "ยอดขายรวม",
+        users: "ผู้เข้าชม",
         products: "สินค้าทั้งหมด",
-        rating: "คะแนนเฉลี่ย",
+        rating: "คะแนนร้านค้า",
       },
       table: {
-        title: "รายการสินค้าล่าสุด",
+        title: "รายการสินค้า",
         name: "ชื่อสินค้า",
         category: "หมวดหมู่",
         price: "ราคา",
@@ -108,13 +154,13 @@ export const translations = {
         noData: "ไม่พบข้อมูลที่ค้นหา",
       },
       filters: {
-        search: "ค้นหาสินค้า...",
+        search: "ค้นหาสินค้าในร้าน...",
         allCategories: "ทุกหมวดหมู่",
       }
     },
     orders: {
       title: "การจัดการคำสั่งซื้อ",
-      subtitle: "ติดตามและจัดการคำสั่งซื้อทั้งหมดของร้านคุณ",
+      subtitle: "ติดตามและจัดการคำสั่งซื้อของร้านคุณ",
       searchPlaceholder: "ค้นหารหัสสั่งซื้อหรือชื่อลูกค้า...",
       totalAmount: "ยอดรวมทั้งหมด",
       customer: "ลูกค้า",
@@ -130,8 +176,8 @@ export const translations = {
       }
     },
     products: {
-      listTitle: "รายการสินค้า",
-      listSubtitle: "สำรวจคอลเลกชันสินค้าพรีเมียมที่ขับเคลื่อนด้วย AI ของเรา",
+      listTitle: "สินค้าทั้งหมด",
+      listSubtitle: "สำรวจคอลเลกชันสินค้าพรีเมียมที่ขับเคลื่อนด้วย AI",
       reviews: "รีวิว",
       warranty: "รับประกัน 1 ปี",
       shipping: "ส่งฟรีทั่วประเทศ",
@@ -140,6 +186,11 @@ export const translations = {
       specs: "รายละเอียดทางเทคนิค",
       customerReviews: "รีวิวจากลูกค้า",
       noReviews: "ยังไม่มีรีวิว ร่วมเป็นคนแรกที่รีวิวสินค้านี้!",
+      officialBadge: "ร้านค้าทางการ",
+      deliveryEst: "คาดว่าจะได้รับใน",
+      aiBundleTitle: "AI แนะนำซื้อคู่กันคุ้มกว่า",
+      aiBundleLoading: "AI กำลังจัดเซ็ตสุดคุ้ม...",
+      aiBundleAdd: "เพิ่มทั้งเซ็ตลงรถเข็น",
       aiInsights: {
         title: "AI Review Insights",
         subtitle: "สรุปความคิดเห็นด้วย AI",
@@ -148,6 +199,24 @@ export const translations = {
         buttonRetry: "ขอความเห็นใหม่",
         error: "ขออภัยครับ ระบบ AI ขัดข้องชั่วคราว ลองใหม่อีกครั้งนะ"
       }
+    },
+    cart: {
+      title: "รถเข็นของฉัน",
+      empty: "รถเข็นว่างเปล่า",
+      emptyDesc: "ดูเหมือนว่าคุณจะยังไม่ได้เพิ่มอะไรลงในรถเข็นเลย",
+      startShopping: "เริ่มช้อปปิ้ง",
+      clearAll: "ล้างทั้งหมด",
+      summary: "สรุปคำสั่งซื้อ",
+      subtotal: "ยอดรวม",
+      shipping: "ค่าจัดส่ง",
+      free: "ฟรี",
+      total: "ยอดสุทธิ",
+      checkout: "ชำระเงิน",
+      discountCode: "โค้ดส่วนลด",
+      apply: "ใช้โค้ด",
+      discountApplied: "ส่วนลด",
+      paymentSuccess: "ชำระเงินสำเร็จ!",
+      paymentSuccessDesc: "คำสั่งซื้อของคุณได้รับการยืนยันแล้ว ขอบคุณที่ใช้บริการ MSU FOUNDER"
     },
     common: {
       daily: "รายวัน",
@@ -158,7 +227,8 @@ export const translations = {
       showing: "กำลังแสดง",
       of: "จากทั้งหมด",
       previous: "ก่อนหน้า",
-      next: "ถัดไป"
+      next: "ถัดไป",
+      close: "ปิด"
     }
   }
 };

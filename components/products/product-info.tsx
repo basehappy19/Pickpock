@@ -7,10 +7,16 @@ import { useLanguage } from "@/hooks/use-language";
 import AIInsights from "./ai-insights";
 import NextImage from "next/image";
 import { useCart } from "@/hooks/use-cart";
+import AIBundleSuggest from "./ai-bundle-suggest";
 
-export default function ProductInfo({ product }: { product: Product }) {
+export default function ProductInfo({ product, allProducts }: { product: Product, allProducts: Product[] }) {
   const { t } = useLanguage();
   const { addToCart } = useCart();
+  
+  // Calculate delivery date (2 days from now)
+  const deliveryDate = new Date();
+  deliveryDate.setDate(deliveryDate.getDate() + 2);
+  const deliveryStr = deliveryDate.toLocaleDateString('th-TH', { month: 'short', day: 'numeric' });
 
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -26,15 +32,27 @@ export default function ProductInfo({ product }: { product: Product }) {
               className="object-cover transition-transform duration-700 group-hover:scale-110"
               priority
             />
+            {product.isOfficial && (
+              <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white text-xs font-black uppercase tracking-widest rounded-lg shadow-sm">
+                {t.products.officialBadge}
+              </div>
+            )}
           </div>
         </div>
 
         {/* Product Details */}
         <div className="space-y-8">
           <div className="space-y-4">
-            <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-black uppercase tracking-widest">
-              {product.category}
-            </span>
+            <div className="flex gap-2">
+              <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-black uppercase tracking-widest">
+                {product.category}
+              </span>
+              {product.storeName && (
+                <span className="px-4 py-1.5 rounded-full border border-muted-foreground/20 text-muted-foreground text-xs font-bold">
+                  {product.storeName}
+                </span>
+              )}
+            </div>
             <h1 className="text-4xl lg:text-5xl font-black tracking-tight leading-tight">
               {product.name}
             </h1>
@@ -68,7 +86,10 @@ export default function ProductInfo({ product }: { product: Product }) {
               <div className="p-2 rounded-xl bg-muted text-primary">
                 <Truck className="h-5 w-5" />
               </div>
-              {t.products.shipping}
+              <div className="flex flex-col">
+                <span>{t.products.shipping}</span>
+                <span className="text-xs text-muted-foreground">{t.products.deliveryEst} {deliveryStr}</span>
+              </div>
             </div>
           </div>
 
@@ -91,6 +112,11 @@ export default function ProductInfo({ product }: { product: Product }) {
           </div>
         </div>
       </div>
+
+      {/* AI Bundle Suggestion */}
+      {allProducts && allProducts.length > 0 && (
+        <AIBundleSuggest currentProduct={product} allProducts={allProducts} />
+      )}
 
       {/* AI Insights & Specs */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-12 border-t">

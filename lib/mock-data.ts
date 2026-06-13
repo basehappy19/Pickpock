@@ -1,4 +1,4 @@
-import { Product, Order } from "@/types";
+import { Product, Order, Coupon } from "@/types";
 
 export const mockProducts: Product[] = [
   {
@@ -14,6 +14,8 @@ export const mockProducts: Product[] = [
     status: 'active',
     createdAt: "2026-06-01T10:00:00Z",
     specs: { "Display": "1.9 inch AMOLED", "Battery": "Up to 14 days", "Water Resistance": "5ATM" },
+    storeName: "MSU Official",
+    isOfficial: true,
     reviews: [
       { id: "r1", user: "Somchai", rating: 5, comment: "วัดค่าได้แม่นยำมากครับ AI ให้คำแนะนำดีจริงๆ", date: "2026-06-05", sentiment: 'positive' },
       { id: "r2", user: "Jane", rating: 4, comment: "ดีไซน์สวย แต่สายแอบแข็งไปนิดนึง", date: "2026-06-07", sentiment: 'neutral' }
@@ -32,6 +34,8 @@ export const mockProducts: Product[] = [
     status: 'active',
     createdAt: "2026-06-02T08:30:00Z",
     specs: { "Driver": "40mm Dynamic", "Battery": "30 hours", "Charging": "USB-C" },
+    storeName: "AudioVision",
+    isOfficial: false,
     reviews: [{ id: "r3", user: "Kovit", rating: 5, comment: "ตัดเสียงเงียบกริบ เสียงเบสแน่นสะใจ", date: "2026-06-08", sentiment: 'positive' }]
   },
   {
@@ -47,6 +51,8 @@ export const mockProducts: Product[] = [
     status: 'active',
     createdAt: "2026-05-25T14:20:00Z",
     specs: { "Material": "Breathable Mesh", "Base": "Aluminum Alloy", "Adjustment": "4D" },
+    storeName: "MSU Official",
+    isOfficial: true,
     reviews: []
   },
   {
@@ -62,6 +68,8 @@ export const mockProducts: Product[] = [
     status: 'active',
     createdAt: "2026-06-05T09:00:00Z",
     specs: { "Capacity": "500ml", "Run Time": "12 hours", "Power": "USB" },
+    storeName: "HomeDecor BKK",
+    isOfficial: false,
     reviews: []
   },
   {
@@ -77,6 +85,8 @@ export const mockProducts: Product[] = [
     status: 'active',
     createdAt: "2026-06-08T11:20:00Z",
     specs: { "Switches": "Hot-swappable Brown", "Battery": "4000mAh", "Layout": "75% ANSI" },
+    storeName: "TechGear",
+    isOfficial: false,
     reviews: []
   },
   {
@@ -92,6 +102,8 @@ export const mockProducts: Product[] = [
     status: 'active',
     createdAt: "2026-05-20T16:45:00Z",
     specs: { "Material": "Top-grain Leather", "Fits": "up to 16 inch Laptop", "Warranty": "Lifetime" },
+    storeName: "MSU Official",
+    isOfficial: true,
     reviews: []
   },
   {
@@ -107,6 +119,8 @@ export const mockProducts: Product[] = [
     status: 'active',
     createdAt: "2026-06-10T13:10:00Z",
     specs: { "Brightness": "2500 Lumens", "Color Temp": "2700K - 6500K", "CRI": ">95" },
+    storeName: "PhotoPro",
+    isOfficial: false,
     reviews: []
   },
   {
@@ -122,6 +136,8 @@ export const mockProducts: Product[] = [
     status: 'active',
     createdAt: "2026-06-01T08:00:00Z",
     specs: { "Material": "High-fired Ceramic", "Count": "3 pieces", "Finish": "Matte Sand" },
+    storeName: "HomeDecor BKK",
+    isOfficial: false,
     reviews: []
   }
 ];
@@ -147,4 +163,9 @@ export const mockOrders: Order[] = [
     paymentStatus: 'paid',
     items: [{ productId: "p2", productName: "Ultra-Noise Cancelling Headphones", quantity: 2, price: 12500 }]
   }
+];
+
+export const mockCoupons: Coupon[] = [
+  { code: "FOUNDER10", discount: 10, type: "percent" },
+  { code: "MSU500", discount: 500, type: "fixed" }
 ];

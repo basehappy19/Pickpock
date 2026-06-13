@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck } from "lucide-react";
+import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Store } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { ThemeToggle } from "./theme-toggle";
 import { useCart } from "@/hooks/use-cart";
@@ -12,6 +12,24 @@ export default function Navbar() {
   const { totalCount } = useCart();
   const { role, setRole } = useRole();
 
+  const cycleRole = () => {
+    if (role === "customer") setRole("seller");
+    else if (role === "seller") setRole("founder");
+    else setRole("customer");
+  };
+
+  const getRoleIcon = () => {
+    if (role === "founder") return <ShieldCheck className="h-3.5 w-3.5" />;
+    if (role === "seller") return <Store className="h-3.5 w-3.5" />;
+    return <User className="h-3.5 w-3.5" />;
+  };
+
+  const getRoleColor = () => {
+    if (role === "founder") return "bg-amber-500/10 border-amber-500/20 text-amber-600";
+    if (role === "seller") return "bg-emerald-500/10 border-emerald-500/20 text-emerald-600";
+    return "bg-blue-500/10 border-blue-500/20 text-blue-600";
+  };
+
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md transition-all">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-8">
@@ -21,17 +39,24 @@ export default function Navbar() {
               <Box className="h-6 w-6 text-primary-foreground" />
             </div>
             <span>
-              MSU <span className="text-primary">FOUNDER</span>
+              MSU <span className="text-primary">{role === "customer" ? "MALL" : "FOUNDER"}</span>
             </span>
           </Link>
           
           <div className="hidden lg:flex gap-6">
             <Link href="/" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors">
-              {t.nav.dashboard}
+              {t.nav.home}
             </Link>
-            <Link href="/orders" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors">
-              {t.nav.orders}
-            </Link>
+            {(role === "founder" || role === "seller") && (
+              <>
+                <Link href="/dashboard" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors">
+                  {t.nav.dashboard}
+                </Link>
+                <Link href="/orders" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors">
+                  {t.nav.orders}
+                </Link>
+              </>
+            )}
             <Link href="/products" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors">
               {t.nav.products}
             </Link>
@@ -41,15 +66,11 @@ export default function Navbar() {
         <div className="flex items-center gap-2 sm:gap-4">
           {/* Role Switcher (Hackathon Demo Only) */}
           <button 
-            onClick={() => setRole(role === "customer" ? "founder" : "customer")}
-            className={`hidden sm:flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-black uppercase transition-all border-2 cursor-pointer ${
-              role === "founder" 
-                ? "bg-amber-500/10 border-amber-500/20 text-amber-600" 
-                : "bg-blue-500/10 border-blue-500/20 text-blue-600"
-            }`}
+            onClick={cycleRole}
+            className={`hidden sm:flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-black uppercase transition-all border-2 cursor-pointer ${getRoleColor()}`}
           >
-            {role === "founder" ? <ShieldCheck className="h-3.5 w-3.5" /> : <User className="h-3.5 w-3.5" />}
-            {role} mode
+            {getRoleIcon()}
+            {role}
           </button>
 
           <div className="relative hidden md:block group">

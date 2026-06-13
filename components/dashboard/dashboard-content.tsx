@@ -36,6 +36,12 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
   const { filteredData, filters, updateFilter } = useFilter(products);
   const router = useRouter();
 
+  // Redirect if customer
+  if (typeof window !== 'undefined' && role === "customer") {
+    router.push("/");
+    return null;
+  }
+
   // Admin Modal States
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -124,7 +130,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
           </p>
         </div>
         <div className="flex items-center gap-3">
-          {role === "founder" ? (
+          {(role === "founder" || role === "seller") ? (
             <button 
               onClick={() => { setEditingProduct(null); setIsModalOpen(true); }}
               className="flex items-center gap-2 px-6 py-3 text-sm font-black rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer"

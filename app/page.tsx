@@ -1,11 +1,8 @@
 import { dataService } from "@/services/data-service";
-import DashboardContent from "@/components/dashboard/dashboard-content";
+import HomepageClient from "./homepage-client";
 
-// This is a Server Component (Best for Performance & SEO)
-export default async function Page() {
-  // Fetch data on the server
+export default async function Homepage() {
   const products = await dataService.getProducts();
 
-  // Pass data to Client Component for interactivity
-  return <DashboardContent initialProducts={products} />;
+  return <HomepageClient products={products} />;
 }
