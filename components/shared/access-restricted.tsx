@@ -1,6 +1,7 @@
 "use client";
 
-import { useRole, Role } from "@/hooks/use-role";
+import { useRole } from "@/hooks/use-role";
+import { Role } from "@/types";
 import { ShieldAlert, RefreshCw } from "lucide-react";
 
 interface AccessRestrictedProps {

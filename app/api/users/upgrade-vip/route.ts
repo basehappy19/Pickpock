@@ -52,8 +52,8 @@ export async function GET(request: NextRequest) {
   }
 
   return NextResponse.json({
-    isVip: user.tier === 'VIP',
-    expiresAt: user.vipExpiresAt || null,
-    discountPercent: user.tier === 'VIP' ? 10 : 0
+    isVip: user.isVip,
+    expiresAt: (user as any).vipExpiresAt || null,
+    discountPercent: user.isVip ? 10 : 0
   });
 }

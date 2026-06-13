@@ -1,102 +1,26 @@
 [
   {
-    "user_id": "u001",
+    "id": "u001",
     "name": "Alice Founder",
     "email": "alice@example.com",
-    "phone": "081-111-1111",
-    "loyalty_points": 5000,
-    "role": "VIP",
-    "type": "founder",
-    "password": "1234"
+    "password": "1234",
+    "role": "founder",
+    "isVip": false
   },
   {
-    "user_id": "u002",
-    "name": "Bob Founder Admin",
-    "email": "bob@example.com",
-    "phone": "081-222-2222",
-    "loyalty_points": 2500,
-    "role": "MEMBER",
-    "type": "founder",
-    "password": "1234"
-  },
-  {
-    "user_id": "u003",
-    "name": "Somchai Partner",
+    "id": "u002",
+    "name": "Somchai VIP",
     "email": "somchai@example.com",
-    "phone": "089-333-3333",
-    "loyalty_points": 1200,
-    "role": "VIP",
-    "type": "partner",
-    "password": "1234"
+    "password": "1234",
+    "role": "customer",
+    "isVip": true
   },
   {
-    "user_id": "u004",
-    "name": "Jane Fashion Shop",
-    "email": "jane@example.com",
-    "phone": "089-444-4444",
-    "loyalty_points": 800,
-    "role": "MEMBER",
-    "type": "partner",
-    "password": "1234"
-  },
-  {
-    "user_id": "u005",
-    "name": "John Customer VIP",
-    "email": "john@example.com",
-    "phone": "085-555-5555",
-    "loyalty_points": 3000,
-    "role": "VIP",
-    "type": "customer",
-    "password": "1234"
-  },
-  {
-    "user_id": "u006",
-    "name": "Somsri Regular User",
-    "email": "somsri@example.com",
-    "phone": "085-666-6666",
-    "loyalty_points": 150,
-    "role": "MEMBER",
-    "type": "customer",
-    "password": "1234"
-  },
-  {
-    "user_id": "u007",
-    "name": "Kevin Tech Partner",
-    "email": "kevin@example.com",
-    "phone": "087-777-7777",
-    "loyalty_points": 2100,
-    "role": "VIP",
-    "type": "partner",
-    "password": "1234"
-  },
-  {
-    "user_id": "u008",
-    "name": "Mary Mall Assistant",
-    "email": "mary@example.com",
-    "phone": "087-888-8888",
-    "loyalty_points": 450,
-    "role": "MEMBER",
-    "type": "founder",
-    "password": "1234"
-  },
-  {
-    "user_id": "u009",
-    "name": "Peter Gamer",
-    "email": "peter@example.com",
-    "phone": "082-999-9999",
-    "loyalty_points": 10,
-    "role": "MEMBER",
-    "type": "customer",
-    "password": "1234"
-  },
-  {
-    "user_id": "u010",
-    "name": "Sarah Beauty VIP",
-    "email": "sarah@example.com",
-    "phone": "082-000-0000",
-    "loyalty_points": 4200,
-    "role": "VIP",
-    "type": "customer",
-    "password": "1234"
+    "id": "u003",
+    "name": "Bob Regular",
+    "email": "bob@example.com",
+    "password": "1234",
+    "role": "customer",
+    "isVip": false
   }
 ]

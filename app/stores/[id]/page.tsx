@@ -11,7 +11,7 @@ import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 
 export default function StoreDetailPage() {
   const { id } = useParams();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const router = useRouter();
   const { products } = useGlobalData();
   const { addToRecentlyViewed } = useRecentlyViewed();
@@ -70,7 +70,7 @@ export default function StoreDetailPage() {
   const displayStore = store || { 
     name: "Pickpock Mall",
     rating: 4.9, 
-    description: t.language === 'th' 
+    description: language === 'th' 
       ? "แหล่งรวมสินค้าพรีเมียมอย่างเป็นทางการโดย MSU FOUNDER มั่นใจในคุณภาพและของแท้ 100% พร้อมบริการเหนือระดับ" 
       : "The official premium collection by MSU FOUNDER. Trusted quality, guaranteed authenticity with superior service.", 
     joined_at: "2026-01-01" 

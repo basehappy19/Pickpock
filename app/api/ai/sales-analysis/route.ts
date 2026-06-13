@@ -9,8 +9,7 @@ import ordersJson from '@/lib/ecommerce_orders.json';
 import productsJson from '@/lib/products.json';
 
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
-const genAI = new GoogleGenAI(apiKey);
-const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+const genAI = new GoogleGenAI({ apiKey });
 
 export async function POST(request: NextRequest) {
   try {
@@ -71,9 +70,12 @@ Provide recommendations in JSON format:
   "promotionStrategy": "<if applicable, promotion idea in Thai>"
 }`;
 
-    const result = await model.generateContent(prompt);
-    const response = result.response;
-    const text = response.text();
+    const result = await genAI.models.generateContent({
+      model: 'gemini-2.0-flash-exp',
+      contents: prompt
+    });
+    
+    const text = result.text || '';
 
     let analysis;
     try {
@@ -95,7 +97,7 @@ Provide recommendations in JSON format:
     return NextResponse.json({
       success: true,
       product: {
-        id: product.product_id || product.id,
+        id: product.id,
         name: product.name,
         price: product.price,
         stock: product.stock

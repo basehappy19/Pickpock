@@ -61,12 +61,67 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
 
+  useEffect(() => {
+    if (editingProduct) {
+      setImageUrl(editingProduct.image);
+    } else {
+      setImageUrl("");
+    }
+  }, [editingProduct]);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const url = await uploadProductImage(file);
+      if (url) {
+        setImageUrl(url);
+      }
+    } catch (err) {
+      console.error("Upload error:", err);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    
+    const productData: any = {
+      name: formData.get("name") as string,
+      price: Number(formData.get("price")),
+      stock: Number(formData.get("stock")),
+      category: formData.get("category") as string,
+      image: imageUrl || (editingProduct?.image || ""),
+    };
+
+    if (editingProduct) {
+      await updateProduct({ ...editingProduct, ...productData });
+    } else {
+      const newId = "p-" + Math.random().toString(36).substring(2, 9);
+      await addProduct({
+        ...productData,
+        id: newId,
+        rating: 0,
+        reviews: [],
+        status: 'active',
+        createdAt: new Date().toISOString()
+      });
+    }
+    setIsModalOpen(false);
+    setEditingProduct(null);
+    setImageUrl("");
+  };
+
   // Process Real Data for Charts
   const analyticsData = useMemo(() => {
     // 1. Sales over last 7 days (mocking dates to be recent since data is old)
     // In a real app, we'd use current date. Here we'll take the latest order date as "today".
-    const sortedOrders = [...orders].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-    const latestDate = sortedOrders.length > 0 ? new Date(sortedOrders[0].timestamp) : new Date();
+    const sortedOrders = [...orders].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    const latestDate = sortedOrders.length > 0 ? new Date(sortedOrders[0].createdAt) : new Date();
     
     const last7Days = Array.from({ length: 7 }, (_, i) => {
       const d = new Date(latestDate);
@@ -76,13 +131,13 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
 
     const dailySales = last7Days.map(date => {
       const dayTotal = orders
-        .filter(o => o.timestamp.startsWith(date))
-        .reduce((sum, o) => sum + o.total_price, 0);
+        .filter(o => o.createdAt.startsWith(date))
+        .reduce((sum, o) => sum + o.totalAmount, 0);
       
       return {
         name: new Date(date).toLocaleDateString('th-TH', { weekday: 'short' }),
         revenue: dayTotal,
-        orders: orders.filter(o => o.timestamp.startsWith(date)).length
+        orders: orders.filter(o => o.createdAt.startsWith(date)).length
       };
     });
 
@@ -90,14 +145,14 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
     const productSales: Record<string, number> = {};
     orders.forEach(o => {
       o.items.forEach(item => {
-        productSales[item.product_id] = (productSales[item.product_id] || 0) + item.qty;
+        productSales[item.productId] = (productSales[item.productId] || 0) + item.quantity;
       });
     });
 
     const topProducts = Object.entries(productSales)
-      .map(([id, qty]) => ({
+      .map(([id, quantity]) => ({
         name: products.find(p => p.id === id)?.name?.slice(0, 15) || id,
-        value: qty
+        value: quantity
       }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 5);
@@ -106,10 +161,10 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
     const storeRevenue: Record<string, number> = {};
     orders.forEach(o => {
       o.items.forEach(item => {
-        const product = products.find(p => p.id === item.product_id);
+        const product = products.find(p => p.id === item.productId);
         const storeId = product?.storeId || 'unknown';
         const storeName = stores.find(s => s.store_id === storeId)?.name || 'Other';
-        storeRevenue[storeName] = (storeRevenue[storeName] || 0) + (item.qty * (product?.price || 0));
+        storeRevenue[storeName] = (storeRevenue[storeName] || 0) + (item.quantity * (product?.price || 0));
       });
     });
 
@@ -119,7 +174,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       .slice(0, 5);
 
     // Calculate Growth (+12% as requested, but could be calculated)
-    const totalRevenue = orders.reduce((sum, o) => sum + o.total_price, 0);
+    const totalRevenue = orders.reduce((sum, o) => sum + o.totalAmount, 0);
 
     return {
       dailySales,
@@ -217,7 +272,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
                 />
                 <Tooltip 
                   contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }}
-                  formatter={(val: number) => [formatCurrency(val), "ยอดขาย"]}
+                  formatter={(val: any) => [formatCurrency(val), "ยอดขาย"]}
                 />
                 <Area 
                   type="monotone" 

@@ -1,200 +1,64 @@
 {
-  "u009": {
-    "user_id": "u009",
-    "cart": [
-      {
-        "id": "p-101",
-        "name": "Wireless Noise Cancelling Headphones",
-        "category": "Electronics",
-        "price": 2500,
-        "stock": 50,
-        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
-        "description": "Experience pure sound with our latest noise-cancelling technology.",
-        "rating": 4.8,
-        "reviews": [],
-        "isOfficial": true,
-        "createdAt": "2026-06-13T10:35:46.372Z",
-        "quantity": 1
-      }
-    ],
-    "wishlist": [],
-    "reviews": [],
-    "recentlyViewed": [
-      {
-        "id": "p-105",
-        "name": "Gaming Mouse Wireless",
-        "category": "Electronics",
-        "price": 1200,
-        "stock": 0,
-        "image": "https://images.unsplash.com/photo-1527698266440-12104e498b76?q=80&w=800&auto=format&fit=crop",
-        "description": "High-precision wireless gaming mouse with ergonomic design.",
-        "rating": 4.6,
-        "reviews": [],
-        "isOfficial": false,
-        "createdAt": "2026-06-13T10:38:53.325Z"
-      },
-      {
-        "id": "p-101",
-        "name": "Wireless Noise Cancelling Headphones",
-        "category": "Electronics",
-        "price": 2500,
-        "stock": 50,
-        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
-        "description": "Experience pure sound with our latest noise-cancelling technology.",
-        "rating": 4.8,
-        "reviews": [],
-        "isOfficial": true,
-        "createdAt": "2026-06-13T10:35:46.372Z"
-      },
-      {
-        "id": "p-euk6sen0n",
-        "name": "test2",
-        "category": "Fashion",
-        "price": 111,
-        "stock": 12,
-        "image": "https://scmaztbrymmfqgwfnykg.supabase.co/storage/v1/object/public/products/product-images/0.11161091885623697.jpg",
-        "description": "",
-        "rating": 0,
-        "reviews": [],
-        "storeId": "s-osf8a30gm",
-        "isOfficial": false,
-        "createdAt": "2026-06-13T08:40:08.315Z"
-      },
-      {
-        "id": "p-k7tgrsnde",
-        "name": "test2",
-        "category": "Electronics",
-        "price": 333,
-        "stock": 33,
-        "image": "https://scmaztbrymmfqgwfnykg.supabase.co/storage/v1/object/public/products/product-images/0.9955548237519843.png",
-        "description": "",
-        "rating": 0,
-        "reviews": [],
-        "storeId": "s-osf8a30gm",
-        "isOfficial": false,
-        "createdAt": "2026-06-13T08:16:47.581Z"
-      },
-      {
-        "name": "Smart Watch Series X",
-        "category": "Electronics",
-        "price": 4500,
-        "stock": 25,
-        "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800&auto=format&fit=crop",
-        "rating": 4.5,
-        "reviews": [],
-        "status": "active",
-        "createdAt": "2026-06-13T05:38:33.868Z",
-        "storeName": "Pickpock Mall",
-        "isOfficial": true
-      },
-      {
-        "id": "p-106",
-        "name": "4K Monitor 27 inch",
-        "category": "Electronics",
-        "price": 8900,
-        "stock": 12,
-        "image": "https://placehold.co/300x300?text=Monitor",
-        "rating": 4.5,
-        "reviews": [],
-        "status": "active",
-        "createdAt": "2026-06-13T03:38:15.099Z",
-        "storeName": "Pickpock Mall",
-        "isOfficial": true
-      },
-      {
-        "id": "p-102",
-        "name": "Running Shoes Gen 5",
-        "category": "Fashion",
-        "price": 1800,
-        "stock": 10,
-        "image": "https://placehold.co/300x300?text=Shoes",
-        "rating": 4.5,
-        "reviews": [],
-        "status": "active",
-        "createdAt": "2026-06-13T03:38:15.099Z",
-        "storeName": "Pickpock Mall",
-        "isOfficial": true
-      },
-      {
-        "id": "p-104",
-        "name": "Mechanical Keyboard RGB",
-        "category": "Electronics",
-        "price": 3200,
-        "stock": 5,
-        "image": "https://placehold.co/300x300?text=Keyboard",
-        "rating": 4.5,
-        "reviews": [],
-        "status": "active",
-        "createdAt": "2026-06-13T03:32:44.856Z",
-        "storeName": "Pickpock Mall",
-        "isOfficial": true
-      }
-    ],
-    "compare": []
-  },
   "u001": {
-    "user_id": "u001",
     "cart": [],
     "wishlist": [],
-    "reviews": [],
+    "history": [],
+    "compare": [],
     "recentlyViewed": [
       {
-        "id": "p-105",
-        "name": "Gaming Mouse Wireless",
-        "category": "Electronics",
-        "price": 1200,
-        "stock": 0,
-        "image": "https://images.unsplash.com/photo-1527698266440-12104e498b76?q=80&w=800&auto=format&fit=crop",
-        "description": "High-precision wireless gaming mouse with ergonomic design.",
-        "rating": 4.6,
+        "id": "p-103",
+        "name": "Premium Cotton T-Shirt",
+        "category": "Fashion",
+        "price": 590,
+        "stock": 100,
+        "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800",
+        "description": "Premium Cotton T-Shirt - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
+        "rating": 4.727305974668043,
         "reviews": [],
         "storeId": "mall",
         "isOfficial": true,
-        "createdAt": "2026-06-13T11:05:52.747Z"
+        "createdAt": "2026-01-01T00:00:00Z"
+      },
+      {
+        "id": "p-108",
+        "name": "Denim Jacket",
+        "category": "Fashion",
+        "price": 1890,
+        "stock": 20,
+        "image": "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=800",
+        "description": "Denim Jacket - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
+        "rating": 4.56178836320371,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-01-01T00:00:00Z"
       },
       {
         "id": "p-101",
-        "name": "Wireless Noise Cancelling Headphones",
+        "name": "Wireless Headphones",
         "category": "Electronics",
         "price": 2500,
         "stock": 50,
-        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
-        "description": "Experience pure sound with our latest noise-cancelling technology.",
-        "rating": 4.8,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800",
+        "description": "Wireless Headphones - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
+        "rating": 4.91855606819584,
         "reviews": [],
         "storeId": "mall",
         "isOfficial": true,
-        "createdAt": "2026-06-13T11:05:52.747Z"
-      },
-      {
-        "id": "p-109",
-        "name": "Laptop Stand Aluminum",
-        "category": "Electronics",
-        "price": 450,
-        "stock": 45,
-        "image": "https://images.unsplash.com/photo-1544244015-0cd4b3ff56b0?q=80&w=800&auto=format&fit=crop",
-        "description": "Ergonomic laptop stand made from premium aluminum.",
-        "rating": 4.6,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-06-13T11:05:52.747Z"
-      },
-      {
-        "id": "p-110",
-        "name": "Webcam HD 1080p",
-        "category": "Electronics",
-        "price": 1100,
-        "stock": 8,
-        "image": "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=800&auto=format&fit=crop",
-        "description": "Crystal clear video calls with built-in microphone.",
-        "rating": 4.3,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-06-13T11:05:52.747Z"
+        "createdAt": "2026-01-01T00:00:00Z"
       }
-    ],
+    ]
+  },
+  "u002": {
+    "cart": [],
+    "wishlist": [],
+    "history": [],
+    "compare": []
+  },
+  "u003": {
+    "cart": [],
+    "wishlist": [],
+    "history": [],
     "compare": []
   }
 }

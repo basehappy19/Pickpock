@@ -1,13 +1,14 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { Product, Order, Coupon } from "@/types";
+import { Product, Order, Coupon, Store } from "@/types";
 import { initialProducts, initialOrders, initialCoupons } from "@/lib/initial-data";
 
 interface DataContextType {
   products: Product[];
   orders: Order[];
   coupons: Coupon[];
+  stores: Store[];
   setProducts: (products: Product[]) => void;
   setOrders: (orders: Order[]) => void;
   updateProduct: (product: Product) => void;
@@ -23,17 +24,20 @@ const DataContext = createContext<DataContextType | undefined>(undefined);
 export function DataProvider({ children }: { children: React.ReactNode }) {
   const [products, setProductsState] = useState<Product[]>([]);
   const [orders, setOrdersState] = useState<Order[]>([]);
+  const [stores, setStoresState] = useState<Store[]>([]);
   const [coupons, setCoupons] = useState<Coupon[]>(initialCoupons);
 
   const fetchData = async () => {
     try {
       const prodRes = await fetch("/api/products");
       const ordRes = await fetch("/api/orders");
+      const storeRes = await fetch("/api/stores");
       
       let currentProds: any[] = [];
 
       if (prodRes.ok) {
         const rawProds = await prodRes.json();
+        currentProds = rawProds;
         // Map JSON back to App Type
         const mappedProds = rawProds.map((p: any) => ({
           id: p.product_id || p.id,
@@ -49,8 +53,12 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           isOfficial: p.isOfficial || false,
           createdAt: p.createdAt || new Date().toISOString()
         }));
-        currentProds = rawProds; // Keep raw for join
         setProductsState(mappedProds);
+      }
+
+      if (storeRes.ok) {
+        const rawStores = await storeRes.json();
+        setStoresState(rawStores);
       }
 
       if (ordRes.ok) {
@@ -58,14 +66,20 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         const mappedOrds = rawOrds.map((o: any) => ({
           id: o.order_id,
           customerId: o.user_id,
-          customerName: "User " + o.user_id,
+          customerName: o.customerName || "User " + o.user_id,
           totalAmount: o.total_price,
+          originalAmount: o.original_amount || o.total_price,
+          discounts: o.discounts || {
+            tier: 0,
+            bulk: 0,
+            coupon: 0,
+            total: 0
+          },
           status: o.status.toLowerCase(),
           createdAt: o.timestamp,
           paymentStatus: 'paid',
-          reviewedItems: o.reviewed_items || [], // Consistent naming for frontend
+          reviewedItems: o.reviewed_items || [],
           items: (o.items || []).map((item: any) => {
-            // Standardize item fields from JSON
             const pId = item.productId || item.product_id;
             const product = currentProds.find((p: any) => (p.product_id || p.id) === pId);
 
@@ -172,7 +186,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <DataContext.Provider value={{ 
-      products, orders, coupons, 
+      products, orders, coupons, stores,
       setProducts: setProductsState, 
       setOrders: setOrdersState, 
       addProduct, updateProduct, deleteProduct, addOrder, updateOrderStatus,

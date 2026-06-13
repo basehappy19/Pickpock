@@ -85,22 +85,29 @@ export async function getAIChatResponse(
   products: any[],
   userContext?: { tier?: string; recentViews?: string[] }
 ): Promise<string> {
-  const productContext = products.slice(0, 10).map(p =>
-    `- ${p.name} (฿${p.price}): ${p.description}`
+  const productContext = products.slice(0, 15).map(p =>
+    `- ${p.name} (฿${p.price}): ${p.description} [ID: ${p.id || p.product_id}]`
   ).join('\n');
 
-  const systemPrompt = `You are a helpful shopping assistant for Pickpock.
+  const systemPrompt = `You are Pickpock Assistant, a professional and helpful shopping expert.
 Available Products:
 ${productContext}
-User Tier: ${userContext?.tier || 'MEMBER'}`;
+User Tier: ${userContext?.tier || 'MEMBER'}
 
-  const conversation = messages.map(m => `${m.role}: ${m.content}`).join('\n');
-  const prompt = `${systemPrompt}\n\nConversation:\n${conversation}\n\nassistant:`;
+CORE RULES:
+1. If you mention a product, ALWAYS append [PRODUCT:id] tag. Example: "I suggest the Wireless Headphones [PRODUCT:p-101]".
+2. Format your text with clear spacing and bullet points where appropriate.
+3. Be concise. Don't repeat product details that are already in the card.
+4. Primary language: Thai. Use English only if the user does.
+5. Tone: Luxury but accessible, helpful and polite.`;
+
+  const conversation = messages.map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n');
+  const prompt = `${systemPrompt}\n\nConversation History:\n${conversation}\n\nAssistant:`;
 
   try {
     return await callGeminiAPI(prompt);
   } catch (error) {
-    return 'Sorry, I\'m having trouble responding right now.';
+    return 'ขออภัยครับ ผมกำลังมีปัญหาในการเชื่อมต่อข้อมูล กรุณาลองใหม่อีกครั้งนะครับ';
   }
 }
 

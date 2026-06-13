@@ -2,6 +2,8 @@
  * Performance utilities - caching, lazy loading, and optimizations
  */
 
+import React from 'react';
+
 /**
  * Simple in-memory cache with TTL
  */

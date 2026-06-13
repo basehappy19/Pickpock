@@ -34,6 +34,14 @@ export interface Order {
   customerName: string;
   items: OrderItem[];
   totalAmount: number;
+  originalAmount?: number;
+  discounts?: {
+    tier: number;
+    bulk: number;
+    coupon: number;
+    couponCode?: string | null;
+    total: number;
+  };
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
   createdAt: string;
   paymentStatus: 'paid' | 'unpaid';
@@ -45,6 +53,17 @@ export interface OrderItem {
   productName: string;
   quantity: number;
   price: number;
+}
+
+export interface Store {
+  store_id: string;
+  name: string;
+  owner_id: string;
+  description: string;
+  status: string;
+  rating: number;
+  joined_at?: string;
+  views?: number;
 }
 
 export interface FilterOptions {

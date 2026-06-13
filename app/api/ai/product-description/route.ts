@@ -7,12 +7,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
 
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
-const genAI = new GoogleGenAI(apiKey);
-const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+const genAI = new GoogleGenAI({ apiKey });
 
 export async function POST(request: NextRequest) {
+  let productName = '';
   try {
-    const { productName, category, features, imageContext, language = 'both' } = await request.json();
+    const body = await request.json();
+    productName = body.productName;
+    const { category, features, imageContext, language = 'both' } = body;
 
     if (!productName) {
       return NextResponse.json({ error: 'Product name is required' }, { status: 400 });
@@ -33,9 +35,12 @@ Requirements:
 - ${language === 'th' ? 'Respond in Thai only' : language === 'en' ? 'Respond in English only' : 'Provide both Thai and English versions'}
 - Format as JSON with keys: ${language === 'both' ? '"th", "en", "short"' : '"description"'}`;
 
-    const result = await model.generateContent(prompt);
-    const response = result.response;
-    const text = response.text();
+    const result = await genAI.models.generateContent({
+      model: 'gemini-2.0-flash-exp',
+      contents: prompt
+    });
+    
+    const text = result.text || '';
 
     try {
       // Try to parse JSON response

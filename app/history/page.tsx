@@ -159,10 +159,34 @@ export default function HistoryPage() {
               </div>
               
               <div className="flex flex-col md:items-end gap-1">
-                <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Total Investment</p>
+                <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{t.history.totalInvestment}</p>
                 <div className="text-3xl lg:text-4xl font-black text-primary tracking-tighter">
                   {formatCurrency(order.totalAmount)}
                 </div>
+                {order.discounts && order.discounts.total > 0 && (
+                  <div className="flex flex-col items-end mt-2 pt-2 border-t border-primary/10 w-full md:w-64">
+                    <div className="flex justify-between w-full text-[10px] font-bold text-muted-foreground uppercase">
+                      <span>{t.history.subtotal}</span>
+                      <span>{formatCurrency(order.originalAmount || order.totalAmount)}</span>
+                    </div>
+                    {order.discounts.tier > 0 && (
+                      <div className="flex justify-between w-full text-[10px] font-black text-emerald-600 uppercase">
+                        <span>{t.history.vipDiscount}</span>
+                        <span>-{formatCurrency(order.discounts.tier)}</span>
+                      </div>
+                    )}
+                    {order.discounts.coupon > 0 && (
+                      <div className="flex justify-between w-full text-[10px] font-black text-rose-600 uppercase">
+                        <span>Coupon ({order.discounts.couponCode})</span>
+                        <span>-{formatCurrency(order.discounts.coupon)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between w-full text-xs font-black text-primary uppercase mt-1">
+                      <span>{t.history.netPrice}</span>
+                      <span>{formatCurrency(order.totalAmount)}</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -171,11 +195,11 @@ export default function HistoryPage() {
               <table className="w-full text-left border-collapse">
                 <thead className="bg-muted/10">
                   <tr>
-                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Product Details</th>
-                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground hidden sm:table-cell">Price</th>
-                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground hidden sm:table-cell text-center">Qty</th>
-                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">Subtotal</th>
-                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Action</th>
+                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.history.productDetails}</th>
+                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground hidden sm:table-cell">{t.history.price}</th>
+                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground hidden sm:table-cell text-center">{t.history.qty}</th>
+                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">{t.history.subtotal}</th>
+                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.history.action}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-muted/30">

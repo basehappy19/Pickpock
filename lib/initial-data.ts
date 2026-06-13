@@ -32,7 +32,7 @@ export const initialOrders: Order[] = ordersJson.map((o: any) => ({
   customerName: "User " + o.user_id,
   totalAmount: o.total_price,
   status: o.status.toLowerCase() as any,
-  date: o.timestamp,
+  createdAt: o.timestamp,
   paymentStatus: 'paid',
   items: o.items.map((item: any) => ({
     productId: item.product_id,

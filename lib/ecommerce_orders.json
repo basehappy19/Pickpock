@@ -1,844 +1,3440 @@
 [
   {
-    "order_id": "ord-001",
-    "user_id": "u001",
-    "items": [
-      {
-        "product_id": "p-101",
-        "qty": 1
-      }
-    ],
-    "total_price": 2500,
-    "status": "DELIVERED",
-    "timestamp": "2024-11-10T10:00:00Z"
-  },
-  {
-    "order_id": "ord-002",
-    "user_id": "u002",
+    "order_id": "ORD-001",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
     "items": [
       {
         "product_id": "p-102",
-        "qty": 1
-      },
-      {
-        "product_id": "p-111",
-        "qty": 2
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
       }
     ],
-    "total_price": 2300,
-    "status": "SHIPPED",
-    "timestamp": "2025-01-15T09:30:00Z"
+    "original_amount": 24000,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 24000,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-22T23:59:59.000Z"
   },
   {
-    "order_id": "ord-003",
-    "user_id": "u005",
-    "items": [
-      {
-        "product_id": "p-103",
-        "qty": 1
-      }
-    ],
-    "total_price": 4500,
-    "status": "PENDING",
-    "timestamp": "2026-02-09T14:20:00Z"
-  },
-  {
-    "order_id": "ord-004",
+    "order_id": "ORD-002",
     "user_id": "u003",
-    "items": [
-      {
-        "product_id": "p-120",
-        "qty": 5
-      }
-    ],
-    "total_price": 750,
-    "status": "PAID",
-    "timestamp": "2026-02-08T11:00:00Z"
-  },
-  {
-    "order_id": "ord-005",
-    "user_id": "u008",
-    "items": [
-      {
-        "product_id": "p-106",
-        "qty": 1
-      },
-      {
-        "product_id": "p-104",
-        "qty": 1
-      }
-    ],
-    "total_price": 12100,
-    "status": "DELIVERED",
-    "timestamp": "2025-12-20T16:45:00Z"
-  },
-  {
-    "order_id": "ord-006",
-    "user_id": "u011",
-    "items": [
-      {
-        "product_id": "p-145",
-        "qty": 1
-      }
-    ],
-    "total_price": 2500,
-    "status": "CANCELLED",
-    "timestamp": "2025-10-05T08:15:00Z"
-  },
-  {
-    "order_id": "ord-007",
-    "user_id": "u001",
-    "items": [
-      {
-        "product_id": "p-133",
-        "qty": 2
-      }
-    ],
-    "total_price": 300,
-    "status": "DELIVERED",
-    "timestamp": "2025-08-12T13:00:00Z"
-  },
-  {
-    "order_id": "ord-008",
-    "user_id": "u004",
-    "items": [
-      {
-        "product_id": "p-112",
-        "qty": 1
-      }
-    ],
-    "total_price": 990,
-    "status": "SHIPPED",
-    "timestamp": "2026-02-05T10:30:00Z"
-  },
-  {
-    "order_id": "ord-009",
-    "user_id": "u015",
-    "items": [
-      {
-        "product_id": "p-123",
-        "qty": 4
-      }
-    ],
-    "total_price": 480,
-    "status": "DELIVERED",
-    "timestamp": "2025-09-09T19:20:00Z"
-  },
-  {
-    "order_id": "ord-010",
-    "user_id": "u002",
-    "items": [
-      {
-        "product_id": "p-141",
-        "qty": 1
-      },
-      {
-        "product_id": "p-144",
-        "qty": 1
-      }
-    ],
-    "total_price": 980,
-    "status": "PAID",
-    "timestamp": "2026-02-10T09:00:00Z"
-  },
-  {
-    "order_id": "ord-011",
-    "user_id": "u006",
-    "items": [
-      {
-        "product_id": "p-107",
-        "qty": 2
-      }
-    ],
-    "total_price": 1100,
-    "status": "DELIVERED",
-    "timestamp": "2025-07-25T15:10:00Z"
-  },
-  {
-    "order_id": "ord-012",
-    "user_id": "u007",
-    "items": [
-      {
-        "product_id": "p-116",
-        "qty": 1
-      }
-    ],
-    "total_price": 1200,
-    "status": "PENDING",
-    "timestamp": "2026-02-09T20:00:00Z"
-  },
-  {
-    "order_id": "ord-013",
-    "user_id": "u010",
-    "items": [
-      {
-        "product_id": "p-131",
-        "qty": 1
-      },
-      {
-        "product_id": "p-132",
-        "qty": 2
-      }
-    ],
-    "total_price": 2150,
-    "status": "DELIVERED",
-    "timestamp": "2025-06-18T11:45:00Z"
-  },
-  {
-    "order_id": "ord-014",
-    "user_id": "u012",
-    "items": [
-      {
-        "product_id": "p-150",
-        "qty": 1
-      }
-    ],
-    "total_price": 850,
-    "status": "SHIPPED",
-    "timestamp": "2026-02-06T14:00:00Z"
-  },
-  {
-    "order_id": "ord-015",
-    "user_id": "u013",
-    "items": [
-      {
-        "product_id": "p-105",
-        "qty": 1
-      }
-    ],
-    "total_price": 1200,
-    "status": "DELIVERED",
-    "timestamp": "2025-05-30T10:20:00Z"
-  },
-  {
-    "order_id": "ord-016",
-    "user_id": "u009",
-    "items": [
-      {
-        "product_id": "p-121",
-        "qty": 1
-      }
-    ],
-    "total_price": 850,
-    "status": "CANCELLED",
-    "timestamp": "2025-11-11T12:00:00Z"
-  },
-  {
-    "order_id": "ord-017",
-    "user_id": "u001",
-    "items": [
-      {
-        "product_id": "p-111",
-        "qty": 3
-      },
-      {
-        "product_id": "p-112",
-        "qty": 1
-      }
-    ],
-    "total_price": 1740,
-    "status": "DELIVERED",
-    "timestamp": "2025-04-14T09:15:00Z"
-  },
-  {
-    "order_id": "ord-018",
-    "user_id": "u014",
-    "items": [
-      {
-        "product_id": "p-127",
-        "qty": 1
-      }
-    ],
-    "total_price": 990,
-    "status": "PAID",
-    "timestamp": "2026-02-08T16:30:00Z"
-  },
-  {
-    "order_id": "ord-019",
-    "user_id": "u005",
+    "customerName": "Bob Regular",
     "items": [
       {
         "product_id": "p-101",
-        "qty": 2
-      }
-    ],
-    "total_price": 5000,
-    "status": "DELIVERED",
-    "timestamp": "2025-03-22T18:00:00Z"
-  },
-  {
-    "order_id": "ord-020",
-    "user_id": "u003",
-    "items": [
-      {
-        "product_id": "p-142",
-        "qty": 1
+        "productName": "Wireless Headphones",
+        "qty": 2,
+        "price": 2500
       },
       {
-        "product_id": "p-146",
-        "qty": 1
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 2,
+        "price": 2500
       }
     ],
-    "total_price": 480,
-    "status": "SHIPPED",
-    "timestamp": "2026-02-07T13:45:00Z"
-  },
-  {
-    "order_id": "ord-021",
-    "user_id": "u008",
-    "items": [
-      {
-        "product_id": "p-102",
-        "qty": 1
-      }
-    ],
-    "total_price": 1800,
+    "original_amount": 10000,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 10000,
     "status": "DELIVERED",
-    "timestamp": "2025-02-15T11:30:00Z"
+    "timestamp": "2026-02-23T23:59:59.000Z"
   },
   {
-    "order_id": "ord-022",
-    "user_id": "u011",
-    "items": [
-      {
-        "product_id": "p-138",
-        "qty": 2
-      }
-    ],
-    "total_price": 240,
-    "status": "DELIVERED",
-    "timestamp": "2025-01-10T14:10:00Z"
-  },
-  {
-    "order_id": "ord-023",
-    "user_id": "u002",
-    "items": [
-      {
-        "product_id": "p-113",
-        "qty": 1
-      }
-    ],
-    "total_price": 1500,
-    "status": "PENDING",
-    "timestamp": "2026-02-10T08:00:00Z"
-  },
-  {
-    "order_id": "ord-024",
-    "user_id": "u006",
-    "items": [
-      {
-        "product_id": "p-125",
-        "qty": 1
-      }
-    ],
-    "total_price": 550,
-    "status": "DELIVERED",
-    "timestamp": "2024-12-05T17:20:00Z"
-  },
-  {
-    "order_id": "ord-025",
-    "user_id": "u015",
-    "items": [
-      {
-        "product_id": "p-149",
-        "qty": 1
-      }
-    ],
-    "total_price": 400,
-    "status": "SHIPPED",
-    "timestamp": "2026-02-05T09:50:00Z"
-  },
-  {
-    "order_id": "ord-026",
-    "user_id": "u004",
-    "items": [
-      {
-        "product_id": "p-118",
-        "qty": 2
-      }
-    ],
-    "total_price": 1200,
-    "status": "CANCELLED",
-    "timestamp": "2025-09-18T12:15:00Z"
-  },
-  {
-    "order_id": "ord-027",
-    "user_id": "u007",
-    "items": [
-      {
-        "product_id": "p-134",
-        "qty": 1
-      }
-    ],
-    "total_price": 550,
-    "status": "DELIVERED",
-    "timestamp": "2025-08-30T16:00:00Z"
-  },
-  {
-    "order_id": "ord-028",
-    "user_id": "u013",
-    "items": [
-      {
-        "product_id": "p-108",
-        "qty": 1
-      }
-    ],
-    "total_price": 790,
-    "status": "PAID",
-    "timestamp": "2026-02-09T11:25:00Z"
-  },
-  {
-    "order_id": "ord-029",
-    "user_id": "u010",
-    "items": [
-      {
-        "product_id": "p-119",
-        "qty": 1
-      }
-    ],
-    "total_price": 2200,
-    "status": "DELIVERED",
-    "timestamp": "2025-11-25T10:40:00Z"
-  },
-  {
-    "order_id": "ord-030",
-    "user_id": "u001",
-    "items": [
-      {
-        "product_id": "p-143",
-        "qty": 2
-      }
-    ],
-    "total_price": 900,
-    "status": "SHIPPED",
-    "timestamp": "2026-02-06T15:30:00Z"
-  },
-  {
-    "order_id": "ord-031",
-    "user_id": "u012",
-    "items": [
-      {
-        "product_id": "p-122",
-        "qty": 1
-      }
-    ],
-    "total_price": 600,
-    "status": "DELIVERED",
-    "timestamp": "2025-04-05T13:10:00Z"
-  },
-  {
-    "order_id": "ord-032",
-    "user_id": "u009",
-    "items": [
-      {
-        "product_id": "p-115",
-        "qty": 1
-      }
-    ],
-    "total_price": 750,
-    "status": "DELIVERED",
-    "timestamp": "2025-06-22T09:45:00Z"
-  },
-  {
-    "order_id": "ord-033",
-    "user_id": "u005",
-    "items": [
-      {
-        "product_id": "p-137",
-        "qty": 1
-      }
-    ],
-    "total_price": 1800,
-    "status": "PENDING",
-    "timestamp": "2026-02-10T10:15:00Z"
-  },
-  {
-    "order_id": "ord-034",
-    "user_id": "u014",
-    "items": [
-      {
-        "product_id": "p-114",
-        "qty": 1
-      }
-    ],
-    "total_price": 500,
-    "status": "DELIVERED",
-    "timestamp": "2025-12-12T14:50:00Z"
-  },
-  {
-    "order_id": "ord-035",
+    "order_id": "ORD-003",
     "user_id": "u003",
-    "items": [
-      {
-        "product_id": "p-148",
-        "qty": 1
-      }
-    ],
-    "total_price": 1500,
-    "status": "SHIPPED",
-    "timestamp": "2026-02-04T11:20:00Z"
-  },
-  {
-    "order_id": "ord-036",
-    "user_id": "u008",
-    "items": [
-      {
-        "product_id": "p-129",
-        "qty": 3
-      }
-    ],
-    "total_price": 540,
-    "status": "DELIVERED",
-    "timestamp": "2025-03-15T16:00:00Z"
-  },
-  {
-    "order_id": "ord-037",
-    "user_id": "u002",
-    "items": [
-      {
-        "product_id": "p-104",
-        "qty": 1
-      }
-    ],
-    "total_price": 3200,
-    "status": "PAID",
-    "timestamp": "2026-02-08T12:30:00Z"
-  },
-  {
-    "order_id": "ord-038",
-    "user_id": "u011",
-    "items": [
-      {
-        "product_id": "p-130",
-        "qty": 1
-      }
-    ],
-    "total_price": 1200,
-    "status": "DELIVERED",
-    "timestamp": "2025-07-08T09:00:00Z"
-  },
-  {
-    "order_id": "ord-039",
-    "user_id": "u006",
-    "items": [
-      {
-        "product_id": "p-147",
-        "qty": 1
-      }
-    ],
-    "total_price": 1200,
-    "status": "CANCELLED",
-    "timestamp": "2025-10-30T15:40:00Z"
-  },
-  {
-    "order_id": "ord-040",
-    "user_id": "u015",
-    "items": [
-      {
-        "product_id": "p-110",
-        "qty": 1
-      }
-    ],
-    "total_price": 1100,
-    "status": "DELIVERED",
-    "timestamp": "2025-05-18T10:10:00Z"
-  },
-  {
-    "order_id": "ord-041",
-    "user_id": "u004",
-    "items": [
-      {
-        "product_id": "p-124",
-        "qty": 2
-      }
-    ],
-    "total_price": 900,
-    "status": "SHIPPED",
-    "timestamp": "2026-02-07T14:25:00Z"
-  },
-  {
-    "order_id": "ord-042",
-    "user_id": "u001",
-    "items": [
-      {
-        "product_id": "p-136",
-        "qty": 1
-      }
-    ],
-    "total_price": 250,
-    "status": "DELIVERED",
-    "timestamp": "2025-02-28T11:50:00Z"
-  },
-  {
-    "order_id": "ord-043",
-    "user_id": "u013",
-    "items": [
-      {
-        "product_id": "p-117",
-        "qty": 1
-      },
-      {
-        "product_id": "p-120",
-        "qty": 1
-      }
-    ],
-    "total_price": 450,
-    "status": "PENDING",
-    "timestamp": "2026-02-10T11:00:00Z"
-  },
-  {
-    "order_id": "ord-044",
-    "user_id": "u007",
-    "items": [
-      {
-        "product_id": "p-139",
-        "qty": 1
-      }
-    ],
-    "total_price": 850,
-    "status": "DELIVERED",
-    "timestamp": "2025-09-05T13:30:00Z"
-  },
-  {
-    "order_id": "ord-045",
-    "user_id": "u010",
-    "items": [
-      {
-        "product_id": "p-128",
-        "qty": 1
-      }
-    ],
-    "total_price": 750,
-    "status": "PAID",
-    "timestamp": "2026-02-09T10:05:00Z"
-  },
-  {
-    "order_id": "ord-046",
-    "user_id": "u012",
-    "items": [
-      {
-        "product_id": "p-135",
-        "qty": 2
-      }
-    ],
-    "total_price": 2400,
-    "status": "DELIVERED",
-    "timestamp": "2025-06-12T16:15:00Z"
-  },
-  {
-    "order_id": "ord-047",
-    "user_id": "u005",
-    "items": [
-      {
-        "product_id": "p-140",
-        "qty": 1
-      }
-    ],
-    "total_price": 300,
-    "status": "SHIPPED",
-    "timestamp": "2026-02-05T08:45:00Z"
-  },
-  {
-    "order_id": "ord-048",
-    "user_id": "u014",
+    "customerName": "Bob Regular",
     "items": [
       {
         "product_id": "p-109",
-        "qty": 1
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
       }
     ],
-    "total_price": 450,
+    "original_amount": 2500,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 2500,
     "status": "DELIVERED",
-    "timestamp": "2025-11-02T12:00:00Z"
+    "timestamp": "2026-01-05T23:59:59.000Z"
   },
   {
-    "order_id": "ord-049",
-    "user_id": "u009",
+    "order_id": "ORD-004",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
     "items": [
       {
-        "product_id": "p-126",
-        "qty": 2
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 1,
+        "price": 1890
       }
     ],
-    "total_price": 500,
-    "status": "CANCELLED",
-    "timestamp": "2025-04-20T14:40:00Z"
+    "original_amount": 1890,
+    "discounts": {
+      "tier": 189,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 189
+    },
+    "total_price": 1701,
+    "status": "DELIVERED",
+    "timestamp": "2025-07-08T23:59:59.000Z"
   },
   {
-    "order_id": "ord-050",
-    "user_id": "u002",
+    "order_id": "ORD-005",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
     "items": [
       {
-        "product_id": "p-133",
-        "qty": 1
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      }
+    ],
+    "original_amount": 850,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 850,
+    "status": "DELIVERED",
+    "timestamp": "2026-04-18T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-006",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
       },
       {
-        "product_id": "p-138",
-        "qty": 1
-      }
-    ],
-    "total_price": 270,
-    "status": "PENDING",
-    "timestamp": "2026-02-10T12:00:00Z"
-  },
-  {
-    "order_id": "ORD-01547",
-    "user_id": "c1",
-    "items": [
-      {
-        "product_id": "p-102",
-        "qty": 1
-      }
-    ],
-    "total_price": 1800,
-    "status": "DELIVERED",
-    "timestamp": "2026-06-13T04:59:37.879Z"
-  },
-  {
-    "order_id": "ORD-03545",
-    "user_id": "c1",
-    "items": [
-      {
         "product_id": "p-101",
-        "qty": 1
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
       }
     ],
-    "total_price": 2500,
+    "original_amount": 4480,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 4480,
     "status": "DELIVERED",
-    "timestamp": "2026-06-13T06:04:25.048Z"
+    "timestamp": "2026-04-05T23:59:59.000Z"
   },
   {
-    "order_id": "ORD-02440",
-    "user_id": "u009",
+    "order_id": "ORD-007",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
     "items": [
       {
-        "product_id": "p-101",
-        "qty": 1
-      }
-    ],
-    "total_price": 2500,
-    "status": "DELIVERED",
-    "timestamp": "2026-06-13T06:15:39.103Z"
-  },
-  {
-    "order_id": "ORD-07757",
-    "user_id": "u009",
-    "items": [
-      {
-        "product_id": "p-101",
-        "qty": 1
-      }
-    ],
-    "total_price": 2500,
-    "status": "DELIVERED",
-    "timestamp": "2026-06-13T06:16:09.460Z"
-  },
-  {
-    "order_id": "ORD-00340",
-    "user_id": "u009",
-    "items": [
-      {
-        "product_id": "p-101",
-        "qty": 1
-      }
-    ],
-    "total_price": 2500,
-    "status": "DELIVERED",
-    "timestamp": "2026-06-13T06:17:59.980Z"
-  },
-  {
-    "order_id": "ORD-03307",
-    "user_id": "u009",
-    "items": [
-      {
-        "product_id": "p-101",
-        "qty": 1
-      }
-    ],
-    "total_price": 2500,
-    "status": "DELIVERED",
-    "timestamp": "2026-06-13T06:22:18.631Z"
-  },
-  {
-    "order_id": "ORD-03315",
-    "user_id": "u009",
-    "items": [
-      {
-        "product_id": "p-102",
-        "qty": 1
-      }
-    ],
-    "total_price": 1800,
-    "status": "DELIVERED",
-    "timestamp": "2026-06-13T06:32:22.743Z",
-    "reviewed_items": [
-      "p-102"
-    ]
-  },
-  {
-    "order_id": "ORD-04427",
-    "user_id": "u009",
-    "items": [
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 1,
+        "price": 3200
+      },
       {
         "product_id": "p-103",
-        "qty": 1
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 2,
+        "price": 590
       }
     ],
-    "total_price": 4500,
+    "original_amount": 4380,
+    "discounts": {
+      "tier": 438,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 438
+    },
+    "total_price": 3942,
     "status": "DELIVERED",
-    "timestamp": "2026-06-13T06:37:49.830Z",
-    "reviewed_items": [
-      "p-103"
-    ]
+    "timestamp": "2025-12-20T23:59:59.000Z"
   },
   {
-    "order_id": "ORD-02221",
-    "user_id": "u009",
+    "order_id": "ORD-008",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
     "items": [
       {
-        "product_id": "p-102",
-        "qty": 1
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      }
+    ],
+    "original_amount": 3780,
+    "discounts": {
+      "tier": 378,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 378
+    },
+    "total_price": 3402,
+    "status": "DELIVERED",
+    "timestamp": "2026-01-19T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-009",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      },
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 1,
+        "price": 4500
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      }
+    ],
+    "original_amount": 6300,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 6300,
+    "status": "DELIVERED",
+    "timestamp": "2025-10-28T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-010",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      },
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
+      }
+    ],
+    "original_amount": 7180,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 7180,
+    "status": "DELIVERED",
+    "timestamp": "2026-01-14T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-011",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 1,
+        "price": 990
+      },
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      }
+    ],
+    "original_amount": 3490,
+    "discounts": {
+      "tier": 349,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 349
+    },
+    "total_price": 3141,
+    "status": "DELIVERED",
+    "timestamp": "2025-10-01T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-012",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 3870,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 3870,
+    "status": "DELIVERED",
+    "timestamp": "2026-01-06T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-013",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      }
+    ],
+    "original_amount": 2550,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 2550,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-28T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-014",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 1,
+        "price": 4500
+      },
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
       },
       {
         "product_id": "p-106",
-        "qty": 1
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
       }
     ],
-    "total_price": 10700,
-    "status": "PENDING",
-    "timestamp": "2026-06-13T07:27:25.205Z",
-    "reviewed_items": []
+    "original_amount": 13400,
+    "discounts": {
+      "tier": 1340,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 1340
+    },
+    "total_price": 12060,
+    "status": "DELIVERED",
+    "timestamp": "2026-02-19T23:59:59.000Z"
   },
   {
-    "order_id": "ORD-04403",
-    "user_id": "u009",
+    "order_id": "ORD-015",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
     "items": [
       {
-        "product_id": "p-c7cnkhqe1",
-        "qty": 3
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 1,
+        "price": 4500
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 1,
+        "price": 12000
+      },
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
       }
     ],
-    "total_price": 999,
-    "status": "PENDING",
-    "timestamp": "2026-06-13T07:48:59.652Z",
-    "reviewed_items": [
-      "p-c7cnkhqe1"
-    ]
+    "original_amount": 17750,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 17750,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-22T23:59:59.000Z"
   },
   {
-    "order_id": "ORD-05988",
-    "user_id": "u009",
+    "order_id": "ORD-016",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
     "items": [
       {
-        "product_id": "p-euk6sen0n",
-        "qty": 1
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
       }
     ],
-    "total_price": 333,
+    "original_amount": 900,
+    "discounts": {
+      "tier": 90,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 90
+    },
+    "total_price": 810,
+    "status": "DELIVERED",
+    "timestamp": "2026-02-13T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-017",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 1,
+        "price": 990
+      }
+    ],
+    "original_amount": 4670,
+    "discounts": {
+      "tier": 467,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 467
+    },
+    "total_price": 4203,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-03T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-018",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 1,
+        "price": 1890
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      },
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      }
+    ],
+    "original_amount": 6920,
+    "discounts": {
+      "tier": 692,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 692
+    },
+    "total_price": 6228,
+    "status": "DELIVERED",
+    "timestamp": "2026-04-27T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-019",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-25T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-020",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      }
+    ],
+    "original_amount": 11550,
+    "discounts": {
+      "tier": 1155,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 1155
+    },
+    "total_price": 10395,
+    "status": "DELIVERED",
+    "timestamp": "2026-01-16T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-021",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      },
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      }
+    ],
+    "original_amount": 2150,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 2150,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-30T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-022",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 1,
+        "price": 4500
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 1,
+        "price": 1890
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      }
+    ],
+    "original_amount": 8090,
+    "discounts": {
+      "tier": 809,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 809
+    },
+    "total_price": 7281,
+    "status": "DELIVERED",
+    "timestamp": "2026-05-07T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-023",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      }
+    ],
+    "original_amount": 9000,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 9000,
+    "status": "DELIVERED",
+    "timestamp": "2026-04-22T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-024",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      },
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
+      },
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 1,
+        "price": 4500
+      }
+    ],
+    "original_amount": 8980,
+    "discounts": {
+      "tier": 898,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 898
+    },
+    "total_price": 8082,
+    "status": "DELIVERED",
+    "timestamp": "2026-02-10T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-025",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 2,
+        "price": 2500
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      }
+    ],
+    "original_amount": 6700,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 6700,
+    "status": "DELIVERED",
+    "timestamp": "2026-04-14T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-026",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
+      }
+    ],
+    "original_amount": 2500,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 2500,
+    "status": "DELIVERED",
+    "timestamp": "2025-06-27T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-027",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      }
+    ],
+    "original_amount": 9000,
+    "discounts": {
+      "tier": 900,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 900
+    },
+    "total_price": 8100,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-05T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-028",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 1,
+        "price": 1890
+      },
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      }
+    ],
+    "original_amount": 11740,
+    "discounts": {
+      "tier": 1174,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 1174
+    },
+    "total_price": 10566,
+    "status": "DELIVERED",
+    "timestamp": "2025-06-23T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-029",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      },
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 2,
+        "price": 590
+      }
+    ],
+    "original_amount": 2030,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 2030,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-24T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-030",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 1,
+        "price": 3200
+      }
+    ],
+    "original_amount": 3200,
+    "discounts": {
+      "tier": 320,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 320
+    },
+    "total_price": 2880,
+    "status": "DELIVERED",
+    "timestamp": "2026-04-20T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-031",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
+      }
+    ],
+    "original_amount": 6400,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 6400,
+    "status": "DELIVERED",
+    "timestamp": "2026-02-03T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-032",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      }
+    ],
+    "original_amount": 1980,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 1980,
+    "status": "DELIVERED",
+    "timestamp": "2025-06-25T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-033",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      }
+    ],
+    "original_amount": 7180,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 7180,
+    "status": "DELIVERED",
+    "timestamp": "2025-07-08T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-034",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 1,
+        "price": 590
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      }
+    ],
+    "original_amount": 2570,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 2570,
+    "status": "DELIVERED",
+    "timestamp": "2025-10-02T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-035",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 1,
+        "price": 990
+      }
+    ],
+    "original_amount": 990,
+    "discounts": {
+      "tier": 99,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 99
+    },
+    "total_price": 891,
+    "status": "DELIVERED",
+    "timestamp": "2026-02-13T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-036",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 1,
+        "price": 590
+      }
+    ],
+    "original_amount": 590,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 590,
+    "status": "DELIVERED",
+    "timestamp": "2026-01-10T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-037",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 1,
+        "price": 3200
+      }
+    ],
+    "original_amount": 3200,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 3200,
+    "status": "DELIVERED",
+    "timestamp": "2026-02-19T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-038",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      }
+    ],
+    "original_amount": 1250,
+    "discounts": {
+      "tier": 125,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 125
+    },
+    "total_price": 1125,
+    "status": "DELIVERED",
+    "timestamp": "2025-08-06T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-039",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      }
+    ],
+    "original_amount": 5480,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 5480,
+    "status": "DELIVERED",
+    "timestamp": "2025-08-16T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-040",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 1,
+        "price": 12000
+      }
+    ],
+    "original_amount": 14500,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 14500,
+    "status": "DELIVERED",
+    "timestamp": "2025-12-07T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-041",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      },
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 1,
+        "price": 990
+      }
+    ],
+    "original_amount": 10890,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 10890,
+    "status": "PROCESSING",
+    "timestamp": "2026-06-10T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-042",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 1,
+        "price": 590
+      }
+    ],
+    "original_amount": 590,
+    "discounts": {
+      "tier": 59,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 59
+    },
+    "total_price": 531,
+    "status": "DELIVERED",
+    "timestamp": "2026-03-30T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-043",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      }
+    ],
+    "original_amount": 28680,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 28680,
+    "status": "DELIVERED",
+    "timestamp": "2026-01-31T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-044",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      },
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      }
+    ],
+    "original_amount": 27350,
+    "discounts": {
+      "tier": 2735,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 2735
+    },
+    "total_price": 24615,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-03T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-045",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 26790,
+    "discounts": {
+      "tier": 2679,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 2679
+    },
+    "total_price": 24111,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-02T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-046",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      }
+    ],
+    "original_amount": 3680,
+    "discounts": {
+      "tier": 368,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 368
+    },
+    "total_price": 3312,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-09T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-047",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
+      }
+    ],
+    "original_amount": 6400,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 6400,
+    "status": "DELIVERED",
+    "timestamp": "2026-03-20T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-048",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      }
+    ],
+    "original_amount": 13680,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 13680,
+    "status": "DELIVERED",
+    "timestamp": "2025-10-01T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-049",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      },
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      },
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 1,
+        "price": 590
+      }
+    ],
+    "original_amount": 25840,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 25840,
     "status": "SHIPPED",
-    "timestamp": "2026-06-13T08:28:51.496Z",
-    "reviewed_items": [
-      "p-euk6sen0n"
-    ]
+    "timestamp": "2026-06-06T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-050",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
+      }
+    ],
+    "original_amount": 2500,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 2500,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-09T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-051",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 1,
+        "price": 12000
+      }
+    ],
+    "original_amount": 38500,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 38500,
+    "status": "DELIVERED",
+    "timestamp": "2026-02-02T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-052",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
+      }
+    ],
+    "original_amount": 2500,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 2500,
+    "status": "DELIVERED",
+    "timestamp": "2025-07-09T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-053",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "tier": 189,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 189
+    },
+    "total_price": 1701,
+    "status": "DELIVERED",
+    "timestamp": "2026-04-16T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-054",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      }
+    ],
+    "original_amount": 1250,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 1250,
+    "status": "DELIVERED",
+    "timestamp": "2025-12-25T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-055",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 1,
+        "price": 450
+      }
+    ],
+    "original_amount": 1300,
+    "discounts": {
+      "tier": 130,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 130
+    },
+    "total_price": 1170,
+    "status": "DELIVERED",
+    "timestamp": "2025-08-20T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-056",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      },
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 2,
+        "price": 590
+      }
+    ],
+    "original_amount": 6660,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 6660,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-30T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-057",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 1,
+        "price": 990
+      }
+    ],
+    "original_amount": 3820,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 3820,
+    "status": "DELIVERED",
+    "timestamp": "2026-03-15T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-058",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      }
+    ],
+    "original_amount": 24000,
+    "discounts": {
+      "tier": 2400,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 2400
+    },
+    "total_price": 21600,
+    "status": "DELIVERED",
+    "timestamp": "2025-10-03T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-059",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
+      },
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 2,
+        "price": 590
+      }
+    ],
+    "original_amount": 7580,
+    "discounts": {
+      "tier": 758,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 758
+    },
+    "total_price": 6822,
+    "status": "DELIVERED",
+    "timestamp": "2025-08-07T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-060",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      }
+    ],
+    "original_amount": 1980,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 1980,
+    "status": "DELIVERED",
+    "timestamp": "2025-12-27T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-061",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
+      },
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 1,
+        "price": 450
+      }
+    ],
+    "original_amount": 4200,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 4200,
+    "status": "DELIVERED",
+    "timestamp": "2026-04-14T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-062",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
+      }
+    ],
+    "original_amount": 2500,
+    "discounts": {
+      "tier": 250,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 250
+    },
+    "total_price": 2250,
+    "status": "DELIVERED",
+    "timestamp": "2025-10-02T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-063",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      }
+    ],
+    "original_amount": 850,
+    "discounts": {
+      "tier": 85,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 85
+    },
+    "total_price": 765,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-30T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-064",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 1,
+        "price": 3200
+      }
+    ],
+    "original_amount": 3200,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 3200,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-23T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-065",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
+      }
+    ],
+    "original_amount": 2500,
+    "discounts": {
+      "tier": 250,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 250
+    },
+    "total_price": 2250,
+    "status": "DELIVERED",
+    "timestamp": "2025-07-16T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-066",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      }
+    ],
+    "original_amount": 1250,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 1250,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-02T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-067",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      },
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
+      }
+    ],
+    "original_amount": 8380,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 8380,
+    "status": "DELIVERED",
+    "timestamp": "2026-03-17T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-068",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      }
+    ],
+    "original_amount": 2500,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 2500,
+    "status": "DELIVERED",
+    "timestamp": "2025-12-24T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-069",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 1,
+        "price": 3200
+      }
+    ],
+    "original_amount": 3200,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 3200,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-18T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-070",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      }
+    ],
+    "original_amount": 24000,
+    "discounts": {
+      "tier": 2400,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 2400
+    },
+    "total_price": 21600,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-18T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-071",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 1,
+        "price": 450
+      }
+    ],
+    "original_amount": 4230,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 4230,
+    "status": "DELIVERED",
+    "timestamp": "2025-12-17T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-072",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      },
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
+      }
+    ],
+    "original_amount": 9350,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 9350,
+    "status": "DELIVERED",
+    "timestamp": "2026-03-19T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-073",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
+      }
+    ],
+    "original_amount": 6400,
+    "discounts": {
+      "tier": 640,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 640
+    },
+    "total_price": 5760,
+    "status": "DELIVERED",
+    "timestamp": "2026-04-19T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-074",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      },
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 1,
+        "price": 12000
+      }
+    ],
+    "original_amount": 22980,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 22980,
+    "status": "DELIVERED",
+    "timestamp": "2026-02-24T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-075",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      },
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 2,
+        "price": 590
+      }
+    ],
+    "original_amount": 4580,
+    "discounts": {
+      "tier": 458,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 458
+    },
+    "total_price": 4122,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-23T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-076",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      }
+    ],
+    "original_amount": 1250,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 1250,
+    "status": "DELIVERED",
+    "timestamp": "2025-07-16T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-077",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      },
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      }
+    ],
+    "original_amount": 12780,
+    "discounts": {
+      "tier": 1278,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 1278
+    },
+    "total_price": 11502,
+    "status": "DELIVERED",
+    "timestamp": "2025-08-25T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-078",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      }
+    ],
+    "original_amount": 2500,
+    "discounts": {
+      "tier": 250,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 250
+    },
+    "total_price": 2250,
+    "status": "DELIVERED",
+    "timestamp": "2026-01-24T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-079",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 1,
+        "price": 990
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "tier": 189,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 189
+    },
+    "total_price": 1701,
+    "status": "DELIVERED",
+    "timestamp": "2026-03-29T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-080",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      },
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
+      }
+    ],
+    "original_amount": 10180,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 10180,
+    "status": "DELIVERED",
+    "timestamp": "2026-03-27T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-081",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 1,
+        "price": 3200
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      }
+    ],
+    "original_amount": 4900,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 4900,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-25T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-082",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      },
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 2,
+        "price": 2500
+      }
+    ],
+    "original_amount": 6980,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 6980,
+    "status": "DELIVERED",
+    "timestamp": "2026-05-04T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-083",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      }
+    ],
+    "original_amount": 2500,
+    "discounts": {
+      "tier": 250,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 250
+    },
+    "total_price": 2250,
+    "status": "DELIVERED",
+    "timestamp": "2025-07-12T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-084",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 1,
+        "price": 990
+      }
+    ],
+    "original_amount": 990,
+    "discounts": {
+      "tier": 99,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 99
+    },
+    "total_price": 891,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-30T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-085",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 1,
+        "price": 450
+      }
+    ],
+    "original_amount": 450,
+    "discounts": {
+      "tier": 45,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 45
+    },
+    "total_price": 405,
+    "status": "DELIVERED",
+    "timestamp": "2026-05-08T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-086",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 1,
+        "price": 12000
+      },
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 1,
+        "price": 590
+      }
+    ],
+    "original_amount": 16370,
+    "discounts": {
+      "tier": 1637,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 1637
+    },
+    "total_price": 14733,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-03T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-087",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      },
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
+      },
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 2,
+        "price": 2500
+      }
+    ],
+    "original_amount": 13380,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 13380,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-15T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-088",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      },
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      }
+    ],
+    "original_amount": 7130,
+    "discounts": {
+      "tier": 713,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 713
+    },
+    "total_price": 6417,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-13T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-089",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 2,
+        "price": 590
+      }
+    ],
+    "original_amount": 1180,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 1180,
+    "status": "PROCESSING",
+    "timestamp": "2026-06-09T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-090",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      }
+    ],
+    "original_amount": 3780,
+    "discounts": {
+      "tier": 378,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 378
+    },
+    "total_price": 3402,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-16T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-091",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      },
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 1,
+        "price": 450
+      }
+    ],
+    "original_amount": 6730,
+    "discounts": {
+      "tier": 673,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 673
+    },
+    "total_price": 6057,
+    "status": "DELIVERED",
+    "timestamp": "2026-05-16T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-092",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 1,
+        "price": 4500
+      },
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      }
+    ],
+    "original_amount": 5750,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 5750,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-20T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-093",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      },
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 1,
+        "price": 12000
+      }
+    ],
+    "original_amount": 15350,
+    "discounts": {
+      "tier": 1535,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 1535
+    },
+    "total_price": 13815,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-15T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-094",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      },
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      }
+    ],
+    "original_amount": 6980,
+    "discounts": {
+      "tier": 698,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 698
+    },
+    "total_price": 6282,
+    "status": "DELIVERED",
+    "timestamp": "2025-07-22T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-095",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 2,
+        "price": 2500
+      }
+    ],
+    "original_amount": 5000,
+    "discounts": {
+      "tier": 500,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 500
+    },
+    "total_price": 4500,
+    "status": "DELIVERED",
+    "timestamp": "2025-10-28T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-096",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      }
+    ],
+    "original_amount": 1250,
+    "discounts": {
+      "tier": 125,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 125
+    },
+    "total_price": 1125,
+    "status": "DELIVERED",
+    "timestamp": "2025-10-22T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-097",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 1,
+        "price": 12000
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      }
+    ],
+    "original_amount": 14600,
+    "discounts": {
+      "tier": 1460,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 1460
+    },
+    "total_price": 13140,
+    "status": "DELIVERED",
+    "timestamp": "2026-01-27T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-098",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      }
+    ],
+    "original_amount": 6460,
+    "discounts": {
+      "tier": 646,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 646
+    },
+    "total_price": 5814,
+    "status": "DELIVERED",
+    "timestamp": "2026-01-08T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-099",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 2,
+        "price": 2500
+      }
+    ],
+    "original_amount": 5000,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 5000,
+    "status": "DELIVERED",
+    "timestamp": "2025-12-12T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-100",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 2,
+        "price": 2500
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 1,
+        "price": 450
+      }
+    ],
+    "original_amount": 5450,
+    "discounts": {
+      "tier": 545,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 545
+    },
+    "total_price": 4905,
+    "status": "DELIVERED",
+    "timestamp": "2026-01-17T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-101",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 1,
+        "price": 12000
+      }
+    ],
+    "original_amount": 12000,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 12000,
+    "status": "DELIVERED",
+    "timestamp": "2025-07-15T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-102",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      },
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      }
+    ],
+    "original_amount": 18000,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 18000,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-21T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-103",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 1,
+        "price": 4500
+      },
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      }
+    ],
+    "original_amount": 9530,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 9530,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-07T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-104",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 2,
+        "price": 450
+      },
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 1,
+        "price": 2500
+      },
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
+      }
+    ],
+    "original_amount": 5900,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 5900,
+    "status": "DELIVERED",
+    "timestamp": "2026-02-03T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-105",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 2,
+        "price": 590
+      }
+    ],
+    "original_amount": 1180,
+    "discounts": {
+      "tier": 118,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 118
+    },
+    "total_price": 1062,
+    "status": "DELIVERED",
+    "timestamp": "2025-11-03T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-106",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 1,
+        "price": 4500
+      }
+    ],
+    "original_amount": 4500,
+    "discounts": {
+      "tier": 450,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 450
+    },
+    "total_price": 4050,
+    "status": "DELIVERED",
+    "timestamp": "2026-02-15T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-107",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      }
+    ],
+    "original_amount": 33000,
+    "discounts": {
+      "tier": 3300,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 3300
+    },
+    "total_price": 29700,
+    "status": "DELIVERED",
+    "timestamp": "2026-03-20T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-108",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
+      }
+    ],
+    "original_amount": 6400,
+    "discounts": {
+      "tier": 640,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 640
+    },
+    "total_price": 5760,
+    "status": "DELIVERED",
+    "timestamp": "2025-08-16T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-109",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 1,
+        "price": 12000
+      },
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 1,
+        "price": 590
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 1,
+        "price": 450
+      }
+    ],
+    "original_amount": 13040,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 13040,
+    "status": "DELIVERED",
+    "timestamp": "2025-07-21T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-110",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      },
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 2,
+        "price": 2500
+      },
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
+      }
+    ],
+    "original_amount": 12250,
+    "discounts": {
+      "tier": 1225,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 1225
+    },
+    "total_price": 11025,
+    "status": "DELIVERED",
+    "timestamp": "2026-03-02T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-111",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 1,
+        "price": 4500
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      },
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 1,
+        "price": 590
+      }
+    ],
+    "original_amount": 7070,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 7070,
+    "status": "DELIVERED",
+    "timestamp": "2025-10-24T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-112",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 1,
+        "price": 3200
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 29090,
+    "discounts": {
+      "tier": 2909,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 2909
+    },
+    "total_price": 26181,
+    "status": "DELIVERED",
+    "timestamp": "2025-08-11T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-113",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 2,
+        "price": 1250
+      }
+    ],
+    "original_amount": 2500,
+    "discounts": {
+      "tier": 250,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 250
+    },
+    "total_price": 2250,
+    "status": "DELIVERED",
+    "timestamp": "2026-05-23T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-114",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-109",
+        "productName": "Coffee Grinder",
+        "qty": 1,
+        "price": 1250
+      },
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      }
+    ],
+    "original_amount": 25250,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 25250,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-07T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-115",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 2,
+        "price": 2500
+      },
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 2,
+        "price": 1890
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 1,
+        "price": 850
+      }
+    ],
+    "original_amount": 9630,
+    "discounts": {
+      "tier": 963,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 963
+    },
+    "total_price": 8667,
+    "status": "DELIVERED",
+    "timestamp": "2025-06-17T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-116",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-101",
+        "productName": "Wireless Headphones",
+        "qty": 2,
+        "price": 2500
+      },
+      {
+        "product_id": "p-105",
+        "productName": "Yoga Mat Non-Slip",
+        "qty": 2,
+        "price": 850
+      },
+      {
+        "product_id": "p-106",
+        "productName": "Mechanical Keyboard",
+        "qty": 2,
+        "price": 3200
+      }
+    ],
+    "original_amount": 13100,
+    "discounts": {
+      "tier": 1310,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 1310
+    },
+    "total_price": 11790,
+    "status": "DELIVERED",
+    "timestamp": "2025-09-20T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-117",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "product_id": "p-108",
+        "productName": "Denim Jacket",
+        "qty": 1,
+        "price": 1890
+      },
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 2,
+        "price": 590
+      },
+      {
+        "product_id": "p-107",
+        "productName": "Water Bottle 1L",
+        "qty": 1,
+        "price": 450
+      }
+    ],
+    "original_amount": 3520,
+    "discounts": {
+      "tier": 0,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 0
+    },
+    "total_price": 3520,
+    "status": "DELIVERED",
+    "timestamp": "2025-10-03T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-118",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      },
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 1,
+        "price": 4500
+      }
+    ],
+    "original_amount": 28500,
+    "discounts": {
+      "tier": 2850,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 2850
+    },
+    "total_price": 25650,
+    "status": "DELIVERED",
+    "timestamp": "2025-06-23T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-119",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-102",
+        "productName": "Smart Watch Series 7",
+        "qty": 2,
+        "price": 12000
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 1,
+        "price": 990
+      }
+    ],
+    "original_amount": 24990,
+    "discounts": {
+      "tier": 2499,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 2499
+    },
+    "total_price": 22491,
+    "status": "DELIVERED",
+    "timestamp": "2025-07-13T23:59:59.000Z"
+  },
+  {
+    "order_id": "ORD-120",
+    "user_id": "u002",
+    "customerName": "Somchai VIP",
+    "items": [
+      {
+        "product_id": "p-103",
+        "productName": "Premium Cotton T-Shirt",
+        "qty": 1,
+        "price": 590
+      },
+      {
+        "product_id": "p-104",
+        "productName": "Ergonomic Desk Chair",
+        "qty": 2,
+        "price": 4500
+      },
+      {
+        "product_id": "p-110",
+        "productName": "Portable Power Bank",
+        "qty": 2,
+        "price": 990
+      }
+    ],
+    "original_amount": 11570,
+    "discounts": {
+      "tier": 1157,
+      "bulk": 0,
+      "coupon": 0,
+      "total": 1157
+    },
+    "total_price": 10413,
+    "status": "DELIVERED",
+    "timestamp": "2025-10-06T23:59:59.000Z"
   }
 ]
