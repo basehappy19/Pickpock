@@ -84,7 +84,7 @@ Provide recommendations in JSON format:
 }`;
 
     const result = await genAI.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-3.5-flash',
       contents: prompt
     });
     

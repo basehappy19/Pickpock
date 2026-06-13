@@ -21,12 +21,17 @@ import {
   Edit,
   Trash2,
   Settings,
-  Sparkles
+  Sparkles,
+  Zap,
+  Tag,
+  AlertTriangle,
+  Lightbulb
 } from "lucide-react";
 import { cn, formatCurrency, getImgSrc } from "@/lib/utils";
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { uploadProductImage } from "@/lib/supabase";
+import { toast } from "sonner";
 
 export default function PartnerDashboardPage() {
   const { role, user, updateUserStore } = useRole();
@@ -43,7 +48,6 @@ export default function PartnerDashboardPage() {
   const [showEditStoreModal, setShowEditStoreModal] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isGeneratingDesc, setIsGeneratingDesc] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<any>(null);
   
   const [newProduct, setNewProduct] = useState({
     id: "",
@@ -73,55 +77,6 @@ export default function PartnerDashboardPage() {
       });
     }
   }, [myStore]);
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setIsUploading(true);
-    const url = await uploadProductImage(file);
-    if (url) {
-      setNewProduct(prev => ({ ...prev, image: url }));
-    } else {
-      alert("Failed to upload image. Check your Supabase configuration.");
-    }
-    setIsUploading(false);
-  };
-
-  const generateAIDescription = async () => {
-    if (!newProduct.name) {
-      alert("กรุณาใส่ชื่อสินค้าก่อน / Please enter product name first");
-      return;
-    }
-
-    setIsGeneratingDesc(true);
-    try {
-      const res = await fetch("/api/ai/product-description", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productName: newProduct.name,
-          category: newProduct.category,
-          language: "both"
-        })
-      });
-
-      const data = await res.json();
-      if (data.success && data.description) {
-        const desc = data.description;
-        // Prefer Thai description
-        setNewProduct(prev => ({
-          ...prev,
-          description: desc.th || desc.en || desc.description || desc
-        }));
-      }
-    } catch (e) {
-      console.error("AI generation failed", e);
-      alert("Failed to generate description. Please try again.");
-    } finally {
-      setIsGeneratingDesc(false);
-    }
-  };
 
   const fetchAllData = async () => {
     try {
@@ -155,13 +110,62 @@ export default function PartnerDashboardPage() {
     fetchAllData();
   }, []);
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const url = await uploadProductImage(file);
+    if (url) {
+      setNewProduct(prev => ({ ...prev, image: url }));
+      toast.success("อัปโหลดรูปภาพสำเร็จ");
+    } else {
+      toast.error("อัปโหลดรูปภาพล้มเหลว");
+    }
+    setIsUploading(false);
+  };
+
+  const generateAIDescription = async () => {
+    if (!newProduct.name) {
+      toast.error("กรุณาใส่ชื่อสินค้าก่อน / Please enter product name first");
+      return;
+    }
+
+    setIsGeneratingDesc(true);
+    try {
+      const res = await fetch("/api/ai/product-description", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productName: newProduct.name,
+          category: newProduct.category,
+          language: "both"
+        })
+      });
+
+      const data = await res.json();
+      if (data.success && data.description) {
+        const desc = data.description;
+        setNewProduct(prev => ({
+          ...prev,
+          description: desc.th || desc.en || desc.description || desc
+        }));
+        toast.success("AI สร้างคำบรรยายสินค้าให้คุณแล้ว!");
+      }
+    } catch (e) {
+      toast.error("AI ไม่สามารถเขียนคำบรรยายได้ในขณะนี้");
+    } finally {
+      setIsGeneratingDesc(false);
+    }
+  };
+
   const handleAddOrUpdateProduct = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!myStore) return;
 
     const isEditing = !!newProduct.id;
     const method = isEditing ? "PUT" : "POST";
-    const productId = isEditing ? newProduct.id : "p-" + Math.random().toString(36).substr(2, 9);
+    const productId = isEditing ? newProduct.id : "p-" + Math.random().toString(36).substring(2, 11);
 
     try {
       const res = await fetch("/api/products", {
@@ -182,20 +186,24 @@ export default function PartnerDashboardPage() {
       if (res.ok) {
         setShowAddModal(false);
         setNewProduct({ id: "", name: "", price: 0, category: "Electronics", stock: 0, image: "", description: "" });
-        fetchAllData(); // Refresh
+        fetchAllData();
+        toast.success(isEditing ? "แก้ไขสินค้าเรียบร้อยแล้ว" : "เพิ่มสินค้าใหม่สำเร็จแล้ว");
       }
     } catch (e) {
-      console.error("Failed to save product", e);
+      toast.error("เกิดข้อผิดพลาดในการบันทึกสินค้า");
     }
   };
 
   const handleDeleteProduct = async (productId: string) => {
-    if (!confirm("Are you sure you want to delete this product?")) return;
+    if (!confirm("คุณแน่ใจหรือไม่ว่าต้องการลบสินค้านี้?")) return;
     try {
-      await fetch(`/api/products?id=${productId}`, { method: "DELETE" });
-      fetchAllData();
+      const res = await fetch(`/api/products?id=${productId}`, { method: "DELETE" });
+      if (res.ok) {
+        fetchAllData();
+        toast.success("ลบสินค้าเรียบร้อยแล้ว");
+      }
     } catch (e) {
-      console.error("Failed to delete product", e);
+      toast.error("ลบสินค้าไม่สำเร็จ");
     }
   };
 
@@ -216,9 +224,10 @@ export default function PartnerDashboardPage() {
       if (res.ok) {
         setShowEditStoreModal(false);
         fetchAllData();
+        toast.success("อัปเดตข้อมูลร้านค้าเรียบร้อยแล้ว");
       }
     } catch (e) {
-      console.error("Failed to update store", e);
+      toast.error("อัปเดตร้านค้าไม่สำเร็จ");
     }
   };
 
@@ -254,16 +263,67 @@ export default function PartnerDashboardPage() {
 
   const stats = useMemo(() => {
     if (dashboardData.loading || !myStore) return [];
-
     const myRevenue = myOrders.reduce((sum: number, o: any) => sum + (o.total_price || 0), 0);
-
     return [
       { label: t.dashboard.stats.revenue, value: formatCurrency(myRevenue), change: "+10.2%", trend: "up", icon: TrendingUp, color: "text-emerald-500" },
       { label: t.dashboard.stats.users, value: (myStore.views || 0).toLocaleString(), change: "Real-time", trend: "up", icon: Users, color: "text-blue-500" },
-      { label: t.dashboard.stats.products, value: myProducts.length.toLocaleString(), change: "0%", trend: "neutral", icon: Package, color: "text-amber-500" },
-      { label: t.dashboard.recentOrders, value: myOrders.length.toLocaleString(), change: "+5.0%", trend: "up", icon: ShoppingBag, color: "text-purple-500" },
+      { label: t.dashboard.stats.products, value: myProducts.length.toLocaleString(), change: "รายการ", trend: "neutral", icon: Package, color: "text-amber-500" },
+      { label: t.dashboard.recentOrders, value: myOrders.length.toLocaleString(), change: "ออเดอร์", trend: "up", icon: ShoppingBag, color: "text-purple-500" },
     ];
   }, [dashboardData.loading, myStore, t, myOrders, myProducts]);
+
+  // SMART ADVICE LOGIC
+  const smartAdvice = useMemo(() => {
+    if (dashboardData.loading || !myStore) return [];
+    const advice = [];
+    
+    // 1. Initial Advice for new stores
+    if (myProducts.length === 0) {
+      advice.push({
+        title: "เริ่มการขายก้าวแรก",
+        desc: "เพิ่มสินค้าชิ้นแรกของคุณวันนี้! แนะนำเป็น Gadget ยอดนิยม เช่น หูฟังไร้สาย หรือ Smart Watch เพื่อดึงดูดลูกค้า",
+        icon: Zap,
+        color: "bg-amber-500"
+      });
+    }
+
+    // 2. Inventory Alert
+    const lowStock = myProducts.filter((p: any) => p.stock < 5 && p.stock > 0);
+    if (lowStock.length > 0) {
+      advice.push({
+        title: "สต็อกใกล้หมด!",
+        desc: `สินค้า ${lowStock.length} รายการของคุณกำลังจะหมด (เหลือต่ำกว่า 5 ชิ้น) เติมสต็อกตอนนี้เพื่อยอดขายที่ไม่สะดุด`,
+        icon: AlertTriangle,
+        color: "bg-rose-500"
+      });
+    }
+
+    // 3. Pricing Strategy
+    const flatPricing = myProducts.filter((p: any) => p.price % 100 === 0);
+    if (flatPricing.length > 0) {
+      advice.push({
+        title: "จิตวิทยาการตั้งราคา",
+        desc: "ลองปรับราคาให้ลงท้ายด้วยเลข 9 (เช่น ฿990 แทน ฿1,000) ผลวิจัยชี้ว่าช่วยเพิ่มอัตราการสั่งซื้อได้ถึง 15%",
+        icon: Tag,
+        color: "bg-blue-500"
+      });
+    }
+
+    // 4. Missing Categories
+    const categories = new Set(myProducts.map((p: any) => p.category));
+    if (!categories.has("Accessories")) {
+      advice.push({
+        title: "ขยายหมวดหมู่สินค้า",
+        desc: "ลูกค้ามักมองหาอุปกรณ์เสริมคู่กับสินค้าหลัก ลองเพิ่มสินค้าหมวด Accessories เพื่อเพิ่มยอดขายต่อบิล (AOV)",
+        icon: Lightbulb,
+        color: "bg-emerald-500"
+      });
+    }
+
+    return advice.length > 0 ? advice : [
+      { title: "ร้านค้าของคุณดูดีมาก!", desc: "รักษาระดับการตอบแชทและส่งของให้ไว เพื่อคว้าดาว 5 ดวงจาก AI ของเรา", icon: Sparkles, color: "bg-purple-500" }
+    ];
+  }, [myProducts, dashboardData.loading, myStore]);
 
   if (!user || (!myStore && !dashboardData.loading)) {
     return (
@@ -292,7 +352,7 @@ export default function PartnerDashboardPage() {
   }
 
   return (
-    <div className="p-4 lg:p-8 space-y-8 max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000">
+    <div className="p-4 lg:p-8 space-y-8 max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 pb-20">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-4xl font-black tracking-tighter">{t.dashboard.sellerTitle}</h1>
@@ -312,7 +372,7 @@ export default function PartnerDashboardPage() {
                setNewProduct({ id: "", name: "", price: 0, category: "Electronics", stock: 0, image: "", description: "" });
                setShowAddModal(true);
              }}
-             className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-[10px] uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-primary/20"
+             className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-[10px] uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-primary/20 cursor-pointer"
            >
              <Plus className="h-3.5 w-3.5" /> {t.dashboard.addProduct}
            </button>
@@ -321,7 +381,7 @@ export default function PartnerDashboardPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-[2rem] p-6 shadow-xl shadow-primary/5 space-y-4">
+          <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-4xl p-6 shadow-xl shadow-primary/5 space-y-4">
             <div className="flex justify-between items-start">
               <div className={cn("p-3 rounded-2xl bg-muted", stat.color)}>
                 <stat.icon className="h-6 w-6" />
@@ -330,6 +390,7 @@ export default function PartnerDashboardPage() {
             <div>
               <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{stat.label}</p>
               <h3 className="text-3xl font-black tracking-tighter">{stat.value}</h3>
+              <p className="text-[10px] font-black text-emerald-500">{stat.change}</p>
             </div>
           </div>
         ))}
@@ -352,12 +413,12 @@ export default function PartnerDashboardPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y">
-                  {myProducts.map((product: any) => (
+                  {myProducts.length > 0 ? myProducts.map((product: any) => (
                     <tr key={product.product_id || product.id} className="hover:bg-muted/30 transition-colors group">
                       <td className="px-8 py-6">
                         <div className="flex items-center gap-3">
                           <div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden">
-                            <img src={getImgSrc(product.image)} className="w-full h-full object-cover" />
+                            <img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" />
                           </div>
                           <div>
                             <p className="font-black text-sm max-w-[150px] truncate">{product.name}</p>
@@ -373,20 +434,24 @@ export default function PartnerDashboardPage() {
                         <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                           <button 
                             onClick={() => openEditModal(product)}
-                            className="p-2 rounded-lg hover:bg-blue-50 text-blue-500 transition-colors"
+                            className="p-2 rounded-lg hover:bg-blue-50 text-blue-500 transition-colors cursor-pointer"
                           >
                             <Edit className="h-4 w-4" />
                           </button>
                           <button 
                             onClick={() => handleDeleteProduct(product.product_id || product.id)}
-                            className="p-2 rounded-lg hover:bg-rose-50 text-rose-500 transition-colors"
+                            className="p-2 rounded-lg hover:bg-rose-50 text-rose-500 transition-colors cursor-pointer"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
                       </td>
                     </tr>
-                  ))}
+                  )) : (
+                    <tr>
+                      <td colSpan={4} className="px-8 py-12 text-center text-muted-foreground font-bold italic uppercase text-xs tracking-widest">ยังไม่มีสินค้าในร้านของคุณ / No products yet</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -406,7 +471,7 @@ export default function PartnerDashboardPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y">
-                  {myOrders.map((order: any) => (
+                  {myOrders.length > 0 ? myOrders.map((order: any) => (
                     <tr key={order.order_id || order.id} className="hover:bg-muted/30 transition-colors">
                       <td className="px-8 py-6">
                         <div className="space-y-1">
@@ -426,12 +491,15 @@ export default function PartnerDashboardPage() {
                           value={order.status.toUpperCase()}
                           onChange={async (e) => {
                             const newStatus = e.target.value;
-                            await fetch("/api/orders/status", {
+                            const res = await fetch("/api/orders/status", {
                               method: "PUT",
                               headers: { "Content-Type": "application/json" },
                               body: JSON.stringify({ orderId: order.order_id || order.id, status: newStatus })
                             });
-                            fetchAllData(); // Refresh
+                            if (res.ok) {
+                              fetchAllData();
+                              toast.success("อัปเดตสถานะออเดอร์เรียบร้อย");
+                            }
                           }}
                         >
                           <option value="PENDING">{t.orders.status.pending}</option>
@@ -441,7 +509,11 @@ export default function PartnerDashboardPage() {
                         </select>
                       </td>
                     </tr>
-                  ))}
+                  )) : (
+                    <tr>
+                      <td colSpan={3} className="px-8 py-12 text-center text-muted-foreground font-bold italic uppercase text-xs tracking-widest">ยังไม่มีรายการสั่งซื้อ / No orders yet</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -449,18 +521,52 @@ export default function PartnerDashboardPage() {
         </div>
 
         <div className="space-y-6">
-           <div className="bg-card border-2 border-primary/10 rounded-[2.5rem] p-8 shadow-xl shadow-primary/5 space-y-6">
-             <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.inventoryAlerts}</h3>
+           {/* Smart Advice Section */}
+           <div className="bg-gradient-to-br from-indigo-500 via-purple-600 to-primary rounded-[2.5rem] p-8 text-white shadow-xl shadow-primary/20 space-y-6 animate-in zoom-in duration-500">
+             <div className="flex items-center gap-3">
+               <div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm shadow-inner">
+                 <Sparkles className="h-5 w-5" />
+               </div>
+               <h3 className="font-black uppercase tracking-widest text-sm">Smart Advice by AI</h3>
+             </div>
+             
              <div className="space-y-4">
-               {myProducts.filter((p: any) => p.stock < 10).slice(0, 5).map((p: any) => (
-                 <div key={p.product_id || p.id} className="flex items-center justify-between p-4 rounded-2xl bg-muted/50">
-                    <div className="flex items-center gap-3">
-                      <Package className="h-4 w-4 text-amber-500" />
-                      <p className="text-[10px] font-black uppercase truncate max-w-[120px]">{p.name}</p>
-                    </div>
-                    <span className="text-[10px] font-black text-amber-600">{p.stock} {t.product.quantity}</span>
+               {smartAdvice.map((adv, i) => (
+                 <div key={i} className="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 space-y-1 hover:bg-white/20 transition-colors group">
+                   <div className="flex items-center justify-between">
+                     <p className="font-black text-xs uppercase flex items-center gap-2">
+                       <adv.icon className="h-3.5 w-3.5" />
+                       {adv.title}
+                     </p>
+                     <div className={cn("w-1.5 h-1.5 rounded-full animate-pulse", adv.color)} />
+                   </div>
+                   <p className="text-[11px] font-bold opacity-80 leading-relaxed group-hover:opacity-100 transition-opacity">{adv.desc}</p>
                  </div>
                ))}
+             </div>
+             
+             <div className="pt-2">
+               <p className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 text-center italic">Calculated in real-time by Pickpock AI</p>
+             </div>
+           </div>
+
+           <div className="bg-card border-2 border-primary/10 rounded-4xl p-8 shadow-xl shadow-primary/5 space-y-6">
+             <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.inventoryAlerts}</h3>
+             <div className="space-y-4">
+               {myProducts.filter((p: any) => p.stock < 10).slice(0, 5).map((p: any) => (
+                 <div key={p.product_id || p.id} className="flex items-center justify-between p-4 rounded-2xl bg-muted/50 border border-transparent hover:border-amber-500/20 transition-all group">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-white shadow-sm group-hover:scale-110 transition-transform">
+                        <Package className="h-4 w-4 text-amber-500" />
+                      </div>
+                      <p className="text-[10px] font-black uppercase truncate max-w-[100px]">{p.name}</p>
+                    </div>
+                    <span className="text-[10px] font-black text-amber-600 bg-amber-500/10 px-2 py-1 rounded-lg">{p.stock} {t.product.quantity}</span>
+                 </div>
+               ))}
+               {myProducts.filter((p: any) => p.stock < 10).length === 0 && (
+                 <p className="text-center text-[10px] font-bold text-muted-foreground italic">สถานะสต็อกสินค้าปกติ / Stock is healthy</p>
+               )}
              </div>
            </div>
         </div>
@@ -469,7 +575,7 @@ export default function PartnerDashboardPage() {
       {/* Edit Store Modal */}
       {showEditStoreModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-card w-full max-w-lg rounded-[2.5rem] border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+          <div className="bg-card w-full max-w-lg rounded-4xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary">
               <h3 className="text-2xl font-black tracking-tight flex items-center gap-3 uppercase tracking-tighter">
                 <Settings className="h-6 w-6" />
@@ -515,7 +621,7 @@ export default function PartnerDashboardPage() {
       {/* Add/Edit Product Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-card w-full max-w-lg rounded-[2.5rem] border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+          <div className="bg-card w-full max-w-lg rounded-4xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary">
               <h3 className="text-2xl font-black tracking-tight flex items-center gap-3 uppercase tracking-tighter">
                 {newProduct.id ? <Edit className="h-6 w-6" /> : <Plus className="h-6 w-6" />}
@@ -562,7 +668,7 @@ export default function PartnerDashboardPage() {
                   <div className="flex items-center gap-4">
                     <div className="h-24 w-24 rounded-2xl bg-muted border-2 border-dashed border-primary/20 flex items-center justify-center overflow-hidden shrink-0 relative group">
                       {newProduct.image ? (
-                        <img src={getImgSrc(newProduct.image)} className="h-full w-full object-cover" />
+                        <img src={getImgSrc(newProduct.image)} className="h-full w-full object-cover" alt="Preview" />
                       ) : (
                         <ImageIcon className="h-8 w-8 text-primary/20" />
                       )}

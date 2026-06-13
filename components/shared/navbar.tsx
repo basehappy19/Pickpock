@@ -89,6 +89,13 @@ export default function Navbar() {
                     )}>{user.tier}</span>
                   </div>
                 </Link>
+                <Link 
+                  href="/profile" 
+                  className="hidden md:flex p-2.5 rounded-xl border hover:bg-muted transition-colors cursor-pointer group"
+                  title="Profile"
+                >
+                  <User className="h-4 w-4 group-hover:text-primary" />
+                </Link>
                 <button onClick={logout} className="p-2.5 rounded-xl border hover:bg-rose-50 hover:text-rose-500 transition-colors cursor-pointer">
                   <LogOut className="h-4 w-4" />
                 </button>

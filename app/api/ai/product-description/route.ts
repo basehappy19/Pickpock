@@ -24,23 +24,29 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Product name is required' }, { status: 400 });
     }
 
-    // Build prompt
-    let prompt = `Generate an engaging product description for:
-- Product Name: ${productName}
-- Category: ${category || 'General'}
-- Key Features: ${features?.join(', ') || 'Not specified'}
-${imageContext ? `- Image Context: ${imageContext}` : ''}
+    // Refined Persuasive Prompt
+    let prompt = `คุณคือผู้เชี่ยวชาญด้านการเขียนคำโฆษณา (Copywriter) มืออาชีพที่มีสไตล์การเขียนที่ทันสมัย น่าเชื่อถือ และเข้าถึงอารมณ์ลูกค้า
+หน้าที่ของคุณคือเขียนคำบรรยายสินค้าสำหรับ:
+- ชื่อสินค้า: ${productName}
+- หมวดหมู่: ${category || 'สินค้าทั่วไป'}
+- จุดเด่น: ${features?.join(', ') || 'คุณภาพพรีเมียม'}
+${imageContext ? `- รายละเอียดจากรูปภาพ: ${imageContext}` : ''}
 
-Requirements:
-- Make it persuasive and highlight key benefits
-- Include a catchy opening line
-- Mention practical uses
-- Keep it under 150 words
-- ${language === 'th' ? 'Respond in Thai only' : language === 'en' ? 'Respond in English only' : 'Provide both Thai and English versions'}
-- Format as JSON with keys: ${language === 'both' ? '"th", "en", "short"' : '"description"'}`;
+กลยุทธ์การเขียน:
+1. พาดหัวที่หยุดสายตา: เริ่มต้นด้วยประโยคที่ดึงดูดความสนใจทันที
+2. เน้นคุณประโยชน์ (Benefits): ไม่ใช่แค่บอกสเปค แต่บอกว่าชีวิตลูกค้าจะดีขึ้นอย่างไรเมื่อใช้สินค้านี้
+3. ใช้อารมณ์ร่วม: สร้างความรู้สึกปรารถนาหรือแก้ปัญหา (Pain Point) ให้ลูกค้า
+4. กระตุ้นการตัดสินใจ: มี Call to Action ที่นุ่มนวลแต่ทรงพลัง
+5. การจัดรูปแบบ: ใช้การเว้นวรรคและการจัดย่อหน้าที่อ่านง่าย สบายตา (สำคัญมาก: ห้ามเขียนเป็นก้อนเดียว)
+
+ข้อกำหนดทางเทคนิค:
+- ความยาวไม่เกิน 150 คำ
+- ${language === 'th' ? 'ตอบเป็นภาษาไทยเท่านั้น' : language === 'en' ? 'Respond in English only' : 'ให้ข้อมูลทั้งภาษาไทยและภาษาอังกฤษแยกกัน'}
+- รูปแบบผลลัพธ์เป็น JSON ที่มีคีย์: ${language === 'both' ? '"th", "en", "short"' : '"description"'}
+- ในส่วนของ "short" ให้เขียนสรุปสั้นๆ 1 ประโยคที่ทรงพลังที่สุด`;
 
     const result = await genAI.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-3.5-flash',
       contents: prompt
     });
     
