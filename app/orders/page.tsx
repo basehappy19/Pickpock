@@ -13,7 +13,7 @@ export default function OrdersPage() {
   const { role } = useRole();
 
   if (role === "customer") {
-    return <AccessRestricted requiredRole={["seller", "founder"]} currentPage="Orders Management" />;
+    return <AccessRestricted requiredRole={["founder"]} currentPage="Orders Management" />;
   }
 
   // Filter orders based on items belonging to the seller or all for founder

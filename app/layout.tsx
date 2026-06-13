@@ -9,6 +9,9 @@ import { ThemeProvider } from "@/components/shared/theme-provider";
 import { CartProvider } from "@/hooks/use-cart";
 import { RoleProvider } from "@/hooks/use-role";
 import { DataProvider } from "@/hooks/use-global-data";
+import { WishlistProvider } from "@/hooks/use-wishlist";
+import { CompareProvider } from "@/hooks/use-compare";
+import { RecentlyViewedProvider } from "@/hooks/use-recently-viewed";
 import AIChatbot from "@/components/shared/ai-chatbot";
 
 const geistSans = Geist({
@@ -53,11 +56,17 @@ export default async function RootLayout({
             <RoleProvider>
               <DataProvider>
                 <CartProvider>
-                  <Navbar />
-                  <main className="flex-1">
-                    {children}
-                  </main>
-                  <AIChatbot />
+                  <WishlistProvider>
+                    <CompareProvider>
+                      <RecentlyViewedProvider>
+                        <Navbar />
+                        <main className="flex-1">
+                          {children}
+                        </main>
+                        <AIChatbot />
+                      </RecentlyViewedProvider>
+                    </CompareProvider>
+                  </WishlistProvider>
                 </CartProvider>
               </DataProvider>
             </RoleProvider>

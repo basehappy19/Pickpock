@@ -2,16 +2,71 @@
 
 import { Product } from "@/types";
 import { formatCurrency, cn } from "@/lib/utils";
-import { Star, ShoppingCart, ShieldCheck, Truck, Sparkles } from "lucide-react";
+import { Star, ShoppingCart, ShieldCheck, Truck, Sparkles, Heart, GitCompare, Share2, Check } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import AIInsights from "./ai-insights";
 import NextImage from "next/image";
 import { useCart } from "@/hooks/use-cart";
+import { useWishlist } from "@/hooks/use-wishlist";
+import { useCompare } from "@/hooks/use-compare";
+import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
+import { useEffect, useState } from "react";
 import AIBundleSuggest from "./ai-bundle-suggest";
 
 export default function ProductInfo({ product, allProducts }: { product: Product, allProducts: Product[] }) {
   const { t } = useLanguage();
   const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const { addToCompare, isInCompare } = useCompare();
+  const { addToRecentlyViewed } = useRecentlyViewed();
+  const [showWishlistTooltip, setShowWishlistTooltip] = useState(false);
+  const [showCompareTooltip, setShowCompareTooltip] = useState(false);
+  const [showShareTooltip, setShowShareTooltip] = useState(false);
+
+  useEffect(() => {
+    if (product) {
+      addToRecentlyViewed(product);
+    }
+  }, [product, addToRecentlyViewed]);
+
+  const handleWishlistToggle = () => {
+    if (isInWishlist(product.id)) {
+      removeFromWishlist(product.id);
+      setShowWishlistTooltip(false);
+    } else {
+      addToWishlist(product);
+      setShowWishlistTooltip(true);
+      setTimeout(() => setShowWishlistTooltip(false), 2000);
+    }
+  };
+
+  const handleCompareToggle = () => {
+    if (isInCompare(product.id)) {
+      // Show message that it's already in compare
+    } else {
+      addToCompare(product);
+      setShowCompareTooltip(true);
+      setTimeout(() => setShowCompareTooltip(false), 2000);
+    }
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: product.name,
+          text: product.description,
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.log("Share canceled");
+      }
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      setShowShareTooltip(true);
+      setTimeout(() => setShowShareTooltip(false), 2000);
+    }
+  };
   
   // Calculate delivery date (2 days from now)
   const deliveryDate = new Date();
@@ -93,22 +148,68 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <button 
-              onClick={() => addToCart(product)}
-              className="flex-1 h-16 rounded-xl bg-primary text-primary-foreground font-black text-lg hover:opacity-90 active:scale-95 transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 cursor-pointer group"
-            >
-              <ShoppingCart className="h-6 w-6 group-hover:rotate-12 transition-transform" /> {t.products.addToCart}
-            </button>
-            <button 
-              onClick={() => {
-                addToCart(product);
-                alert("Proceeding to checkout... (MVP Demo)");
-              }}
-              className="px-8 h-16 rounded-xl border-2 border-primary/10 font-black text-lg hover:bg-muted active:scale-95 transition-all cursor-pointer"
-            >
-              {t.products.buyNow}
-            </button>
+          <div className="space-y-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={() => addToCart(product)}
+                className="flex-1 h-16 rounded-xl bg-primary text-primary-foreground font-black text-lg hover:opacity-90 active:scale-95 transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 cursor-pointer group"
+              >
+                <ShoppingCart className="h-6 w-6 group-hover:rotate-12 transition-transform" /> {t.products.addToCart}
+              </button>
+              <button
+                onClick={() => {
+                  addToCart(product);
+                  alert("Proceeding to checkout... (MVP Demo)");
+                }}
+                className="px-8 h-16 rounded-xl border-2 border-primary/10 font-black text-lg hover:bg-muted active:scale-95 transition-all cursor-pointer"
+              >
+                {t.products.buyNow}
+              </button>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={handleWishlistToggle}
+                className={cn(
+                  "flex-1 h-12 rounded-xl border-2 font-bold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer group relative",
+                  isInWishlist(product.id)
+                    ? "border-rose-200 bg-rose-50 text-rose-600"
+                    : "border-muted-foreground/20 hover:bg-muted"
+                )}
+              >
+                <Heart className={cn("h-4 w-4", isInWishlist(product.id) ? "fill-current" : "")} />
+                {isInWishlist(product.id) ? "In Wishlist" : t.wishlist.addItem}
+                {showWishlistTooltip && (
+                  <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-emerald-500 text-white text-xs font-black rounded-lg shadow-lg">
+                    {isInWishlist(product.id) ? "Added!" : "Removed!"}
+                  </span>
+                )}
+              </button>
+              <button
+                onClick={handleCompareToggle}
+                className="flex-1 h-12 rounded-xl border-2 border-muted-foreground/20 font-bold text-sm hover:bg-muted transition-all flex items-center justify-center gap-2 cursor-pointer group relative"
+              >
+                <GitCompare className="h-4 w-4" />
+                {t.compare.add}
+                {showCompareTooltip && (
+                  <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-emerald-500 text-white text-xs font-black rounded-lg shadow-lg">
+                    Added to Compare!
+                  </span>
+                )}
+              </button>
+              <button
+                onClick={handleShare}
+                className="flex-1 h-12 rounded-xl border-2 border-muted-foreground/20 font-bold text-sm hover:bg-muted transition-all flex items-center justify-center gap-2 cursor-pointer group relative"
+              >
+                <Share2 className="h-4 w-4" />
+                {t.product.share}
+                {showShareTooltip && (
+                  <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-emerald-500 text-white text-xs font-black rounded-lg shadow-lg">
+                    {t.product.linkCopied}
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>

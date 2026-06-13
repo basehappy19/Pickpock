@@ -5,7 +5,8 @@
     "email": "somchai@example.com",
     "phone": "081-111-1111",
     "loyalty_points": 500,
-    "role": "MEMBER"
+    "role": "MEMBER",
+    "password": "1234"
   },
   {
     "user_id": "u002",
@@ -13,7 +14,8 @@
     "email": "alice@example.com",
     "phone": "089-999-9999",
     "loyalty_points": 1200,
-    "role": "VIP"
+    "role": "VIP",
+    "password": "1234"
   },
   {
     "user_id": "u003",
@@ -21,7 +23,8 @@
     "email": "mana.d@example.com",
     "phone": "082-222-3333",
     "loyalty_points": 50,
-    "role": "MEMBER"
+    "role": "MEMBER",
+    "password": "1234"
   },
   {
     "user_id": "u004",
@@ -29,7 +32,8 @@
     "email": "somsri.j@example.com",
     "phone": "083-444-5555",
     "loyalty_points": 850,
-    "role": "MEMBER"
+    "role": "MEMBER",
+    "password": "1234"
   },
   {
     "user_id": "u005",
@@ -37,7 +41,8 @@
     "email": "john.doe@example.com",
     "phone": "091-234-5678",
     "loyalty_points": 2100,
-    "role": "VIP"
+    "role": "VIP",
+    "password": "1234"
   },
   {
     "user_id": "u006",
@@ -45,7 +50,8 @@
     "email": "prasit.k@example.com",
     "phone": "061-888-7777",
     "loyalty_points": 300,
-    "role": "MEMBER"
+    "role": "MEMBER",
+    "password": "1234"
   },
   {
     "user_id": "u007",
@@ -53,7 +59,8 @@
     "email": "mary.j@example.com",
     "phone": "092-333-4444",
     "loyalty_points": 150,
-    "role": "MEMBER"
+    "role": "MEMBER",
+    "password": "1234"
   },
   {
     "user_id": "u008",
@@ -61,7 +68,8 @@
     "email": "wipa.r@example.com",
     "phone": "084-555-6666",
     "loyalty_points": 3500,
-    "role": "VIP"
+    "role": "VIP",
+    "password": "1234"
   },
   {
     "user_id": "u009",
@@ -69,7 +77,8 @@
     "email": "kenji.s@example.com",
     "phone": "085-777-8888",
     "loyalty_points": 20,
-    "role": "MEMBER"
+    "role": "MEMBER",
+    "password": "1234"
   },
   {
     "user_id": "u010",
@@ -77,7 +86,8 @@
     "email": "nida.p@example.com",
     "phone": "093-666-9999",
     "loyalty_points": 900,
-    "role": "MEMBER"
+    "role": "MEMBER",
+    "password": "1234"
   },
   {
     "user_id": "u011",
@@ -85,7 +95,8 @@
     "email": "david.b@example.com",
     "phone": "086-123-0000",
     "loyalty_points": 4500,
-    "role": "VIP"
+    "role": "VIP",
+    "password": "1234"
   },
   {
     "user_id": "u012",
@@ -93,7 +104,8 @@
     "email": "kanda.m@example.com",
     "phone": "062-987-6543",
     "loyalty_points": 600,
-    "role": "MEMBER"
+    "role": "MEMBER",
+    "password": "1234"
   },
   {
     "user_id": "u013",
@@ -101,7 +113,8 @@
     "email": "sarah.l@example.com",
     "phone": "087-654-3210",
     "loyalty_points": 1250,
-    "role": "VIP"
+    "role": "VIP",
+    "password": "1234"
   },
   {
     "user_id": "u014",
@@ -109,7 +122,8 @@
     "email": "arthit.s@example.com",
     "phone": "094-111-2222",
     "loyalty_points": 45,
-    "role": "MEMBER"
+    "role": "MEMBER",
+    "password": "1234"
   },
   {
     "user_id": "u015",
@@ -117,6 +131,7 @@
     "email": "pimchanok.l@example.com",
     "phone": "088-222-1111",
     "loyalty_points": 780,
-    "role": "MEMBER"
+    "role": "MEMBER",
+    "password": "1234"
   }
 ]

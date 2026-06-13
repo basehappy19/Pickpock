@@ -10,7 +10,7 @@ export default function DashboardPage() {
   const { role } = useRole();
 
   if (role === "customer") {
-    return <AccessRestricted requiredRole={["seller", "founder"]} currentPage="Dashboard" />;
+    return <AccessRestricted requiredRole={["founder"]} currentPage="Dashboard" />;
   }
 
   return <DashboardContent initialProducts={products} />;

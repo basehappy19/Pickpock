@@ -2,10 +2,10 @@
 
 import { Product } from "@/types";
 import { formatCurrency, cn } from "@/lib/utils";
-import { 
-  TrendingUp, 
-  Users, 
-  Package, 
+import {
+  TrendingUp,
+  Users,
+  Package,
   DollarSign,
   ArrowUpRight,
   Search,

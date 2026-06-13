@@ -31,11 +31,11 @@ export async function POST(req: Request) {
   try {
     const newOrder: Order = await req.json();
     const orders = readOrders();
-    
+
     orders.push(toJSON(newOrder));
     writeOrders(orders);
-    
-    return NextResponse.json({ success: true });
+
+    return NextResponse.json({ success: true, order: toJSON(newOrder) });
   } catch (error) {
     return NextResponse.json({ error: "Failed to add order" }, { status: 500 });
   }
@@ -47,5 +47,40 @@ export async function GET() {
     return NextResponse.json(orders);
   } catch (error) {
     return NextResponse.json({ error: "Failed to read orders" }, { status: 500 });
+  }
+}
+
+export async function PUT(req: Request) {
+  try {
+    const updatedOrder: Order = await req.json();
+    let orders = readOrders();
+
+    orders = orders.map((o: any) =>
+      o.order_id === updatedOrder.id ? toJSON(updatedOrder) : o
+    );
+
+    writeOrders(orders);
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to update order" }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "Order ID is required" }, { status: 400 });
+    }
+
+    let orders = readOrders();
+    orders = orders.filter((o: any) => o.order_id !== id);
+
+    writeOrders(orders);
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to delete order" }, { status: 500 });
   }
 }

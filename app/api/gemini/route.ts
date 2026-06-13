@@ -23,23 +23,17 @@ export async function POST(req: Request) {
 
     const ai = new GoogleGenAI({ apiKey });
 
-    const fullPrompt = `
-      คุณคือผู้ช่วยอัจฉริยะสำหรับระบบ E-commerce ชื่อ "MSU FOUNDER"
+    // Optimized: More concise prompt structure
+    const fullPrompt = `คุณคือผู้ช่วยอัจฉริยะสำหรับ "MSU FOUNDER" E-commerce
 
-      ข้อมูลบริบท (Context):
-      ${JSON.stringify(context, null, 2)}
+Context: ${JSON.stringify(context)}
 
-      คำสั่งจากผู้ใช้:
-      ${prompt}
+คำสั่ง: ${prompt}
 
-      คำแนะนำในการตอบ:
-      1. ตอบเป็นภาษาไทยที่สุภาพ เป็นกันเอง และดูเป็นมืออาชีพแบบเจ้าของธุรกิจ (Founder)
-      2. สรุปข้อมูลให้กระชับ เข้าใจง่าย และนำไปใช้งานได้จริง
-      3. หากเป็นข้อมูลสินค้า ให้เน้นจุดเด่นที่ลูกค้าน่าจะชอบ
-    `;
+ตอบเป็นภาษาไทยสุภาพมืออาชีพ กระชับ เข้าใจง่าย นำไปใช้ได้จริง`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
+      model: 'gemini-2.5-flash', // Updated to faster model
       contents: fullPrompt
     });
 

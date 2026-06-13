@@ -7,7 +7,12 @@ export const translations = {
       products: "Products",
       search: "Search items...",
       login: "Login / Register",
-      history: "Purchase History"
+      history: "Purchase History",
+      wishlist: "Wishlist",
+      compare: "Compare",
+      cart: "Cart",
+      account: "Account",
+      settings: "Settings"
     },
     home: {
       heroTitle: "Discover the Future of Shopping",
@@ -19,11 +24,18 @@ export const translations = {
       flashSale: "Flash Sale",
       vouchers: "Collect Vouchers",
       claim: "Claim",
-      claimed: "Claimed"
+      claimed: "Claimed",
+      newArrivals: "New Arrivals",
+      bestSellers: "Best Sellers",
+      recommendedForYou: "Recommended For You"
     },
     dashboard: {
       title: "Dashboard Overview",
       subtitle: "Welcome back. Here's your store's performance today.",
+      founderTitle: "Founder Admin Dashboard",
+      founderSubtitle: "Manage your e-commerce empire and expand your business globally.",
+      sellerTitle: "Seller Management Center",
+      sellerSubtitle: "Efficiently manage your products and orders.",
       stats: {
         revenue: "Total Revenue",
         users: "Active Users",
@@ -122,7 +134,90 @@ export const translations = {
       apply: "Apply",
       discountApplied: "Discount Applied",
       paymentSuccess: "Payment Successful!",
-      paymentSuccessDesc: "Your order has been placed. Thank you for shopping with us."
+      paymentSuccessDesc: "Your order has been placed. Thank you for shopping with us.",
+      removeFromCart: "Remove",
+      updateQuantity: "Update quantity",
+      continueShopping: "Continue Shopping",
+      itemAdded: "Item added to cart!",
+      itemRemoved: "Item removed from cart"
+    },
+    wishlist: {
+      title: "My Wishlist",
+      empty: "Your wishlist is empty",
+      emptyDesc: "Save items you love by clicking the heart icon.",
+      startBrowsing: "Start Browsing",
+      moveToCart: "Move to Cart",
+      removeFromWishlist: "Remove",
+      addItem: "Add to Wishlist",
+      added: "Added to Wishlist",
+      removed: "Removed from Wishlist",
+      clearAll: "Clear All"
+    },
+    compare: {
+      title: "Compare Products",
+      empty: "No products to compare",
+      emptyDesc: "Add products to compare their features side by side.",
+      maxItems: "You can compare up to 4 products",
+      add: "Add to Compare",
+      remove: "Remove",
+      clearAll: "Clear All",
+      features: "Features",
+      specifications: "Specifications"
+    },
+    recentlyViewed: {
+      title: "Recently Viewed",
+      empty: "No recently viewed items"
+    },
+    auth: {
+      login: "Login",
+      register: "Register",
+      email: "Email",
+      password: "Password",
+      forgotPassword: "Forgot password?",
+      resetPassword: "Reset Password",
+      resetLinkSent: "Password reset link sent!",
+      loginSuccess: "Login successful!",
+      registerSuccess: "Registration successful!",
+      logout: "Logout",
+      welcomeBack: "Welcome back",
+      or: "OR"
+    },
+    product: {
+      inStock: "In Stock",
+      outOfStock: "Out of Stock",
+      lowStock: "Only {count} left!",
+      sku: "SKU",
+      brand: "Brand",
+      category: "Category",
+      description: "Description",
+      selectVariant: "Select {type}",
+      quantity: "Quantity",
+      addSuccess: "Added to cart",
+      notifyMe: "Notify me when available",
+      share: "Share Product",
+      copyLink: "Copy Link",
+      linkCopied: "Link copied!"
+    },
+    filters: {
+      sortBy: "Sort By",
+      relevance: "Relevance",
+      priceLow: "Price: Low to High",
+      priceHigh: "Price: High to Low",
+      newest: "Newest",
+      rating: "Highest Rating",
+      priceRange: "Price Range",
+      brand: "Brand",
+      ratingFilter: "Rating",
+      applyFilters: "Apply Filters",
+      clearFilters: "Clear Filters",
+      results: "{count} results"
+    },
+    notifications: {
+      priceDrop: "Price Drop Alert",
+      backInStock: "Back in Stock",
+      newProduct: "New Product Arrival",
+      promotion: "Special Promotion",
+      orderUpdate: "Order Status Update"
     },
     common: {
       daily: "Daily",
@@ -134,7 +229,27 @@ export const translations = {
       of: "of",
       previous: "Previous",
       next: "Next",
-      close: "Close"
+      close: "Close",
+      save: "Save",
+      cancel: "Cancel",
+      confirm: "Confirm",
+      delete: "Delete",
+      edit: "Edit",
+      back: "Back",
+      loading: "Loading...",
+      noResults: "No results found",
+      tryAgain: "Try again",
+      search: "Search",
+      filter: "Filter",
+      sort: "Sort",
+      clear: "Clear",
+      all: "All",
+      select: "Select",
+      selected: "Selected",
+      totalItems: "{count} items",
+      viewAll: "View All",
+      seeMore: "See More",
+      showLess: "Show Less"
     }
   },
   th: {
@@ -145,7 +260,12 @@ export const translations = {
       products: "สินค้าทั้งหมด",
       search: "ค้นหาสินค้าแบรนด์แท้...",
       login: "เข้าสู่ระบบ",
-      history: "ประวัติการซื้อ"
+      history: "ประวัติการซื้อ",
+      wishlist: "รายการโปรด",
+      compare: "เปรียบเทียบ",
+      cart: "รถเข็น",
+      account: "บัญชีของฉัน",
+      settings: "ตั้งค่า"
     },
     home: {
       heroTitle: "ค้นพบอนาคตแห่งการช้อปปิ้ง",
@@ -157,7 +277,10 @@ export const translations = {
       flashSale: "แฟลชเซลล์",
       vouchers: "เก็บคูปองส่วนลด",
       claim: "เก็บเลย",
-      claimed: "เก็บแล้ว"
+      claimed: "เก็บแล้ว",
+      newArrivals: "มาใหม่",
+      bestSellers: "ขายดี",
+      recommendedForYou: "แนะนำสำหรับคุณ"
     },
     dashboard: {
       title: "ภาพรวมระบบ",
@@ -264,7 +387,90 @@ export const translations = {
       apply: "ใช้โค้ด",
       discountApplied: "ส่วนลด",
       paymentSuccess: "ชำระเงินสำเร็จ!",
-      paymentSuccessDesc: "คำสั่งซื้อของคุณได้รับการยืนยันแล้ว ขอบคุณที่ใช้บริการ MSU FOUNDER"
+      paymentSuccessDesc: "คำสั่งซื้อของคุณได้รับการยืนยันแล้ว ขอบคุณที่ใช้บริการ MSU FOUNDER",
+      removeFromCart: "ลบออก",
+      updateQuantity: "อัปเดตจำนวน",
+      continueShopping: "ช้อปต่อ",
+      itemAdded: "เพิ่มสินค้าลงในรถเข็นแล้ว!",
+      itemRemoved: "ลบสินค้าออกจากรถเข็นแล้ว"
+    },
+    wishlist: {
+      title: "รายการโปรดของฉัน",
+      empty: "ยังไม่มีรายการโปรด",
+      emptyDesc: "บันทึกสินค้าที่คุณชอบโดยคลิกที่ไอคอนหัวใจ",
+      startBrowsing: "เริ่มเลือกชมสินค้า",
+      moveToCart: "ย้ายไปรถเข็น",
+      removeFromWishlist: "ลบออก",
+      addItem: "เพิ่มลงรายการโปรด",
+      added: "เพิ่มลงรายการโปรดแล้ว",
+      removed: "ลบออกจากรายการโปรดแล้ว",
+      clearAll: "ล้างทั้งหมด"
+    },
+    compare: {
+      title: "เปรียบเทียบสินค้า",
+      empty: "ไม่มีสินค้าที่จะเปรียบเทียบ",
+      emptyDesc: "เพิ่มสินค้าเพื่อเปรียบเทียบคุณสมบัติข้างๆ กัน",
+      maxItems: "สามารถเปรียบเทียบได้สูงสุด 4 รายการ",
+      add: "เพิ่มเพื่อเปรียบเทียบ",
+      remove: "ลบออก",
+      clearAll: "ล้างทั้งหมด",
+      features: "คุณสมบัติ",
+      specifications: "สเปก"
+    },
+    recentlyViewed: {
+      title: "ดูล่าสุด",
+      empty: "ไม่มีรายการที่ดูล่าสุด"
+    },
+    auth: {
+      login: "เข้าสู่ระบบ",
+      register: "สมัครสมาชิก",
+      email: "อีเมล",
+      password: "รหัสผ่าน",
+      forgotPassword: "ลืมรหัสผ่าน?",
+      resetPassword: "รีเซ็ตรหัสผ่าน",
+      resetLinkSent: "ส่งลิงก์รีเซ็ตรหัสผ่านแล้ว!",
+      loginSuccess: "เข้าสู่ระบบสำเร็จ!",
+      registerSuccess: "สมัครสมาชิกสำเร็จ!",
+      logout: "ออกจากระบบ",
+      welcomeBack: "ยินดีต้อนรับกลับ",
+      or: "หรือ"
+    },
+    product: {
+      inStock: "มีสินค้า",
+      outOfStock: "หมดสต็อก",
+      lowStock: "เหลือเพียง {count} ชิ้น!",
+      sku: "รหัสสินค้า",
+      brand: "แบรนด์",
+      category: "หมวดหมู่",
+      description: "รายละเอียด",
+      selectVariant: "เลือก{type}",
+      quantity: "จำนวน",
+      addSuccess: "เพิ่มลงในรถเข็นแล้ว",
+      notifyMe: "แจ้งให้ทราบเมื่อมีสินค้า",
+      share: "แชร์สินค้า",
+      copyLink: "คัดลิงก์",
+      linkCopied: "คัดลิงก์แล้ว!"
+    },
+    filters: {
+      sortBy: "เรียงตาม",
+      relevance: "ความเกี่ยวข้อง",
+      priceLow: "ราคา: ต่ำไปสูง",
+      priceHigh: "ราคา: สูงไปต่ำ",
+      newest: "มาใหม่",
+      rating: "คะแนนสูงสุด",
+      priceRange: "ช่วงราคา",
+      brand: "แบรนด์",
+      ratingFilter: "คะแนน",
+      applyFilters: "ใช้ตัวกรอง",
+      clearFilters: "ล้างตัวกรอง",
+      results: "พบ {count} รายการ"
+    },
+    notifications: {
+      priceDrop: "แจ้งเตือนราคาลด",
+      backInStock: "มีสินค้าแล้ว",
+      newProduct: "สินค้ามาใหม่",
+      promotion: "โปรโมชั่นพิเศษ",
+      orderUpdate: "อัปเดตสถานะคำสั่งซื้อ"
     },
     common: {
       daily: "รายวัน",
@@ -276,7 +482,27 @@ export const translations = {
       of: "จากทั้งหมด",
       previous: "ก่อนหน้า",
       next: "ถัดไป",
-      close: "ปิด"
+      close: "ปิด",
+      save: "บันทึก",
+      cancel: "ยกเลิก",
+      confirm: "ยืนยัน",
+      delete: "ลบ",
+      edit: "แก้ไข",
+      back: "ย้อนกลับ",
+      loading: "กำลังโหลด...",
+      noResults: "ไม่พบผลลัพธ์",
+      tryAgain: "ลองใหม่",
+      search: "ค้นหา",
+      filter: "กรอง",
+      sort: "เรียง",
+      clear: "ล้าง",
+      all: "ทั้งหมด",
+      select: "เลือก",
+      selected: "ถูกเลือก",
+      totalItems: "{count} รายการ",
+      viewAll: "ดูทั้งหมด",
+      seeMore: "ดูเพิ่มเติม",
+      showLess: "ดูน้อยลง"
     }
   }
 };

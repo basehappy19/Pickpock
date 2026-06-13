@@ -2,22 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Home, LayoutDashboard, Package } from "lucide-react";
+import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Home, LayoutDashboard, Package, LogOut, LogIn, Heart, GitCompare, X } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { ThemeToggle } from "./theme-toggle";
 import { useCart } from "@/hooks/use-cart";
 import { useRole } from "@/hooks/use-role";
+import { useWishlist } from "@/hooks/use-wishlist";
+import { useCompare } from "@/hooks/use-compare";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
   const { totalCount } = useCart();
-  const { role, setRole } = useRole();
+  const { role, user, logout } = useRole();
+  const { wishlist } = useWishlist();
+  const { compareList } = useCompare();
   const pathname = usePathname();
-
-  const toggleRole = () => {
-    setRole(role === "customer" ? "founder" : "customer");
-  };
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { href: "/", label: t.nav.home, icon: Home },
@@ -40,9 +42,10 @@ export default function Navbar() {
                 <Box className="h-6 w-6 text-primary-foreground" />
               </div>
               <span>
-                MSU <span className="text-primary">FOUNDER</span>
+                MSU <span className="text-primary">{role === "customer" ? "MALL" : "FOUNDER"}</span>
               </span>
             </Link>
+            
             <div className="hidden lg:flex gap-6">
               {navLinks.map((link) => (
                 <Link 
@@ -60,28 +63,28 @@ export default function Navbar() {
           </div>
           
           <div className="flex items-center gap-2 sm:gap-4">
-            <button 
-              onClick={toggleRole}
-              className={cn(
-                "flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-black uppercase transition-all border-2 cursor-pointer",
-                role === "founder" ? "bg-amber-500/10 border-amber-500/20 text-amber-600" : "bg-blue-500/10 border-blue-500/20 text-blue-600"
-              )}
-            >
-              {role === "founder" ? <ShieldCheck className="h-4 w-4" /> : <User className="h-4 w-4" />}
-              <span className="hidden xs:inline">{role}</span>
-            </button>
-
-            <div className="relative hidden md:block group">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-              <input
-                type="search"
-                placeholder={t.nav.search}
-                className="h-10 w-48 lg:w-64 rounded-xl border border-input bg-muted/50 pl-10 pr-4 text-sm focus:bg-background focus:ring-2 focus:ring-primary focus:outline-none transition-all font-medium"
-              />
-            </div>
+            {user ? (
+              <div className="flex items-center gap-2">
+                <div className={cn(
+                  "hidden xs:flex items-center gap-2 rounded-xl px-4 py-2 text-[10px] font-black uppercase border-2",
+                  role === "founder" ? "bg-amber-500/10 border-amber-500/20 text-amber-600" : "bg-blue-500/10 border-blue-500/20 text-blue-600"
+                )}>
+                  {role === "founder" ? <ShieldCheck className="h-3 w-3" /> : <User className="h-3 w-3" />}
+                  {user.name.split(" ")[0]}
+                </div>
+                <button onClick={logout} className="p-2.5 rounded-xl border hover:bg-rose-50 hover:text-rose-500 transition-colors cursor-pointer">
+                  <LogOut className="h-4 w-4" />
+                </button>
+              </div>
+            ) : (
+              <Link href="/login" className="flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-black uppercase bg-primary text-primary-foreground hover:opacity-90 transition-all cursor-pointer shadow-lg shadow-primary/20">
+                <LogIn className="h-4 w-4" />
+                {t.nav.login}
+              </Link>
+            )}
 
             <div className="flex items-center border-l pl-4 gap-2">
-              <button 
+              <button
                 onClick={() => setLanguage(language === "th" ? "en" : "th")}
                 className="flex items-center gap-2 rounded-xl border border-input px-3 py-2 text-xs font-black hover:bg-accent transition-colors uppercase cursor-pointer"
               >
@@ -90,6 +93,24 @@ export default function Navbar() {
               </button>
 
               <ThemeToggle />
+
+              <Link href="/wishlist" className="relative hidden sm:flex rounded-xl p-2.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border cursor-pointer group">
+                <Heart className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                {wishlist.length > 0 && (
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[10px] font-black text-white shadow-sm">
+                    {wishlist.length}
+                  </span>
+                )}
+              </Link>
+
+              <Link href="/compare" className="relative hidden md:flex rounded-xl p-2.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border cursor-pointer group">
+                <GitCompare className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                {compareList.length > 0 && (
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-white shadow-sm">
+                    {compareList.length}
+                  </span>
+                )}
+              </Link>
 
               <Link href="/cart" className="relative hidden lg:flex rounded-xl p-2.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border cursor-pointer group">
                 <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform" />
@@ -107,12 +128,12 @@ export default function Navbar() {
       {/* Bottom Navbar (Mobile only) */}
       <nav className="lg:hidden fixed bottom-0 left-0 z-50 w-full bg-background/95 backdrop-blur-lg border-t border-border px-4 py-2 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
         <div className="flex justify-around items-center h-14">
-          {navLinks.map((link) => (
-            <Link 
+          {navLinks.slice(0, 3).map((link) => (
+            <Link
               key={link.href}
               href={link.href}
               className={cn(
-                "flex flex-col items-center justify-center gap-1 min-w-[64px] transition-all",
+                "flex flex-col items-center justify-center gap-1 min-w-[56px] transition-all",
                 pathname === link.href ? "text-primary scale-110" : "text-muted-foreground"
               )}
             >
@@ -120,10 +141,44 @@ export default function Navbar() {
               <span className="text-[10px] font-black uppercase tracking-tighter">{link.label}</span>
             </Link>
           ))}
-          <Link 
+          <Link
+            href="/wishlist"
+            className={cn(
+              "relative flex flex-col items-center justify-center gap-1 min-w-[56px] transition-all",
+              pathname === "/wishlist" ? "text-primary scale-110" : "text-muted-foreground"
+            )}
+          >
+            <div className="relative">
+              <Heart className="h-6 w-6" />
+              {wishlist.length > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[10px] font-black text-white shadow-sm">
+                  {wishlist.length}
+                </span>
+              )}
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-tighter">Wishlist</span>
+          </Link>
+          <Link
+            href="/compare"
+            className={cn(
+              "relative flex flex-col items-center justify-center gap-1 min-w-[56px] transition-all",
+              pathname === "/compare" ? "text-primary scale-110" : "text-muted-foreground"
+            )}
+          >
+            <div className="relative">
+              <GitCompare className="h-6 w-6" />
+              {compareList.length > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-white shadow-sm">
+                  {compareList.length}
+                </span>
+              )}
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-tighter">Compare</span>
+          </Link>
+          <Link
             href="/cart"
             className={cn(
-              "relative flex flex-col items-center justify-center gap-1 min-w-[64px] transition-all",
+              "relative flex flex-col items-center justify-center gap-1 min-w-[56px] transition-all",
               pathname === "/cart" ? "text-primary scale-110" : "text-muted-foreground"
             )}
           >

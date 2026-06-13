@@ -21,7 +21,7 @@ export default function CartPage() {
   const [isPaid, setIsPaid] = useState(false);
 
   const handleApplyCoupon = () => {
-    const coupon = mockCoupons.find(c => c.code === couponCode.toUpperCase());
+    const coupon = initialCoupons.find(c => c.code === couponCode.toUpperCase());
     if (coupon) {
       if (coupon.type === "percent") {
         setAppliedDiscount(totalPrice * (coupon.discount / 100));
