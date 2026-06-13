@@ -33,8 +33,8 @@ import { useState, useEffect, useMemo } from "react";
 import AccessRestricted from "@/components/shared/access-restricted";
 import { uploadProductImage } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { Product, Order, User, Store } from "@/types";
+import { toast } from "sonner";
 import {
   AreaChart,
   Area,
@@ -101,15 +101,36 @@ export default function FounderDashboardPage() {
     const url = await uploadProductImage(file);
     if (url) {
       setNewProduct(prev => ({ ...prev, image: url }));
+      toast.success("อัปโหลดรูปภาพสำเร็จ");
     } else {
-      alert(t.dashboard.uploadFailed);
+      toast.error("อัปโหลดรูปภาพล้มเหลว");
     }
     setIsUploading(false);
   };
 
+  const typeText = (text: string) => {
+    let index = 0;
+    setNewProduct(prev => ({ ...prev, description: "" }));
+    
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        const char = text[index];
+        setNewProduct(prev => ({
+          ...prev,
+          description: prev.description + char
+        }));
+        index++;
+      } else {
+        clearInterval(interval);
+        setIsGeneratingDesc(false);
+        toast.success("AI สร้างคำบรรยายสินค้าให้คุณแล้ว!");
+      }
+    }, 15); // Adjust speed here
+  };
+
   const generateAIDescription = async () => {
     if (!newProduct.name) {
-      alert(t.dashboard.enterProductName);
+      toast.error("กรุณาใส่ชื่อสินค้าก่อน / Please enter product name first");
       return;
     }
 
@@ -127,17 +148,16 @@ export default function FounderDashboardPage() {
 
       const data = await res.json();
       if (data.success && data.description) {
-        const desc = data.description;
-        setNewProduct(prev => ({
-          ...prev,
-          description: desc.th || desc.en || desc.description || desc
-        }));
+        const fullDesc = data.description.th || data.description.en || data.description.description || data.description;
+        typeText(fullDesc);
+      } else {
+        setIsGeneratingDesc(false);
+        toast.error("AI ไม่สามารถเขียนคำบรรยายได้ในขณะนี้");
       }
     } catch (e) {
-      console.error("AI generation failed", e);
-      alert(t.dashboard.generateFailed);
-    } finally {
       setIsGeneratingDesc(false);
+      console.error("AI generation failed", e);
+      toast.error("เกิดข้อผิดพลาดในการเรียก AI");
     }
   };
 
@@ -170,6 +190,7 @@ export default function FounderDashboardPage() {
   const handleDelete = async (productId: string) => {
     if (!confirm(t.dashboard.deleteConfirm)) return;
     await deleteProduct(productId);
+    toast.success("ลบสินค้าเรียบร้อยแล้ว");
   };
 
   const openEditModal = (product: Product) => {
@@ -388,8 +409,11 @@ export default function FounderDashboardPage() {
       </div>
 
       <div className="space-y-6">
-        <div className="flex items-center justify-between"><h2 className="text-2xl font-black tracking-tighter uppercase">{t.dashboard.platformInventory}</h2><button onClick={() => setShowAddModal(true)} className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary/20"><Plus className="h-3.5 w-3.5" /> {t.dashboard.addProduct}</button></div>
-        <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] shadow-2xl shadow-primary/5 overflow-hidden">
+        <div className="flex items-center justify-between"><h2 className="text-2xl font-black tracking-tighter uppercase">{t.dashboard.platformInventory}</h2><button onClick={() => {
+           setNewProduct({ id: "", name: "", price: 0, category: "อิเล็กทรอนิกส์", stock: 0, image: "", description: "", storeId: "mall", isOfficial: true });
+           setShowAddModal(true);
+        }} className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary/20 cursor-pointer"><Plus className="h-3.5 w-3.5" /> {t.dashboard.addProduct}</button></div>
+        <div className="bg-card border-2 border-primary/5 rounded-4xl shadow-2xl shadow-primary/5 overflow-hidden">
           <table className="w-full text-left">
             <thead>
               <tr className="border-b bg-muted/20">
@@ -407,7 +431,7 @@ export default function FounderDashboardPage() {
                   <td className="px-8 py-6"><span className={cn("px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest", product.isOfficial ? "bg-amber-500/10 text-amber-600" : "bg-blue-500/10 text-blue-600")}>{product.isOfficial ? t.dashboard.officialMall : (stores.find(s => s.store_id === product.storeId)?.name || t.dashboard.partnerStore)}</span></td>
                   <td className="px-8 py-6 font-black text-[10px]">{product.stock} {t.product.quantity}</td>
                   <td className="px-8 py-6 font-black text-sm">{formatCurrency(product.price)}</td>
-                  <td className="px-8 py-6 text-right"><div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => openEditModal(product)} className="p-2 text-blue-500 transition-colors"><Edit className="h-4 w-4" /></button><button onClick={() => handleDelete(product.id)} className="p-2 text-rose-500 transition-colors"><Trash2 className="h-4 w-4" /></button></div></td>
+                  <td className="px-8 py-6 text-right"><div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => openEditModal(product)} className="p-2 text-blue-500 transition-colors cursor-pointer"><Edit className="h-4 w-4" /></button><button onClick={() => handleDelete(product.id)} className="p-2 text-rose-500 transition-colors cursor-pointer"><Trash2 className="h-4 w-4" /></button></div></td>
                 </tr>
               ))}
             </tbody>
@@ -416,24 +440,114 @@ export default function FounderDashboardPage() {
       </div>
 
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm">
-          <div className="bg-card w-full max-w-lg rounded-[2.5rem] border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-card w-full max-w-lg rounded-4xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary">
-              <h3 className="text-2xl font-black tracking-tighter uppercase">{newProduct.id ? t.dashboard.editProduct : t.dashboard.addProduct}</h3>
-              <button onClick={() => setShowAddModal(false)} className="p-2 cursor-pointer"><X /></button>
+              <h3 className="text-2xl font-black tracking-tight flex items-center gap-3 uppercase tracking-tighter">
+                {newProduct.id ? <Edit className="h-6 w-6" /> : <Plus className="h-6 w-6" />}
+                {newProduct.id ? t.dashboard.editProduct : t.dashboard.addProduct}
+              </h3>
+              <button onClick={() => setShowAddModal(false)} className="p-2 hover:bg-black/5 rounded-full cursor-pointer"><X /></button>
             </div>
-            <form onSubmit={handleAddOrUpdateProduct} className="p-8 space-y-4">
-               <div className="space-y-1">
-                 <label className="text-[10px] font-black uppercase text-muted-foreground">Product Name</label>
-                 <input type="text" required className="w-full px-5 py-3 rounded-xl bg-muted/50 font-bold outline-none border-2 border-transparent focus:border-primary/20" value={newProduct.name} onChange={(e) => setNewProduct({...newProduct, name: e.target.value})} />
-               </div>
-               <div className="grid grid-cols-2 gap-4">
-                 <div className="space-y-1"><label className="text-[10px] font-black uppercase text-muted-foreground">Price</label><input type="number" required className="w-full px-5 py-3 rounded-xl bg-muted/50 font-bold outline-none" value={newProduct.price} onChange={(e) => setNewProduct({...newProduct, price: Number(e.target.value)})} /></div>
-                 <div className="space-y-1"><label className="text-[10px] font-black uppercase text-muted-foreground">Stock</label><input type="number" required className="w-full px-5 py-3 rounded-xl bg-muted/50 font-bold outline-none" value={newProduct.stock} onChange={(e) => setNewProduct({...newProduct, stock: Number(e.target.value)})} /></div>
-               </div>
-               <div className="space-y-1">
-                  <label className="text-[10px] font-black uppercase text-muted-foreground">Category</label>
-                  <select className="w-full px-5 py-3 rounded-xl bg-muted/50 font-black uppercase text-xs outline-none" value={newProduct.category} onChange={(e) => setNewProduct({...newProduct, category: e.target.value})}>
+            
+            <form onSubmit={handleAddOrUpdateProduct} className="p-8 space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-2 space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.name}</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter product name..."
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold"
+                    value={newProduct.name}
+                    onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}
+                  />
+                </div>
+                
+                <div className="col-span-2 space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.assignedStore}</label>
+                  <select
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-black uppercase text-xs"
+                    value={newProduct.storeId}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setNewProduct({
+                        ...newProduct,
+                        storeId: val,
+                        isOfficial: val === "mall"
+                      });
+                    }}
+                  >
+                    <option value="mall">{t.dashboard.officialMall}</option>
+                    {stores.map((s) => (
+                      <option key={s.store_id} value={s.store_id}>{s.name}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.price} (฿)</label>
+                  <input
+                    type="number"
+                    required
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold"
+                    value={newProduct.price}
+                    onChange={(e) => setNewProduct({...newProduct, price: Number(e.target.value)})}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.stock}</label>
+                  <input
+                    type="number"
+                    required
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold"
+                    value={newProduct.stock}
+                    onChange={(e) => setNewProduct({...newProduct, stock: Number(e.target.value)})}
+                  />
+                </div>
+                <div className="col-span-2 space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.uploadImage}</label>
+                  <div className="flex items-center gap-4">
+                    <div className="h-24 w-24 rounded-2xl bg-muted border-2 border-dashed border-primary/20 flex items-center justify-center overflow-hidden shrink-0 relative group">
+                      {newProduct.image ? (
+                        <img src={getImgSrc(newProduct.image)} className="h-full w-full object-cover" alt="Preview" />
+                      ) : (
+                        <ImageIcon className="h-8 w-8 text-primary/20" />
+                      )}
+                      {isUploading && (
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                          <Loader2 className="h-6 w-6 text-white animate-spin" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1 space-y-2">
+                      <input 
+                        type="file" 
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        className="hidden" 
+                        id="product-image-upload"
+                        disabled={isUploading}
+                      />
+                      <label 
+                        htmlFor="product-image-upload"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest hover:bg-primary/20 transition-all cursor-pointer disabled:opacity-50"
+                      >
+                        <ImageIcon className="h-3.5 w-3.5" />
+                        {isUploading ? t.dashboard.uploading : t.dashboard.selectPhoto}
+                      </label>
+                      <p className="text-[10px] text-muted-foreground font-medium italic leading-tight">{t.dashboard.photoDesc}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-span-2 space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.category}</label>
+                  <select
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-black uppercase text-xs"
+                    value={newProduct.category}
+                    onChange={(e) => setNewProduct({...newProduct, category: e.target.value})}
+                  >
                     <option>{t.dashboard.categories.electronics}</option>
                     <option>{t.dashboard.categories.fashion}</option>
                     <option>{t.dashboard.categories.home}</option>
@@ -441,8 +555,46 @@ export default function FounderDashboardPage() {
                     <option>{t.dashboard.categories.beauty}</option>
                     <option>{t.dashboard.categories.toys}</option>
                   </select>
-               </div>
-               <div className="pt-4"><button type="submit" className="w-full h-14 rounded-xl bg-primary text-primary-foreground font-black uppercase tracking-widest shadow-lg hover:opacity-90">{newProduct.id ? t.dashboard.updateProduct : t.dashboard.createProduct}</button></div>
+                </div>
+
+                <div className="col-span-2 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">รายละเอียดสินค้า / Description</label>
+                    <button
+                      type="button"
+                      onClick={generateAIDescription}
+                      disabled={isGeneratingDesc || !newProduct.name}
+                      className="flex items-center gap-1 px-3 py-1 rounded-lg bg-linear-to-r from-purple-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer"
+                    >
+                      <Sparkles className="h-3 w-3" />
+                      {isGeneratingDesc ? "กำลังสร้าง..." : "AI เขียนให้"}
+                    </button>
+                  </div>
+                  <textarea
+                    rows={3}
+                    placeholder="Enter product description or use AI to generate..."
+                    className={cn(
+                      "w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold resize-none",
+                      isGeneratingDesc && "animate-pulse"
+                    )}
+                    value={newProduct.description}
+                    onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}
+                  />
+                  {isGeneratingDesc && (
+                    <div className="flex items-center gap-2 px-2 text-[10px] font-black text-primary animate-bounce">
+                      <Sparkles className="h-3 w-3" />
+                      AI IS TYPING...
+                    </div>
+                  )}
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="w-full h-16 rounded-2xl bg-primary text-primary-foreground font-black text-lg shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3 cursor-pointer"
+              >
+                {newProduct.id ? <Edit className="h-6 w-6" /> : <Plus className="h-6 w-6" />}
+                {newProduct.id ? t.dashboard.updateProduct : t.dashboard.createProduct}
+              </button>
             </form>
           </div>
         </div>
