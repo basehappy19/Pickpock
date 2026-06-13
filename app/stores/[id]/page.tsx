@@ -47,29 +47,32 @@ export default function StoreDetailPage() {
   }, [id]);
 
   const storeProducts = useMemo(() => {
-    // If id is 'mall', show official products. Otherwise, show products by storeId.
-    return products.filter(p => p.storeId === store?.store_id || (id === 'mall' && (p.isOfficial || p.storeId === 'mall')));
+    // If id is 'mall' or 's-001', show official products. Otherwise, show products by storeId.
+    const isMall = id === 'mall' || id === 's-001' || store?.store_id === 's-001';
+    return products.filter(p => p.storeId === store?.store_id || (isMall && (p.isOfficial || p.storeId === 'mall' || p.storeId === 's-001')));
   }, [products, store, id]);
 
   if (loading) return (
     <div className="h-[60vh] flex flex-col items-center justify-center gap-4">
       <div className="h-12 w-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-      <p className="font-black text-xs uppercase tracking-widest text-muted-foreground">Opening Store Profile...</p>
+      <p className="font-black text-xs uppercase tracking-widest text-muted-foreground">{t.common.loading}</p>
     </div>
   );
 
-  if (!store && id !== 'mall') return (
+  if (!store && id !== 'mall' && id !== 's-001') return (
     <div className="h-[60vh] flex flex-col items-center justify-center text-center p-8 space-y-6">
       <Box className="h-16 w-16 text-muted-foreground/20" />
-      <h2 className="text-3xl font-black tracking-tight">Store Not Found</h2>
-      <button onClick={() => router.back()} className="h-12 px-6 rounded-xl bg-primary text-white font-black">Go Back</button>
+      <h2 className="text-3xl font-black tracking-tight">{t.store.notFound}</h2>
+      <button onClick={() => router.back()} className="h-12 px-6 rounded-xl bg-primary text-white font-black">{t.store.goBack}</button>
     </div>
   );
 
   const displayStore = store || { 
-    name: "MSU MALL OFFICIAL", 
+    name: "Pickpock Mall",
     rating: 4.9, 
-    description: "The official premium collection by MSU FOUNDER. Trusted quality, guaranteed authenticity.", 
+    description: t.language === 'th' 
+      ? "แหล่งรวมสินค้าพรีเมียมอย่างเป็นทางการโดย MSU FOUNDER มั่นใจในคุณภาพและของแท้ 100% พร้อมบริการเหนือระดับ" 
+      : "The official premium collection by MSU FOUNDER. Trusted quality, guaranteed authenticity with superior service.", 
     joined_at: "2026-01-01" 
   };
 

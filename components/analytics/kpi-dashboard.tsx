@@ -150,7 +150,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-xl font-black tracking-tight uppercase">แนวโน้มยอดขาย</h3>
-              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">7 วันล่าสุด</p>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">ประสิทธิภาพยอดขาย</p>
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest">
               <TrendingUp className="h-3.5 w-3.5" /> +12% จากสัปดาห์ก่อน
@@ -191,7 +191,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
             <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-8 flex flex-col items-center justify-center">
               <div className="text-center">
                 <h3 className="text-xl font-black tracking-tight uppercase">สัดส่วนรายได้</h3>
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Official Mall vs Partners</p>
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Pickpock Mall vs Partners</p>
               </div>
 
               <DonutChart

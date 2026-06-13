@@ -13,14 +13,16 @@ import { useWishlist } from "@/hooks/use-wishlist";
 import { useCompare } from "@/hooks/use-compare";
 import { cn } from "@/lib/utils";
 
-export default function HomepageClient({ products }: { products: Product[] }) {
+export default function HomepageClient({ initialProducts = [] }: { initialProducts?: Product[] }) {
   const { t } = useLanguage();
   const [claimedCodes, setClaimedCodes] = useState<string[]>([]);
   const { recentlyViewed } = useRecentlyViewed();
   const { addToWishlist, isInWishlist } = useWishlist();
   const { addToCompare } = useCompare();
 
-  // Since we simplified to MSU MALL only, all products are official.
+  const products = initialProducts || [];
+
+  // Since we simplified to Pickpock Mall only, all products are official.
   // We'll just slice different parts of the list for sections.
   const aiRecommended = products.slice(0, 4);
   const popularTrending = products.slice(4, 12);
@@ -33,7 +35,7 @@ export default function HomepageClient({ products }: { products: Product[] }) {
   };
 
   const getImgSrc = (src: string) => {
-    if (!src || src.trim() === "") return "https://placehold.co/600x600?text=MSU+MALL";
+    if (!src || src.trim() === "") return "https://placehold.co/600x600?text=Pickpock+Mall";
     return src;
   };
 
@@ -180,7 +182,7 @@ export default function HomepageClient({ products }: { products: Product[] }) {
                   <div className="aspect-square relative bg-muted overflow-hidden">
                     <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
                     <div className="absolute bottom-3 left-3 px-2 py-1 bg-background/90 backdrop-blur text-[10px] font-black uppercase tracking-widest rounded-lg border shadow-sm">
-                      {product.isOfficial ? "Official Mall" : "Partner Store"}
+                      {product.isOfficial ? t.dashboard.officialMall : t.dashboard.partnerStore}
                     </div>
                   </div>
                   <div className="p-4 lg:p-5 space-y-2 flex-1 flex flex-col justify-between">

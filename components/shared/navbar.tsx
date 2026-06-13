@@ -24,9 +24,13 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: t.nav.home, icon: Home },
     { href: "/products", label: t.nav.products, icon: Package },
-    ...(role !== "founder" ? [{ href: "/history", label: t.nav.history, icon: LayoutDashboard }] : []),
+    ...(role !== "founder" && role !== "partner" ? [{ href: "/history", label: t.nav.history, icon: LayoutDashboard }] : []),
     ...(role === "founder" || role === "partner" ? [
-      { href: "/dashboard", label: t.nav.dashboard, icon: LayoutDashboard },
+      { 
+        href: "/dashboard", 
+        label: role === "founder" ? t.nav.platformManagement : t.nav.storeManagement, 
+        icon: LayoutDashboard 
+      },
       { href: "/orders", label: t.nav.orders, icon: Package },
     ] : user ? [
       { href: "/partner/register", label: t.nav.becomePartner, icon: ShoppingBag },

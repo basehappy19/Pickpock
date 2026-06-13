@@ -135,7 +135,7 @@ export default function ProfilePage() {
               </div>
             ) : user.role === "customer" ? (
               <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 space-y-3">
-                <p className="text-xs font-bold text-muted-foreground">Want to sell your own products on MSU MALL?</p>
+                <p className="text-xs font-bold text-muted-foreground">Want to sell your own products on Pickpock Mall?</p>
                 <Link 
                   href="/partner/register" 
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-primary/20"

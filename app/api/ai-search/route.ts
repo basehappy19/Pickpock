@@ -39,7 +39,7 @@ Products: ${JSON.stringify(compactProducts)}
 Return ONLY JSON array of matching product IDs (most relevant first). Example: ["p1", "p3"]. Empty array if no matches: []`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash', // Updated to faster model
+      model: 'gemini-3.5-flash', // Updated to faster model
       contents: prompt
     });
 

@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     const ai = new GoogleGenAI({ apiKey });
 
     // Optimized: More concise prompt structure
-    const fullPrompt = `คุณคือผู้ช่วยอัจฉริยะสำหรับ "MSU FOUNDER" E-commerce
+    const fullPrompt = `คุณคือผู้ช่วยอัจฉริยะสำหรับ "PICKPOCK FOUNDER" E-commerce
 
 Context: ${JSON.stringify(context)}
 
@@ -33,7 +33,7 @@ Context: ${JSON.stringify(context)}
 ตอบเป็นภาษาไทยสุภาพมืออาชีพ กระชับ เข้าใจง่าย นำไปใช้ได้จริง`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash', // Updated to faster model
+      model: 'gemini-3.5-flash', // Updated to faster model
       contents: fullPrompt
     });
 

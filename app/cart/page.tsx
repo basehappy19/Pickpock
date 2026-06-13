@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/hooks/use-cart";
-import { formatCurrency, getImgSrc } from "@/lib/utils";
+import { formatCurrency, getImgSrc, cn } from "@/lib/utils";
 import { Trash2, ShoppingBag, ArrowLeft, Plus, Minus, CreditCard, Tag, CheckCircle2, LogIn } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -16,8 +16,10 @@ export default function CartPage() {
   const { items, removeFromCart, addToCart, updateQuantity, totalCount, totalPrice, discountedTotal, discountSummary, appliedCoupon, applyCoupon, removeCoupon, clearCart } = useCart();
   const { addOrder, purchaseItems } = useGlobalData();
   const { t } = useLanguage();
-  const { user, tier } = useRole();
+  const { user, tier, role } = useRole();
   const router = useRouter();
+
+  const isRestricted = role === "founder" || role === "partner";
 
   const [couponCode, setCouponCode] = useState("");
   const [customerName, setCustomerName] = useState("");
@@ -120,7 +122,19 @@ export default function CartPage() {
 
   return (
     <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700">
-      {!user && (
+      {isRestricted ? (
+        <div className="bg-rose-50 dark:bg-rose-900/20 border-2 border-rose-200 dark:border-rose-800 rounded-2xl p-4 lg:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-rose-100 dark:bg-rose-800">
+              <CreditCard className="h-5 w-5 text-rose-600 dark:text-rose-400" />
+            </div>
+            <div>
+              <p className="font-black text-rose-900 dark:text-rose-100">Management Account Restricted</p>
+              <p className="text-sm text-rose-700 dark:text-rose-300">Founders and Partners are not allowed to make purchases. Please use a member account.</p>
+            </div>
+          </div>
+        </div>
+      ) : !user && (
         <div className="bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-2xl p-4 lg:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-xl bg-amber-100 dark:bg-amber-800">
@@ -281,9 +295,15 @@ export default function CartPage() {
             </div>
             <button 
               onClick={handleCheckout}
-              className="w-full h-14 lg:h-16 rounded-xl bg-primary text-primary-foreground font-black text-base lg:text-lg shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3 cursor-pointer"
+              disabled={isRestricted}
+              className={cn(
+                "w-full h-14 lg:h-16 rounded-xl font-black text-base lg:text-lg shadow-xl transition-all flex items-center justify-center gap-3 cursor-pointer",
+                isRestricted 
+                  ? "bg-muted text-muted-foreground cursor-not-allowed grayscale" 
+                  : "bg-primary text-primary-foreground shadow-primary/20 hover:opacity-90 active:scale-95"
+              )}
             >
-              <CreditCard className="h-5 w-5 lg:h-6 lg:w-6" /> {t.cart.checkout}
+              <CreditCard className="h-5 w-5 lg:h-6 lg:w-6" /> {isRestricted ? "Restricted for Management" : t.cart.checkout}
             </button>
           </div>
         </div>

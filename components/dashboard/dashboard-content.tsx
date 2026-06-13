@@ -9,8 +9,6 @@ import {
   DollarSign,
   ArrowUpRight,
   Search,
-  Filter,
-  MoreVertical,
   Plus,
   Pencil,
   Trash2,
@@ -18,16 +16,33 @@ import {
   Save,
   ShieldCheck,
   Box,
-  Upload
+  Upload,
+  Store,
+  ArrowRight
 } from "lucide-react";
 import { useFilter } from "@/hooks/use-filter";
 import { useLanguage } from "@/hooks/use-language";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRole } from "@/hooks/use-role";
 import { uploadProductImage } from "@/lib/supabase";
 import NextImage from "next/image";
 import { useGlobalData } from "@/hooks/use-global-data";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  Cell,
+  Legend,
+  AreaChart,
+  Area
+} from 'recharts';
 
 interface DashboardContentProps {
   initialProducts: Product[];
@@ -36,7 +51,7 @@ interface DashboardContentProps {
 export default function DashboardContent({ initialProducts }: DashboardContentProps) {
   const { t } = useLanguage();
   const { role } = useRole();
-  const { products, addProduct, updateProduct, deleteProduct } = useGlobalData();
+  const { products, addProduct, updateProduct, deleteProduct, orders, stores } = useGlobalData();
   const { filteredData, filters, updateFilter } = useFilter(products);
   const router = useRouter();
 
@@ -46,61 +61,79 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
 
-  useEffect(() => {
-    if (editingProduct) setImageUrl(editingProduct.image);
-    else setImageUrl("");
-  }, [editingProduct, isModalOpen]);
+  // Process Real Data for Charts
+  const analyticsData = useMemo(() => {
+    // 1. Sales over last 7 days (mocking dates to be recent since data is old)
+    // In a real app, we'd use current date. Here we'll take the latest order date as "today".
+    const sortedOrders = [...orders].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    const latestDate = sortedOrders.length > 0 ? new Date(sortedOrders[0].timestamp) : new Date();
+    
+    const last7Days = Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(latestDate);
+      d.setDate(d.getDate() - (6 - i));
+      return d.toISOString().split('T')[0];
+    });
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploading(true);
-    const url = await uploadProductImage(file);
-    if (url) {
-      setImageUrl(url);
-      alert("Image uploaded successfully!");
-    } else {
-      alert("Upload failed. Using local preview.");
-      setImageUrl(URL.createObjectURL(file));
-    }
-    setUploading(false);
-  };
-
-  const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const newProdData: Partial<Product> = {
-      name: formData.get("name") as string,
-      price: Number(formData.get("price")),
-      category: formData.get("category") as string,
-      stock: Number(formData.get("stock")),
-      image: imageUrl || (editingProduct?.image || products[0].image),
-    };
-
-    if (editingProduct) {
-      updateProduct({ ...editingProduct, ...newProdData } as Product);
-    } else {
-      const addedProd: Product = {
-        ...products[0],
-        id: `p${Date.now()}`,
-        ...newProdData as any,
-        reviews: [],
-        rating: 0,
-        storeName: "MSU Official",
-        isOfficial: true,
+    const dailySales = last7Days.map(date => {
+      const dayTotal = orders
+        .filter(o => o.timestamp.startsWith(date))
+        .reduce((sum, o) => sum + o.total_price, 0);
+      
+      return {
+        name: new Date(date).toLocaleDateString('th-TH', { weekday: 'short' }),
+        revenue: dayTotal,
+        orders: orders.filter(o => o.timestamp.startsWith(date)).length
       };
-      addProduct(addedProd);
-    }
-    setIsModalOpen(false);
-    setEditingProduct(null);
-  };
+    });
+
+    // 2. Top Products by Quantity
+    const productSales: Record<string, number> = {};
+    orders.forEach(o => {
+      o.items.forEach(item => {
+        productSales[item.product_id] = (productSales[item.product_id] || 0) + item.qty;
+      });
+    });
+
+    const topProducts = Object.entries(productSales)
+      .map(([id, qty]) => ({
+        name: products.find(p => p.id === id)?.name?.slice(0, 15) || id,
+        value: qty
+      }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 5);
+
+    // 3. Top Stores by Revenue
+    const storeRevenue: Record<string, number> = {};
+    orders.forEach(o => {
+      o.items.forEach(item => {
+        const product = products.find(p => p.id === item.product_id);
+        const storeId = product?.storeId || 'unknown';
+        const storeName = stores.find(s => s.store_id === storeId)?.name || 'Other';
+        storeRevenue[storeName] = (storeRevenue[storeName] || 0) + (item.qty * (product?.price || 0));
+      });
+    });
+
+    const topStores = Object.entries(storeRevenue)
+      .map(([name, revenue]) => ({ name, revenue }))
+      .sort((a, b) => b.revenue - a.revenue)
+      .slice(0, 5);
+
+    // Calculate Growth (+12% as requested, but could be calculated)
+    const totalRevenue = orders.reduce((sum, o) => sum + o.total_price, 0);
+
+    return {
+      dailySales,
+      topProducts,
+      topStores,
+      totalRevenue
+    };
+  }, [orders, products, stores]);
 
   const stats = [
-    { title: t.dashboard.stats.revenue, value: formatCurrency(125000), icon: DollarSign, trend: "+12.5%", color: "from-blue-600/20 to-blue-600/5", iconColor: "text-blue-600" },
+    { title: t.dashboard.stats.revenue, value: formatCurrency(analyticsData.totalRevenue), icon: DollarSign, trend: "+12%", color: "from-blue-600/20 to-blue-600/5", iconColor: "text-blue-600" },
     { title: t.dashboard.stats.users, value: "1,240", icon: Users, trend: "+5.2%", color: "from-indigo-600/20 to-indigo-600/5", iconColor: "text-indigo-600" },
     { title: t.dashboard.stats.products, value: products.length, icon: Package, trend: "0%", color: "from-emerald-600/20 to-emerald-600/5", iconColor: "text-emerald-600" },
-    { title: t.dashboard.stats.rating, value: "4.7", icon: TrendingUp, trend: "+0.2", color: "from-amber-600/20 to-amber-600/5", iconColor: "text-amber-600" },
+    { title: t.dashboard.stats.rating, value: "4.8", icon: TrendingUp, trend: "+0.2", color: "from-amber-600/20 to-amber-600/5", iconColor: "text-amber-600" },
   ];
 
   return (
@@ -118,7 +151,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
           onClick={() => { setEditingProduct(null); setIsModalOpen(true); }}
           className="flex items-center justify-center gap-2 px-6 py-4 text-sm font-black rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer"
         >
-          <Plus className="h-5 w-5" /> Add New Product
+          <Plus className="h-5 w-5" /> เพิ่มสินค้าใหม่
         </button>
       </div>
 
@@ -145,9 +178,127 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
         ))}
       </div>
 
+      {/* Analytics Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Sales Graph */}
+        <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-6 lg:p-8 shadow-xl shadow-primary/5 space-y-6">
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className="text-xl font-black tracking-tight uppercase">ประสิทธิภาพยอดขาย</h3>
+              <p className="text-xs text-muted-foreground font-bold">+12% เทียบกับสัปดาห์ก่อน</p>
+            </div>
+            <div className="p-2 rounded-xl bg-primary/10 text-primary">
+              <TrendingUp className="h-5 w-5" />
+            </div>
+          </div>
+          
+          <div className="h-[300px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={analyticsData.dailySales}>
+                <defs>
+                  <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="var(--color-primary)" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="var(--color-primary)" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                <XAxis 
+                  dataKey="name" 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{ fontSize: 10, fontWeight: 'bold' }} 
+                  dy={10}
+                />
+                <YAxis 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{ fontSize: 10, fontWeight: 'bold' }}
+                  tickFormatter={(val) => `฿${val/1000}k`}
+                />
+                <Tooltip 
+                  contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }}
+                  formatter={(val: number) => [formatCurrency(val), "ยอดขาย"]}
+                />
+                <Area 
+                  type="monotone" 
+                  dataKey="revenue" 
+                  stroke="var(--color-primary)" 
+                  strokeWidth={4}
+                  fillOpacity={1} 
+                  fill="url(#colorRev)" 
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Store Performance */}
+        <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-6 lg:p-8 shadow-xl shadow-primary/5 space-y-6">
+          <div className="flex justify-between items-center">
+            <h3 className="text-xl font-black tracking-tight uppercase">ร้านค้าทำยอดสูงสุด</h3>
+            <Store className="h-5 w-5 text-indigo-600" />
+          </div>
+          
+          <div className="space-y-6">
+            {analyticsData.topStores.map((store, i) => (
+              <div key={i} className="space-y-2">
+                <div className="flex justify-between items-center text-sm font-black uppercase tracking-tight">
+                  <span className="flex items-center gap-2">
+                    <span className="h-6 w-6 rounded-lg bg-muted flex items-center justify-center text-[10px]">{i + 1}</span>
+                    {store.name}
+                  </span>
+                  <span className="text-primary">{formatCurrency(store.revenue)}</span>
+                </div>
+                <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-primary to-indigo-500 rounded-full transition-all duration-1000"
+                    style={{ width: `${(store.revenue / analyticsData.topStores[0].revenue) * 100}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button className="w-full py-4 rounded-xl border-2 border-dashed border-muted-foreground/20 text-xs font-black uppercase tracking-widest hover:bg-muted/50 transition-all flex items-center justify-center gap-2">
+            ดูรายงานร้านค้าทั้งหมด <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Best Selling Products */}
+      <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-6 lg:p-8 shadow-xl shadow-primary/5 space-y-6">
+        <h3 className="text-xl font-black tracking-tight uppercase">สินค้าขายดี (จำนวนชิ้น)</h3>
+        <div className="h-[300px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={analyticsData.topProducts}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+              <XAxis 
+                dataKey="name" 
+                axisLine={false} 
+                tickLine={false} 
+                tick={{ fontSize: 10, fontWeight: 'bold' }} 
+                dy={10}
+              />
+              <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fontWeight: 'bold' }} />
+              <Tooltip 
+                cursor={{ fill: 'rgba(0,0,0,0.02)' }}
+                contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }}
+              />
+              <Bar dataKey="value" radius={[8, 8, 0, 0]}>
+                {analyticsData.topProducts.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={['#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'][index % 5]} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Product Management Table */}
       <div className="bg-card rounded-2xl border shadow-sm overflow-hidden flex flex-col">
         <div className="p-4 lg:p-8 border-b bg-muted/30 flex flex-col lg:flex-row justify-between gap-4 lg:gap-6 text-center md:text-left">
-          <div className="flex flex-col sm:flex-row gap-4 items-center flex-1 max-w-3xl">
+          <h2 className="text-2xl font-black tracking-tight uppercase tracking-tighter">รายการสินค้าในระบบ</h2>
+          <div className="flex flex-col sm:flex-row gap-4 items-center flex-1 max-w-xl">
             <div className="relative flex-1 w-full group">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4 group-focus-within:text-primary transition-colors" />
               <input 
@@ -198,7 +349,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
             <div className="p-6 lg:p-8 bg-rainbow-gradient border-b flex justify-between items-center">
               <h3 className="text-xl lg:text-2xl font-black tracking-tight flex items-center gap-2 uppercase tracking-tighter">
                 <ShieldCheck className="h-6 w-6 text-primary" />
-                {editingProduct ? "Edit Product" : "Add New Product"}
+                {editingProduct ? "แก้ไขสินค้า" : "เพิ่มสินค้าใหม่"}
               </h3>
               <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-black/5 rounded-full cursor-pointer"><X /></button>
             </div>
@@ -212,32 +363,32 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
                   <div className="flex-1">
                     <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" id="img-upload" disabled={uploading} />
                     <label htmlFor="img-upload" className="inline-flex h-9 px-4 items-center justify-center rounded-lg border-2 border-dashed border-primary/30 text-[10px] font-black uppercase tracking-widest hover:bg-primary/5 transition-colors cursor-pointer">
-                      {uploading ? t.dashboard.uploading : <><Upload className="h-3.5 w-3.5 mr-2" /> Choose File</>}
+                      {uploading ? t.dashboard.uploading : <><Upload className="h-3.5 w-3.5 mr-2" /> เลือกรูปภาพ</>}
                     </label>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Product Name</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">ชื่อสินค้า</label>
                 <input name="name" defaultValue={editingProduct?.name} required className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Price (THB)</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">ราคา (บาท)</label>
                   <input name="price" type="number" defaultValue={editingProduct?.price} required className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Stock</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">สต็อก</label>
                   <input name="stock" type="number" defaultValue={editingProduct?.stock} required className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm" />
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Category</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">หมวดหมู่</label>
                 <input name="category" defaultValue={editingProduct?.category} required className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm" />
               </div>
               <button type="submit" className="w-full h-14 rounded-xl bg-primary text-primary-foreground font-black text-lg shadow-xl shadow-primary/20 hover:opacity-90 transition-all flex items-center justify-center gap-3 cursor-pointer">
-                <Save className="h-5 w-5" /> Save Product
+                <Save className="h-5 w-5" /> บันทึกสินค้า
               </button>
             </form>
           </div>

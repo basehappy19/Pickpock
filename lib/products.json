@@ -9,7 +9,8 @@
     "rating": 4.8,
     "reviews": [],
     "description": "Experience pure sound with our latest noise-cancelling technology.",
-    "isOfficial": true
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-102",
@@ -21,7 +22,8 @@
     "rating": 4.5,
     "reviews": [],
     "description": "Lightweight and breathable running shoes for maximum performance.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-103",
@@ -33,7 +35,8 @@
     "rating": 4.9,
     "reviews": [],
     "description": "The ultimate companion for your healthy lifestyle.",
-    "isOfficial": true
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-104",
@@ -45,7 +48,8 @@
     "rating": 4.7,
     "reviews": [],
     "description": "Tactile and responsive mechanical keys with customizable RGB lighting.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-105",
@@ -57,7 +61,8 @@
     "rating": 4.6,
     "reviews": [],
     "description": "High-precision wireless gaming mouse with ergonomic design.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-106",
@@ -69,7 +74,8 @@
     "rating": 4.8,
     "reviews": [],
     "description": "Stunning 4K resolution with HDR support for creative professionals.",
-    "isOfficial": true
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-107",
@@ -81,7 +87,8 @@
     "rating": 4.5,
     "reviews": [],
     "description": "Ultra-fast charging for all your USB-C devices.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-108",
@@ -93,7 +100,8 @@
     "rating": 4.4,
     "reviews": [],
     "description": "Compact and powerful speaker with long-lasting battery life.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-109",
@@ -105,7 +113,8 @@
     "rating": 4.6,
     "reviews": [],
     "description": "Ergonomic laptop stand made from premium aluminum.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-110",
@@ -117,7 +126,8 @@
     "rating": 4.3,
     "reviews": [],
     "description": "Crystal clear video calls with built-in microphone.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-111",
@@ -129,7 +139,8 @@
     "rating": 4.4,
     "reviews": [],
     "description": "Premium 100% cotton t-shirt for everyday comfort.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-112",
@@ -141,7 +152,8 @@
     "rating": 4.5,
     "reviews": [],
     "description": "Classic denim jeans with a modern slim fit cut.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-113",
@@ -153,7 +165,8 @@
     "rating": 4.8,
     "reviews": [],
     "description": "Handcrafted genuine leather wallet with RFID protection.",
-    "isOfficial": true
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-114",
@@ -165,7 +178,8 @@
     "rating": 4.4,
     "reviews": [],
     "description": "Timeless aviator style with polarized lenses.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-115",
@@ -177,7 +191,8 @@
     "rating": 4.6,
     "reviews": [],
     "description": "Soft and cozy hoodie for chilly days.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-116",
@@ -189,7 +204,8 @@
     "rating": 4.7,
     "reviews": [],
     "description": "Durable canvas backpack with laptop sleeve.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-117",
@@ -201,7 +217,8 @@
     "rating": 4.2,
     "reviews": [],
     "description": "Breathable sports cap for outdoor activities.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-118",
@@ -213,7 +230,8 @@
     "rating": 4.5,
     "reviews": [],
     "description": "Premium white formal shirt for a professional look.",
-    "isOfficial": false
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-119",
@@ -225,7 +243,8 @@
     "rating": 4.8,
     "reviews": [],
     "description": "Insulated winter jacket for extreme cold protection.",
-    "isOfficial": true
+    "isOfficial": true,
+    "storeId": "mall"
   },
   {
     "id": "p-120",
@@ -237,36 +256,7 @@
     "rating": 4.3,
     "reviews": [],
     "description": "Comfortable ankle socks with reinforced heel.",
-    "isOfficial": false
-  },
-  {
-    "id": "p-euk6sen0n",
-    "product_id": "p-euk6sen0n",
-    "name": "test2",
-    "category": "Fashion",
-    "price": 111,
-    "stock": 12,
-    "image": "https://scmaztbrymmfqgwfnykg.supabase.co/storage/v1/object/public/products/product-images/0.11161091885623697.jpg",
-    "description": "",
-    "rating": 0,
-    "reviews": [],
-    "storeId": "s-osf8a30gm",
-    "isOfficial": false,
-    "createdAt": "2026-06-13T08:40:08.315Z"
-  },
-  {
-    "id": "p-k7tgrsnde",
-    "product_id": "p-k7tgrsnde",
-    "name": "test",
-    "category": "Electronics",
-    "price": 333,
-    "stock": 33,
-    "image": "https://scmaztbrymmfqgwfnykg.supabase.co/storage/v1/object/public/products/product-images/0.9955548237519843.png",
-    "description": "",
-    "rating": 0,
-    "reviews": [],
-    "storeId": "s-osf8a30gm",
-    "isOfficial": false,
-    "createdAt": "2026-06-13T08:40:14.612Z"
+    "isOfficial": true,
+    "storeId": "mall"
   }
 ]

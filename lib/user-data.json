@@ -1,10 +1,51 @@
 {
   "u009": {
     "user_id": "u009",
-    "cart": [],
+    "cart": [
+      {
+        "id": "p-101",
+        "name": "Wireless Noise Cancelling Headphones",
+        "category": "Electronics",
+        "price": 2500,
+        "stock": 50,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
+        "description": "Experience pure sound with our latest noise-cancelling technology.",
+        "rating": 4.8,
+        "reviews": [],
+        "isOfficial": true,
+        "createdAt": "2026-06-13T10:35:46.372Z",
+        "quantity": 1
+      }
+    ],
     "wishlist": [],
     "reviews": [],
     "recentlyViewed": [
+      {
+        "id": "p-105",
+        "name": "Gaming Mouse Wireless",
+        "category": "Electronics",
+        "price": 1200,
+        "stock": 0,
+        "image": "https://images.unsplash.com/photo-1527698266440-12104e498b76?q=80&w=800&auto=format&fit=crop",
+        "description": "High-precision wireless gaming mouse with ergonomic design.",
+        "rating": 4.6,
+        "reviews": [],
+        "isOfficial": false,
+        "createdAt": "2026-06-13T10:38:53.325Z"
+      },
+      {
+        "id": "p-101",
+        "name": "Wireless Noise Cancelling Headphones",
+        "category": "Electronics",
+        "price": 2500,
+        "stock": 50,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
+        "description": "Experience pure sound with our latest noise-cancelling technology.",
+        "rating": 4.8,
+        "reviews": [],
+        "isOfficial": true,
+        "createdAt": "2026-06-13T10:35:46.372Z"
+      },
       {
         "id": "p-euk6sen0n",
         "name": "test2",
@@ -43,7 +84,7 @@
         "reviews": [],
         "status": "active",
         "createdAt": "2026-06-13T05:38:33.868Z",
-        "storeName": "MSU MALL Official",
+        "storeName": "Pickpock Mall",
         "isOfficial": true
       },
       {
@@ -57,7 +98,7 @@
         "reviews": [],
         "status": "active",
         "createdAt": "2026-06-13T03:38:15.099Z",
-        "storeName": "MSU MALL Official",
+        "storeName": "Pickpock Mall",
         "isOfficial": true
       },
       {
@@ -71,7 +112,7 @@
         "reviews": [],
         "status": "active",
         "createdAt": "2026-06-13T03:38:15.099Z",
-        "storeName": "MSU MALL Official",
+        "storeName": "Pickpock Mall",
         "isOfficial": true
       },
       {
@@ -85,7 +126,7 @@
         "reviews": [],
         "status": "active",
         "createdAt": "2026-06-13T03:32:44.856Z",
-        "storeName": "MSU MALL Official",
+        "storeName": "Pickpock Mall",
         "isOfficial": true
       }
     ],
@@ -98,17 +139,18 @@
     "reviews": [],
     "recentlyViewed": [
       {
-        "id": "p-109",
-        "name": "Laptop Stand Aluminum",
+        "id": "p-105",
+        "name": "Gaming Mouse Wireless",
         "category": "Electronics",
-        "price": 450,
-        "stock": 45,
-        "image": "https://images.unsplash.com/photo-1544244015-0cd4b3ff56b0?q=80&w=800&auto=format&fit=crop",
-        "description": "Ergonomic laptop stand made from premium aluminum.",
+        "price": 1200,
+        "stock": 0,
+        "image": "https://images.unsplash.com/photo-1527698266440-12104e498b76?q=80&w=800&auto=format&fit=crop",
+        "description": "High-precision wireless gaming mouse with ergonomic design.",
         "rating": 4.6,
         "reviews": [],
-        "isOfficial": false,
-        "createdAt": "2026-06-13T09:49:07.962Z"
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-13T11:05:52.747Z"
       },
       {
         "id": "p-101",
@@ -120,8 +162,37 @@
         "description": "Experience pure sound with our latest noise-cancelling technology.",
         "rating": 4.8,
         "reviews": [],
+        "storeId": "mall",
         "isOfficial": true,
-        "createdAt": "2026-06-13T09:15:28.149Z"
+        "createdAt": "2026-06-13T11:05:52.747Z"
+      },
+      {
+        "id": "p-109",
+        "name": "Laptop Stand Aluminum",
+        "category": "Electronics",
+        "price": 450,
+        "stock": 45,
+        "image": "https://images.unsplash.com/photo-1544244015-0cd4b3ff56b0?q=80&w=800&auto=format&fit=crop",
+        "description": "Ergonomic laptop stand made from premium aluminum.",
+        "rating": 4.6,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-13T11:05:52.747Z"
+      },
+      {
+        "id": "p-110",
+        "name": "Webcam HD 1080p",
+        "category": "Electronics",
+        "price": 1100,
+        "stock": 8,
+        "image": "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=800&auto=format&fit=crop",
+        "description": "Crystal clear video calls with built-in microphone.",
+        "rating": 4.3,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-13T11:05:52.747Z"
       }
     ],
     "compare": []

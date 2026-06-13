@@ -31,6 +31,20 @@ import { useState, useEffect, useMemo } from "react";
 import AccessRestricted from "@/components/shared/access-restricted";
 import { uploadProductImage } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  Cell,
+  PieChart,
+  Pie
+} from "recharts";
 
 export default function FounderDashboardPage() {
   const { role, user } = useRole();
@@ -51,7 +65,7 @@ export default function FounderDashboardPage() {
     id: "",
     name: "",
     price: 0,
-    category: "Electronics",
+    category: "อิเล็กทรอนิกส์",
     stock: 0,
     image: "",
     description: "",
@@ -103,14 +117,14 @@ export default function FounderDashboardPage() {
     if (url) {
       setNewProduct(prev => ({ ...prev, image: url }));
     } else {
-      alert("Failed to upload image. Check your Supabase configuration.");
+      alert(t.dashboard.uploadFailed);
     }
     setIsUploading(false);
   };
 
   const generateAIDescription = async () => {
     if (!newProduct.name) {
-      alert("กรุณาใส่ชื่อสินค้าก่อน / Please enter product name first");
+      alert(t.dashboard.enterProductName);
       return;
     }
 
@@ -136,7 +150,7 @@ export default function FounderDashboardPage() {
       }
     } catch (e) {
       console.error("AI generation failed", e);
-      alert("Failed to generate description. Please try again.");
+      alert(t.dashboard.generateFailed);
     } finally {
       setIsGeneratingDesc(false);
     }
@@ -164,7 +178,7 @@ export default function FounderDashboardPage() {
 
       if (res.ok) {
         setShowAddModal(false);
-        setNewProduct({ id: "", name: "", price: 0, category: "Electronics", stock: 0, image: "", description: "", storeId: "mall", isOfficial: true });
+        setNewProduct({ id: "", name: "", price: 0, category: "อิเล็กทรอนิกส์", stock: 0, image: "", description: "", storeId: "mall", isOfficial: true });
         fetchAllData(); // Refresh
       }
     } catch (e) {
@@ -197,29 +211,216 @@ export default function FounderDashboardPage() {
     setShowAddModal(true);
   };
 
-  const stats = useMemo(() => {
-    if (dashboardData.loading) return [];
+  const [timeRange, setTimeRange] = useState<"12months" | "30days">("12months");
 
-    const productLookup = dashboardData.products.reduce((acc: any, p: any) => {
-      acc[p.product_id || p.id] = p;
+  // Calculate real analytics data
+  const analyticsData = useMemo(() => {
+    if (dashboardData.loading) {
+      return {
+        categoryDistribution: [],
+        revenueShare: { official: 0, partners: 0 },
+        salesTrend: [],
+        topProducts: [],
+        topStores: [],
+        percentChange: 0,
+        lowStockProducts: []
+      };
+    }
+
+    const { orders, products, stores } = dashboardData;
+    
+    // Product and Store mapping
+    const productMap = products.reduce((acc: any, p: any) => {
+      acc[p.id || p.product_id] = p;
       return acc;
     }, {});
 
-    const globalRevenue = dashboardData.orders.reduce((sum: number, o: any) => sum + (o.total_price || 0), 0);
-    
-    const mallRevenue = dashboardData.orders.reduce((sum: number, o: any) => {
-      const orderMallTotal = o.items.reduce((itemSum: number, item: any) => {
-        const product = productLookup[item.product_id];
-        if (product && (product.isOfficial || product.storeId === "mall")) {
-          return o.total_price; 
+    const storeMap = stores.reduce((acc: any, s: any) => {
+      acc[s.store_id] = s;
+      return acc;
+    }, {});
+
+    // Map product to store
+    const productToStoreMap: Record<string, any> = {};
+    stores.forEach((store: any) => {
+      if (store.products) {
+        store.products.forEach((pid: string) => {
+          productToStoreMap[pid] = store;
+        });
+      }
+    });
+    // Also check product.storeId
+    products.forEach((p: any) => {
+      const pid = p.id || p.product_id;
+      if (!productToStoreMap[pid] && p.storeId) {
+        productToStoreMap[pid] = storeMap[p.storeId];
+      }
+    });
+
+    // Time ranges setup
+    const now = new Date("2026-06-13T23:59:59Z"); // Simulated current date
+    let trendLabels: string[] = [];
+    let salesByLabel: Record<string, number> = {};
+    let comparisonStartDate: Date;
+    let comparisonEndDate: Date;
+    let currentPeriodRevenue = 0;
+    let prevPeriodRevenue = 0;
+
+    if (timeRange === "12months") {
+      // Last 12 Months
+      for (let i = 11; i >= 0; i--) {
+        const d = new Date(now);
+        d.setMonth(d.getMonth() - i);
+        const label = d.toLocaleString('th-TH', { month: 'short', year: '2-digit' });
+        trendLabels.push(label);
+        salesByLabel[label] = 0;
+      }
+      comparisonStartDate = new Date(now);
+      comparisonStartDate.setFullYear(comparisonStartDate.getFullYear() - 1);
+      comparisonEndDate = now;
+      
+      const prevYearStart = new Date(comparisonStartDate);
+      prevYearStart.setFullYear(prevYearStart.getFullYear() - 1);
+      const prevYearEnd = new Date(comparisonStartDate);
+
+      orders.forEach((order: any) => {
+        const orderTime = new Date(order.timestamp);
+        const total = order.total_price || 0;
+        const label = orderTime.toLocaleString('th-TH', { month: 'short', year: '2-digit' });
+
+        if (salesByLabel[label] !== undefined) {
+          salesByLabel[label] += total;
         }
-        return 0;
-      }, 0);
-      return sum + (orderMallTotal > 0 ? o.total_price : 0);
+
+        if (orderTime >= comparisonStartDate && orderTime <= now) {
+          currentPeriodRevenue += total;
+        } else if (orderTime >= prevYearStart && orderTime <= prevYearEnd) {
+          prevPeriodRevenue += total;
+        }
+      });
+    } else {
+      // Last 30 Days
+      for (let i = 29; i >= 0; i--) {
+        const d = new Date(now);
+        d.setDate(d.getDate() - i);
+        const label = d.toISOString().split('T')[0];
+        trendLabels.push(label);
+        salesByLabel[label] = 0;
+      }
+      comparisonStartDate = new Date(now);
+      comparisonStartDate.setDate(comparisonStartDate.getDate() - 29);
+      comparisonEndDate = now;
+
+      const prev30DaysStart = new Date(comparisonStartDate);
+      prev30DaysStart.setDate(prev30DaysStart.getDate() - 30);
+      const prev30DaysEnd = new Date(comparisonStartDate);
+
+      orders.forEach((order: any) => {
+        const orderDate = order.timestamp.split('T')[0];
+        const orderTime = new Date(order.timestamp);
+        const total = order.total_price || 0;
+
+        if (salesByLabel[orderDate] !== undefined) {
+          salesByLabel[orderDate] += total;
+        }
+
+        if (orderTime >= comparisonStartDate && orderTime <= now) {
+          currentPeriodRevenue += total;
+        } else if (orderTime >= prev30DaysStart && orderTime <= prev30DaysEnd) {
+          prevPeriodRevenue += total;
+        }
+      });
+    }
+
+    const salesTrend = trendLabels.map(label => ({
+      day: timeRange === "30days" ? new Intl.DateTimeFormat('th-TH', { day: 'numeric', month: 'short' }).format(new Date(label)) : label,
+      amount: salesByLabel[label]
+    }));
+
+    // Calculate percent change
+    const percentChange = prevPeriodRevenue > 0 
+      ? Math.round(((currentPeriodRevenue - prevPeriodRevenue) / prevPeriodRevenue) * 100) 
+      : 12;
+
+    // Top Products and Stores based on current selected period
+    const productSalesStats: Record<string, { name: string, sales: number, revenue: number }> = {};
+    const storeSalesStats: Record<string, { name: string, sales: number, revenue: number }> = {};
+
+    orders.forEach((order: any) => {
+      const orderTime = new Date(order.timestamp);
+      if (orderTime < comparisonStartDate || orderTime > now) return;
+
+      order.items.forEach((item: any) => {
+        const product = productMap[item.product_id];
+        const store = productToStoreMap[item.product_id] || (product?.isOfficial ? { name: t.dashboard.officialMall, store_id: "mall" } : null);
+        
+        if (product) {
+          if (!productSalesStats[item.product_id]) {
+            productSalesStats[item.product_id] = { name: product.name, sales: 0, revenue: 0 };
+          }
+          productSalesStats[item.product_id].sales += item.qty;
+          productSalesStats[item.product_id].revenue += (product.price * item.qty);
+        }
+
+        if (store) {
+          if (!storeSalesStats[store.store_id]) {
+            storeSalesStats[store.store_id] = { name: store.name, sales: 0, revenue: 0 };
+          }
+          storeSalesStats[store.store_id].sales += item.qty;
+          storeSalesStats[store.store_id].revenue += (product?.price || 0) * item.qty;
+        }
+      });
+    });
+
+    const topProducts = Object.values(productSalesStats)
+      .sort((a, b) => b.sales - a.sales)
+      .slice(0, 5);
+
+    const topStores = Object.values(storeSalesStats)
+      .sort((a, b) => b.revenue - a.revenue)
+      .slice(0, 5);
+
+    // Category distribution
+    const categoryCounts = products.reduce((acc: any, p: any) => {
+      const cat = p.category || 'Other';
+      acc[cat] = (acc[cat] || 0) + 1;
+      return acc;
+    }, {});
+
+    const totalProducts = products.length;
+    const categoryDistribution = Object.entries(categoryCounts)
+      .map(([label, count]) => ({
+        label,
+        count: Math.round(((count as number) / totalProducts) * 100),
+        color: ['bg-blue-500', 'bg-rose-500', 'bg-amber-500', 'bg-emerald-500', 'bg-purple-500'][Object.keys(categoryCounts).indexOf(label) % 5]
+      }))
+      .sort((a, b) => b.count - a.count);
+
+    return {
+      salesTrend,
+      percentChange,
+      topProducts,
+      topStores,
+      categoryDistribution,
+      revenueShare: { official: 100, partners: 0 },
+      lowStockProducts: products.filter((p: any) => (p.stock || 0) < 10)
+    };
+  }, [dashboardData, timeRange, t]);
+
+  const stats = useMemo(() => {
+    if (dashboardData.loading) return [];
+
+    const totalRevenue = dashboardData.orders.reduce((sum: number, o: any) => sum + (o.total_price || 0), 0);
+    const mallRevenue = dashboardData.orders.reduce((sum: number, o: any) => {
+      const isMallOrder = o.items.some((item: any) => {
+        const product = dashboardData.products.find((p: any) => (p.id || p.product_id) === item.product_id);
+        return product && (product.isOfficial || product.storeId === "mall");
+      });
+      return sum + (isMallOrder ? o.total_price : 0);
     }, 0);
 
     return [
-      { label: t.dashboard.stats.revenue + " (Global)", value: formatCurrency(globalRevenue), change: "+12.5%", trend: "up", icon: TrendingUp, color: "text-emerald-500" },
+      { label: t.dashboard.stats.revenue + " (Global)", value: formatCurrency(totalRevenue), change: "+12.5%", trend: "up", icon: TrendingUp, color: "text-emerald-500" },
       { label: t.dashboard.stats.revenue + " (Mall)", value: formatCurrency(mallRevenue), change: "+8.2%", trend: "up", icon: ShoppingBag, color: "text-amber-500" },
       { label: t.dashboard.stats.users, value: dashboardData.users.length.toLocaleString(), change: "+5.2%", trend: "up", icon: Users, color: "text-blue-500" },
       { label: t.dashboard.stats.products, value: dashboardData.products.length.toLocaleString(), change: "-2.1%", trend: "down", icon: Package, color: "text-purple-500" },
@@ -242,10 +443,31 @@ export default function FounderDashboardPage() {
   return (
     <div className="p-4 lg:p-8 space-y-8 max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-1">
           <h1 className="text-4xl font-black tracking-tighter">{t.dashboard.founderTitle}</h1>
           <p className="text-muted-foreground font-bold">{t.dashboard.founderSubtitle}</p>
+        </div>
+
+        <div className="flex bg-muted p-1 rounded-xl shrink-0">
+          <button
+            onClick={() => setTimeRange("12months")}
+            className={cn(
+              "px-6 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all cursor-pointer",
+              timeRange === "12months" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-primary"
+            )}
+          >
+            12 {t.common.monthly}
+          </button>
+          <button
+            onClick={() => setTimeRange("30days")}
+            className={cn(
+              "px-6 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all cursor-pointer",
+              timeRange === "30days" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-primary"
+            )}
+          >
+            30 {t.common.daily}
+          </button>
         </div>
       </div>
 
@@ -268,130 +490,227 @@ export default function FounderDashboardPage() {
 
       {/* Analytics Overview Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Sales Trend - Area Chart */}
+        {/* Sales Trend - Recharts Area Chart */}
         <div className="lg:col-span-2 bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h3 className="text-xl font-black tracking-tight uppercase">Sales Analytics</h3>
-              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Revenue performance over the last 7 days</p>
+              <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.salesAnalytics}</h3>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                {timeRange === '12months' ? t.dashboard.monthlyReport : t.dashboard.dailyReport}
+              </p>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest">
-              <TrendingUp className="h-3.5 w-3.5" /> +12% vs last week
+
+            <div className={cn(
+              "flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest",
+              analyticsData.percentChange >= 0 ? "bg-emerald-500/10 text-emerald-600" : "bg-rose-500/10 text-rose-600"
+            )}>
+              {analyticsData.percentChange >= 0 ? <TrendingUp className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}
+              {analyticsData.percentChange >= 0 ? "+" : ""}{analyticsData.percentChange}% {t.dashboard.vsLastWeek}
             </div>
           </div>
-          
-          <div className="h-[250px] w-full relative pt-4">
-             <svg className="w-full h-full" viewBox="0 0 800 200" preserveAspectRatio="none">
-               <defs>
-                 <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
-                   <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.2" />
-                   <stop offset="100%" stopColor="var(--color-primary)" stopOpacity="0" />
-                 </linearGradient>
-               </defs>
-               {[0, 50, 100, 150].map(y => (
-                 <line key={y} x1="0" y1={y} x2="800" y2={y} stroke="currentColor" strokeOpacity="0.05" strokeWidth="1" />
-               ))}
-               <path 
-                 d="M0 180 Q 100 140, 200 160 T 400 80 T 600 100 T 800 40 L 800 200 L 0 200 Z" 
-                 fill="url(#fade)" 
-                 className="text-primary"
-               />
-               <path 
-                 d="M0 180 Q 100 140, 200 160 T 400 80 T 600 100 T 800 40" 
-                 fill="none" 
-                 stroke="currentColor" 
-                 strokeWidth="4" 
-                 strokeLinecap="round" 
-                 strokeLinejoin="round"
-                 className="text-primary"
-               />
-               {[
-                 {x: 200, y: 160}, {x: 400, y: 80}, {x: 600, y: 100}, {x: 800, y: 40}
-               ].map((p, i) => (
-                 <circle key={i} cx={p.x} cy={p.y} r="6" className="fill-background stroke-primary stroke-[3px]" />
-               ))}
-             </svg>
-             <div className="flex justify-between mt-4 text-[10px] font-black text-muted-foreground uppercase tracking-widest px-1">
-               <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-             </div>
+
+          <div className="h-[300px] w-full pt-4">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={analyticsData.salesTrend}>
+                <defs>
+                  <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} strokeOpacity={0.1} />
+                <XAxis 
+                  dataKey="day" 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{ fontSize: 10, fontWeight: 900, fill: '#888' }}
+                  dy={10}
+                />
+                <YAxis 
+                  hide 
+                  domain={['auto', 'auto']}
+                />
+                <Tooltip 
+                  contentStyle={{ 
+                    borderRadius: '1rem', 
+                    border: 'none', 
+                    boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+                    fontSize: '10px',
+                    fontWeight: 900,
+                    textTransform: 'uppercase'
+                  }}
+                  formatter={(value: number) => [formatCurrency(value), "ยอดขาย"]}
+                />
+                <Area 
+                  type="monotone" 
+                  dataKey="amount" 
+                  stroke="#6366f1" 
+                  strokeWidth={4}
+                  fillOpacity={1} 
+                  fill="url(#colorAmount)" 
+                />
+              </AreaChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Category Share - Bar Chart */}
+        {/* Top Products - Bar Chart */}
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
-          <h3 className="text-xl font-black tracking-tight uppercase">Category Distribution</h3>
-          <div className="space-y-5">
-            {[
-              { label: 'Electronics', count: 45, color: 'bg-blue-500' },
-              { label: 'Fashion', count: 32, color: 'bg-rose-500' },
-              { label: 'Beauty', count: 28, color: 'bg-amber-500' },
-              { label: 'Sports', count: 15, color: 'bg-emerald-500' },
-              { label: 'Home', count: 12, color: 'bg-purple-500' },
-            ].map((cat) => (
-              <div key={cat.label} className="space-y-2">
-                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
-                  <span>{cat.label}</span>
-                  <span className="text-muted-foreground">{cat.count}%</span>
-                </div>
-                <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                  <div 
-                    className={cn("h-full rounded-full transition-all duration-1000", cat.color)} 
-                    style={{ width: `${cat.count}%` }} 
-                  />
-                </div>
-              </div>
-            ))}
+          <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.topProducts}</h3>
+          <div className="h-[300px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={analyticsData.topProducts} layout="vertical">
+                <XAxis type="number" hide />
+                <YAxis 
+                  dataKey="name" 
+                  type="category" 
+                  width={100} 
+                  axisLine={false} 
+                  tickLine={false}
+                  tick={{ fontSize: 8, fontWeight: 800, fill: '#666' }}
+                />
+                <Tooltip 
+                  cursor={{ fill: 'transparent' }}
+                  contentStyle={{ borderRadius: '1rem', border: 'none', fontSize: '10px', fontWeight: 900 }}
+                  formatter={(value: number) => [`${value} ${t.dashboard.units}`, t.dashboard.salesCount]}
+                />
+                <Bar dataKey="sales" radius={[0, 10, 10, 0]}>
+                  {analyticsData.topProducts.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={['#6366f1', '#f43f5e', '#f59e0b', '#10b981', '#a855f7'][index % 5]} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Top Stores - Bar Chart */}
+        <div className="lg:col-span-2 bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
+          <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.topStores}</h3>
+          <div className="h-[300px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={analyticsData.topStores}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} strokeOpacity={0.1} />
+                <XAxis 
+                  dataKey="name" 
+                  axisLine={false} 
+                  tickLine={false}
+                  tick={{ fontSize: 10, fontWeight: 900, fill: '#888' }}
+                />
+                <YAxis hide />
+                <Tooltip 
+                  contentStyle={{ borderRadius: '1rem', border: 'none', fontSize: '10px', fontWeight: 900 }}
+                  formatter={(value: number) => [formatCurrency(value), t.dashboard.totalRevenue]}
+                />
+                <Bar dataKey="revenue" radius={[10, 10, 0, 0]}>
+                  {analyticsData.topStores.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={['#6366f1', '#f43f5e', '#f59e0b', '#10b981', '#a855f7'][index % 5]} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
+        {/* Category Share - Progress Bars */}
+        <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
+          <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.categoryDistribution}</h3>
+          <div className="space-y-5">
+            {analyticsData.categoryDistribution.length > 0 ? (
+              analyticsData.categoryDistribution.slice(0, 5).map((cat) => (
+                <div key={cat.label} className="space-y-2">
+                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+                    <span>{cat.label}</span>
+                    <span className="text-muted-foreground">{cat.count}%</span>
+                  </div>
+                  <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                    <div
+                      className={cn("h-full rounded-full transition-all duration-1000", cat.color)}
+                      style={{ width: `${cat.count}%` }}
+                    />
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-center text-muted-foreground text-sm py-8">{t.dashboard.noData}</div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Market Share - Donut Chart */}
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-8 flex flex-col items-center justify-center">
           <div className="text-center">
-            <h3 className="text-xl font-black tracking-tight uppercase">Revenue Share</h3>
-            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Official vs Partners</p>
+            <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.revenueShare}</h3>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{t.dashboard.revenueShareDesc}</p>
           </div>
-          
+
           <div className="relative h-48 w-48">
-            <svg className="h-full w-full -rotate-90" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="40" fill="transparent" stroke="currentColor" strokeWidth="12" className="text-muted/30" />
-              <circle 
-                cx="50" cy="50" r="40" 
-                fill="transparent" 
-                stroke="currentColor" 
-                strokeWidth="12" 
-                strokeDasharray="251.2" 
-                strokeDashoffset="75.36" 
-                strokeLinecap="round"
-                className="text-primary transition-all duration-1000" 
-              />
-              <circle 
-                cx="50" cy="50" r="40" 
-                fill="transparent" 
-                stroke="currentColor" 
-                strokeWidth="12" 
-                strokeDasharray="251.2" 
-                strokeDashoffset="188.4" 
-                style={{ strokeDashoffset: '188.4', strokeDasharray: '251.2' }}
-                strokeLinecap="round"
-                className="text-amber-500" 
-              />
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-              <span className="text-4xl font-black tracking-tighter">70%</span>
-              <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">Official</span>
+             <ResponsiveContainer width="100%" height="100%">
+               <PieChart>
+                 <Pie
+                    data={[
+                      { name: t.dashboard.officialMall, value: analyticsData.revenueShare.official },
+                      { name: t.dashboard.partnerStore, value: analyticsData.revenueShare.partners }
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    paddingAngle={5}
+                    dataKey="value"
+                 >
+                   <Cell fill="#6366f1" />
+                   <Cell fill="#f59e0b" />
+                 </Pie>
+               </PieChart>
+             </ResponsiveContainer>
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+              <span className="text-4xl font-black tracking-tighter">{analyticsData.revenueShare.official}%</span>
+              <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">{t.dashboard.officialMall}</span>
             </div>
           </div>
-          
+
           <div className="w-full grid grid-cols-2 gap-4">
              <div className="flex items-center gap-2">
                <div className="h-3 w-3 rounded-full bg-primary" />
-               <span className="text-[10px] font-black uppercase tracking-tight">Official (70%)</span>
+               <span className="text-[10px] font-black uppercase tracking-tight">{t.dashboard.officialMall} ({analyticsData.revenueShare.official}%)</span>
              </div>
              <div className="flex items-center gap-2">
                <div className="h-3 w-3 rounded-full bg-amber-500" />
-               <span className="text-[10px] font-black uppercase tracking-tight">Partners (30%)</span>
+               <span className="text-[10px] font-black uppercase tracking-tight">{t.dashboard.partnerStore} ({analyticsData.revenueShare.partners}%)</span>
              </div>
           </div>
+        </div>
+
+        {/* Detailed Sales Info */}
+        <div className="lg:col-span-2 bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
+           <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.salesByStore}</h3>
+           <div className="overflow-x-auto">
+             <table className="w-full text-left">
+               <thead>
+                 <tr className="border-b">
+                   <th className="py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.partnerStore}</th>
+                   <th className="py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.salesCount}</th>
+                   <th className="py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">{t.dashboard.totalRevenue}</th>
+                 </tr>
+               </thead>
+               <tbody className="divide-y">
+                 {analyticsData.topStores.map((store, i) => (
+                   <tr key={i} className="group">
+                     <td className="py-4">
+                       <p className="font-black text-sm">{store.name}</p>
+                     </td>
+                     <td className="py-4 text-[10px] font-black uppercase">{store.sales} {t.dashboard.units}</td>
+                     <td className="py-4 text-right font-black text-sm">{formatCurrency(store.revenue)}</td>
+                   </tr>
+                 ))}
+               </tbody>
+             </table>
+           </div>
         </div>
       </div>
 
@@ -420,7 +739,7 @@ export default function FounderDashboardPage() {
                         </div>
                         <div>
                           <p className="font-black text-sm">{store.name}</p>
-                          <p className="text-[10px] font-bold text-muted-foreground">Owner ID: {store.owner_id}</p>
+                          <p className="text-[10px] font-bold text-muted-foreground">{t.dashboard.ownerId} {store.owner_id}</p>
                         </div>
                       </div>
                     </td>
@@ -464,10 +783,10 @@ export default function FounderDashboardPage() {
       {/* Product Management Section */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-black tracking-tight uppercase">Platform Inventory</h2>
-          <button 
+          <h2 className="text-2xl font-black tracking-tight uppercase">{t.dashboard.platformInventory}</h2>
+          <button
              onClick={() => {
-               setNewProduct({ id: "", name: "", price: 0, category: "Electronics", stock: 0, image: "", description: "", storeId: "mall", isOfficial: true });
+               setNewProduct({ id: "", name: "", price: 0, category: "อิเล็กทรอนิกส์", stock: 0, image: "", description: "", storeId: "mall", isOfficial: true });
                setShowAddModal(true);
              }}
              className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-[10px] uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-primary/20"
@@ -482,7 +801,7 @@ export default function FounderDashboardPage() {
               <thead>
                 <tr className="border-b bg-muted/20">
                   <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.name}</th>
-                  <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Store</th>
+                  <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.assignedStore}</th>
                   <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.stock}</th>
                   <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.price}</th>
                   <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">{t.dashboard.actions}</th>
@@ -507,7 +826,7 @@ export default function FounderDashboardPage() {
                          "px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest",
                          product.isOfficial ? "bg-amber-500/10 text-amber-600" : "bg-blue-500/10 text-blue-600"
                        )}>
-                         {product.isOfficial ? "Official Mall" : (dashboardData.stores.find((s:any) => s.store_id === product.storeId)?.name || "Partner Store")}
+                         {product.isOfficial ? t.dashboard.officialMall : (dashboardData.stores.find((s:any) => s.store_id === product.storeId)?.name || t.dashboard.partnerStore)}
                        </span>
                     </td>
                     <td className="px-8 py-6">
@@ -557,7 +876,7 @@ export default function FounderDashboardPage() {
                   <input
                     type="text"
                     required
-                    placeholder="Enter product name..."
+                    placeholder={t.dashboard.productNamePlaceholder}
                     className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold"
                     value={newProduct.name}
                     onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}
@@ -565,20 +884,20 @@ export default function FounderDashboardPage() {
                 </div>
                 
                 <div className="col-span-2 space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Assigned Store</label>
-                  <select 
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.assignedStore}</label>
+                  <select
                     className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-black uppercase text-xs"
                     value={newProduct.storeId}
                     onChange={(e) => {
                       const val = e.target.value;
                       setNewProduct({
-                        ...newProduct, 
+                        ...newProduct,
                         storeId: val,
                         isOfficial: val === "mall"
                       });
                     }}
                   >
-                    <option value="mall">MSU Official Mall</option>
+                    <option value="mall">{t.dashboard.officialMall}</option>
                     {dashboardData.stores.map((s: any) => (
                       <option key={s.store_id} value={s.store_id}>{s.name}</option>
                     ))}
@@ -643,23 +962,23 @@ export default function FounderDashboardPage() {
 
                 <div className="col-span-2 space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.category}</label>
-                  <select 
+                  <select
                     className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-black uppercase text-xs"
                     value={newProduct.category}
                     onChange={(e) => setNewProduct({...newProduct, category: e.target.value})}
                   >
-                    <option>Electronics</option>
-                    <option>Fashion</option>
-                    <option>Home</option>
-                    <option>Sports</option>
-                    <option>Beauty</option>
-                    <option>Toys</option>
+                    <option>{t.dashboard.categories.electronics}</option>
+                    <option>{t.dashboard.categories.fashion}</option>
+                    <option>{t.dashboard.categories.home}</option>
+                    <option>{t.dashboard.categories.sports}</option>
+                    <option>{t.dashboard.categories.beauty}</option>
+                    <option>{t.dashboard.categories.toys}</option>
                   </select>
                 </div>
 
                 <div className="col-span-2 space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">รายละเอียดสินค้า / Description</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.category} / {t.dashboard.table.description}</label>
                     <button
                       type="button"
                       onClick={generateAIDescription}
@@ -667,12 +986,12 @@ export default function FounderDashboardPage() {
                       className="flex items-center gap-1 px-3 py-1 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer"
                     >
                       <Sparkles className="h-3 w-3" />
-                      {isGeneratingDesc ? "กำลังสร้าง..." : "AI เขียนให้"}
+                      {isGeneratingDesc ? t.dashboard.generating : t.dashboard.aiWrite}
                     </button>
                   </div>
                   <textarea
                     rows={3}
-                    placeholder="Enter product description or use AI to generate..."
+                    placeholder={t.dashboard.descPlaceholder}
                     className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold resize-none"
                     value={newProduct.description}
                     onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}

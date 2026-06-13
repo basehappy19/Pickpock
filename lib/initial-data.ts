@@ -1,26 +1,22 @@
+import { Product, Order, Coupon } from "@/types";
 import productsJson from "./products.json";
 import ordersJson from "./ecommerce_orders.json";
-import { Product, Order, Coupon } from "@/types";
-
-// Source of truth directly from JSON files
-export const initialProductsRaw = productsJson;
-export const initialOrdersRaw = ordersJson;
 
 // Helper to map JSON to App Product Type
 export const mapProduct = (p: any): Product => ({
   id: p.id || p.product_id,
   name: p.name,
-  description: p.description || p.name + " - High-quality product curated for MSU MALL.",
-  fullDescription: p.name + " is a premium selection from our official mall. Designed for performance and style.",
+  description: p.description || p.name + " - High-quality product curated for Pickpock Mall.",
+  fullDescription: p.name + " is a premium selection from Pickpock Mall. Designed for performance and style.",
   price: p.price,
   category: p.category,
-  image: p.image || "https://placehold.co/600x600?text=MSU+MALL",
+  image: p.image || "https://placehold.co/600x600?text=Pickpock+Mall",
   rating: p.rating || 4.5,
   reviews: p.reviews || [],
   stock: p.stock,
   status: 'active',
   createdAt: p.createdAt || new Date().toISOString(),
-  storeName: "MSU MALL Official",
+  storeName: "Pickpock Mall",
   isOfficial: p.isOfficial || true,
   storeId: p.storeId || "mall",
   specs: p.specs || { "Origin": "MSU Premium", "Material": "Grade A", "Warranty": "1 Year" }
@@ -36,7 +32,7 @@ export const initialOrders: Order[] = ordersJson.map((o: any) => ({
   customerName: "User " + o.user_id,
   totalAmount: o.total_price,
   status: o.status.toLowerCase() as any,
-  createdAt: o.timestamp,
+  date: o.timestamp,
   paymentStatus: 'paid',
   items: o.items.map((item: any) => ({
     productId: item.product_id,

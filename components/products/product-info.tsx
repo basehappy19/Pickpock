@@ -1,9 +1,8 @@
 "use client";
 
-import { useFilter } from "@/hooks/use-filter";
 import { useLanguage } from "@/hooks/use-language";
-import { formatCurrency, cn } from "@/lib/utils";
-import { Star, ShieldCheck, ShoppingCart, Heart, Package, Truck, Info, MessageSquare, Store, ArrowRight, Share2, CheckCircle2, GitCompare } from "lucide-react";
+import { formatCurrency, cn, getImgSrc } from "@/lib/utils";
+import { Star, ShieldCheck, ShoppingCart, Heart, Truck, MessageSquare, Store, ArrowRight, Share2, CheckCircle2, GitCompare, Info } from "lucide-react";
 import { useState, useEffect } from "react";
 import NextImage from "next/image";
 import { Product } from "@/types";
@@ -12,18 +11,22 @@ import { useWishlist } from "@/hooks/use-wishlist";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 import { useCompare } from "@/hooks/use-compare";
 import { useRouter } from "next/navigation";
+import { useRole } from "@/hooks/use-role";
 
 export default function ProductInfo({ product, allProducts }: { product: Product, allProducts: Product[] }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const { addToRecentlyViewed } = useRecentlyViewed();
   const { addToCompare } = useCompare();
+  const { role } = useRole();
   const [activeTab, setActiveTab] = useState<"description" | "specs" | "reviews">("description");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
   const [storeData, setStoreData] = useState<any>(null);
   const router = useRouter();
+
+  const isRestricted = role === "founder" || role === "partner";
 
   useEffect(() => {
     if (product) {
@@ -63,12 +66,25 @@ export default function ProductInfo({ product, allProducts }: { product: Product
 
   return (
     <div className="space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      {isRestricted && (
+        <div className="bg-rose-50 dark:bg-rose-900/20 border-2 border-rose-200 dark:border-rose-800 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-xl bg-rose-100 dark:bg-rose-800">
+              <ShoppingCart className="h-6 w-6 text-rose-600 dark:text-rose-400" />
+            </div>
+            <div>
+              <p className="font-black text-rose-900 dark:text-rose-100 text-lg">บัญชีผู้จัดการถูกจำกัดการซื้อ</p>
+              <p className="text-sm text-rose-700 dark:text-rose-300 font-bold">Founder และ Partner ไม่ได้รับอนุญาตให้สั่งซื้อสินค้า กรุณาใช้บัญชีสมาชิกทั่วไปเพื่อสั่งซื้อ</p>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
         {/* Left: Image Gallery */}
         <div className="space-y-4">
           <div className="aspect-square relative rounded-[2.5rem] overflow-hidden border-2 border-primary/5 bg-muted shadow-2xl">
             <NextImage
-              src={product.image || placeholderImg}
+              src={getImgSrc(product.image) || placeholderImg}
               alt={product.name}
               fill
               priority
@@ -97,13 +113,6 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                </button>
             </div>
           </div>
-          <div className="grid grid-cols-4 gap-4">
-             {[1,2,3,4].map((i) => (
-               <div key={i} className="aspect-square rounded-2xl bg-muted border-2 border-transparent hover:border-primary/20 cursor-pointer overflow-hidden transition-all">
-                 <NextImage src={product.image || placeholderImg} alt={product.name} width={200} height={200} className="object-cover h-full w-full opacity-50 hover:opacity-100" />
-               </div>
-             ))}
-          </div>
         </div>
 
         {/* Right: Info */}
@@ -117,7 +126,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 <div className="flex items-center gap-1 text-amber-500">
                   <Star className="h-4 w-4 fill-current" />
                   <span className="text-sm font-black">{product.rating}</span>
-                  <span className="text-muted-foreground font-bold text-xs">({product.reviews.length} reviews)</span>
+                  <span className="text-muted-foreground font-bold text-xs">({product.reviews.length} รีวิว)</span>
                 </div>
               </div>
               <h1 className="text-4xl lg:text-5xl font-black tracking-tighter leading-none">{product.name}</h1>
@@ -126,12 +135,15 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             <div className="flex items-baseline gap-4">
               <span className="text-5xl font-black text-primary tracking-tighter">{formatCurrency(product.price)}</span>
               {product.stock < 10 && product.stock > 0 && (
-                <span className="text-rose-500 font-black text-xs uppercase tracking-widest animate-pulse">Only {product.stock} left in stock!</span>
+                <span className="text-rose-500 font-black text-xs uppercase tracking-widest animate-pulse">เหลือเพียง {product.stock} ชิ้นในสต็อก!</span>
+              )}
+              {product.stock === 0 && (
+                <span className="text-rose-500 font-black text-xs uppercase tracking-widest">สินค้าหมด</span>
               )}
             </div>
 
             <p className="text-muted-foreground font-bold leading-relaxed max-w-lg">
-              {product.description || "Elevate your lifestyle with this premium product, designed for performance and style. Part of our exclusive AI-curated collection."}
+              {product.description || "ยกระดับไลฟ์สไตล์ของคุณด้วยผลิตภัณฑ์พรีเมียมชิ้นนี้ ที่ออกแบบมาเพื่อประสิทธิภาพและสไตล์ที่โดดเด่น ส่วนหนึ่งของคอลเลกชันที่คัดสรรโดย AI ของเรา"}
             </p>
 
             <div className="grid grid-cols-2 gap-4">
@@ -140,8 +152,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                     <Truck className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black uppercase text-muted-foreground">Shipping</p>
-                    <p className="text-xs font-black">Free Worldwide</p>
+                    <p className="text-[10px] font-black uppercase text-muted-foreground">การจัดส่ง</p>
+                    <p className="text-xs font-black">ส่งฟรีทั่วประเทศ</p>
                   </div>
                </div>
                <div className="flex items-center gap-3 p-4 rounded-2xl bg-muted/50 border border-primary/5">
@@ -149,8 +161,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                     <CheckCircle2 className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black uppercase text-muted-foreground">Warranty</p>
-                    <p className="text-xs font-black">2 Years Global</p>
+                    <p className="text-[10px] font-black uppercase text-muted-foreground">การรับประกัน</p>
+                    <p className="text-xs font-black">รับประกัน 1 ปี</p>
                   </div>
                </div>
             </div>
@@ -159,7 +171,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           <div className="space-y-6 pt-8 border-t">
             <div className="flex items-center gap-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Quantity</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">จำนวน</label>
                 <div className="flex items-center bg-muted rounded-2xl p-1 border-2 border-transparent focus-within:border-primary/20">
                   <button 
                     onClick={() => setSelectedQuantity(Math.max(1, selectedQuantity - 1))}
@@ -179,23 +191,30 @@ export default function ProductInfo({ product, allProducts }: { product: Product
               <div className="flex-1 pt-6">
                 <button 
                   onClick={handleAddToCart}
-                  disabled={product.stock === 0}
+                  disabled={product.stock === 0 || isRestricted}
                   className={cn(
                     "w-full h-16 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl active:scale-95 cursor-pointer",
-                    isAdded 
-                      ? "bg-emerald-500 text-white shadow-emerald-500/20" 
-                      : "bg-primary text-primary-foreground shadow-primary/20 hover:opacity-90"
+                    isRestricted
+                      ? "bg-muted text-muted-foreground cursor-not-allowed grayscale"
+                      : isAdded 
+                        ? "bg-emerald-500 text-white shadow-emerald-500/20" 
+                        : "bg-primary text-primary-foreground shadow-primary/20 hover:opacity-90"
                   )}
                 >
-                  {isAdded ? (
+                  {isRestricted ? (
+                    <>
+                      <Info className="h-6 w-6" />
+                      ถูกจำกัดสำหรับผู้จัดการ
+                    </>
+                  ) : isAdded ? (
                     <>
                       <CheckCircle2 className="h-6 w-6" />
-                      ADDED TO CART
+                      เพิ่มลงรถเข็นแล้ว
                     </>
                   ) : (
                     <>
                       <ShoppingCart className="h-6 w-6" />
-                      {product.stock === 0 ? "OUT OF STOCK" : "ADD TO CART"}
+                      {product.stock === 0 ? "สินค้าหมด" : "เพิ่มลงรถเข็น"}
                     </>
                   )}
                 </button>
@@ -205,11 +224,11 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             <div className="flex items-center justify-between px-2">
                <div className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group">
                   <Share2 className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                  <span className="text-[10px] font-black uppercase tracking-widest">Share this product</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest">แชร์สินค้านี้</span>
                </div>
                <div className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group">
                   <MessageSquare className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                  <span className="text-[10px] font-black uppercase tracking-widest">Ask a question</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest">สอบถามข้อมูล</span>
                </div>
             </div>
           </div>
@@ -219,29 +238,32 @@ export default function ProductInfo({ product, allProducts }: { product: Product
       {/* Tabs Section */}
       <div className="pt-12">
         <div className="flex border-b border-muted overflow-x-auto scrollbar-hide">
-          {(["description", "specs", "reviews"] as const).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={cn(
-                "px-8 py-4 text-xs font-black uppercase tracking-widest border-b-4 transition-all whitespace-nowrap",
-                activeTab === tab ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {tab === "description" ? "Description" : tab === "specs" ? "Specifications" : "Reviews"}
-            </button>
-          ))}
+          {(["description", "specs", "reviews"] as const).map((tab) => {
+            if (tab === "specs" && (!product.specs || Object.keys(product.specs).length === 0)) return null;
+            return (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={cn(
+                  "px-8 py-4 text-xs font-black uppercase tracking-widest border-b-4 transition-all whitespace-nowrap",
+                  activeTab === tab ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {tab === "description" ? "รายละเอียด" : tab === "specs" ? "ข้อมูลทางเทคนิค" : "รีวิว"}
+              </button>
+            );
+          })}
         </div>
         <div className="py-12 animate-in fade-in duration-500">
           {activeTab === "description" && (
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
-                <h3 className="text-3xl font-black tracking-tight">The ultimate <span className="text-primary">experience.</span></h3>
+                <h3 className="text-3xl font-black tracking-tight">ที่สุดของ <span className="text-primary">ประสบการณ์</span></h3>
                 <p className="text-muted-foreground font-medium leading-relaxed text-lg">
-                  {product.description} This high-quality {product.category.toLowerCase()} item is engineered to provide the best possible experience for our customers. We focus on durability, aesthetics, and pure performance in every detail.
+                  {product.description} สินค้าพรีเมียมในหมวดหมู่ {product.category} นี้ถูกออกแบบมาเพื่อให้ได้รับประสบการณ์ที่ดีที่สุดสำหรับลูกค้าของเรา เรามุ่งเน้นที่ความทนทาน ความสวยงาม และประสิทธิภาพในทุกรายละเอียด
                 </p>
                 <ul className="space-y-4">
-                   {["Premium Materials", "Eco-friendly Packaging", "User-centric Design"].map((item) => (
+                   {["วัสดุคุณภาพเยี่ยม", "บรรจุภัณฑ์ที่เป็นมิตรต่อสิ่งแวดล้อม", "การออกแบบที่เน้นผู้ใช้เป็นศูนย์กลาง"].map((item) => (
                      <li key={item} className="flex items-center gap-3 font-black text-sm uppercase tracking-tight">
                         <CheckCircle2 className="h-5 w-5 text-emerald-500" />
                         {item}
@@ -250,28 +272,17 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 </ul>
               </div>
               <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
-                 <NextImage src={product.image || placeholderImg} alt="Detail" fill className="object-cover" />
+                 <NextImage src={getImgSrc(product.image) || placeholderImg} alt="Detail" fill className="object-cover" />
                  <div className="absolute inset-0 bg-primary/20 backdrop-blur-[2px]" />
-                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="h-20 w-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border-2 border-white/30 cursor-pointer hover:scale-110 transition-transform">
-                       <ArrowRight className="h-10 w-10" />
-                    </div>
-                 </div>
               </div>
             </div>
           )}
-          {activeTab === "specs" && (
+          {activeTab === "specs" && product.specs && (
             <div className="max-w-3xl space-y-4">
-              {Object.entries(product.specs || {
-                "Material": "Premium Composite",
-                "Weight": "450g",
-                "Dimensions": "25 x 15 x 10 cm",
-                "Connectivity": "Wireless / Wired",
-                "Battery": "Up to 40 Hours"
-              }).map(([key, val]) => (
+              {Object.entries(product.specs).map(([key, val]) => (
                 <div key={key} className="flex justify-between py-4 border-b border-muted group hover:bg-muted/30 px-4 rounded-xl transition-all">
                   <span className="font-black text-xs uppercase tracking-widest text-muted-foreground">{key}</span>
-                  <span className="font-black text-sm uppercase">{val}</span>
+                  <span className="font-black text-sm uppercase">{String(val)}</span>
                 </div>
               ))}
             </div>
@@ -286,7 +297,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                           <Star key={star} className={cn("h-4 w-4", star <= Math.round(product.rating) ? "fill-current" : "text-muted")} />
                         ))}
                       </div>
-                      <p className="text-[10px] font-black uppercase text-muted-foreground">Based on {product.reviews.length} reviews</p>
+                      <p className="text-[10px] font-black uppercase text-muted-foreground">จากทั้งหมด {product.reviews.length} รีวิว</p>
                    </div>
                    <div className="flex-1 space-y-2 w-full">
                       {[5, 4, 3, 2, 1].map((star) => (
@@ -315,7 +326,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                               </div>
                               <div>
                                  <p className="font-black text-sm">{review.user}</p>
-                                 <p className="text-[10px] font-bold text-muted-foreground">Verified Purchase • {review.date}</p>
+                                 <p className="text-[10px] font-bold text-muted-foreground">ยืนยันการซื้อแล้ว • {review.date}</p>
                               </div>
                            </div>
                            <div className="flex items-center gap-1 text-amber-500">
@@ -331,13 +342,13 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                             review.sentiment === 'positive' ? "bg-emerald-50 text-emerald-600" : 
                             review.sentiment === 'negative' ? "bg-rose-50 text-rose-600" : "bg-muted text-muted-foreground"
                           )}>
-                            AI Sentiment: {review.sentiment}
+                            ความรู้สึกโดย AI: {review.sentiment === 'positive' ? 'เชิงบวก' : review.sentiment === 'negative' ? 'เชิงลบ' : 'กลาง'}
                           </div>
                         )}
                      </div>
                    )) : (
                      <div className="text-center py-10">
-                       <p className="text-muted-foreground font-bold">No reviews yet. Be the first to review this product!</p>
+                       <p className="text-muted-foreground font-bold">ยังไม่มีรีวิว ร่วมเป็นคนแรกที่รีวิวสินค้านี้!</p>
                      </div>
                    )}
                 </div>
@@ -355,11 +366,11 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <Store className="h-12 w-12" />
                </div>
                <div className="text-white space-y-1">
-                  <p className="text-[10px] font-black uppercase tracking-widest opacity-80">{product.isOfficial ? "Official Partner" : "Trusted Partner"}</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest opacity-80">{product.isOfficial ? "พาร์ทเนอร์อย่างเป็นทางการ" : "พาร์ทเนอร์ที่เชื่อถือได้"}</p>
                   <h3 className="text-4xl font-black tracking-tighter uppercase">{storeData?.name || "MSU FOUNDER STORE"}</h3>
                   <div className="flex items-center gap-4 text-xs font-bold">
-                     <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-white" /> {storeData?.rating || "4.9"} (2.4k Ratings)</span>
-                     <span className="px-2 py-0.5 rounded-md bg-white/20">99% Positive Feedback</span>
+                     <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-white" /> {storeData?.rating || "4.9"} (2.4k คะแนน)</span>
+                     <span className="px-2 py-0.5 rounded-md bg-white/20">99% ตอบกลับรวดเร็ว</span>
                   </div>
                </div>
             </div>
@@ -367,7 +378,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                onClick={() => router.push(`/stores/${storeData?.store_id || 'mall'}`)}
                className="h-16 px-10 rounded-2xl bg-white text-primary font-black text-sm uppercase tracking-widest shadow-2xl hover:bg-opacity-90 active:scale-95 transition-all cursor-pointer"
             >
-               Visit Store
+               เยี่ยมชมร้านค้า
             </button>
          </div>
       </div>
@@ -376,11 +387,11 @@ export default function ProductInfo({ product, allProducts }: { product: Product
       <div className="space-y-8 pt-12">
         <div className="flex items-end justify-between">
           <div className="space-y-1">
-            <h2 className="text-3xl font-black tracking-tight">You might also <span className="text-primary">like.</span></h2>
-            <p className="text-muted-foreground font-bold">Based on the category <span className="text-primary uppercase">{product.category}</span></p>
+            <h2 className="text-3xl font-black tracking-tight">สินค้าที่คุณ <span className="text-primary">อาจสนใจ</span></h2>
+            <p className="text-muted-foreground font-bold">จากหมวดหมู่ <span className="text-primary uppercase">{product.category}</span></p>
           </div>
-          <button className="h-12 px-6 rounded-xl border-2 border-primary/10 font-black text-xs uppercase tracking-widest hover:bg-primary/5 transition-all">
-            See All
+          <button onClick={() => router.push('/products')} className="h-12 px-6 rounded-xl border-2 border-primary/10 font-black text-xs uppercase tracking-widest hover:bg-primary/5 transition-all">
+            ดูทั้งหมด
           </button>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -388,11 +399,11 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             <div
               key={p.id}
               className="group bg-card rounded-2xl border overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer"
-              onClick={() => window.location.href = `/products/${p.id}`}
+              onClick={() => router.push(`/products/${p.id}`)}
             >
               <div className="aspect-square relative overflow-hidden bg-muted">
                 <NextImage
-                  src={p.image || placeholderImg}
+                  src={getImgSrc(p.image) || placeholderImg}
                   alt={p.name}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
