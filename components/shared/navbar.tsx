@@ -24,7 +24,6 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: t.nav.home, icon: Home },
     { href: "/products", label: t.nav.products, icon: Package },
-    { href: "/vouchers", label: t.home.vouchers, icon: Gift },
     ...(role !== "founder" && role !== "partner" ? [{ href: "/history", label: t.nav.history, icon: LayoutDashboard }] : []),
     ...(role === "founder" || role === "partner" ? [
       { 
