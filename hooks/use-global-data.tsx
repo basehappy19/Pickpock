@@ -25,19 +25,19 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [products, setProductsState] = useState<Product[]>([]);
   const [orders, setOrdersState] = useState<Order[]>([]);
   const [stores, setStoresState] = useState<Store[]>([]);
-  const [coupons] = useState<Coupon[]>(initialCoupons);
+  const [coupons, setCoupons] = useState<Coupon[]>([]);
 
   const fetchData = async () => {
     try {
       const prodRes = await fetch("/api/products");
       const ordRes = await fetch("/api/orders");
       const storeRes = await fetch("/api/stores");
+      const couponRes = await fetch("/api/coupons");
       
       let currentProds: Product[] = [];
 
       if (prodRes.ok) {
         const rawProds = await prodRes.json();
-        // Map JSON back to App Type
         const mappedProds: Product[] = rawProds.map((p: any) => ({
           id: p.product_id || p.id,
           name: p.name,
@@ -59,6 +59,13 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       if (storeRes.ok) {
         const rawStores = await storeRes.json();
         setStoresState(rawStores);
+      }
+
+      if (couponRes.ok) {
+        const rawCoupons = await couponRes.json();
+        setCoupons(rawCoupons);
+      } else {
+        setCoupons(initialCoupons);
       }
 
       if (ordRes.ok) {
@@ -98,10 +105,10 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       console.error("Failed to fetch data from API, using initial-data", e);
       setProductsState(initialProducts);
       setOrdersState(initialOrders);
+      setCoupons(initialCoupons);
     }
   };
 
-  // Initialize data from API
   useEffect(() => {
     fetchData();
   }, []);
@@ -137,7 +144,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify(o)
       });
       if (res.ok) {
-        await fetchData(); // Force re-fetch to get accurate state from JSON
+        await fetchData(); 
       }
     } catch (e) {
       console.error("Failed to add order", e);
@@ -181,7 +188,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       }
     }
     
-    await fetchData(); // Force re-fetch to ensure all users see new stock levels
+    await fetchData(); 
   };
 
   return (

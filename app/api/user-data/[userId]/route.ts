@@ -29,7 +29,8 @@ export async function GET(
       wishlist: [],
       reviews: [],
       recentlyViewed: [],
-      compare: []
+      compare: [],
+      coupons: []
     };
 
     return NextResponse.json(userData);
@@ -61,7 +62,8 @@ export async function PUT(
         wishlist: [],
         reviews: [],
         recentlyViewed: [],
-        compare: []
+        compare: [],
+        coupons: []
       };
     }
 

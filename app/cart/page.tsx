@@ -7,10 +7,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import NextImage from "next/image";
 import { useLanguage } from "@/hooks/use-language";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useGlobalData } from "@/hooks/use-global-data";
 import { useRole } from "@/hooks/use-role";
 import { Coupon } from "@/types";
+import { toast } from "sonner";
 
 export default function CartPage() {
   const { 
@@ -36,53 +37,81 @@ export default function CartPage() {
   const [customerName, setCustomerName] = useState("");
   const [isPaid, setIsPaid] = useState(false);
   const [showCouponSelector, setShowCouponSelector] = useState(false);
+  
+  // Real owned coupons logic
+  const [userOwnedCodes, setUserOwnedCodes] = useState<string[]>([]);
   const [usedCoupons, setUsedCoupons] = useState<string[]>([]);
 
-  // Load used coupons from local storage (simplified for hackathon)
   useEffect(() => {
-    if (user) {
-      const saved = localStorage.getItem(`used_coupons_${user.id}`);
-      if (saved) setUsedCoupons(JSON.parse(saved));
-    }
+    const loadUserData = async () => {
+      if (user) {
+        try {
+          const res = await fetch(`/api/user-data/${user.id}`);
+          if (res.ok) {
+            const data = await res.json();
+            setUserOwnedCodes(data.coupons || []);
+            // History check for used coupons could be more robust, 
+            // but we'll use a specific 'used_coupons' key for this demo.
+            const savedUsed = localStorage.getItem(`used_coupons_${user.id}`);
+            if (savedUsed) setUsedCoupons(JSON.parse(savedUsed));
+          }
+        } catch (e) {
+          console.error("Failed to load user coupons", e);
+        }
+      }
+    };
+    loadUserData();
   }, [user]);
+
+  const myAvailableCoupons = useMemo(() => {
+    return allCoupons.filter(c => userOwnedCodes.includes(c.code));
+  }, [allCoupons, userOwnedCodes]);
 
   const handleApplyCouponInput = () => {
     const code = couponCode.toUpperCase().trim();
-    if (usedCoupons.includes(code)) {
-      alert("You have already used this coupon / คุณใช้โค้ดนี้ไปแล้ว");
+    
+    if (!userOwnedCodes.includes(code)) {
+      toast.error("คุณไม่มีคูปองนี้ / You don't own this coupon");
       return;
     }
+
+    if (usedCoupons.includes(code)) {
+      toast.error("คุณใช้โค้ดนี้ไปแล้ว / You have already used this coupon");
+      return;
+    }
+
     const coupon = allCoupons.find(c => c.code === code);
     if (coupon) {
       applyCoupon(coupon);
       setCouponCode("");
+      toast.success(`ใช้คูปอง ${code} สำเร็จ!`);
     } else {
-      alert("Invalid coupon code / โค้ดไม่ถูกต้อง");
+      toast.error("โค้ดไม่ถูกต้อง / Invalid coupon code");
     }
   };
 
   const selectCoupon = (coupon: Coupon) => {
     if (usedCoupons.includes(coupon.code)) {
-      alert("You have already used this coupon / คุณใช้โค้ดนี้ไปแล้ว");
+      toast.error("คุณใช้โค้ดนี้ไปแล้ว / You have already used this coupon");
       return;
     }
     applyCoupon(coupon);
     setShowCouponSelector(false);
+    toast.success(`ใช้คูปอง ${coupon.code} สำเร็จ!`);
   };
 
   const handleCheckout = async () => {
     if (!user) {
-      alert("Please login to checkout / กรุณาเข้าสู่ระบบก่อนชำระเงิน");
+      toast.error("กรุณาเข้าสู่ระบบก่อนชำระเงิน");
       router.push("/login");
       return;
     }
 
     if (!customerName.trim()) {
-      alert("Please enter your name before checkout / กรุณาใส่ชื่อของคุณก่อนชำระเงิน");
+      toast.error("กรุณาใส่ชื่อผู้รับ");
       return;
     }
 
-    // Mark coupon as used if applied
     if (appliedCoupon) {
       const newUsed = [...usedCoupons, appliedCoupon.code];
       setUsedCoupons(newUsed);
@@ -119,6 +148,7 @@ export default function CartPage() {
     await addOrder(newOrder);
     setIsPaid(true);
     clearCart();
+    toast.success("สั่งซื้อสินค้าสำเร็จ!");
   };
 
   if (isPaid) {
@@ -157,7 +187,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700">
+    <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {isRestricted ? (
         <div className="bg-rose-50 dark:bg-rose-900/20 border-2 border-rose-200 dark:border-rose-800 rounded-2xl p-4 lg:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -210,7 +240,7 @@ export default function CartPage() {
                     </Link>
                     <p className="text-[10px] lg:text-xs text-muted-foreground font-bold uppercase tracking-widest mt-1">{item.category}</p>
                   </div>
-                  <button onClick={() => removeFromCart(item.id)} className="p-2 rounded-lg border text-muted-foreground hover:text-rose-500 hover:bg-rose-50 transition-all cursor-pointer hidden sm:block">
+                  <button onClick={() => removeFromCart(item.id)} className="p-2 rounded-lg border text-muted-foreground hover:text-rose-50 hover:bg-rose-50 transition-all cursor-pointer hidden sm:block">
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
@@ -283,7 +313,7 @@ export default function CartPage() {
               >
                 <div className="flex items-center gap-3">
                   <Tag className="h-5 w-5 text-primary" />
-                  <span className="text-xs font-black uppercase tracking-widest text-primary">เลือกคูปองส่วนลดของคุณ</span>
+                  <span className="text-xs font-black uppercase tracking-widest text-primary">เลือกคูปองของคุณ ({myAvailableCoupons.length})</span>
                 </div>
                 <ChevronRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
               </button>
@@ -376,24 +406,26 @@ export default function CartPage() {
           <div className="bg-card w-full max-w-md rounded-[2.5rem] border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="p-6 bg-primary text-primary-foreground flex justify-between items-center">
               <h3 className="text-xl font-black uppercase tracking-widest flex items-center gap-3">
-                <Tag className="h-6 w-6" /> {t.home.vouchers}
+                <Tag className="h-6 w-6" /> คูปองที่ฉันเก็บไว้
               </h3>
               <button onClick={() => setShowCouponSelector(false)} className="p-2 hover:bg-white/10 rounded-full cursor-pointer"><X /></button>
             </div>
             
             <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
-              {allCoupons.length > 0 ? allCoupons.map((coupon) => {
+              {myAvailableCoupons.length > 0 ? myAvailableCoupons.map((coupon) => {
                 const isUsed = usedCoupons.includes(coupon.code);
                 const isSelected = appliedCoupon?.code === coupon.code;
+                const isMeetingMin = discountSummary.subtotal >= (coupon.minPurchase || 0);
 
                 return (
                   <div 
                     key={coupon.code}
-                    onClick={() => !isUsed && selectCoupon(coupon)}
+                    onClick={() => !isUsed && isMeetingMin && selectCoupon(coupon)}
                     className={cn(
                       "p-5 rounded-2xl border-2 transition-all flex justify-between items-center group relative overflow-hidden",
                       isUsed ? "bg-muted opacity-50 grayscale cursor-not-allowed" : 
                       isSelected ? "border-primary bg-primary/5 cursor-default" : 
+                      !isMeetingMin ? "opacity-60 border-muted grayscale cursor-not-allowed" :
                       "border-muted hover:border-primary/30 bg-card cursor-pointer"
                     )}
                   >
@@ -404,20 +436,23 @@ export default function CartPage() {
                         {isUsed && <span className="text-[8px] font-black uppercase bg-muted-foreground text-white px-2 py-0.5 rounded">USED</span>}
                       </div>
                       <p className="text-xs font-bold text-muted-foreground">{coupon.description}</p>
+                      {!isMeetingMin && !isUsed && (
+                        <p className="text-[9px] font-black text-rose-500 uppercase">ซื้อเพิ่มอีก {formatCurrency((coupon.minPurchase || 0) - discountSummary.subtotal)} เพื่อใช้โค้ดนี้</p>
+                      )}
                     </div>
                     <div className="text-right relative z-10">
                       <p className="text-2xl font-black text-primary tracking-tighter">
                         {coupon.type === 'percent' ? `-${coupon.discount}%` : `-฿${coupon.discount}`}
                       </p>
                     </div>
-                    {!isUsed && !isSelected && (
-                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors" />
-                    )}
                   </div>
                 );
               }) : (
-                <div className="text-center py-12 text-muted-foreground font-bold">
-                  ไม่มีคูปองที่เก็บไว้ / No coupons found
+                <div className="text-center py-12 space-y-4">
+                  <div className="p-4 rounded-full bg-muted w-16 h-16 flex items-center justify-center mx-auto">
+                    <Tag className="h-8 w-8 text-muted-foreground/30" />
+                  </div>
+                  <p className="text-muted-foreground font-bold italic uppercase text-xs">คุณยังไม่ได้เก็บคูปองใดๆ / No coupons collected</p>
                 </div>
               )}
             </div>

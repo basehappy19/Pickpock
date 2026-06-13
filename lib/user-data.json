@@ -4,6 +4,7 @@
     "wishlist": [],
     "history": [],
     "compare": [],
+    "coupons": ["WELCOME100", "FOUNDER10"],
     "recentlyViewed": [
       {
         "id": "p-103",
@@ -13,35 +14,7 @@
         "stock": 100,
         "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800",
         "description": "Premium Cotton T-Shirt - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
-        "rating": 4.727305974668043,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-01-01T00:00:00Z"
-      },
-      {
-        "id": "p-108",
-        "name": "Denim Jacket",
-        "category": "Fashion",
-        "price": 1890,
-        "stock": 20,
-        "image": "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=800",
-        "description": "Denim Jacket - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
-        "rating": 4.56178836320371,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-01-01T00:00:00Z"
-      },
-      {
-        "id": "p-101",
-        "name": "Wireless Headphones",
-        "category": "Electronics",
-        "price": 2500,
-        "stock": 50,
-        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800",
-        "description": "Wireless Headphones - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
-        "rating": 4.91855606819584,
+        "rating": 4.7,
         "reviews": [],
         "storeId": "mall",
         "isOfficial": true,
@@ -50,104 +23,19 @@
     ]
   },
   "u002": {
-    "cart": [
-      {
-        "id": "p-106",
-        "name": "Mechanical Keyboard",
-        "category": "Electronics",
-        "price": 3200,
-        "stock": 25,
-        "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=800",
-        "description": "Mechanical Keyboard - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
-        "rating": 4.8,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-01-01T00:00:00Z",
-        "quantity": 1
-      },
-      {
-        "id": "p-102",
-        "name": "Smart Watch Series 7",
-        "category": "Electronics",
-        "price": 12000,
-        "stock": 30,
-        "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800",
-        "description": "Smart Watch Series 7 - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
-        "rating": 4.9,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-01-01T00:00:00Z",
-        "quantity": 1
-      }
-    ],
+    "cart": [],
     "wishlist": [],
     "history": [],
     "compare": [],
-    "recentlyViewed": [
-      {
-        "id": "p-106",
-        "name": "Mechanical Keyboard",
-        "category": "Electronics",
-        "price": 3200,
-        "stock": 25,
-        "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=800",
-        "description": "Mechanical Keyboard - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
-        "rating": 4.8,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-01-01T00:00:00Z"
-      },
-      {
-        "id": "p-101",
-        "name": "Wireless Headphones",
-        "category": "Electronics",
-        "price": 2500,
-        "stock": 50,
-        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800",
-        "description": "Wireless Headphones - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
-        "rating": 4.9,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-01-01T00:00:00Z"
-      },
-      {
-        "id": "p-102",
-        "name": "Smart Watch Series 7",
-        "category": "Electronics",
-        "price": 12000,
-        "stock": 30,
-        "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800",
-        "description": "Smart Watch Series 7 - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
-        "rating": 4.901000870872599,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-01-01T00:00:00Z"
-      },
-      {
-        "id": "p-103",
-        "name": "Premium Cotton T-Shirt",
-        "category": "Fashion",
-        "price": 590,
-        "stock": 100,
-        "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800",
-        "description": "Premium Cotton T-Shirt - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
-        "rating": 4.727305974668043,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-01-01T00:00:00Z"
-      }
-    ]
+    "coupons": ["WELCOME100", "MSU500"],
+    "recentlyViewed": []
   },
   "u003": {
     "cart": [],
     "wishlist": [],
     "history": [],
-    "compare": []
+    "compare": [],
+    "coupons": ["WELCOME100", "GADGET15"],
+    "recentlyViewed": []
   }
 }
