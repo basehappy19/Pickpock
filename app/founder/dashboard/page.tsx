@@ -563,8 +563,13 @@ export default function FounderDashboardPage() {
                     <button
                       type="button"
                       onClick={generateAIDescription}
-                      disabled={isGeneratingDesc || !newProduct.name}
-                      className="flex items-center gap-1 px-3 py-1 rounded-lg bg-linear-to-r from-purple-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer"
+                      disabled={isGeneratingDesc || !newProduct.name.trim()}
+                      className={cn(
+                        "flex items-center gap-1 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all",
+                        (isGeneratingDesc || !newProduct.name.trim()) 
+                          ? "bg-muted text-muted-foreground cursor-not-allowed opacity-50" 
+                          : "bg-linear-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 cursor-pointer shadow-md active:scale-95"
+                      )}
                     >
                       <Sparkles className="h-3 w-3" />
                       {isGeneratingDesc ? "กำลังสร้าง..." : "AI เขียนให้"}

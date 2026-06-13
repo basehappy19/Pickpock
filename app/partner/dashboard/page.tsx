@@ -146,7 +146,7 @@ export default function PartnerDashboardPage() {
   };
 
   const generateAIDescription = async () => {
-    if (!newProduct.name) {
+    if (!newProduct.name.trim()) {
       toast.error("กรุณาใส่ชื่อสินค้าก่อน / Please enter product name first");
       return;
     }
@@ -308,7 +308,9 @@ export default function PartnerDashboardPage() {
     if (!categories.has("Accessories")) {
       advice.push({ title: "ขยายหมวดหมู่สินค้า", desc: "ลูกค้ามักมองหาอุปกรณ์เสริมคู่กับสินค้าหลัก ลองเพิ่มสินค้าหมวด Accessories เพื่อเพิ่มยอดขายต่อบิล (AOV)", icon: Lightbulb, color: "bg-emerald-500" });
     }
-    return advice.length > 0 ? advice : [{ title: "ร้านค้าของคุณดูดีมาก!", desc: "รักษาระดับการตอบแชทและส่งของให้ไว เพื่อคว้าดาว 5 ดวงจาก AI ของเรา", icon: Sparkles, color: "bg-purple-500" }];
+    return advice.length > 0 ? advice : [
+      { title: "ร้านค้าของคุณดูดีมาก!", desc: "รักษาระดับการตอบแชทและส่งของให้ไว เพื่อคว้าดาว 5 ดวงจาก AI ของเรา", icon: Sparkles, color: "bg-purple-500" }
+    ];
   }, [myProducts, dashboardData.loading, myStore]);
 
   if (!user || (!myStore && !dashboardData.loading)) {
@@ -417,7 +419,18 @@ export default function PartnerDashboardPage() {
                 </div>
                 <div className="col-span-2 space-y-2"><label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.category}</label><select className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-black uppercase text-xs" value={newProduct.category} onChange={(e) => setNewProduct({...newProduct, category: e.target.value})}><option>Electronics</option><option>Fashion</option><option>Home</option><option>Sports</option><option>Beauty</option><option>Toys</option></select></div>
                 <div className="col-span-2 space-y-2">
-                  <div className="flex items-center justify-between"><label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">รายละเอียดสินค้า / Description</label><button type="button" onClick={generateAIDescription} disabled={isGeneratingDesc || !newProduct.name} className="flex items-center gap-1 px-3 py-1 rounded-lg bg-linear-to-r from-purple-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer"><Sparkles className="h-3 w-3" />{isGeneratingDesc ? "กำลังสร้าง..." : "AI เขียนให้"}</button></div>
+                  <div className="flex items-center justify-between"><label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">รายละเอียดสินค้า / Description</label>
+                  <button 
+                    type="button" 
+                    onClick={generateAIDescription} 
+                    disabled={isGeneratingDesc || !newProduct.name.trim()} 
+                    className={cn(
+                      "flex items-center gap-1 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all",
+                      (isGeneratingDesc || !newProduct.name.trim()) 
+                        ? "bg-muted text-muted-foreground cursor-not-allowed opacity-50" 
+                        : "bg-linear-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 cursor-pointer shadow-md active:scale-95"
+                    )}
+                  ><Sparkles className="h-3 w-3" />{isGeneratingDesc ? "กำลังสร้าง..." : "AI เขียนให้"}</button></div>
                   <textarea rows={3} placeholder="Enter product description or use AI to generate..." className={cn("w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold resize-none", isGeneratingDesc && "animate-pulse")} value={newProduct.description} onChange={(e) => setNewProduct({...newProduct, description: e.target.value})} />
                   {isGeneratingDesc && (<div className="flex items-center gap-2 px-2 text-[10px] font-black text-primary animate-bounce"><Sparkles className="h-3 w-3" />AI IS TYPING...</div>)}
                 </div>
