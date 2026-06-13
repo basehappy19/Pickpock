@@ -4,7 +4,10 @@
     "wishlist": [],
     "history": [],
     "compare": [],
-    "coupons": ["WELCOME100", "FOUNDER10"],
+    "coupons": [
+      "WELCOME100",
+      "FOUNDER10"
+    ],
     "recentlyViewed": [
       {
         "id": "p-103",
@@ -27,15 +30,66 @@
     "wishlist": [],
     "history": [],
     "compare": [],
-    "coupons": ["WELCOME100", "MSU500"],
+    "coupons": [
+      "WELCOME100",
+      "MSU500"
+    ],
     "recentlyViewed": []
   },
   "u003": {
-    "cart": [],
+    "cart": [
+      {
+        "id": "p-804",
+        "name": "Matte Finish Primer",
+        "category": "Beauty",
+        "price": 850,
+        "stock": 95,
+        "image": "https://images.unsplash.com/photo-1583001838478-20f3837ec164?q=80&w=800",
+        "description": "Perfect base for long-lasting makeup.",
+        "rating": 4.7,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-28T00:00:00Z",
+        "quantity": 1
+      }
+    ],
     "wishlist": [],
     "history": [],
     "compare": [],
-    "coupons": ["WELCOME100", "GADGET15"],
-    "recentlyViewed": []
+    "coupons": [
+      "WELCOME100",
+      "GADGET15"
+    ],
+    "recentlyViewed": [
+      {
+        "id": "p-804",
+        "name": "Matte Finish Primer",
+        "category": "Beauty",
+        "price": 850,
+        "stock": 95,
+        "image": "https://images.unsplash.com/photo-1583001838478-20f3837ec164?q=80&w=800",
+        "description": "Perfect base for long-lasting makeup.",
+        "rating": 4.7,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-28T00:00:00Z"
+      },
+      {
+        "id": "p-101",
+        "name": "Wireless Headphones Pro",
+        "category": "Electronics",
+        "price": 2500,
+        "stock": 50,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800",
+        "description": "Premium wireless headphones with noise cancellation.",
+        "rating": 4.9,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-01-01T00:00:00Z"
+      }
+    ]
   }
 }

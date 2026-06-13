@@ -416,35 +416,47 @@ export default function CartPage() {
                 const isUsed = usedCoupons.includes(coupon.code);
                 const isSelected = appliedCoupon?.code === coupon.code;
                 const isMeetingMin = discountSummary.subtotal >= (coupon.minPurchase || 0);
+                const canApply = !isUsed && isMeetingMin;
 
                 return (
                   <div 
                     key={coupon.code}
-                    onClick={() => !isUsed && isMeetingMin && selectCoupon(coupon)}
+                    onClick={() => canApply && !isSelected && selectCoupon(coupon)}
                     className={cn(
                       "p-5 rounded-2xl border-2 transition-all flex justify-between items-center group relative overflow-hidden",
                       isUsed ? "bg-muted opacity-50 grayscale cursor-not-allowed" : 
                       isSelected ? "border-primary bg-primary/5 cursor-default" : 
-                      !isMeetingMin ? "opacity-60 border-muted grayscale cursor-not-allowed" :
-                      "border-muted hover:border-primary/30 bg-card cursor-pointer"
+                      !isMeetingMin ? "opacity-60 border-muted bg-muted/20 cursor-not-allowed" :
+                      "border-muted hover:border-primary/30 bg-card cursor-pointer hover:shadow-md"
                     )}
                   >
                     <div className="space-y-1 relative z-10">
                       <div className="flex items-center gap-2">
                         <span className="font-black text-lg tracking-tight">{coupon.code}</span>
-                        {isSelected && <CheckCircle2 className="h-4 w-4 text-primary" />}
+                        {isSelected && <CheckCircle2 className="h-4 w-4 text-primary animate-in zoom-in" />}
                         {isUsed && <span className="text-[8px] font-black uppercase bg-muted-foreground text-white px-2 py-0.5 rounded">USED</span>}
                       </div>
                       <p className="text-xs font-bold text-muted-foreground">{coupon.description}</p>
                       {!isMeetingMin && !isUsed && (
-                        <p className="text-[9px] font-black text-rose-500 uppercase">ซื้อเพิ่มอีก {formatCurrency((coupon.minPurchase || 0) - discountSummary.subtotal)} เพื่อใช้โค้ดนี้</p>
+                        <div className="flex items-center gap-1.5 mt-2">
+                           <div className="h-1 w-12 bg-muted rounded-full overflow-hidden">
+                              <div className="h-full bg-rose-400" style={{ width: `${(discountSummary.subtotal / (coupon.minPurchase || 1)) * 100}%` }} />
+                           </div>
+                           <p className="text-[9px] font-black text-rose-500 uppercase tracking-tighter">ซื้อเพิ่มอีก {formatCurrency((coupon.minPurchase || 0) - discountSummary.subtotal)}</p>
+                        </div>
                       )}
                     </div>
                     <div className="text-right relative z-10">
-                      <p className="text-2xl font-black text-primary tracking-tighter">
+                      <p className={cn(
+                        "text-2xl font-black tracking-tighter",
+                        canApply ? "text-primary" : "text-muted-foreground"
+                      )}>
                         {coupon.type === 'percent' ? `-${coupon.discount}%` : `-฿${coupon.discount}`}
                       </p>
                     </div>
+                    {canApply && !isSelected && (
+                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors" />
+                    )}
                   </div>
                 );
               }) : (
@@ -452,7 +464,7 @@ export default function CartPage() {
                   <div className="p-4 rounded-full bg-muted w-16 h-16 flex items-center justify-center mx-auto">
                     <Tag className="h-8 w-8 text-muted-foreground/30" />
                   </div>
-                  <p className="text-muted-foreground font-bold italic uppercase text-xs">คุณยังไม่ได้เก็บคูปองใดๆ / No coupons collected</p>
+                  <p className="text-muted-foreground font-bold italic uppercase text-xs">ไม่มีคูปองที่ใช้ได้ / No collected coupons found</p>
                 </div>
               )}
             </div>
