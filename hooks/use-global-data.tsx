@@ -24,70 +24,108 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [orders, setOrdersState] = useState<Order[]>([]);
   const [coupons, setCoupons] = useState<Coupon[]>(mockCoupons);
 
-  // Initialize data from localStorage or mock
+  // Initialize data from API
   useEffect(() => {
-    const savedProducts = localStorage.getItem("global_products");
-    const savedOrders = localStorage.getItem("global_orders");
+    const fetchData = async () => {
+      try {
+        const prodRes = await fetch("/api/products");
+        const ordRes = await fetch("/api/orders");
+        
+        if (prodRes.ok) {
+          const rawProds = await prodRes.json();
+          // Map JSON back to App Type
+          const mappedProds = rawProds.map((p: any) => ({
+            id: p.product_id,
+            name: p.name,
+            category: p.category,
+            price: p.price,
+            stock: p.stock,
+            image: p.image,
+            rating: 4.5, // Dummy default
+            reviews: [],
+            status: 'active',
+            createdAt: new Date().toISOString(),
+            storeName: p.product_id.includes('101') ? "MSU Official" : "Partner Store",
+            isOfficial: p.product_id.includes('101'),
+          }));
+          setProductsState(mappedProds);
+        }
 
-    if (savedProducts) setProductsState(JSON.parse(savedProducts));
-    else {
-      setProductsState(mockProducts);
-      localStorage.setItem("global_products", JSON.stringify(mockProducts));
-    }
+        if (ordRes.ok) {
+          const rawOrds = await ordRes.json();
+          const mappedOrds = rawOrds.map((o: any) => ({
+            id: o.order_id,
+            customerId: o.user_id,
+            customerName: "Customer " + o.user_id,
+            totalAmount: o.total_price,
+            status: o.status.toLowerCase(),
+            createdAt: o.timestamp,
+            paymentStatus: 'paid',
+            items: [] // Simplified for sync
+          }));
+          setOrdersState(mappedOrds);
+        }
+      } catch (e) {
+        console.error("Failed to fetch data from API, using initial-data", e);
+        setProductsState(mockProducts);
+        setOrdersState(mockOrders);
+      }
+    };
 
-    if (savedOrders) setOrdersState(JSON.parse(savedOrders));
-    else {
-      setOrdersState(mockOrders);
-      localStorage.setItem("global_orders", JSON.stringify(mockOrders));
-    }
+    fetchData();
   }, []);
 
-  // Persist changes
-  const setProducts = (prods: Product[]) => {
-    setProductsState(prods);
-    localStorage.setItem("global_products", JSON.stringify(prods));
+  const addProduct = async (p: Product) => {
+    setProductsState([p, ...products]);
+    await fetch("/api/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(p)
+    });
   };
 
-  const setOrders = (ords: Order[]) => {
-    setOrdersState(ords);
-    localStorage.setItem("global_orders", JSON.stringify(ords));
+  const updateProduct = async (p: Product) => {
+    setProductsState(products.map(item => item.id === p.id ? p : item));
+    await fetch("/api/products", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(p)
+    });
   };
 
-  const addProduct = (p: Product) => {
-    const newProds = [p, ...products];
-    setProducts(newProds);
+  const deleteProduct = async (id: string) => {
+    setProductsState(products.filter(p => p.id !== id));
+    await fetch(`/api/products?id=${id}`, { method: "DELETE" });
   };
 
-  const updateProduct = (p: Product) => {
-    const newProds = products.map(item => item.id === p.id ? p : item);
-    setProducts(newProds);
-  };
-
-  const deleteProduct = (id: string) => {
-    const newProds = products.filter(p => p.id !== id);
-    setProducts(newProds);
-  };
-
-  const addOrder = (o: Order) => {
-    const newOrders = [o, ...orders];
-    setOrders(newOrders);
+  const addOrder = async (o: Order) => {
+    setOrdersState([o, ...orders]);
+    await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(o)
+    });
   };
 
   const purchaseItems = (boughtItems: { productId: string, quantity: number }[]) => {
     const newProds = products.map(p => {
       const item = boughtItems.find(i => i.productId === p.id);
       if (item) {
-        return { ...p, stock: Math.max(0, p.stock - item.quantity) };
+        const updated = { ...p, stock: Math.max(0, p.stock - item.quantity) };
+        // Trigger update to file system
+        updateProduct(updated);
+        return updated;
       }
       return p;
     });
-    setProducts(newProds);
+    setProductsState(newProds);
   };
 
   return (
     <DataContext.Provider value={{ 
       products, orders, coupons, 
-      setProducts, setOrders, 
+      setProducts: setProductsState, 
+      setOrders: setOrdersState, 
       addProduct, updateProduct, deleteProduct, addOrder,
       purchaseItems
     }}>
