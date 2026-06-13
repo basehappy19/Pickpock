@@ -19,5 +19,15 @@
       "p-110"
     ],
     "joined_at": "2026-01-01T00:00:00Z"
+  },
+  {
+    "store_id": "s-y6zerm8o5",
+    "name": "ร้านของ SOMCHAI",
+    "owner_id": "u002",
+    "description": "ขายทุกอย่าง",
+    "status": "active",
+    "rating": 5,
+    "products": [],
+    "joined_at": "2026-06-13T14:00:42.394Z"
   }
 ]

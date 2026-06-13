@@ -15,13 +15,53 @@ export default function AIBundleSuggest({ currentProduct, allProducts }: { curre
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Mocking AI Bundle Suggestion for Hackathon Speed
-    // In a real scenario, this would call aiService to ask Gemini to pick a complementary product
+    // Realistic AI Bundle Suggestion Logic
     const timer = setTimeout(() => {
-      const candidates = allProducts.filter(p => p.id !== currentProduct.id && p.category === currentProduct.category);
+      const getComplementaryCategory = (category: string, name: string) => {
+        const n = name.toLowerCase();
+        const c = category.toLowerCase();
+        
+        if (n.includes('headphone') || n.includes('earbuds') || n.includes('airpods')) {
+          return { categories: ['Electronics', 'Accessories'], keywords: ['case', 'power bank', 'charger', 'stand'] };
+        }
+        if (n.includes('watch')) {
+          return { categories: ['Electronics', 'Accessories'], keywords: ['strap', 'band', 'screen protector', 'case'] };
+        }
+        if (n.includes('phone') || n.includes('iphone') || n.includes('samsung')) {
+          return { categories: ['Electronics', 'Accessories'], keywords: ['case', 'protector', 'charger', 'power bank'] };
+        }
+        if (c.includes('fashion')) {
+          return { categories: ['Fashion', 'Accessories'], keywords: ['bag', 'hat', 'belt', 'socks'] };
+        }
+        if (c.includes('furniture') || c.includes('home')) {
+          return { categories: ['Home & Living', 'Furniture'], keywords: ['decor', 'lamp', 'pillow', 'cushion'] };
+        }
+        return { categories: [category], keywords: [] };
+      };
+
+      const filter = getComplementaryCategory(currentProduct.category, currentProduct.name);
+      
+      let candidates = allProducts.filter(p => {
+        if (p.id === currentProduct.id) return false;
+        
+        const inCategory = filter.categories.some(cat => p.category.toLowerCase().includes(cat.toLowerCase()));
+        const matchesKeyword = filter.keywords.length > 0 
+          ? filter.keywords.some(kw => p.name.toLowerCase().includes(kw))
+          : true;
+          
+        return inCategory && matchesKeyword;
+      });
+
+      // Fallback: If no strict matches, just take products from the same category
+      if (candidates.length === 0) {
+        candidates = allProducts.filter(p => p.id !== currentProduct.id && p.category === currentProduct.category);
+      }
+
       if (candidates.length > 0) {
+        // Pick one randomly from candidates
         setBundleProduct(candidates[Math.floor(Math.random() * candidates.length)]);
       } else {
+        // Final fallback: any other product
         const anyOther = allProducts.find(p => p.id !== currentProduct.id);
         if (anyOther) setBundleProduct(anyOther);
       }

@@ -42,14 +42,14 @@ export async function POST(req: Request) {
 
     // Generate new user ID
     const maxId = users.reduce((max: number, u: any) => {
-      const num = parseInt(u.user_id.replace('u', ''));
+      const num = parseInt(u.id.replace('u', ''));
       return num > max ? num : max;
     }, 0);
 
     const userWithId = {
-      user_id: `u${String(maxId + 1).padStart(3, '0')}`,
+      id: `u${String(maxId + 1).padStart(3, '0')}`,
       ...newUser,
-      loyalty_points: newUser.loyalty_points || 0,
+      isVip: newUser.isVip || false,
       password: newUser.password || "1234"
     };
 
@@ -68,7 +68,7 @@ export async function PUT(req: Request) {
     const updatedUser = await req.json();
     let users = readUsers();
 
-    const index = users.findIndex((u: any) => u.user_id === updatedUser.user_id);
+    const index = users.findIndex((u: any) => u.id === updatedUser.id);
     if (index === -1) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
@@ -94,7 +94,7 @@ export async function DELETE(req: Request) {
 
     let users = readUsers();
     const initialLength = users.length;
-    users = users.filter((u: any) => u.user_id !== id);
+    users = users.filter((u: any) => u.id !== id);
 
     if (users.length === initialLength) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });

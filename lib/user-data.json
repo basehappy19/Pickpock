@@ -53,7 +53,37 @@
     "cart": [],
     "wishlist": [],
     "history": [],
-    "compare": []
+    "compare": [],
+    "recentlyViewed": [
+      {
+        "id": "p-106",
+        "name": "Mechanical Keyboard",
+        "category": "Electronics",
+        "price": 3200,
+        "stock": 25,
+        "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=800",
+        "description": "Mechanical Keyboard - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
+        "rating": 4.810990821322914,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-01-01T00:00:00Z"
+      },
+      {
+        "id": "p-101",
+        "name": "Wireless Headphones",
+        "category": "Electronics",
+        "price": 2500,
+        "stock": 50,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800",
+        "description": "Wireless Headphones - คุณภาพระดับพรีเมียมคัดสรรเพื่อคุณโดยเฉพาะที่ Pickpock Mall",
+        "rating": 4.91855606819584,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-01-01T00:00:00Z"
+      }
+    ]
   },
   "u003": {
     "cart": [],

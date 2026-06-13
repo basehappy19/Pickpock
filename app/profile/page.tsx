@@ -30,7 +30,7 @@ export default function ProfilePage() {
         const res = await fetch("/api/users");
         if (res.ok) {
           const users = await res.json();
-          const currentUser = users.find((u: any) => u.user_id === user.id);
+          const currentUser = users.find((u: any) => u.id === user.id);
           if (currentUser) {
             setName(currentUser.name);
             setEmail(currentUser.email);

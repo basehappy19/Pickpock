@@ -20,6 +20,12 @@ export default function PartnerRegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!user?.id) {
+      setError("User session not found. Please login again.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 

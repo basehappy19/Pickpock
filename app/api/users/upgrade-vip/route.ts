@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     expiresAt.setFullYear(expiresAt.getFullYear() + 1);
 
     // Find user and update (in real implementation, use database)
-    const userIndex = usersJson.findIndex((u: any) => u.user_id === userId || u.id === userId);
+    const userIndex = usersJson.findIndex((u: any) => u.id === userId);
 
     if (userIndex === -1) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'User ID required' }, { status: 400 });
   }
 
-  const user = usersJson.find((u: any) => u.user_id === userId || u.id === userId);
+  const user = usersJson.find((u: any) => u.id === userId);
 
   if (!user) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 });

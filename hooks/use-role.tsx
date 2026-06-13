@@ -90,8 +90,13 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
 
   const updateUserStore = (store: any) => {
     if (user) {
-      const updatedUser = { ...user, store };
+      const updatedUser = { 
+        ...user, 
+        store,
+        role: (user.role === 'founder' ? 'founder' : 'partner') as Role
+      };
       setUser(updatedUser);
+      setRoleState(updatedUser.role);
       localStorage.setItem("authUser", JSON.stringify(updatedUser));
     }
   };

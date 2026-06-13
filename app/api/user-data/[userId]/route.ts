@@ -10,6 +10,11 @@ export async function GET(
 ) {
   try {
     const { userId } = await params;
+    
+    if (!userId || userId === "undefined" || userId === "null") {
+      return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
+    }
+
     let allUserData: any = {};
     try {
       const data = fs.readFileSync(userDataFilePath, "utf8");
@@ -39,6 +44,11 @@ export async function PUT(
 ) {
   try {
     const { userId } = await params;
+
+    if (!userId || userId === "undefined" || userId === "null") {
+      return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
+    }
+
     const updates = await req.json();
 
     const data = fs.readFileSync(userDataFilePath, "utf8");

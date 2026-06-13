@@ -158,7 +158,7 @@ export default function HomepageClient({ initialProducts = [] }: { initialProduc
                     <div className="flex justify-between items-center pt-2">
                       <span className="text-base font-black text-primary">{formatCurrency(product.price)}</span>
                       <div className="flex items-center gap-1 text-amber-500 text-xs font-bold">
-                        <Star className="h-3 w-3 fill-current" /> {product.rating}
+                        <Star className="h-3 w-3 fill-current" /> {Number(product.rating).toFixed(1)}
                       </div>
                     </div>
                   </div>

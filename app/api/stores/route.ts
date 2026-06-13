@@ -27,6 +27,11 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const { owner_id, name, description } = await req.json();
+    
+    if (!owner_id) {
+      return NextResponse.json({ error: "Owner ID is required. Please login again." }, { status: 400 });
+    }
+
     const stores = readStores();
 
     // Check if user already has a store
@@ -48,6 +53,21 @@ export async function POST(req: Request) {
 
     stores.push(newStore);
     writeStores(stores);
+
+    // Update user role to partner in users.json
+    try {
+      const usersFilePath = path.join(process.cwd(), "lib", "users.json");
+      const usersData = fs.readFileSync(usersFilePath, "utf8");
+      let users = JSON.parse(usersData);
+      const userIndex = users.findIndex((u: any) => u.id === owner_id);
+      
+      if (userIndex !== -1 && users[userIndex].role !== 'founder') {
+        users[userIndex].role = 'partner';
+        fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), "utf8");
+      }
+    } catch (e) {
+      console.error("Failed to update user role", e);
+    }
 
     return NextResponse.json({ success: true, store: newStore });
   } catch (error) {

@@ -31,7 +31,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
   useEffect(() => {
     if (product) {
       addToRecentlyViewed(product);
-      
+
       const fetchStore = async () => {
         try {
           const res = await fetch("/api/stores");
@@ -96,21 +96,21 @@ export default function ProductInfo({ product, allProducts }: { product: Product
               </div>
             )}
             <div className="absolute top-6 right-6 flex flex-col gap-2">
-               <button 
-                 onClick={() => inWishlist ? removeFromWishlist(product.id) : addToWishlist(product)}
-                 className={cn(
-                   "p-4 rounded-2xl backdrop-blur-md transition-all shadow-xl cursor-pointer group",
-                   inWishlist ? "bg-rose-500 text-white" : "bg-white/80 text-rose-500 hover:bg-rose-500 hover:text-white"
-                 )}
-               >
-                 <Heart className={cn("h-6 w-6 transition-transform group-hover:scale-110", inWishlist ? "fill-current" : "")} />
-               </button>
-               <button 
-                 onClick={() => addToCompare(product)}
-                 className="p-4 rounded-2xl bg-white/80 backdrop-blur-md text-primary hover:bg-primary hover:text-white transition-all shadow-xl cursor-pointer group"
-               >
-                 <GitCompare className="h-6 w-6 transition-transform group-hover:scale-110" />
-               </button>
+              <button
+                onClick={() => inWishlist ? removeFromWishlist(product.id) : addToWishlist(product)}
+                className={cn(
+                  "p-4 rounded-2xl backdrop-blur-md transition-all shadow-xl cursor-pointer group",
+                  inWishlist ? "bg-rose-500 text-white" : "bg-white/80 text-rose-500 hover:bg-rose-500 hover:text-white"
+                )}
+              >
+                <Heart className={cn("h-6 w-6 transition-transform group-hover:scale-110", inWishlist ? "fill-current" : "")} />
+              </button>
+              <button
+                onClick={() => addToCompare(product)}
+                className="p-4 rounded-2xl bg-white/80 backdrop-blur-md text-primary hover:bg-primary hover:text-white transition-all shadow-xl cursor-pointer group"
+              >
+                <GitCompare className="h-6 w-6 transition-transform group-hover:scale-110" />
+              </button>
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 </div>
                 <div className="flex items-center gap-1 text-amber-500">
                   <Star className="h-4 w-4 fill-current" />
-                  <span className="text-sm font-black">{product.rating}</span>
+                  <span className="text-sm font-black">{Number(product.rating).toFixed(1)}</span>
                   <span className="text-muted-foreground font-bold text-xs">({product.reviews.length} รีวิว)</span>
                 </div>
               </div>
@@ -147,24 +147,24 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             </p>
 
             <div className="grid grid-cols-2 gap-4">
-               <div className="flex items-center gap-3 p-4 rounded-2xl bg-muted/50 border border-primary/5">
-                  <div className="h-10 w-10 rounded-xl bg-white flex items-center justify-center text-primary shadow-sm">
-                    <Truck className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-black uppercase text-muted-foreground">การจัดส่ง</p>
-                    <p className="text-xs font-black">ส่งฟรีทั่วประเทศ</p>
-                  </div>
-               </div>
-               <div className="flex items-center gap-3 p-4 rounded-2xl bg-muted/50 border border-primary/5">
-                  <div className="h-10 w-10 rounded-xl bg-white flex items-center justify-center text-emerald-500 shadow-sm">
-                    <CheckCircle2 className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-black uppercase text-muted-foreground">การรับประกัน</p>
-                    <p className="text-xs font-black">รับประกัน 1 ปี</p>
-                  </div>
-               </div>
+              <div className="flex items-center gap-3 p-4 rounded-2xl bg-muted/50 border border-primary/5">
+                <div className="h-10 w-10 rounded-xl bg-white flex items-center justify-center text-primary shadow-sm">
+                  <Truck className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black uppercase text-muted-foreground">การจัดส่ง</p>
+                  <p className="text-xs font-black">ส่งฟรีทั่วประเทศ</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-4 rounded-2xl bg-muted/50 border border-primary/5">
+                <div className="h-10 w-10 rounded-xl bg-white flex items-center justify-center text-emerald-500 shadow-sm">
+                  <CheckCircle2 className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black uppercase text-muted-foreground">การรับประกัน</p>
+                  <p className="text-xs font-black">รับประกัน 1 ปี</p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -173,14 +173,14 @@ export default function ProductInfo({ product, allProducts }: { product: Product
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">จำนวน</label>
                 <div className="flex items-center bg-muted rounded-2xl p-1 border-2 border-transparent focus-within:border-primary/20">
-                  <button 
+                  <button
                     onClick={() => setSelectedQuantity(Math.max(1, selectedQuantity - 1))}
                     className="w-10 h-10 flex items-center justify-center font-black hover:bg-background rounded-xl transition-all"
                   >
                     -
                   </button>
                   <span className="w-12 text-center font-black text-lg">{selectedQuantity}</span>
-                  <button 
+                  <button
                     onClick={() => setSelectedQuantity(Math.min(product.stock, selectedQuantity + 1))}
                     className="w-10 h-10 flex items-center justify-center font-black hover:bg-background rounded-xl transition-all"
                   >
@@ -189,15 +189,15 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 </div>
               </div>
               <div className="flex-1 pt-6">
-                <button 
+                <button
                   onClick={handleAddToCart}
                   disabled={product.stock === 0 || isRestricted}
                   className={cn(
                     "w-full h-16 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl active:scale-95 cursor-pointer",
                     isRestricted
                       ? "bg-muted text-muted-foreground cursor-not-allowed grayscale"
-                      : isAdded 
-                        ? "bg-emerald-500 text-white shadow-emerald-500/20" 
+                      : isAdded
+                        ? "bg-emerald-500 text-white shadow-emerald-500/20"
                         : "bg-primary text-primary-foreground shadow-primary/20 hover:opacity-90"
                   )}
                 >
@@ -220,16 +220,16 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 </button>
               </div>
             </div>
-            
+
             <div className="flex items-center justify-between px-2">
-               <div className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group">
-                  <Share2 className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                  <span className="text-[10px] font-black uppercase tracking-widest">แชร์สินค้านี้</span>
-               </div>
-               <div className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group">
-                  <MessageSquare className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                  <span className="text-[10px] font-black uppercase tracking-widest">สอบถามข้อมูล</span>
-               </div>
+              <div className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group">
+                <Share2 className="h-4 w-4 group-hover:scale-110 transition-transform" />
+                <span className="text-[10px] font-black uppercase tracking-widest">แชร์สินค้านี้</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group">
+                <MessageSquare className="h-4 w-4 group-hover:scale-110 transition-transform" />
+                <span className="text-[10px] font-black uppercase tracking-widest">สอบถามข้อมูล</span>
+              </div>
             </div>
           </div>
         </div>
@@ -263,17 +263,17 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   {product.description} สินค้าพรีเมียมในหมวดหมู่ {product.category} นี้ถูกออกแบบมาเพื่อให้ได้รับประสบการณ์ที่ดีที่สุดสำหรับลูกค้าของเรา เรามุ่งเน้นที่ความทนทาน ความสวยงาม และประสิทธิภาพในทุกรายละเอียด
                 </p>
                 <ul className="space-y-4">
-                   {["วัสดุคุณภาพเยี่ยม", "บรรจุภัณฑ์ที่เป็นมิตรต่อสิ่งแวดล้อม", "การออกแบบที่เน้นผู้ใช้เป็นศูนย์กลาง"].map((item) => (
-                     <li key={item} className="flex items-center gap-3 font-black text-sm uppercase tracking-tight">
-                        <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                        {item}
-                     </li>
-                   ))}
+                  {["วัสดุคุณภาพเยี่ยม", "บรรจุภัณฑ์ที่เป็นมิตรต่อสิ่งแวดล้อม", "การออกแบบที่เน้นผู้ใช้เป็นศูนย์กลาง"].map((item) => (
+                    <li key={item} className="flex items-center gap-3 font-black text-sm uppercase tracking-tight">
+                      <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                      {item}
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
-                 <NextImage src={getImgSrc(product.image) || placeholderImg} alt="Detail" fill className="object-cover" />
-                 <div className="absolute inset-0 bg-primary/20 backdrop-blur-[2px]" />
+                <NextImage src={getImgSrc(product.image) || placeholderImg} alt="Detail" fill className="object-cover" />
+                <div className="absolute inset-0 bg-primary/20 backdrop-blur-[2px]" />
               </div>
             </div>
           )}
@@ -288,99 +288,106 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             </div>
           )}
           {activeTab === "reviews" && (
-             <div className="space-y-8">
-                <div className="flex flex-col sm:flex-row items-center gap-8 p-8 rounded-[2rem] bg-muted/30 border-2 border-primary/5">
-                   <div className="text-center space-y-2">
-                      <p className="text-7xl font-black tracking-tighter text-primary">{product.rating}</p>
-                      <div className="flex items-center justify-center gap-1 text-amber-500">
-                        {[1,2,3,4,5].map(star => (
-                          <Star key={star} className={cn("h-4 w-4", star <= Math.round(product.rating) ? "fill-current" : "text-muted")} />
+            <div className="space-y-8">
+              <div className="flex flex-col sm:flex-row items-center gap-8 p-8 rounded-[2rem] bg-muted/30 border-2 border-primary/5">
+                <div className="text-center space-y-2">
+                  <p className="text-7xl font-black tracking-tighter text-primary">{Number(product.rating).toFixed(1)}</p>
+                  <div className="flex items-center justify-center gap-1 text-amber-500">
+                    {[1, 2, 3, 4, 5].map(star => (
+                      <Star key={star} className={cn("h-4 w-4", star <= Math.round(product.rating) ? "fill-current" : "text-muted")} />
+                    ))}
+                  </div>
+                  <p className="text-[10px] font-black uppercase text-muted-foreground">จากทั้งหมด {product.reviews.length} รีวิว</p>
+                </div>
+                <div className="flex-1 space-y-2 w-full">
+                  {[5, 4, 3, 2, 1].map((star) => (
+                    <div key={star} className="flex items-center gap-4">
+                      <span className="text-[10px] font-black w-4">{star}</span>
+                      <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-primary rounded-full"
+                          style={{
+                            width: `${product.reviews.length > 0 ? (product.reviews.filter(r => Math.round(r.rating) === star).length / product.reviews.length) * 100 : 0}%`
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                {product.reviews.length > 0 ? product.reviews.map((review) => (
+                  <div key={review.id} className="p-8 rounded-[2rem] bg-card border-2 border-primary/5 shadow-xl shadow-primary/5 space-y-4">
+                    <div className="flex justify-between items-start">
+                      <div className="flex items-center gap-4">
+                        <div className="h-12 w-12 rounded-xl bg-muted flex items-center justify-center font-black text-primary">
+                          {review.user.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <p className="font-black text-sm">{review.user}</p>
+                          <p className="text-[10px] font-bold text-muted-foreground">ยืนยันการซื้อแล้ว • {review.date}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 text-amber-500">
+                        {[1, 2, 3, 4, 5].map(star => (
+                          <Star key={star} className={cn("h-3 w-3", star <= review.rating ? "fill-current" : "text-muted")} />
                         ))}
                       </div>
-                      <p className="text-[10px] font-black uppercase text-muted-foreground">จากทั้งหมด {product.reviews.length} รีวิว</p>
-                   </div>
-                   <div className="flex-1 space-y-2 w-full">
-                      {[5, 4, 3, 2, 1].map((star) => (
-                        <div key={star} className="flex items-center gap-4">
-                           <span className="text-[10px] font-black w-4">{star}</span>
-                           <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
-                              <div 
-                                className="h-full bg-primary rounded-full" 
-                                style={{ 
-                                  width: `${product.reviews.length > 0 ? (product.reviews.filter(r => Math.round(r.rating) === star).length / product.reviews.length) * 100 : 0}%` 
-                                }} 
-                              />
-                           </div>
-                        </div>
-                      ))}
-                   </div>
-                </div>
-                
-                <div className="space-y-6">
-                   {product.reviews.length > 0 ? product.reviews.map((review) => (
-                     <div key={review.id} className="p-8 rounded-[2rem] bg-card border-2 border-primary/5 shadow-xl shadow-primary/5 space-y-4">
-                        <div className="flex justify-between items-start">
-                           <div className="flex items-center gap-4">
-                              <div className="h-12 w-12 rounded-xl bg-muted flex items-center justify-center font-black text-primary">
-                                {review.user.charAt(0).toUpperCase()}
-                              </div>
-                              <div>
-                                 <p className="font-black text-sm">{review.user}</p>
-                                 <p className="text-[10px] font-bold text-muted-foreground">ยืนยันการซื้อแล้ว • {review.date}</p>
-                              </div>
-                           </div>
-                           <div className="flex items-center gap-1 text-amber-500">
-                              {[1,2,3,4,5].map(star => (
-                                <Star key={star} className={cn("h-3 w-3", star <= review.rating ? "fill-current" : "text-muted")} />
-                              ))}
-                           </div>
-                        </div>
-                        <p className="text-muted-foreground font-medium italic">"{review.comment}"</p>
-                        {review.sentiment && (
-                          <div className={cn(
-                            "inline-flex px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-tight",
-                            review.sentiment === 'positive' ? "bg-emerald-50 text-emerald-600" : 
-                            review.sentiment === 'negative' ? "bg-rose-50 text-rose-600" : "bg-muted text-muted-foreground"
-                          )}>
-                            ความรู้สึกโดย AI: {review.sentiment === 'positive' ? 'เชิงบวก' : review.sentiment === 'negative' ? 'เชิงลบ' : 'กลาง'}
-                          </div>
-                        )}
-                     </div>
-                   )) : (
-                     <div className="text-center py-10">
-                       <p className="text-muted-foreground font-bold">ยังไม่มีรีวิว ร่วมเป็นคนแรกที่รีวิวสินค้านี้!</p>
-                     </div>
-                   )}
-                </div>
-             </div>
+                    </div>
+                    <p className="text-muted-foreground font-medium italic">"{review.comment}"</p>
+                    {review.sentiment && (
+                      <div className={cn(
+                        "inline-flex px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-tight",
+                        review.sentiment === 'positive' ? "bg-emerald-50 text-emerald-600" :
+                          review.sentiment === 'negative' ? "bg-rose-50 text-rose-600" : "bg-muted text-muted-foreground"
+                      )}>
+                        ความรู้สึกโดย AI: {review.sentiment === 'positive' ? 'เชิงบวก' : review.sentiment === 'negative' ? 'เชิงลบ' : 'กลาง'}
+                      </div>
+                    )}
+                  </div>
+                )) : (
+                  <div className="text-center py-10">
+                    <p className="text-muted-foreground font-bold">ยังไม่มีรีวิว ร่วมเป็นคนแรกที่รีวิวสินค้านี้!</p>
+                  </div>
+                )}
+              </div>
+            </div>
           )}
         </div>
       </div>
 
       {/* Store Section */}
-      <div className="p-10 rounded-[3rem] bg-rainbow-gradient border-4 border-white shadow-2xl relative overflow-hidden group">
-         <div className="absolute top-0 right-0 p-20 bg-white/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 group-hover:scale-125 transition-transform duration-1000" />
-         <div className="relative flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="flex items-center gap-8">
-               <div className="h-24 w-24 rounded-[2rem] bg-white flex items-center justify-center text-primary shadow-2xl group-hover:rotate-12 transition-transform duration-500">
-                  <Store className="h-12 w-12" />
-               </div>
-               <div className="text-white space-y-1">
-                  <p className="text-[10px] font-black uppercase tracking-widest opacity-80">{product.isOfficial ? "พาร์ทเนอร์อย่างเป็นทางการ" : "พาร์ทเนอร์ที่เชื่อถือได้"}</p>
-                  <h3 className="text-4xl font-black tracking-tighter uppercase">{storeData?.name || "MSU FOUNDER STORE"}</h3>
-                  <div className="flex items-center gap-4 text-xs font-bold">
-                     <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-white" /> {storeData?.rating || "4.9"} (2.4k คะแนน)</span>
-                     <span className="px-2 py-0.5 rounded-md bg-white/20">99% ตอบกลับรวดเร็ว</span>
-                  </div>
-               </div>
+      <div className="bg-secondary border border-border rounded-xl p-4 flex items-center justify-between gap-4 flex-wrap">
+        <div className="flex items-center gap-3">
+          <div className="w-11 h-11 rounded-lg bg-background border border-border flex items-center justify-center shrink-0">
+            <Store className="w-5 h-5 text-muted-foreground" />
+          </div>
+          <div>
+            <p className="text-[15px] font-medium text-foreground mb-0.5">
+              {storeData?.name || "MSU Founder Store"}
+            </p>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <span>
+                <Star className="inline w-3 h-3 fill-amber-400 text-amber-400 mr-0.5" />
+                {storeData?.rating || "4.9"}
+              </span>
+              <span>·</span>
+              <span className="text-emerald-700 font-medium">ตอบกลับรวดเร็ว</span>
+              <span>·</span>
+              <span className="bg-background border border-border px-1.5 py-px rounded-full text-[11px] text-muted-foreground">
+                {product.isOfficial ? "Official" : "Trusted"}
+              </span>
             </div>
-            <button 
-               onClick={() => router.push(`/stores/${storeData?.store_id || 'mall'}`)}
-               className="h-16 px-10 rounded-2xl bg-white text-primary font-black text-sm uppercase tracking-widest shadow-2xl hover:bg-opacity-90 active:scale-95 transition-all cursor-pointer"
-            >
-               เยี่ยมชมร้านค้า
-            </button>
-         </div>
+          </div>
+        </div>
+
+        <button
+          onClick={() => router.push(`/stores/${storeData?.store_id || "mall"}`)}
+          className="h-[34px] px-4 rounded-lg bg-background text-foreground border border-border text-[13px] hover:bg-accent transition-colors cursor-pointer whitespace-nowrap"
+        >
+          เยี่ยมชมร้านค้า →
+        </button>
       </div>
 
       {/* Related Products */}

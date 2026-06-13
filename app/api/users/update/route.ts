@@ -11,7 +11,7 @@ export async function PUT(req: Request) {
     const data = fs.readFileSync(usersFilePath, "utf8");
     const users = JSON.parse(data);
 
-    const userIndex = users.findIndex((u: any) => u.user_id === userId);
+    const userIndex = users.findIndex((u: any) => u.id === userId);
 
     if (userIndex === -1) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -38,10 +38,11 @@ export async function PUT(req: Request) {
     return NextResponse.json({ 
       success: true, 
       user: {
-        id: users[userIndex].user_id,
+        id: users[userIndex].id,
         name: users[userIndex].name,
         email: users[userIndex].email,
-        role: users[userIndex].role.toLowerCase() === "vip" ? "founder" : "customer" // Mapping existing roles
+        role: users[userIndex].role,
+        isVip: users[userIndex].isVip
       } 
     });
   } catch (error) {
