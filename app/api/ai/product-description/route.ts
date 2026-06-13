@@ -6,12 +6,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
 
-const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
+const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
 const genAI = new GoogleGenAI({ apiKey });
 
 export async function POST(request: NextRequest) {
   let productName = '';
   try {
+    if (!apiKey) {
+      console.error('GEMINI_API_KEY is not set in environment variables');
+      return NextResponse.json({ error: 'AI configuration error' }, { status: 500 });
+    }
     const body = await request.json();
     productName = body.productName;
     const { category, features, imageContext, language = 'both' } = body;

@@ -34,6 +34,8 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+import { toast } from "sonner";
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const { user, getUserDiscount } = useRole();
   const [items, setItems] = useState<CartItem[]>([]);
@@ -102,10 +104,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems((prev) => {
       const existing = prev.find((item) => item.id === product.id);
       if (existing) {
+        toast.success(`เพิ่มจำนวน ${product.name} แล้ว`);
         return prev.map((item) =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
+      toast.success(`เพิ่ม ${product.name} ลงในรถเข็นแล้ว`);
       return [...prev, { ...product, quantity: 1 }];
     });
   };
@@ -113,6 +117,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const updateQuantity = (productId: string, quantity: number) => {
     setItems((prev) => {
       if (quantity <= 0) {
+        toast.info("ลบสินค้าออกจากรถเข็นแล้ว");
         return prev.filter((item) => item.id !== productId);
       }
       return prev.map((item) => (item.id === productId ? { ...item, quantity } : item));
@@ -120,7 +125,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const removeFromCart = (productId: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== productId));
+    setItems((prev) => {
+      const item = prev.find(i => i.id === productId);
+      if (item) toast.info(`ลบ ${item.name} แล้ว`);
+      return prev.filter((item) => item.id !== productId);
+    });
   };
 
   const clearCart = async () => {

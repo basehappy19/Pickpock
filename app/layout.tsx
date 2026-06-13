@@ -14,6 +14,7 @@ import { WishlistProvider } from "@/hooks/use-wishlist";
 import { CompareProvider } from "@/hooks/use-compare";
 import { RecentlyViewedProvider } from "@/hooks/use-recently-viewed";
 import AIChatbot from "@/components/shared/ai-chatbot";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,6 +69,7 @@ export default async function RootLayout({
                           {children}
                         </main>
                         <AIChatbot />
+                        <Toaster position="top-right" richColors closeButton />
                       </RecentlyViewedProvider>
                     </CompareProvider>
                   </WishlistProvider>
