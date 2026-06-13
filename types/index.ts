@@ -53,6 +53,8 @@ export interface FilterOptions {
   minPrice?: number;
   maxPrice?: number;
   sortBy?: 'price-asc' | 'price-desc' | 'rating' | 'newest';
+  isOfficial?: boolean;
+  isPartner?: boolean;
 }
 
 export interface Coupon {

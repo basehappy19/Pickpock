@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Order, Review, Product } from "@/types";
 import { useLanguage } from "@/hooks/use-language";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { formatCurrency, formatDate, cn, getImgSrc } from "@/lib/utils";
 import { Package, Star, MessageSquare, CheckCircle2, X, Loader2, Box } from "lucide-react";
 import NextImage from "next/image";
 import { useRole } from "@/hooks/use-role";
@@ -21,8 +21,22 @@ export default function HistoryPage() {
   const [comment, setComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Filter orders for the logged-in user
-  const userOrders = orders.filter(o => o.customerId === user?.id);
+  // Filter and sort orders for the logged-in user (newest first)
+  const userOrders = useMemo(() => {
+    return [...orders]
+      .filter(o => o.customerId === user?.id)
+      // Hide orders that are CANCELLED or have no valid items currently in the shop
+      .filter(o => {
+        const hasValidItems = o.items.some(item => products.some(p => p.id === item.productId));
+        return o.status.toLowerCase() !== "cancelled" && hasValidItems;
+      })
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }, [orders, products, user]);
+
+  // Secondary filter for items within an order (hide specific items if their product is gone)
+  const getValidItems = (orderItems: any[]) => {
+    return orderItems.filter(item => products.some(p => p.id === item.productId));
+  };
 
   if (role !== "customer") {
     return <AccessRestricted requiredRole={["customer"]} currentPage="Purchase History" />;
@@ -34,50 +48,62 @@ export default function HistoryPage() {
 
     setIsSubmitting(true);
     
-    // 1. Update the order to mark item as reviewed
-    const updatedOrders = orders.map(o => {
-      if (o.id === selectedItem.orderId) {
-        return {
-          ...o,
-          reviewedItems: [...(o.reviewedItems || []), selectedItem.productId]
+    try {
+      // 1. Find product and add review to products.json
+      const product = products.find(p => p.id === selectedItem.productId);
+      if (product) {
+        const newReview: Review = {
+          id: `rev-${Date.now()}`,
+          user: user.name,
+          rating,
+          comment,
+          date: new Date().toISOString().split('T')[0],
+          productId: product.id
         };
+        
+        const updatedReviews = [newReview, ...(product.reviews || [])];
+        const newRating = parseFloat(((product.rating * (product.reviews?.length || 0) + rating) / (updatedReviews.length)).toFixed(1));
+        
+        const updatedProduct = {
+          ...product,
+          reviews: updatedReviews,
+          rating: newRating
+        };
+        
+        await fetch("/api/products", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedProduct)
+        });
       }
-      return o;
-    });
 
-    // 2. Add review to the product
-    const product = products.find(p => p.id === selectedItem.productId);
-    if (product) {
-      const newReview: Review = {
-        id: `rev-${Date.now()}`,
-        user: user.name,
-        rating,
-        comment,
-        date: new Date().toISOString().split('T')[0],
-        productId: product.id
-      };
-      
-      const updatedProduct = {
-        ...product,
-        reviews: [newReview, ...(product.reviews || [])],
-        // Update avg rating
-        rating: parseFloat(((product.rating * (product.reviews?.length || 0) + rating) / ((product.reviews?.length || 0) + 1)).toFixed(1))
-      };
-      
-      await updateProduct(updatedProduct);
-    }
+      // 2. Mark item as reviewed in ecommerce_orders.json
+      const order = orders.find(o => o.id === selectedItem.orderId);
+      if (order) {
+        const updatedOrder = {
+          ...order,
+          reviewedItems: [...(order.reviewedItems || []), selectedItem.productId]
+        };
+        
+        await fetch("/api/orders", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedOrder)
+        });
+      }
 
-    // Since we don't have a specific Order Update API, we rely on the product update 
-    // or we could add an /api/orders update later. For now, this syncs the UI.
-    
-    setTimeout(() => {
-      setIsReviewModalOpen(false);
-      setIsSubmitting(false);
-      setSelectedItem(null);
-      setRating(5);
-      setComment("");
+      // 3. Force re-fetch global data to sync UI
+      window.location.reload(); 
+      
       alert(t.reviews.success);
-    }, 800);
+    } catch (error) {
+      console.error("Failed to submit review", error);
+      alert("Failed to save review to JSON database");
+    } finally {
+      setIsSubmitting(false);
+      setIsReviewModalOpen(false);
+      setSelectedItem(null);
+    }
   };
 
   if (userOrders.length === 0) {
@@ -115,8 +141,14 @@ export default function HistoryPage() {
                 <div className="space-y-1">
                   <div className="flex items-center gap-3">
                     <h3 className="font-black text-xl lg:text-2xl tracking-tighter">{order.id}</h3>
-                    <span className="px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-500/20">
-                      {t.orders.status[order.status as keyof typeof t.orders.status] || order.status}
+                    <span className={cn(
+                      "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border",
+                      order.status.toLowerCase() === "delivered" ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" :
+                      order.status.toLowerCase() === "shipped" ? "bg-blue-500/10 text-blue-600 border-blue-500/20" :
+                      order.status.toLowerCase() === "pending" ? "bg-amber-500/10 text-amber-600 border-amber-500/20 animate-pulse" :
+                      "bg-muted text-muted-foreground border-muted-foreground/20"
+                    )}>
+                      {t.orders.status[order.status.toLowerCase() as keyof typeof t.orders.status] || order.status}
                     </span>
                   </div>
                   <p className="text-xs text-muted-foreground font-black uppercase tracking-[0.1em]">

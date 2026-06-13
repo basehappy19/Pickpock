@@ -10,8 +10,13 @@ export async function GET(
 ) {
   try {
     const { userId } = await params;
-    const data = fs.readFileSync(userDataFilePath, "utf8");
-    const allUserData = JSON.parse(data);
+    let allUserData: any = {};
+    try {
+      const data = fs.readFileSync(userDataFilePath, "utf8");
+      allUserData = data ? JSON.parse(data) : {};
+    } catch (e) {
+      allUserData = {};
+    }
 
     const userData = allUserData[userId] || {
       user_id: userId,

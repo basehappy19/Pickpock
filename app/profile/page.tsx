@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { useRole } from "@/hooks/use-role";
 import { useLanguage } from "@/hooks/use-language";
-import { User, Mail, Phone, Save, Loader2, ShieldCheck, Star, Clock, ShoppingBag } from "lucide-react";
+import { User, Mail, Phone, Save, Loader2, ShieldCheck, Star, Clock, ShoppingBag, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function ProfilePage() {
   const { user, logout } = useRole();
@@ -113,6 +114,38 @@ export default function ProfilePage() {
                 <p className="text-[10px] font-bold text-muted-foreground uppercase">Points</p>
               </div>
             </div>
+          </div>
+
+          {/* Store Status / Become a Partner */}
+          <div className="bg-card border-2 border-primary/10 rounded-[2.5rem] p-6 space-y-4 shadow-xl shadow-primary/5">
+            <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">Store Management</h3>
+            {user.store ? (
+              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-100 space-y-2">
+                <div className="flex items-center gap-2 text-emerald-600">
+                  <ShieldCheck className="h-4 w-4" />
+                  <span className="text-xs font-black uppercase tracking-tighter">Verified Partner</span>
+                </div>
+                <p className="font-black text-sm line-clamp-1">{user.store.name}</p>
+                <Link 
+                  href="/dashboard" 
+                  className="block w-full py-2 rounded-xl bg-emerald-600 text-white text-center text-[10px] font-black uppercase tracking-widest hover:bg-emerald-700 transition-all"
+                >
+                  Manage My Shop
+                </Link>
+              </div>
+            ) : user.role === "customer" ? (
+              <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 space-y-3">
+                <p className="text-xs font-bold text-muted-foreground">Want to sell your own products on MSU MALL?</p>
+                <Link 
+                  href="/partner/register" 
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-primary/20"
+                >
+                  <Plus className="h-3.5 w-3.5" /> Become a Partner
+                </Link>
+              </div>
+            ) : (
+              <p className="text-xs font-bold text-muted-foreground px-2 italic">Platform administrator account.</p>
+            )}
           </div>
         </div>
 

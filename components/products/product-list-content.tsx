@@ -1,7 +1,7 @@
 "use client";
 
 import { Product } from "@/types";
-import { formatCurrency, cn } from "@/lib/utils";
+import { formatCurrency, cn, getImgSrc } from "@/lib/utils";
 import { Search, Filter, Star, ArrowRight, Sparkles, Loader2, Package, Heart, GitCompare, ChevronDown, ChevronUp, X as CloseIcon } from "lucide-react";
 import { useFilter } from "@/hooks/use-filter";
 import { useLanguage } from "@/hooks/use-language";
@@ -34,6 +34,8 @@ export default function ProductListContent({ initialProducts }: { initialProduct
   const [minPrice, setMinPrice] = useState(0);
   const [maxPriceFilter, setMaxPriceFilter] = useState(10000);
   const [inStockOnly, setInStockOnly] = useState(false);
+  const [isOfficialFilter, setIsOfficialFilter] = useState(false);
+  const [isPartnerFilter, setIsPartnerFilter] = useState(false);
 
   // Sync maxPrice when products load
   useEffect(() => {
@@ -225,6 +227,48 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             </div>
 
             <div className="space-y-4">
+              <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.home.officialStores}</h3>
+              <div className="flex flex-col gap-2">
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <div 
+                    onClick={() => {
+                      setIsOfficialFilter(!isOfficialFilter);
+                      updateFilter({ isOfficial: !isOfficialFilter });
+                    }}
+                    className={cn(
+                      "w-12 h-6 rounded-full p-1 transition-all duration-300",
+                      isOfficialFilter ? "bg-amber-500" : "bg-muted"
+                    )}
+                  >
+                    <div className={cn(
+                      "bg-white w-4 h-4 rounded-full transition-all duration-300",
+                      isOfficialFilter ? "translate-x-6" : "translate-x-0"
+                    )} />
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-tight group-hover:text-amber-600 transition-colors">Official Only</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <div 
+                    onClick={() => {
+                      setIsPartnerFilter(!isPartnerFilter);
+                      updateFilter({ isPartner: !isPartnerFilter });
+                    }}
+                    className={cn(
+                      "w-12 h-6 rounded-full p-1 transition-all duration-300",
+                      isPartnerFilter ? "bg-blue-500" : "bg-muted"
+                    )}
+                  >
+                    <div className={cn(
+                      "bg-white w-4 h-4 rounded-full transition-all duration-300",
+                      isPartnerFilter ? "translate-x-6" : "translate-x-0"
+                    )} />
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-tight group-hover:text-blue-600 transition-colors">Partner Only</span>
+                </label>
+              </div>
+            </div>
+
+            <div className="space-y-4">
               <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.filters.availability}</h3>
               <label className="flex items-center gap-3 cursor-pointer group">
                 <div 
@@ -280,11 +324,15 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             {/* Sort Dropdown Placeholder */}
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">{t.filters.sortBy}:</span>
-              <select className="bg-transparent font-black text-xs uppercase tracking-widest outline-none cursor-pointer">
-                <option>{t.filters.newest}</option>
-                <option>{t.filters.priceLow}</option>
-                <option>{t.filters.priceHigh}</option>
-                <option>{t.filters.rating}</option>
+              <select 
+                className="bg-transparent font-black text-xs uppercase tracking-widest outline-none cursor-pointer"
+                value={filters.sortBy}
+                onChange={(e) => updateFilter({ sortBy: e.target.value as any })}
+              >
+                <option value="newest">{t.filters.newest}</option>
+                <option value="price-asc">{t.filters.priceLow}</option>
+                <option value="price-desc">{t.filters.priceHigh}</option>
+                <option value="rating">{t.filters.rating}</option>
               </select>
             </div>
           </div>
@@ -301,7 +349,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 >
                   <div className="aspect-square relative bg-muted overflow-hidden">
                     <NextImage
-                      src={product.image}
+                      src={getImgSrc(product.image)}
                       alt={product.name}
                       fill
                       sizes="(max-width: 768px) 50vw, 25vw"

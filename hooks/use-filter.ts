@@ -43,6 +43,14 @@ export function useFilter(initialData: Product[]) {
       }
     });
 
+    // Official / Partner Filter
+    if (filters.isOfficial) {
+      result = result.filter(item => item.isOfficial || item.storeId === "mall");
+    }
+    if (filters.isPartner) {
+      result = result.filter(item => !item.isOfficial && item.storeId !== "mall");
+    }
+
     return result;
   }, [initialData, filters]);
 

@@ -24,68 +24,70 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [orders, setOrdersState] = useState<Order[]>([]);
   const [coupons, setCoupons] = useState<Coupon[]>(initialCoupons);
 
+  const fetchData = async () => {
+    try {
+      const prodRes = await fetch("/api/products");
+      const ordRes = await fetch("/api/orders");
+      
+      let currentProds: any[] = [];
+
+      if (prodRes.ok) {
+        const rawProds = await prodRes.json();
+        // Map JSON back to App Type
+        const mappedProds = rawProds.map((p: any) => ({
+          id: p.product_id || p.id,
+          name: p.name,
+          category: p.category,
+          price: p.price,
+          stock: p.stock,
+          image: p.image,
+          description: p.description,
+          rating: p.rating || 0,
+          reviews: Array.isArray(p.reviews) ? p.reviews : [],
+          storeId: p.storeId,
+          isOfficial: p.isOfficial || false,
+          createdAt: p.createdAt || new Date().toISOString()
+        }));
+        currentProds = rawProds; // Keep raw for join
+        setProductsState(mappedProds);
+      }
+
+      if (ordRes.ok) {
+        const rawOrds = await ordRes.json();
+        const mappedOrds = rawOrds.map((o: any) => ({
+          id: o.order_id,
+          customerId: o.user_id,
+          customerName: "User " + o.user_id,
+          totalAmount: o.total_price,
+          status: o.status.toLowerCase(),
+          createdAt: o.timestamp,
+          paymentStatus: 'paid',
+          reviewedItems: o.reviewed_items || [], // Consistent naming for frontend
+          items: (o.items || []).map((item: any) => {
+            // Standardize item fields from JSON
+            const pId = item.productId || item.product_id;
+            const product = currentProds.find((p: any) => (p.product_id || p.id) === pId);
+
+            return {
+              productId: pId,
+              productName: item.productName || product?.name || "Premium Product",
+              quantity: item.quantity || item.qty || 1,
+              price: item.price || product?.price || 0
+            };
+          })
+        }));
+        setOrdersState(mappedOrds);
+      }
+
+    } catch (e) {
+      console.error("Failed to fetch data from API, using initial-data", e);
+      setProductsState(initialProducts);
+      setOrdersState(initialOrders);
+    }
+  };
+
   // Initialize data from API
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const prodRes = await fetch("/api/products");
-        const ordRes = await fetch("/api/orders");
-        
-        let currentProds: any[] = [];
-
-        if (prodRes.ok) {
-          const rawProds = await prodRes.json();
-          // Map JSON back to App Type
-          const mappedProds = rawProds.map((p: any) => ({
-            id: p.product_id || p.id,
-            name: p.name,
-            category: p.category,
-            price: p.price,
-            stock: p.stock,
-            image: p.image,
-            description: p.description,
-            rating: p.rating || 0,
-            reviews: Array.isArray(p.reviews) ? p.reviews : [],
-            storeId: p.storeId,
-            isOfficial: p.isOfficial || false,
-            createdAt: p.createdAt || new Date().toISOString()
-          }));
-          currentProds = rawProds; // Keep raw for join
-          setProductsState(mappedProds);
-        }
-
-        if (ordRes.ok) {
-          const rawOrds = await ordRes.json();
-          const mappedOrds = rawOrds.map((o: any) => ({
-            id: o.order_id,
-            customerId: o.user_id,
-            customerName: "User " + o.user_id,
-            totalAmount: o.total_price,
-            status: o.status.toLowerCase(),
-            createdAt: o.timestamp,
-            paymentStatus: 'paid',
-            items: (o.items || []).map((item: any) => {
-              // Standardize item fields from JSON
-              const pId = item.productId || item.product_id;
-              const product = currentProds.find((p: any) => (p.product_id || p.id) === pId);
-              
-              return {
-                productId: pId,
-                productName: item.productName || product?.name || "Premium Product",
-                quantity: item.quantity || item.qty || 1,
-                price: item.price || product?.price || 0
-              };
-            })
-          }));
-          setOrdersState(mappedOrds);
-        }
-      } catch (e) {
-        console.error("Failed to fetch data from API, using initial-data", e);
-        setProductsState(initialProducts);
-        setOrdersState(initialOrders);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -113,12 +115,18 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   };
 
   const addOrder = async (o: Order) => {
-    setOrdersState([o, ...orders]);
-    await fetch("/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(o)
-    });
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(o)
+      });
+      if (res.ok) {
+        await fetchData(); // Force re-fetch to get accurate state from JSON
+      }
+    } catch (e) {
+      console.error("Failed to add order", e);
+    }
   };
 
   const purchaseItems = async (boughtItems: { productId: string, quantity: number }[]) => {
@@ -131,10 +139,6 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         const newStock = Math.max(0, product.stock - item.quantity);
         const updatedProduct = { ...product, stock: newStock };
         
-        // Update local state
-        updatedProducts[productIndex] = updatedProduct;
-        
-        // Sync to server
         try {
           await fetch("/api/products", {
             method: "PUT",
@@ -147,7 +151,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       }
     }
     
-    setProductsState(updatedProducts);
+    await fetchData(); // Force re-fetch to ensure all users see new stock levels
   };
 
   return (

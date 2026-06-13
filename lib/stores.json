@@ -6,7 +6,13 @@
     "description": "The official MSU store for premium gadgets and electronics.",
     "status": "active",
     "rating": 4.9,
-    "products": ["p-101", "p-102", "p-103", "p-104", "p-105"],
+    "products": [
+      "p-101",
+      "p-102",
+      "p-103",
+      "p-104",
+      "p-105"
+    ],
     "joined_at": "2026-01-01T00:00:00Z"
   },
   {
@@ -16,7 +22,23 @@
     "description": "Your destination for the latest in global fashion and accessories.",
     "status": "active",
     "rating": 4.7,
-    "products": ["p-106", "p-107", "p-108", "p-109", "p-110"],
+    "products": [
+      "p-106",
+      "p-107",
+      "p-108",
+      "p-109",
+      "p-110"
+    ],
     "joined_at": "2026-02-15T00:00:00Z"
+  },
+  {
+    "store_id": "s-osf8a30gm",
+    "name": "test",
+    "owner_id": "u009",
+    "description": "test",
+    "status": "active",
+    "rating": 5,
+    "products": [],
+    "joined_at": "2026-06-13T06:56:43.513Z"
   }
 ]

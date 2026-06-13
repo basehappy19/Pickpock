@@ -25,6 +25,7 @@ interface RoleContextType {
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   setRole: (role: Role) => void; // For manual toggle in demo
+  updateUserStore: (store: any) => void;
 }
 
 const RoleContext = createContext<RoleContextType | undefined>(undefined);
@@ -80,8 +81,16 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const updateUserStore = (store: any) => {
+    if (user) {
+      const updatedUser = { ...user, store };
+      setUser(updatedUser);
+      localStorage.setItem("authUser", JSON.stringify(updatedUser));
+    }
+  };
+
   return (
-    <RoleContext.Provider value={{ user, role, login, logout, setRole }}>
+    <RoleContext.Provider value={{ user, role, login, logout, setRole, updateUserStore }}>
       {children}
     </RoleContext.Provider>
   );

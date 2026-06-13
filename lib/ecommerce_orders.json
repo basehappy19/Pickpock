@@ -745,5 +745,84 @@
     "total_price": 2500,
     "status": "DELIVERED",
     "timestamp": "2026-06-13T06:17:59.980Z"
+  },
+  {
+    "order_id": "ORD-03307",
+    "user_id": "u009",
+    "items": [
+      {
+        "product_id": "p-101",
+        "qty": 1
+      }
+    ],
+    "total_price": 2500,
+    "status": "DELIVERED",
+    "timestamp": "2026-06-13T06:22:18.631Z"
+  },
+  {
+    "order_id": "ORD-03315",
+    "user_id": "u009",
+    "items": [
+      {
+        "product_id": "p-102",
+        "qty": 1
+      }
+    ],
+    "total_price": 1800,
+    "status": "DELIVERED",
+    "timestamp": "2026-06-13T06:32:22.743Z",
+    "reviewed_items": [
+      "p-102"
+    ]
+  },
+  {
+    "order_id": "ORD-04427",
+    "user_id": "u009",
+    "items": [
+      {
+        "product_id": "p-103",
+        "qty": 1
+      }
+    ],
+    "total_price": 4500,
+    "status": "DELIVERED",
+    "timestamp": "2026-06-13T06:37:49.830Z",
+    "reviewed_items": [
+      "p-103"
+    ]
+  },
+  {
+    "order_id": "ORD-02221",
+    "user_id": "u009",
+    "items": [
+      {
+        "product_id": "p-102",
+        "qty": 1
+      },
+      {
+        "product_id": "p-106",
+        "qty": 1
+      }
+    ],
+    "total_price": 10700,
+    "status": "PENDING",
+    "timestamp": "2026-06-13T07:27:25.205Z",
+    "reviewed_items": []
+  },
+  {
+    "order_id": "ORD-04403",
+    "user_id": "u009",
+    "items": [
+      {
+        "product_id": "p-c7cnkhqe1",
+        "qty": 3
+      }
+    ],
+    "total_price": 999,
+    "status": "PENDING",
+    "timestamp": "2026-06-13T07:48:59.652Z",
+    "reviewed_items": [
+      "p-c7cnkhqe1"
+    ]
   }
 ]

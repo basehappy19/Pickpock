@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Home, LayoutDashboard, Package, LogOut, LogIn, Heart, GitCompare, X } from "lucide-react";
+import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Home, LayoutDashboard, Package, LogOut, LogIn, Heart, GitCompare, X, ShoppingBag } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { ThemeToggle } from "./theme-toggle";
 import { useCart } from "@/hooks/use-cart";
@@ -28,6 +28,10 @@ export default function Navbar() {
     ...(role === "founder" ? [
       { href: "/dashboard", label: t.nav.dashboard, icon: LayoutDashboard },
       { href: "/orders", label: t.nav.orders, icon: Package },
+    ] : user?.store ? [
+      { href: "/dashboard", label: "My Shop", icon: LayoutDashboard },
+    ] : user ? [
+      { href: "/partner/register", label: "Become a Partner", icon: ShoppingBag },
     ] : []),
   ];
 

@@ -7,7 +7,9 @@ export const translations = {
       products: "Products",
       search: "Search items...",
       login: "Login / Register",
-      history: "Purchase History",
+      history: "History",
+      becomePartner: "Become a Partner",
+      myShop: "My Shop",
       wishlist: "Wishlist",
       compare: "Compare",
       cart: "Cart",
@@ -270,7 +272,9 @@ export const translations = {
       compare: "เปรียบเทียบ",
       cart: "รถเข็น",
       account: "บัญชีของฉัน",
-      settings: "ตั้งค่า"
+      settings: "ตั้งค่า",
+      becomePartner: "สมัครพาร์ทเนอร์",
+      myShop: "ร้านค้าของฉัน"
     },
     home: {
       heroTitle: "ค้นพบอนาคตแห่งการช้อปปิ้ง",

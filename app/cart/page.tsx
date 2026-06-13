@@ -61,7 +61,7 @@ export default function CartPage() {
       customerId: user.id,
       customerName: customerName,
       totalAmount: totalPrice - appliedDiscount,
-      status: 'delivered',
+      status: 'pending', // New orders start as pending
       createdAt: new Date().toISOString(),
       paymentStatus: 'paid',
       items: items.map(i => ({
@@ -150,7 +150,7 @@ export default function CartPage() {
           {items.map((item) => (
             <div key={item.id} className="bg-card border rounded-2xl p-4 lg:p-6 flex flex-col sm:flex-row gap-4 lg:gap-6 shadow-sm hover:shadow-md transition-shadow group">
               <div className="relative h-24 w-24 sm:h-32 sm:w-32 rounded-xl overflow-hidden border bg-muted flex-shrink-0 mx-auto sm:mx-0">
-                <NextImage src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                <NextImage src={getImgSrc(item.image)} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
               <div className="flex-1 flex flex-col justify-between text-center sm:text-left">
                 <div className="flex justify-between items-start gap-4">

@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRole } from "@/hooks/use-role";
 import { useLanguage } from "@/hooks/use-language";
 import { Store, ShoppingBag, ShieldCheck, Loader2, CheckCircle2, ArrowRight, Building2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function PartnerRegisterPage() {
-  const { user, login } = useRole();
+  const { user, updateUserStore } = useRole();
   const { t } = useLanguage();
   const router = useRouter();
 
@@ -35,6 +35,8 @@ export default function PartnerRegisterPage() {
       });
 
       if (res.ok) {
+        const data = await res.json();
+        updateUserStore(data.store);
         setStep("success");
       } else {
         const data = await res.json();
@@ -47,8 +49,13 @@ export default function PartnerRegisterPage() {
     }
   };
 
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user, router]);
+
   if (!user) {
-    router.push("/login");
     return null;
   }
 

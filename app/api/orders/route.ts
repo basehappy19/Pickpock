@@ -24,7 +24,8 @@ const toJSON = (o: Order) => ({
   })),
   total_price: o.totalAmount,
   status: o.status.toUpperCase(),
-  timestamp: o.createdAt
+  timestamp: o.createdAt,
+  reviewed_items: o.reviewedItems || []
 });
 
 export async function POST(req: Request) {

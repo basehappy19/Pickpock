@@ -11,6 +11,7 @@ import { useCart } from "@/hooks/use-cart";
 import { useWishlist } from "@/hooks/use-wishlist";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 import { useCompare } from "@/hooks/use-compare";
+import { useRouter } from "next/navigation";
 
 export default function ProductInfo({ product, allProducts }: { product: Product, allProducts: Product[] }) {
   const { t } = useLanguage();
@@ -21,10 +22,26 @@ export default function ProductInfo({ product, allProducts }: { product: Product
   const [activeTab, setActiveTab] = useState<"description" | "specs" | "reviews">("description");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
+  const [storeData, setStoreData] = useState<any>(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (product) {
       addToRecentlyViewed(product);
+      
+      const fetchStore = async () => {
+        try {
+          const res = await fetch("/api/stores");
+          if (res.ok) {
+            const stores = await res.json();
+            const found = stores.find((s: any) => s.store_id === product.storeId || (product.isOfficial && s.store_id === 's-001'));
+            if (found) setStoreData(found);
+          }
+        } catch (e) {
+          console.error("Failed to fetch store data", e);
+        }
+      };
+      fetchStore();
     }
   }, [product, addToRecentlyViewed]);
 
@@ -42,6 +59,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
     setTimeout(() => setIsAdded(false), 2000);
   };
 
+  const placeholderImg = "https://placehold.co/800x800?text=Product+Not+Found";
+
   return (
     <div className="space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
@@ -49,7 +68,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
         <div className="space-y-4">
           <div className="aspect-square relative rounded-[2.5rem] overflow-hidden border-2 border-primary/5 bg-muted shadow-2xl">
             <NextImage
-              src={product.image}
+              src={product.image || placeholderImg}
               alt={product.name}
               fill
               priority
@@ -81,7 +100,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           <div className="grid grid-cols-4 gap-4">
              {[1,2,3,4].map((i) => (
                <div key={i} className="aspect-square rounded-2xl bg-muted border-2 border-transparent hover:border-primary/20 cursor-pointer overflow-hidden transition-all">
-                 <NextImage src={product.image} alt={product.name} width={200} height={200} className="object-cover h-full w-full opacity-50 hover:opacity-100" />
+                 <NextImage src={product.image || placeholderImg} alt={product.name} width={200} height={200} className="object-cover h-full w-full opacity-50 hover:opacity-100" />
                </div>
              ))}
           </div>
@@ -231,7 +250,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 </ul>
               </div>
               <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
-                 <NextImage src={product.image} alt="Detail" fill className="object-cover" />
+                 <NextImage src={product.image || placeholderImg} alt="Detail" fill className="object-cover" />
                  <div className="absolute inset-0 bg-primary/20 backdrop-blur-[2px]" />
                  <div className="absolute inset-0 flex items-center justify-center">
                     <div className="h-20 w-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border-2 border-white/30 cursor-pointer hover:scale-110 transition-transform">
@@ -336,15 +355,18 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <Store className="h-12 w-12" />
                </div>
                <div className="text-white space-y-1">
-                  <p className="text-[10px] font-black uppercase tracking-widest opacity-80">Official Partner</p>
-                  <h3 className="text-4xl font-black tracking-tighter">MSU FOUNDER STORE</h3>
+                  <p className="text-[10px] font-black uppercase tracking-widest opacity-80">{product.isOfficial ? "Official Partner" : "Trusted Partner"}</p>
+                  <h3 className="text-4xl font-black tracking-tighter uppercase">{storeData?.name || "MSU FOUNDER STORE"}</h3>
                   <div className="flex items-center gap-4 text-xs font-bold">
-                     <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-white" /> 4.9 (2.4k Ratings)</span>
+                     <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-white" /> {storeData?.rating || "4.9"} (2.4k Ratings)</span>
                      <span className="px-2 py-0.5 rounded-md bg-white/20">99% Positive Feedback</span>
                   </div>
                </div>
             </div>
-            <button className="h-16 px-10 rounded-2xl bg-white text-primary font-black text-sm uppercase tracking-widest shadow-2xl hover:bg-opacity-90 active:scale-95 transition-all">
+            <button 
+               onClick={() => router.push(`/stores/${storeData?.store_id || 'mall'}`)}
+               className="h-16 px-10 rounded-2xl bg-white text-primary font-black text-sm uppercase tracking-widest shadow-2xl hover:bg-opacity-90 active:scale-95 transition-all cursor-pointer"
+            >
                Visit Store
             </button>
          </div>
@@ -370,7 +392,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             >
               <div className="aspect-square relative overflow-hidden bg-muted">
                 <NextImage
-                  src={p.image}
+                  src={p.image || placeholderImg}
                   alt={p.name}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
