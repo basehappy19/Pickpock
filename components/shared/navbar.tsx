@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Store, Home, LayoutDashboard, Package } from "lucide-react";
+import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Home, LayoutDashboard, Package } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { ThemeToggle } from "./theme-toggle";
 import { useCart } from "@/hooks/use-cart";
@@ -15,38 +15,24 @@ export default function Navbar() {
   const { role, setRole } = useRole();
   const pathname = usePathname();
 
-  const cycleRole = () => {
-    if (role === "customer") setRole("seller");
-    else if (role === "seller") setRole("founder");
-    else setRole("customer");
-  };
-
-  const getRoleIcon = () => {
-    if (role === "founder") return <ShieldCheck className="h-4 w-4" />;
-    if (role === "seller") return <Store className="h-4 w-4" />;
-    return <User className="h-4 w-4" />;
-  };
-
-  const getRoleColor = () => {
-    if (role === "founder") return "bg-amber-500/10 border-amber-500/20 text-amber-600";
-    if (role === "seller") return "bg-emerald-500/10 border-emerald-500/20 text-emerald-600";
-    return "bg-blue-500/10 border-blue-500/20 text-blue-600";
+  const toggleRole = () => {
+    setRole(role === "customer" ? "founder" : "customer");
   };
 
   const navLinks = [
     { href: "/", label: t.nav.home, icon: Home },
     { href: "/products", label: t.nav.products, icon: Package },
     { href: "/history", label: t.nav.history, icon: LayoutDashboard },
-    ...(role !== "customer" ? [
+    ...(role === "founder" ? [
       { href: "/dashboard", label: t.nav.dashboard, icon: LayoutDashboard },
-      { href: "/orders", label: t.nav.orders, icon: Store },
+      { href: "/orders", label: t.nav.orders, icon: Package },
     ] : []),
   ];
 
   return (
     <>
-      {/* Top Navbar (Desktop & Mobile Logo/Settings) */}
-      <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md transition-all">
+      {/* Top Navbar */}
+      <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md transition-all font-sans">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-8">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity">
@@ -58,7 +44,6 @@ export default function Navbar() {
               </span>
             </Link>
             
-            {/* Desktop Links */}
             <div className="hidden lg:flex gap-6">
               {navLinks.map((link) => (
                 <Link 
@@ -76,15 +61,14 @@ export default function Navbar() {
           </div>
           
           <div className="flex items-center gap-2 sm:gap-4">
-            {/* Role Switcher */}
             <button 
-              onClick={cycleRole}
+              onClick={toggleRole}
               className={cn(
                 "flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-black uppercase transition-all border-2 cursor-pointer",
-                getRoleColor()
+                role === "founder" ? "bg-amber-500/10 border-amber-500/20 text-amber-600" : "bg-blue-500/10 border-blue-500/20 text-blue-600"
               )}
             >
-              {getRoleIcon()}
+              {role === "founder" ? <ShieldCheck className="h-4 w-4" /> : <User className="h-4 w-4" />}
               <span className="hidden xs:inline">{role}</span>
             </button>
 
@@ -158,7 +142,7 @@ export default function Navbar() {
       </nav>
 
       {/* Spacer for bottom nav on mobile */}
-      <div className="lg:hidden h-20" />
+      <div className="lg:hidden h-16" />
     </>
   );
 }

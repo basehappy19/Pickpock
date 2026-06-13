@@ -6,18 +6,12 @@ import { Product, Order, Coupon } from "@/types";
 export const initialProductsRaw = productsJson;
 export const initialOrdersRaw = ordersJson;
 
-// Coupons can stay as defined
-export const initialCoupons: Coupon[] = [
-  { code: "FOUNDER10", discount: 10, type: "percent", description: "10% Off for Founders" },
-  { code: "MSU500", discount: 500, type: "fixed", description: "฿500 Off MSU Special" }
-];
-
 // Helper to map JSON to App Product Type
 export const mapProduct = (p: any): Product => ({
   id: p.product_id,
   name: p.name,
-  description: p.name + " - High-quality product curated for MSU FOUNDER.",
-  fullDescription: p.name + " is a premium selection from our marketplace. Designed for performance and style.",
+  description: p.name + " - High-quality product curated for MSU MALL.",
+  fullDescription: p.name + " is a premium selection from our official mall. Designed for performance and style.",
   price: p.price,
   category: p.category,
   image: p.image,
@@ -26,8 +20,8 @@ export const mapProduct = (p: any): Product => ({
   stock: p.stock,
   status: 'active',
   createdAt: new Date().toISOString(),
-  storeName: p.product_id.includes('p-101') || p.product_id.includes('p-103') ? "MSU Official" : "Partner Store",
-  isOfficial: p.product_id.includes('p-101') || p.product_id.includes('p-103'),
+  storeName: "MSU MALL Official",
+  isOfficial: true,
   specs: { "Origin": "MSU Premium", "Material": "Grade A", "Warranty": "1 Year" }
 });
 
@@ -47,7 +41,12 @@ export const initialOrders: Order[] = ordersJson.map((o: any) => ({
     productId: item.product_id,
     productName: "Product " + item.product_id,
     quantity: item.qty,
-    price: 0 // Will be derived if needed
+    price: 0
   })),
   reviewedItems: []
 }));
+
+export const initialCoupons: Coupon[] = [
+  { code: "FOUNDER10", discount: 10, type: "percent", description: "10% Off for Founders" },
+  { code: "MSU500", discount: 500, type: "fixed", description: "฿500 Off MSU Special" }
+];

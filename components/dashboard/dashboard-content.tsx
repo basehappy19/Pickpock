@@ -1,7 +1,7 @@
 "use client";
 
 import { Product } from "@/types";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, cn } from "@/lib/utils";
 import { 
   TrendingUp, 
   Users, 
@@ -23,9 +23,8 @@ import {
 import { useFilter } from "@/hooks/use-filter";
 import { useLanguage } from "@/hooks/use-language";
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useRole } from "@/hooks/use-role";
-import { cn } from "@/lib/utils";
 import { uploadProductImage } from "@/lib/supabase";
 import NextImage from "next/image";
 import { useGlobalData } from "@/hooks/use-global-data";
@@ -38,15 +37,8 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
   const { t } = useLanguage();
   const { role } = useRole();
   const { products, addProduct, updateProduct, deleteProduct } = useGlobalData();
+  const { filteredData, filters, updateFilter } = useFilter(products);
   const router = useRouter();
-
-  // Filter products based on role: Founder sees all, Seller sees only non-official (mock logic)
-  const roleFilteredProducts = useMemo(() => {
-    if (role === "founder") return products;
-    return products.filter(p => !p.isOfficial); // Seller sees partner products
-  }, [products, role]);
-
-  const { filteredData, filters, updateFilter } = useFilter(roleFilteredProducts);
 
   // Admin Modal States
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -95,8 +87,8 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
         ...newProdData as any,
         reviews: [],
         rating: 0,
-        storeName: role === "founder" ? "MSU Official" : "Partner Store",
-        isOfficial: role === "founder",
+        storeName: "MSU Official",
+        isOfficial: true,
       };
       addProduct(addedProd);
     }
@@ -107,7 +99,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
   const stats = [
     { title: t.dashboard.stats.revenue, value: formatCurrency(125000), icon: DollarSign, trend: "+12.5%", color: "from-blue-600/20 to-blue-600/5", iconColor: "text-blue-600" },
     { title: t.dashboard.stats.users, value: "1,240", icon: Users, trend: "+5.2%", color: "from-indigo-600/20 to-indigo-600/5", iconColor: "text-indigo-600" },
-    { title: t.dashboard.stats.products, value: roleFilteredProducts.length, icon: Package, trend: "0%", color: "from-emerald-600/20 to-emerald-600/5", iconColor: "text-emerald-600" },
+    { title: t.dashboard.stats.products, value: products.length, icon: Package, trend: "0%", color: "from-emerald-600/20 to-emerald-600/5", iconColor: "text-emerald-600" },
     { title: t.dashboard.stats.rating, value: "4.7", icon: TrendingUp, trend: "+0.2", color: "from-amber-600/20 to-amber-600/5", iconColor: "text-amber-600" },
   ];
 
@@ -115,11 +107,11 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
     <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700 pb-20 lg:pb-8">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-1 text-center md:text-left">
-          <h1 className="text-3xl lg:text-5xl font-black tracking-tight lg:bg-clip-text lg:text-transparent lg:bg-gradient-to-r from-foreground to-foreground/70 text-foreground uppercase">
-            {role === "founder" ? t.dashboard.founderTitle : t.dashboard.sellerTitle}
+          <h1 className="text-3xl lg:text-5xl font-black tracking-tight lg:bg-clip-text lg:text-transparent lg:bg-gradient-to-r from-foreground to-foreground/70 text-foreground uppercase tracking-tighter">
+            {t.dashboard.founderTitle}
           </h1>
           <p className="text-sm lg:text-lg text-muted-foreground max-w-[600px]">
-            {role === "founder" ? t.dashboard.founderSubtitle : t.dashboard.sellerSubtitle}
+            {t.dashboard.founderSubtitle}
           </p>
         </div>
         <button 
@@ -161,7 +153,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
               <input 
                 type="text" 
                 placeholder={t.dashboard.filters.search}
-                className="w-full pl-12 pr-6 py-2.5 lg:py-3 rounded-xl border-2 border-transparent bg-background focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-sm font-medium"
+                className="w-full pl-10 pr-6 py-2.5 lg:py-3 rounded-xl border-2 border-transparent bg-background focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-sm font-medium"
                 value={filters.search}
                 onChange={(e) => updateFilter({ search: e.target.value })}
               />
@@ -170,23 +162,23 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full text-left border-collapse text-sm">
             <thead>
-              <tr className="text-muted-foreground text-[10px] lg:text-xs font-bold uppercase tracking-widest border-b">
-                <th className="px-6 lg:px-8 py-4 lg:py-5 font-bold">{t.dashboard.table.name}</th>
-                <th className="px-6 lg:px-8 py-4 lg:py-5 font-bold">{t.dashboard.table.category}</th>
-                <th className="px-6 lg:px-8 py-4 lg:py-5 font-bold">{t.dashboard.table.price}</th>
-                <th className="px-6 lg:px-8 py-4 lg:py-5 font-bold hidden sm:table-cell">{t.dashboard.table.stock}</th>
+              <tr className="text-muted-foreground text-[10px] lg:text-xs font-black uppercase tracking-widest border-b">
+                <th className="px-6 lg:px-8 py-4 lg:py-5 font-black">{t.dashboard.table.name}</th>
+                <th className="px-6 lg:px-8 py-4 lg:py-5 font-black">{t.dashboard.table.category}</th>
+                <th className="px-6 lg:px-8 py-4 lg:py-5 font-black">{t.dashboard.table.price}</th>
+                <th className="px-6 lg:px-8 py-4 lg:py-5 font-black hidden sm:table-cell">{t.dashboard.table.stock}</th>
                 <th className="px-6 lg:px-8 py-4 lg:py-5"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-muted">
               {filteredData.map((item) => (
                 <tr key={item.id} className="group hover:bg-muted/50 transition-colors">
-                  <td className="px-6 lg:px-8 py-4 lg:py-5 font-bold text-sm text-foreground/90">{item.name}</td>
-                  <td className="px-6 lg:px-8 py-4 lg:py-5 text-[10px] font-bold uppercase">{item.category}</td>
-                  <td className="px-6 lg:px-8 py-4 lg:py-5 font-mono font-bold text-sm text-primary">{formatCurrency(item.price)}</td>
-                  <td className="px-6 lg:px-8 py-4 lg:py-5 font-medium text-sm hidden sm:table-cell">{item.stock}</td>
+                  <td className="px-6 lg:px-8 py-4 lg:py-5 font-bold text-foreground/90">{item.name}</td>
+                  <td className="px-6 lg:px-8 py-4 lg:py-5 text-[10px] font-black uppercase text-muted-foreground">{item.category}</td>
+                  <td className="px-6 lg:px-8 py-4 lg:py-5 font-mono font-black text-primary">{formatCurrency(item.price)}</td>
+                  <td className="px-6 lg:px-8 py-4 lg:py-5 font-bold hidden sm:table-cell">{item.stock}</td>
                   <td className="px-6 lg:px-8 py-4 lg:py-5 text-right">
                     <div className="flex gap-2 justify-end opacity-0 group-hover:opacity-100 transition-opacity">
                       <button onClick={() => { setEditingProduct(item); setIsModalOpen(true); }} className="p-1.5 rounded-lg hover:bg-primary/10 text-primary transition-all cursor-pointer border shadow-sm"><Pencil className="h-3.5 w-3.5" /></button>
