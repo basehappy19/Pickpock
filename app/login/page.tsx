@@ -38,6 +38,19 @@ export default function LoginPage() {
     setLoading(false);
   };
 
+  const handleDemoLogin = async (role: 'founder' | 'customer') => {
+    setLoading(true);
+    setError("");
+    const demoEmail = role === 'founder' ? 'alice@example.com' : 'somchai@example.com';
+    const success = await login(demoEmail, '1234');
+    if (success) {
+      router.push(role === 'founder' ? '/dashboard' : '/');
+    } else {
+      setError(t.auth.invalidLogin);
+    }
+    setLoading(false);
+  };
+
   const handleRequestOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setResetLoading(true);
@@ -107,13 +120,42 @@ export default function LoginPage() {
           <p className="text-slate-500 font-medium text-sm">{t.auth.login}</p>
         </div>
 
+        {/* Quick Demo Login */}
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() => handleDemoLogin('founder')}
+            disabled={loading}
+            className="group relative h-12 rounded-lg border-2 border-primary/20 bg-primary/5 text-slate-900 font-bold text-sm hover:bg-primary/10 hover:border-primary/40 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ShieldCheck className="h-4 w-4 text-primary" />
+            <span>{t.auth.founder}</span>
+            <span className="absolute top-1 right-1.5 h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          </button>
+          <button
+            type="button"
+            onClick={() => handleDemoLogin('customer')}
+            disabled={loading}
+            className="h-12 rounded-lg bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <User className="h-4 w-4" />
+            <span>{t.auth.customer}</span>
+          </button>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="flex-1 h-px bg-slate-200" />
+          <span className="text-xs text-slate-400 font-bold uppercase tracking-widest">{t.auth.or}</span>
+          <div className="flex-1 h-px bg-slate-200" />
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-600 ml-1">{t.auth.email}</label>
             <div className="relative group">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-primary transition-colors" />
-              <input 
-                type="email" 
+              <input
+                type="email"
                 required
                 placeholder={t.auth.emailPlaceholder}
                 className="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-200 focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all font-medium text-slate-900"
