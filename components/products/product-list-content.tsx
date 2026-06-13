@@ -7,6 +7,7 @@ import { useFilter } from "@/hooks/use-filter";
 import { useLanguage } from "@/hooks/use-language";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import NextImage from "next/image";
 
 export default function ProductListContent({ initialProducts }: { initialProducts: Product[] }) {
   const { t } = useLanguage();
@@ -68,10 +69,10 @@ export default function ProductListContent({ initialProducts }: { initialProduct
 
       {/* AI Smart Search Bar */}
       <form onSubmit={handleAISearch} className="relative group">
-        <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-blue-600/30 rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+        <div className="absolute -inset-1 bg-rainbow-gradient rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
         <div className="relative flex flex-col md:flex-row gap-2 bg-card p-2 rounded-[2rem] border shadow-lg">
           <div className="flex-1 relative flex items-center">
-            <Sparkles className="absolute left-4 h-5 w-5 text-primary animate-pulse" />
+            <Sparkles className="absolute left-4 h-5 w-5 text-rainbow animate-pulse" />
             <input 
               type="text" 
               placeholder="ลองพิมพ์ค้นหาแบบมนุษย์ เช่น 'อยากได้หูฟังเอาไปใส่วิ่ง'"
@@ -83,8 +84,9 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           <button 
             type="submit"
             disabled={isSearching}
-            className="px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 min-w-[140px] cursor-pointer"
+            className="px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-black hover:opacity-90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 min-w-[140px] cursor-pointer overflow-hidden group/btn"
           >
+            <div className="absolute inset-0 bg-rainbow-gradient opacity-0 group-hover/btn:opacity-20 transition-opacity" />
             {isSearching ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
             {isSearching ? "กำลังวิเคราะห์..." : "AI Search"}
           </button>
@@ -101,7 +103,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             className="w-full pl-12 pr-6 py-3 rounded-2xl border-2 border-transparent bg-card focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-sm font-medium shadow-sm"
             value={filters.search}
             onChange={(e) => {
-              setAiMatchedIds(null); // Clear AI search when normal search is used
+              setAiMatchedIds(null); 
               setAiSearchQuery("");
               updateFilter({ search: e.target.value })
             }}
@@ -136,7 +138,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             className="group bg-card rounded-[2.5rem] border overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 cursor-pointer"
           >
             <div className="aspect-[4/3] overflow-hidden bg-muted relative">
-              <Image 
+              <NextImage 
                 src={product.image} 
                 alt={product.name}
                 fill

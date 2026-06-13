@@ -5,7 +5,7 @@ import { formatCurrency, cn } from "@/lib/utils";
 import { Star, ShoppingCart, ShieldCheck, Truck, Sparkles } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import AIInsights from "./ai-insights";
-import Image from "next/image";
+import NextImage from "next/image";
 import { useCart } from "@/hooks/use-cart";
 
 export default function ProductInfo({ product }: { product: Product }) {
@@ -18,7 +18,7 @@ export default function ProductInfo({ product }: { product: Product }) {
         {/* Image Gallery */}
         <div className="space-y-4">
           <div className="relative aspect-square rounded-[2.5rem] overflow-hidden border bg-muted shadow-inner group">
-            <Image 
+            <NextImage 
               src={product.image} 
               alt={product.name}
               fill
