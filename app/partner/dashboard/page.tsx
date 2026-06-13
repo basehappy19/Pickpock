@@ -2,13 +2,13 @@
 
 import { useRole } from "@/hooks/use-role";
 import { useLanguage } from "@/hooks/use-language";
-import { 
-  BarChart3, 
-  Users, 
-  Package, 
-  TrendingUp, 
-  ShoppingBag, 
-  ArrowUpRight, 
+import {
+  BarChart3,
+  Users,
+  Package,
+  TrendingUp,
+  ShoppingBag,
+  ArrowUpRight,
   ArrowDownRight,
   Clock,
   MoreVertical,
@@ -20,7 +20,8 @@ import {
   Image as ImageIcon,
   Edit,
   Trash2,
-  Settings
+  Settings,
+  Sparkles
 } from "lucide-react";
 import { cn, formatCurrency, getImgSrc } from "@/lib/utils";
 import { useState, useEffect, useMemo } from "react";
@@ -41,6 +42,7 @@ export default function PartnerDashboardPage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditStoreModal, setShowEditStoreModal] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [isGeneratingDesc, setIsGeneratingDesc] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>(null);
   
   const [newProduct, setNewProduct] = useState({
@@ -84,6 +86,41 @@ export default function PartnerDashboardPage() {
       alert("Failed to upload image. Check your Supabase configuration.");
     }
     setIsUploading(false);
+  };
+
+  const generateAIDescription = async () => {
+    if (!newProduct.name) {
+      alert("กรุณาใส่ชื่อสินค้าก่อน / Please enter product name first");
+      return;
+    }
+
+    setIsGeneratingDesc(true);
+    try {
+      const res = await fetch("/api/ai/product-description", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productName: newProduct.name,
+          category: newProduct.category,
+          language: "both"
+        })
+      });
+
+      const data = await res.json();
+      if (data.success && data.description) {
+        const desc = data.description;
+        // Prefer Thai description
+        setNewProduct(prev => ({
+          ...prev,
+          description: desc.th || desc.en || desc.description || desc
+        }));
+      }
+    } catch (e) {
+      console.error("AI generation failed", e);
+      alert("Failed to generate description. Please try again.");
+    } finally {
+      setIsGeneratingDesc(false);
+    }
   };
 
   const fetchAllData = async () => {
@@ -570,6 +607,28 @@ export default function PartnerDashboardPage() {
                     <option>Beauty</option>
                     <option>Toys</option>
                   </select>
+                </div>
+
+                <div className="col-span-2 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">รายละเอียดสินค้า / Description</label>
+                    <button
+                      type="button"
+                      onClick={generateAIDescription}
+                      disabled={isGeneratingDesc || !newProduct.name}
+                      className="flex items-center gap-1 px-3 py-1 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer"
+                    >
+                      <Sparkles className="h-3 w-3" />
+                      {isGeneratingDesc ? "กำลังสร้าง..." : "AI เขียนให้"}
+                    </button>
+                  </div>
+                  <textarea
+                    rows={3}
+                    placeholder="Enter product description or use AI to generate..."
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold resize-none"
+                    value={newProduct.description}
+                    onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}
+                  />
                 </div>
               </div>
               <button

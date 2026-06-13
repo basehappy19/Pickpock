@@ -63,4 +63,41 @@ export interface Coupon {
   type: 'percent' | 'fixed';
   description: string;
   claimed?: boolean;
+  minPurchase?: number;
+  maxDiscount?: number;
+  expiresAt?: string;
+  applicableTiers?: Tier[];
+}
+
+export type Tier = 'MEMBER' | 'VIP';
+export type Role = 'customer' | 'founder' | 'partner';
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: Role;
+  tier: Tier;
+  store?: {
+    store_id: string;
+    name: string;
+    status: string;
+  } | null;
+  vipExpiresAt?: string;
+  totalSpent?: number;
+  points?: number;
+}
+
+export interface DiscountRule {
+  id: string;
+  name: string;
+  type: 'tier_discount' | 'bulk_discount' | 'flash_sale' | 'coupon';
+  tier?: Tier;
+  minQuantity?: number;
+  discountPercent: number;
+  maxDiscount?: number;
+  startDate?: string;
+  endDate?: string;
+  productIds?: string[];
+  categoryIds?: string[];
 }

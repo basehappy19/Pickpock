@@ -1,25 +1,29 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, X, MessageCircle, Send, Loader2, Bot } from "lucide-react";
-import { aiService } from "@/services/api-service";
+import { Sparkles, X, Send, Loader2, Bot, ShoppingBag } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
+import { useGlobalData } from "@/hooks/use-global-data";
+import { useRole } from "@/hooks/use-role";
 import { cn } from "@/lib/utils";
+import { getAIChatResponse } from "@/services/ai/ai-service";
 
 interface Message {
-  role: "user" | "ai";
-  text: string;
+  role: "user" | "assistant";
+  content: string;
 }
 
 export default function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "ai", text: "สวัสดีครับ! ผมคือผู้ช่วย AI ของคุณ ต้องการให้แนะนำสินค้าชิ้นไหนเป็นพิเศษไหมครับ?" }
+    { role: "assistant", content: "สวัสดีครับ! ผมคือผู้ช่วย AI ของ Pickpock ต้องการให้แนะนำสินค้าชิ้นไหนเป็นพิเศษไหมครับ? หรือมีคำถามเรื่องอะไรให้ช่วยไหมครับ?" }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
+  const { products } = useGlobalData();
+  const { tier } = useRole();
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -33,19 +37,18 @@ export default function AIChatbot() {
 
     const userMsg = input;
     setInput("");
-    setMessages((prev) => [...prev, { role: "user", text: userMsg }]);
+    setMessages((prev) => [...prev, { role: "user", content: userMsg }]);
     setLoading(true);
 
     try {
-      const response = await aiService.askGemini(
-        `คุณคือพนักงานแนะนำสินค้าที่เก่งที่สุดและเป็นกันเองมากที่สุด
-         คำถามลูกค้า: ${userMsg}
-         กรุณาตอบแบบสั้นๆ กระชับ และเชิญชวนให้ซื้อ`,
-        { context: "General Shopping Assistant" }
+      const response = await getAIChatResponse(
+        [...messages, { role: "user", content: userMsg }],
+        products,
+        { tier }
       );
-      setMessages((prev) => [...prev, { role: "ai", text: response }]);
+      setMessages((prev) => [...prev, { role: "assistant", content: response }]);
     } catch (error) {
-      setMessages((prev) => [...prev, { role: "ai", text: "ขออภัยครับ ผมขอเวลาประมวลผลสักครู่ ลองถามอีกครั้งได้ไหมครับ?" }]);
+      setMessages((prev) => [...prev, { role: "assistant", content: "ขออภัยครับ ระบบ AI ขัดข้องชั่วคราว ลองถามอีกครั้งได้ไหมครับ?" }]);
     } finally {
       setLoading(false);
     }
@@ -63,8 +66,8 @@ export default function AIChatbot() {
                 <Bot className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="font-black text-sm uppercase tracking-widest">MSU AI Assistant</h3>
-                <p className="text-[10px] text-primary/70 font-bold">Online & Ready to help</p>
+                <h3 className="font-black text-sm uppercase tracking-widest">Pickpock AI</h3>
+                <p className="text-[10px] text-primary/70 font-bold">พร้อมช่วยเหลือคุณครับ</p>
               </div>
             </div>
             <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-black/5 rounded-full transition-colors cursor-pointer">
@@ -78,21 +81,20 @@ export default function AIChatbot() {
               <div key={i} className={cn("flex", msg.role === "user" ? "justify-end" : "justify-start")}>
                 <div className={cn(
                   "max-w-[80%] p-4 rounded-3xl text-sm font-medium shadow-sm",
-                  msg.role === "user" 
-                    ? "bg-primary text-primary-foreground rounded-tr-none" 
+                  msg.role === "user"
+                    ? "bg-primary text-primary-foreground rounded-tr-none"
                     : "bg-card border rounded-tl-none"
                 )}>
-                  {msg.text}
+                  {msg.content}
                 </div>
               </div>
             ))}
             {loading && (
               <div className="flex justify-start animate-pulse">
                 <div className="bg-card border p-4 rounded-3xl rounded-tl-none">
-                  <div className="flex gap-1">
-                    <div className="typing-dot" />
-                    <div className="typing-dot" />
-                    <div className="typing-dot" />
+                  <div className="flex gap-1 items-center">
+                    <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                    <span className="text-xs text-muted-foreground">AI กำลังคิด...</span>
                   </div>
                 </div>
               </div>

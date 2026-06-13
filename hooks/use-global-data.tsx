@@ -14,6 +14,7 @@ interface DataContextType {
   addProduct: (product: Product) => void;
   deleteProduct: (id: string) => void;
   addOrder: (order: Order) => void;
+  updateOrderStatus: (orderId: string, status: string) => Promise<void>;
   purchaseItems: (items: { productId: string, quantity: number }[]) => void;
 }
 
@@ -129,6 +130,21 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const updateOrderStatus = async (orderId: string, status: string) => {
+    try {
+      const res = await fetch("/api/orders/status", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId, status })
+      });
+      if (res.ok) {
+        await fetchData();
+      }
+    } catch (e) {
+      console.error("Failed to update order status", e);
+    }
+  };
+
   const purchaseItems = async (boughtItems: { productId: string, quantity: number }[]) => {
     const updatedProducts = [...products];
     
@@ -159,7 +175,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       products, orders, coupons, 
       setProducts: setProductsState, 
       setOrders: setOrdersState, 
-      addProduct, updateProduct, deleteProduct, addOrder,
+      addProduct, updateProduct, deleteProduct, addOrder, updateOrderStatus,
       purchaseItems
     }}>
       {children}

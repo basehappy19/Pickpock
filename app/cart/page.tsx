@@ -13,29 +13,23 @@ import { useGlobalData } from "@/hooks/use-global-data";
 import { useRole } from "@/hooks/use-role";
 
 export default function CartPage() {
-  const { items, removeFromCart, addToCart, totalCount, totalPrice, clearCart } = useCart();
+  const { items, removeFromCart, addToCart, updateQuantity, totalCount, totalPrice, discountedTotal, discountSummary, appliedCoupon, applyCoupon, removeCoupon, clearCart } = useCart();
   const { addOrder, purchaseItems } = useGlobalData();
   const { t } = useLanguage();
-  const { user } = useRole();
+  const { user, tier } = useRole();
   const router = useRouter();
-  
+
   const [couponCode, setCouponCode] = useState("");
   const [customerName, setCustomerName] = useState("");
-  const [appliedDiscount, setAppliedDiscount] = useState(0);
   const [isPaid, setIsPaid] = useState(false);
 
   const handleApplyCoupon = () => {
     const coupon = initialCoupons.find(c => c.code === couponCode.toUpperCase());
     if (coupon) {
-      if (coupon.type === "percent") {
-        setAppliedDiscount(totalPrice * (coupon.discount / 100));
-      } else {
-        setAppliedDiscount(coupon.discount);
-      }
-      alert(`Coupon applied: ${coupon.code}`);
+      applyCoupon(coupon);
+      setCouponCode("");
     } else {
-      alert("Invalid coupon code");
-      setAppliedDiscount(0);
+      alert("Invalid coupon code / โค้ดไม่ถูกต้อง");
     }
   };
 
@@ -55,13 +49,21 @@ export default function CartPage() {
     // Reduce stock globally and sync to JSON
     await purchaseItems(items.map(i => ({ productId: i.id, quantity: i.quantity })));
 
-    // Create real order object
+    // Create real order object with discount summary
     const newOrder: any = {
       id: `ORD-${Math.floor(Math.random() * 10000).toString().padStart(5, '0')}`,
       customerId: user.id,
       customerName: customerName,
-      totalAmount: totalPrice - appliedDiscount,
-      status: 'pending', // New orders start as pending
+      totalAmount: discountedTotal,
+      originalAmount: discountSummary.subtotal,
+      discounts: {
+        tier: discountSummary.tierDiscount,
+        bulk: discountSummary.bulkDiscount,
+        coupon: discountSummary.couponDiscount,
+        couponCode: appliedCoupon?.code || null,
+        total: discountSummary.totalDiscount
+      },
+      status: 'pending',
       createdAt: new Date().toISOString(),
       paymentStatus: 'paid',
       items: items.map(i => ({
@@ -115,8 +117,6 @@ export default function CartPage() {
       </div>
     );
   }
-
-  const finalTotal = Math.max(0, totalPrice - appliedDiscount);
 
   return (
     <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700">
@@ -215,25 +215,69 @@ export default function CartPage() {
             </div>
 
             <div className="space-y-4">
+              {/* VIP Badge */}
+              {tier === 'VIP' && (
+                <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                  <span>VIP Member</span>
+                  <span className="bg-white/20 px-2 py-0.5 rounded">-10%</span>
+                </div>
+              )}
+
               <div className="flex justify-between font-bold text-muted-foreground uppercase text-[10px] tracking-widest">
                 <span>{t.cart.subtotal}</span>
-                <span>{formatCurrency(totalPrice)}</span>
+                <span>{formatCurrency(discountSummary.subtotal)}</span>
               </div>
               <div className="flex justify-between font-bold text-muted-foreground uppercase text-[10px] tracking-widest">
                 <span>{t.cart.shipping}</span>
-                <span className="text-emerald-500">{t.cart.free}</span>
+                <span className="text-emerald-500">{tier === 'VIP' ? 'ฟรี (VIP)' : t.cart.free}</span>
               </div>
-              {appliedDiscount > 0 && (
-                <div className="flex justify-between font-bold text-rose-500 uppercase text-[10px] tracking-widest">
-                  <span>{t.cart.discountApplied}</span>
-                  <span>-{formatCurrency(appliedDiscount)}</span>
+
+              {/* Tier Discount */}
+              {discountSummary.tierDiscount > 0 && (
+                <div className="flex justify-between font-bold text-amber-500 uppercase text-[10px] tracking-widest">
+                  <span>ส่วนลด VIP (10%)</span>
+                  <span>-{formatCurrency(discountSummary.tierDiscount)}</span>
                 </div>
               )}
+
+              {/* Bulk Discount */}
+              {discountSummary.bulkDiscount > 0 && (
+                <div className="flex justify-between font-bold text-blue-500 uppercase text-[10px] tracking-widest">
+                  <span>ส่วนลดจำนวนมาก</span>
+                  <span>-{formatCurrency(discountSummary.bulkDiscount)}</span>
+                </div>
+              )}
+
+              {/* Coupon Discount */}
+              {appliedCoupon && (
+                <div className="flex justify-between items-center gap-2">
+                  <div className="flex items-center gap-2 font-bold text-rose-500 uppercase text-[10px] tracking-widest">
+                    <Tag className="h-3 w-3" />
+                    <span>Coupon: {appliedCoupon.code}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-rose-500">-{formatCurrency(discountSummary.couponDiscount)}</span>
+                    <button onClick={removeCoupon} className="p-1 hover:bg-rose-50 rounded cursor-pointer">
+                      <Minus className="h-3 w-3" />
+                    </button>
+                  </div>
+                </div>
+              )}
+
               <div className="h-px bg-muted w-full my-2" />
               <div className="flex justify-between items-end">
                 <span className="font-black text-base lg:text-lg">{t.cart.total}</span>
-                <span className="text-2xl lg:text-3xl font-black text-primary tracking-tighter">{formatCurrency(finalTotal)}</span>
+                <span className="text-2xl lg:text-3xl font-black text-primary tracking-tighter">{formatCurrency(discountedTotal)}</span>
               </div>
+
+              {/* Savings Badge */}
+              {discountSummary.totalDiscount > 0 && (
+                <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl p-3 text-center">
+                  <p className="text-emerald-600 dark:text-emerald-400 font-black text-xs uppercase tracking-widest">
+                    ประหยัด {formatCurrency(discountSummary.totalDiscount)} ในการสั่งซื้อนี้!
+                  </p>
+                </div>
+              )}
             </div>
             <button 
               onClick={handleCheckout}

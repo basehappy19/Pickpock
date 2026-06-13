@@ -8,9 +8,9 @@ export const initialOrdersRaw = ordersJson;
 
 // Helper to map JSON to App Product Type
 export const mapProduct = (p: any): Product => ({
-  id: p.product_id,
+  id: p.id || p.product_id,
   name: p.name,
-  description: p.name + " - High-quality product curated for MSU MALL.",
+  description: p.description || p.name + " - High-quality product curated for MSU MALL.",
   fullDescription: p.name + " is a premium selection from our official mall. Designed for performance and style.",
   price: p.price,
   category: p.category,
@@ -19,10 +19,11 @@ export const mapProduct = (p: any): Product => ({
   reviews: p.reviews || [],
   stock: p.stock,
   status: 'active',
-  createdAt: new Date().toISOString(),
+  createdAt: p.createdAt || new Date().toISOString(),
   storeName: "MSU MALL Official",
-  isOfficial: true,
-  specs: { "Origin": "MSU Premium", "Material": "Grade A", "Warranty": "1 Year" }
+  isOfficial: p.isOfficial || true,
+  storeId: p.storeId || "mall",
+  specs: p.specs || { "Origin": "MSU Premium", "Material": "Grade A", "Warranty": "1 Year" }
 });
 
 // Initial products mapped for the application

@@ -20,6 +20,14 @@ export async function POST(req: Request) {
       const stores = JSON.parse(storesData);
       const store = stores.find((s: any) => s.owner_id === user.user_id);
 
+      // Determine role: founder stays founder, others with stores become partner, else customer
+      let assignedRole = "customer";
+      if (user.type === "founder") {
+        assignedRole = "founder";
+      } else if (store || user.type === "partner") {
+        assignedRole = "partner";
+      }
+
       return NextResponse.json({
         success: true,
         user: {
@@ -28,7 +36,7 @@ export async function POST(req: Request) {
           email: user.email,
           phone: user.phone,
           loyaltyPoints: user.loyalty_points,
-          role: user.type === "founder" ? "founder" : "customer",
+          role: assignedRole,
           tier: user.role === "VIP" ? "VIP" : "MEMBER",
           store: store || null
         }

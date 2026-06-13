@@ -141,10 +141,10 @@ export default function HomepageClient({ products }: { products: Product[] }) {
             <span className="ml-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">SMART</span>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 relative z-10">
-            {aiRecommended.map(product => {
+            {aiRecommended.map((product, idx) => {
               const pid = product.id || (product as any).product_id;
               return (
-                <Link key={pid} href={`/products/${pid}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
+                <Link key={pid || `ai-${idx}`} href={`/products/${pid}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
                   <div className="aspect-square relative bg-muted overflow-hidden">
                     <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
                     <div className="absolute top-2 left-2 px-2 py-1 rounded-lg bg-primary/90 backdrop-blur text-white text-[10px] font-bold uppercase tracking-widest">
@@ -173,10 +173,10 @@ export default function HomepageClient({ products }: { products: Product[] }) {
             <Link href="/products" className="text-primary font-bold hover:underline text-sm lg:text-base">{t.common.view} All</Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6 px-1">
-            {popularTrending.map(product => {
+            {popularTrending.map((product, idx) => {
               const pid = product.id || (product as any).product_id;
               return (
-                <Link key={pid} href={`/products/${pid}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
+                <Link key={pid || `trend-${idx}`} href={`/products/${pid}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
                   <div className="aspect-square relative bg-muted overflow-hidden">
                     <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
                     <div className="absolute bottom-3 left-3 px-2 py-1 bg-background/90 backdrop-blur text-[10px] font-black uppercase tracking-widest rounded-lg border shadow-sm">
@@ -205,10 +205,10 @@ export default function HomepageClient({ products }: { products: Product[] }) {
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6 px-1">
-              {recentlyViewed.slice(0, 4).map(product => {
+              {recentlyViewed.slice(0, 4).map((product, idx) => {
                 const pid = product.id || (product as any).product_id;
                 return (
-                  <Link key={pid} href={`/products/${pid}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
+                  <Link key={pid || `recent-${idx}`} href={`/products/${pid}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
                     <div className="aspect-square relative bg-muted overflow-hidden">
                       <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
                       <div className="absolute top-2 left-2 px-2 py-1 rounded-lg bg-primary/90 backdrop-blur text-white text-[8px] font-bold uppercase tracking-widest">

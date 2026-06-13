@@ -28,8 +28,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MSU SHOP AI - Hackathon 2026",
-  description: "AI-Powered E-commerce Management System",
+  title: "Pickpock - AI-Powered E-commerce Platform",
+  description: "แพลตฟอร์มอีคอมเมิร์ซที่ขับเคลื่อนด้วย AI | AI-Powered Shopping Experience",
+  keywords: "e-commerce, AI, shopping, Thailand, Pickpock",
+  authors: [{ name: "Pickpock Team" }],
 };
 
 export default async function RootLayout({

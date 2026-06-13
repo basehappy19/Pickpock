@@ -1,8 +1,9 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
-import { Product } from "@/types";
+import { Product, Coupon } from "@/types";
 import { useRole } from "./use-role";
+import { calculateCartDiscounts } from "@/utils/discounts";
 
 interface CartItem extends Product {
   quantity: number;
@@ -16,14 +17,27 @@ interface CartContextType {
   clearCart: () => void;
   totalCount: number;
   totalPrice: number;
+  discountedTotal: number;
+  appliedCoupon: Coupon | null;
+  applyCoupon: (coupon: Coupon) => void;
+  removeCoupon: () => void;
+  discountSummary: {
+    subtotal: number;
+    tierDiscount: number;
+    bulkDiscount: number;
+    couponDiscount: number;
+    totalDiscount: number;
+    appliedDiscounts: string[];
+  };
   isLoading: boolean;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const { user } = useRole();
+  const { user, getUserDiscount } = useRole();
   const [items, setItems] = useState<CartItem[]>([]);
+  const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const isInitialLoad = useRef(true);
 
@@ -128,10 +142,43 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const totalCount = items.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const cartItems = items.map(item => ({
+    productId: item.id,
+    name: item.name,
+    price: item.price,
+    quantity: item.quantity
+  }));
+
+  const discountSummary = calculateCartDiscounts(
+    cartItems,
+    user?.tier || 'MEMBER',
+    appliedCoupon || undefined
+  );
+
+  const applyCoupon = (coupon: Coupon) => {
+    setAppliedCoupon(coupon);
+  };
+
+  const removeCoupon = () => {
+    setAppliedCoupon(null);
+  };
 
   return (
-    <CartContext.Provider value={{ items, addToCart, updateQuantity, removeFromCart, clearCart, totalCount, totalPrice, isLoading }}>
+    <CartContext.Provider value={{
+      items,
+      addToCart,
+      updateQuantity,
+      removeFromCart,
+      clearCart,
+      totalCount,
+      totalPrice: discountSummary.subtotal,
+      discountedTotal: discountSummary.finalTotal,
+      appliedCoupon,
+      applyCoupon,
+      removeCoupon,
+      discountSummary,
+      isLoading
+    }}>
       {children}
     </CartContext.Provider>
   );

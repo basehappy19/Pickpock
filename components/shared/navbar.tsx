@@ -24,12 +24,10 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: t.nav.home, icon: Home },
     { href: "/products", label: t.nav.products, icon: Package },
-    { href: "/history", label: t.nav.history, icon: LayoutDashboard },
-    ...(role === "founder" ? [
+    ...(role !== "founder" ? [{ href: "/history", label: t.nav.history, icon: LayoutDashboard }] : []),
+    ...(role === "founder" || role === "partner" ? [
       { href: "/dashboard", label: t.nav.dashboard, icon: LayoutDashboard },
       { href: "/orders", label: t.nav.orders, icon: Package },
-    ] : user?.store ? [
-      { href: "/dashboard", label: t.nav.myShop, icon: LayoutDashboard },
     ] : user ? [
       { href: "/partner/register", label: t.nav.becomePartner, icon: ShoppingBag },
     ] : []),
@@ -42,11 +40,11 @@ export default function Navbar() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-8">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity">
-              <div className="bg-primary p-1.5 rounded-xl shadow-lg shadow-primary/20">
-                <Box className="h-6 w-6 text-primary-foreground" />
+              <div className="bg-gradient-to-br from-primary to-purple-600 p-1.5 rounded-xl shadow-lg shadow-primary/20">
+                <ShoppingBag className="h-6 w-6 text-white" />
               </div>
               <span>
-                MSU <span className="text-primary">{role === "customer" ? "MALL" : "FOUNDER"}</span>
+                Pick<span className="text-primary">pock</span>
               </span>
             </Link>
             

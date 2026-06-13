@@ -2,14 +2,14 @@ export const translations = {
   en: {
     nav: {
       home: "Home",
-      dashboard: "Dashboard",
+      dashboard: "Platform Management",
       orders: "Orders",
       products: "Products",
       search: "Search items...",
       login: "Login / Register",
       history: "History",
       becomePartner: "Become a Partner",
-      myShop: "My Shop",
+      myShop: "Platform Management",
       wishlist: "Wishlist",
       compare: "Compare",
       cart: "Cart",
@@ -21,6 +21,8 @@ export const translations = {
       loggedInAs: "Logged in as",
       role: "Role",
       membership: "Membership",
+      vipBadge: "VIP",
+      vipDiscount: "10% OFF",
     },
     store: {
       about: "About Store",
@@ -328,7 +330,7 @@ export const translations = {
   th: {
     nav: {
       home: "หน้าแรก",
-      dashboard: "ระบบจัดการร้าน",
+      dashboard: "ระบบจัดการแพลตฟอร์ม",
       orders: "คำสั่งซื้อ",
       products: "สินค้าทั้งหมด",
       search: "ค้นหาสินค้าแบรนด์แท้...",
@@ -340,13 +342,15 @@ export const translations = {
       account: "บัญชีของฉัน",
       settings: "ตั้งค่า",
       becomePartner: "สมัครพาร์ทเนอร์",
-      myShop: "ร้านค้าของฉัน"
+      myShop: "ระบบจัดการแพลตฟอร์ม",
     },
     banner: {
       sessionId: "รหัสเซสชัน",
       loggedInAs: "เข้าสู่ระบบในชื่อ",
       role: "บทบาท",
       membership: "ระดับสมาชิก",
+      vipBadge: "VIP",
+      vipDiscount: "ลด 10%",
     },
     store: {
       about: "เกี่ยวกับร้านค้า",

@@ -90,5 +90,40 @@
       }
     ],
     "compare": []
+  },
+  "u001": {
+    "user_id": "u001",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [
+      {
+        "id": "p-109",
+        "name": "Laptop Stand Aluminum",
+        "category": "Electronics",
+        "price": 450,
+        "stock": 45,
+        "image": "https://images.unsplash.com/photo-1544244015-0cd4b3ff56b0?q=80&w=800&auto=format&fit=crop",
+        "description": "Ergonomic laptop stand made from premium aluminum.",
+        "rating": 4.6,
+        "reviews": [],
+        "isOfficial": false,
+        "createdAt": "2026-06-13T09:49:07.962Z"
+      },
+      {
+        "id": "p-101",
+        "name": "Wireless Noise Cancelling Headphones",
+        "category": "Electronics",
+        "price": 2500,
+        "stock": 50,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
+        "description": "Experience pure sound with our latest noise-cancelling technology.",
+        "rating": 4.8,
+        "reviews": [],
+        "isOfficial": true,
+        "createdAt": "2026-06-13T09:15:28.149Z"
+      }
+    ],
+    "compare": []
   }
 }
