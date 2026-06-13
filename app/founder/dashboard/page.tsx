@@ -30,7 +30,8 @@ import {
   Zap,
   Tag,
   ArrowUp,
-  ArrowDown
+  ArrowDown,
+  ChevronRight
 } from "lucide-react";
 import { cn, formatCurrency, getImgSrc } from "@/lib/utils";
 import { useState, useEffect, useMemo } from "react";
@@ -166,7 +167,7 @@ export default function FounderDashboardPage() {
     }
   };
 
-  const handleApplyAISmartPrice = async (productId: string, suggestedPrice: number) => {
+  const handleApplyAISmartPrice = async (productId: string, suggestedPrice: number, totalSoldAtAnalysis: number) => {
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
@@ -174,9 +175,10 @@ export default function FounderDashboardPage() {
     try {
       await updateProduct({
         ...product,
-        price: suggestedPrice
-      });
-      toast.success(`ปรับราคาเป็น ${formatCurrency(suggestedPrice)} ตามคำแนะนำ AI แล้ว`);
+        price: suggestedPrice,
+        lastAnalyzedSaleCount: totalSoldAtAnalysis // Persist analysis point
+      } as any);
+      toast.success(`อัปเดตราคาอัจฉริยะสำเร็จ! ราคาใหม่: ${formatCurrency(suggestedPrice)}`);
     } catch (e) {
       toast.error("ปรับราคาไม่สำเร็จ");
     } finally {
@@ -338,29 +340,33 @@ export default function FounderDashboardPage() {
       color: ['bg-blue-500', 'bg-rose-500', 'bg-amber-500', 'bg-emerald-500', 'bg-purple-500'][Object.keys(categoryCounts).indexOf(label) % 5]
     })).sort((a, b) => b.count - a.count);
 
-    // AI Pricing Analysis Logic (Improved to prevent loops)
+    // AI Pricing Analysis Logic (Improved to suggest ONLY when new sales occur)
     const pricingInsights = products.reduce((acc, p) => {
       const stats = productSalesStats[p.id];
       const sales = stats?.sales || 0;
       
+      // Persistence check: If we've already suggested for this sales volume, skip
+      const lastAnalyzedCount = (p as any).lastAnalyzedSaleCount || 0;
+      if (sales <= lastAnalyzedCount && sales > 0) return acc; 
+
       let suggestedAmount = 0;
       let type: 'increase' | 'decrease' = 'increase';
 
       if (sales > 10 && p.stock < 20) {
         suggestedAmount = Math.round(p.price * 1.05 / 10) * 10;
         type = 'increase';
-      } else if (sales === 0 && p.stock > 50) {
+      } else if (sales === 0 && p.stock > 50 && lastAnalyzedCount === 0) {
+        // Only suggest decrease if never analyzed before
         suggestedAmount = Math.round(p.price * 0.95 / 10) * 10;
         type = 'decrease';
       }
       
-      // Only suggest if the price difference is at least ฿20 to avoid infinite small adjustments
       if (suggestedAmount > 0 && Math.abs(suggestedAmount - p.price) >= 20) {
-        acc[p.id] = { type, amount: suggestedAmount, reason: type === 'increase' ? 'High Demand' : 'Slow Moving' };
+        acc[p.id] = { type, amount: suggestedAmount, reason: type === 'increase' ? 'ขายดี/สต็อกน้อย' : 'สินค้าเคลื่อนไหวช้า', totalSold: sales };
       }
       
       return acc;
-    }, {} as Record<string, { type: 'increase' | 'decrease', amount: number, reason: string }>);
+    }, {} as Record<string, { type: 'increase' | 'decrease', amount: number, reason: string, totalSold: number }>);
 
     return { salesTrend, percentChange, topProducts, topStores, categoryDistribution, currentPeriodRevenue, prevPeriodRevenue, pricingInsights };
   }, [orders, products, stores, timeRange, t, now]);
@@ -461,7 +467,7 @@ export default function FounderDashboardPage() {
            setShowAddModal(true);
         }} className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary/20 cursor-pointer"><Plus className="h-3.5 w-3.5" /> {t.dashboard.addProduct}</button></div>
         <div className="bg-card border-2 border-primary/5 rounded-4xl shadow-2xl shadow-primary/5 overflow-hidden">
-          <table className="w-full text-left">
+          <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b bg-muted/20">
                 <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.name}</th>
@@ -477,27 +483,42 @@ export default function FounderDashboardPage() {
                 const isPriceUpdating = isUpdatingPrice === product.id;
 
                 return (
-                  <tr key={product.id} className="hover:bg-muted/30 transition-colors group">
+                  <tr key={product.id} className="hover:bg-muted/10 transition-colors group">
                     <td className="px-8 py-6"><div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden"><img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" /></div><div><p className="font-black text-sm max-w-50 truncate">{product.name}</p><p className="text-[10px] font-bold text-muted-foreground">{product.category}</p></div></div></td>
                     <td className="px-8 py-6"><span className={cn("px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest", product.isOfficial ? "bg-amber-500/10 text-amber-600" : "bg-blue-500/10 text-blue-600")}>{product.isOfficial ? t.dashboard.officialMall : (stores.find(s => s.store_id === product.storeId)?.name || t.dashboard.partnerStore)}</span></td>
                     <td className="px-8 py-6 font-black text-[10px]">{product.stock} {t.product.quantity}</td>
-                    <td className="px-8 py-6">
-                      <div className="flex flex-col gap-1">
+                    <td className="px-8 py-6 min-w-[180px]">
+                      <div className="flex flex-col gap-2">
                         <span className="font-black text-sm">{formatCurrency(product.price)}</span>
                         {insight && (
-                          <button
-                            onClick={() => handleApplyAISmartPrice(product.id, insight.amount)}
-                            disabled={isPriceUpdating}
-                            className={cn(
-                              "flex items-center gap-1.5 px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-tighter w-fit transition-all cursor-pointer shadow-sm active:scale-95",
-                              insight.type === 'increase' ? "bg-emerald-500 text-white hover:bg-emerald-600" : "bg-rose-500 text-white hover:bg-rose-600",
-                              isPriceUpdating && "opacity-50 cursor-wait"
-                            )}
-                          >
-                            {isPriceUpdating ? <Loader2 className="h-2 w-2 animate-spin" /> : <Sparkles className="h-2 w-2" />}
-                            {insight.type === 'increase' ? <ArrowUp className="h-2 w-2" /> : <ArrowDown className="h-2 w-2" />}
-                            AI: {formatCurrency(insight.amount)}
-                          </button>
+                          <div className="animate-in fade-in slide-in-from-left-2 duration-500">
+                             <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 space-y-2 relative overflow-hidden group/advice">
+                                <div className="absolute top-0 right-0 p-1">
+                                   <Sparkles className="h-3 w-3 text-primary/30 animate-pulse" />
+                                </div>
+                                <div className="flex items-center gap-2">
+                                   <div className={cn("p-1.5 rounded-lg text-white", insight.type === 'increase' ? "bg-emerald-500" : "bg-rose-500")}>
+                                      {insight.type === 'increase' ? <TrendingUp className="h-3 w-3" /> : <TrendingUp className="h-3 w-3 rotate-180" />}
+                                   </div>
+                                   <div className="space-y-0.5">
+                                      <p className="text-[9px] font-black uppercase text-primary/60 leading-none">AI แนะนำ</p>
+                                      <p className="text-[10px] font-black text-foreground">{insight.reason}</p>
+                                   </div>
+                                </div>
+                                <button
+                                  onClick={() => handleApplyAISmartPrice(product.id, insight.amount, insight.totalSold)}
+                                  disabled={isPriceUpdating}
+                                  className={cn(
+                                    "w-full flex items-center justify-between px-3 py-2 rounded-lg text-[10px] font-black uppercase transition-all shadow-sm active:scale-95 cursor-pointer",
+                                    insight.type === 'increase' ? "bg-emerald-500 text-white hover:bg-emerald-600" : "bg-rose-500 text-white hover:bg-rose-600",
+                                    isPriceUpdating && "opacity-50 cursor-wait"
+                                  )}
+                                >
+                                  <span>{isPriceUpdating ? "กำลังปรับ..." : "ปรับเป็น ฿" + insight.amount}</span>
+                                  <ChevronRight className="h-3 w-3 group-hover/advice:translate-x-1 transition-transform" />
+                                </button>
+                             </div>
+                          </div>
                         )}
                       </div>
                     </td>
