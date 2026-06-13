@@ -25,8 +25,18 @@ export default function StoreDetailPage() {
         const res = await fetch("/api/stores");
         const stores = await res.json();
         // Handle 'mall' as s-001 or find by ID
-        const found = stores.find((s: any) => s.store_id === id || (id === 'mall' && s.store_id === 's-001'));
+        const foundStoreId = id === 'mall' ? 's-001' : id;
+        const found = stores.find((s: any) => s.store_id === foundStoreId);
         setStore(found);
+
+        // Increment views if it's a real partner store
+        if (found && foundStoreId !== 's-001') {
+          fetch("/api/stores", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ store_id: foundStoreId, views: 1 })
+          }).catch(console.error);
+        }
       } catch (e) {
         console.error("Failed to fetch store", e);
       } finally {
@@ -107,20 +117,20 @@ export default function StoreDetailPage() {
         {/* Left: About */}
         <aside className="space-y-8">
            <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 space-y-6 shadow-xl shadow-primary/5">
-              <h3 className="text-xs font-black uppercase tracking-widest text-primary">About Store</h3>
+              <h3 className="text-xs font-black uppercase tracking-widest text-primary">{t.store.about}</h3>
               <p className="text-muted-foreground font-bold leading-relaxed text-sm">{displayStore.description}</p>
               <div className="pt-4 space-y-4 border-t border-muted">
                  <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest">
                     <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary"><MapPin className="h-4 w-4" /></div>
-                    Global Shipping
+                    {t.store.globalShipping}
                  </div>
                  <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest">
                     <div className="h-8 w-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600"><ShieldCheck className="h-4 w-4" /></div>
-                    Response Rate: 99%
+                    {t.store.responseRate}
                  </div>
               </div>
               <button className="w-full py-4 rounded-2xl bg-muted text-muted-foreground font-black text-[10px] uppercase tracking-widest hover:bg-primary hover:text-white transition-all">
-                Contact Seller
+                {t.store.contact}
               </button>
            </div>
         </aside>
@@ -128,9 +138,9 @@ export default function StoreDetailPage() {
         {/* Right: Products */}
         <div className="lg:col-span-3 space-y-8">
            <div className="flex items-center justify-between border-b border-muted pb-6">
-              <h2 className="text-4xl font-black tracking-tight">Our <span className="text-primary uppercase">Collection</span></h2>
+              <h2 className="text-4xl font-black tracking-tight">{t.store.collection.split(" ")[0]} <span className="text-primary uppercase">{t.store.collection.split(" ").slice(1).join(" ")}</span></h2>
               <div className="px-4 py-1.5 rounded-full bg-muted font-black text-[10px] uppercase tracking-widest text-muted-foreground">
-                {storeProducts.length} Items Available
+                {storeProducts.length} {t.store.itemsAvailable}
               </div>
            </div>
 
@@ -145,7 +155,7 @@ export default function StoreDetailPage() {
                   }}
                 >
                   <div className="aspect-square relative bg-muted overflow-hidden">
-                    <NextImage src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" sizes="(max-width: 768px) 50vw, 20vw" />
+                    <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" sizes="(max-width: 768px) 50vw, 20vw" />
                     <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-white/80 backdrop-blur-md text-[8px] font-black uppercase tracking-widest shadow-sm">
                       {product.category}
                     </div>
@@ -164,7 +174,7 @@ export default function StoreDetailPage() {
            {storeProducts.length === 0 && (
              <div className="py-20 text-center space-y-4 bg-muted/30 rounded-[3rem] border-4 border-dashed">
                 <Box className="h-16 w-16 mx-auto text-muted-foreground/20" />
-                <p className="font-black text-muted-foreground uppercase tracking-widest">No products listed by this store yet.</p>
+                <p className="font-black text-muted-foreground uppercase tracking-widest">{t.store.noProducts}</p>
              </div>
            )}
         </div>

@@ -92,21 +92,21 @@ export default function FounderDashboardPage() {
 
     return [
       { label: t.dashboard.stats.revenue + " (Global)", value: formatCurrency(globalRevenue), change: "+12.5%", trend: "up", icon: TrendingUp, color: "text-emerald-500" },
-      { label: "Mall Sales (Founder)", value: formatCurrency(mallRevenue), change: "+8.2%", trend: "up", icon: ShoppingBag, color: "text-amber-500" },
+      { label: t.dashboard.stats.revenue + " (Mall)", value: formatCurrency(mallRevenue), change: "+8.2%", trend: "up", icon: ShoppingBag, color: "text-amber-500" },
       { label: t.dashboard.stats.users, value: dashboardData.users.length.toLocaleString(), change: "+5.2%", trend: "up", icon: Users, color: "text-blue-500" },
       { label: t.dashboard.stats.products, value: dashboardData.products.length.toLocaleString(), change: "-2.1%", trend: "down", icon: Package, color: "text-purple-500" },
     ];
   }, [dashboardData, t]);
 
   if (!isFounder && !dashboardData.loading) {
-    return <AccessRestricted requiredRole={["founder"]} currentPage="Founder Dashboard" />;
+    return <AccessRestricted requiredRole={["founder"]} currentPage={t.dashboard.founderTitle} />;
   }
 
   if (dashboardData.loading) {
     return (
       <div className="h-[80vh] flex flex-col items-center justify-center gap-4">
         <Loader2 className="h-12 w-12 text-primary animate-spin" />
-        <p className="font-black text-xs uppercase tracking-widest text-muted-foreground animate-pulse">Syncing platform data...</p>
+        <p className="font-black text-xs uppercase tracking-widest text-muted-foreground animate-pulse">{t.dashboard.syncing}</p>
       </div>
     );
   }
@@ -139,13 +139,13 @@ export default function FounderDashboardPage() {
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 bg-card border-2 border-primary/5 rounded-[2.5rem] shadow-2xl shadow-primary/5 overflow-hidden">
           <div className="p-8 border-b">
-            <h3 className="text-xl font-black tracking-tight">Active Partner Stores</h3>
+            <h3 className="text-xl font-black tracking-tight">{t.dashboard.activeStores}</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b bg-muted/20">
-                  <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Store Details</th>
+                  <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.storeDetails}</th>
                   <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.stats.rating}</th>
                   <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.status}</th>
                 </tr>
@@ -185,7 +185,7 @@ export default function FounderDashboardPage() {
 
         <div className="space-y-6">
            <div className="bg-card border-2 border-primary/10 rounded-[2.5rem] p-8 shadow-xl shadow-primary/5 space-y-6">
-             <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">Inventory Alerts</h3>
+             <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.inventoryAlerts}</h3>
              <div className="space-y-4">
                {dashboardData.products.filter((p: any) => p.stock < 10).slice(0, 5).map((p: any) => (
                  <div key={p.product_id || p.id} className="flex items-center justify-between p-4 rounded-2xl bg-muted/50">

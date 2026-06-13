@@ -824,5 +824,21 @@
     "reviewed_items": [
       "p-c7cnkhqe1"
     ]
+  },
+  {
+    "order_id": "ORD-05988",
+    "user_id": "u009",
+    "items": [
+      {
+        "product_id": "p-euk6sen0n",
+        "qty": 1
+      }
+    ],
+    "total_price": 333,
+    "status": "PENDING",
+    "timestamp": "2026-06-13T08:28:51.496Z",
+    "reviewed_items": [
+      "p-euk6sen0n"
+    ]
   }
 ]

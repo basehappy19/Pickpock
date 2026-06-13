@@ -54,3 +54,39 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to create store" }, { status: 500 });
   }
 }
+
+export async function PUT(req: Request) {
+  try {
+    const body = await req.json();
+    const { store_id, name, description, views } = body;
+    
+    if (!store_id) {
+      return NextResponse.json({ error: "Missing store ID" }, { status: 400 });
+    }
+
+    let stores = readStores();
+    let updatedStore = null;
+
+    stores = stores.map((s: any) => {
+      if (s.store_id === store_id) {
+        updatedStore = {
+          ...s,
+          name: name !== undefined ? name : s.name,
+          description: description !== undefined ? description : s.description,
+          views: views !== undefined ? (s.views || 0) + views : (s.views || 0)
+        };
+        return updatedStore;
+      }
+      return s;
+    });
+
+    if (!updatedStore) {
+      return NextResponse.json({ error: "Store not found" }, { status: 404 });
+    }
+
+    writeStores(stores);
+    return NextResponse.json({ success: true, store: updatedStore });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to update store" }, { status: 500 });
+  }
+}

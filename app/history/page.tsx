@@ -6,6 +6,7 @@ import { useLanguage } from "@/hooks/use-language";
 import { formatCurrency, formatDate, cn, getImgSrc } from "@/lib/utils";
 import { Package, Star, MessageSquare, CheckCircle2, X, Loader2, Box } from "lucide-react";
 import NextImage from "next/image";
+import Link from "next/link";
 import { useRole } from "@/hooks/use-role";
 import AccessRestricted from "@/components/shared/access-restricted";
 import { useGlobalData } from "@/hooks/use-global-data";
@@ -185,11 +186,11 @@ export default function HistoryPage() {
                     return (
                       <tr key={idx} className="group hover:bg-muted/5 transition-colors">
                         <td className="px-8 py-6">
-                          <div className="flex items-center gap-6">
-                            <div className="relative h-20 w-20 rounded-2xl overflow-hidden border bg-muted flex-shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-500">
+                          <Link href={`/products/${item.productId}`} className="flex items-center gap-6 cursor-pointer group/link block w-full">
+                            <div className="relative h-20 w-20 rounded-2xl overflow-hidden border bg-muted flex-shrink-0 shadow-sm group-hover/link:scale-105 transition-transform duration-500">
                               {productData?.image ? (
                                 <NextImage 
-                                  src={productData.image} 
+                                  src={getImgSrc(productData.image)} 
                                   alt={item.productName} 
                                   fill 
                                   className="object-cover" 
@@ -201,14 +202,14 @@ export default function HistoryPage() {
                               )}
                             </div>
                             <div className="space-y-1">
-                              <h4 className="font-black text-base lg:text-lg leading-tight group-hover:text-primary transition-colors">
+                              <h4 className="font-black text-base lg:text-lg leading-tight group-hover/link:text-primary transition-colors group-hover/link:underline">
                                 {item.productName || productData?.name}
                               </h4>
-                              <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest">
+                              <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest no-underline">
                                 {productData?.category || "General"}
                               </p>
                             </div>
-                          </div>
+                          </Link>
                         </td>
                         <td className="px-8 py-6 hidden sm:table-cell font-bold text-sm">
                           {formatCurrency(item.price || 0)}

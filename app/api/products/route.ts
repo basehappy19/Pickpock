@@ -102,7 +102,7 @@ export async function DELETE(req: Request) {
     const id = searchParams.get("id");
     
     let products = readProducts();
-    products = products.filter((p: any) => p.product_id !== id);
+    products = products.filter((p: any) => (p.product_id || p.id) !== id);
     
     writeProducts(products);
     return NextResponse.json({ success: true });

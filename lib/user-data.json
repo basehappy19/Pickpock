@@ -1,39 +1,23 @@
 {
   "u009": {
     "user_id": "u009",
-    "cart": [
-      {
-        "id": "p-euk6sen0n",
-        "name": "test",
-        "category": "Electronics",
-        "price": 333,
-        "stock": 133,
-        "image": "https://scmaztbrymmfqgwfnykg.supabase.co/storage/v1/object/public/products/product-images/0.6968090123014967.jpg",
-        "description": "",
-        "rating": 0,
-        "reviews": [],
-        "storeId": "s-osf8a30gm",
-        "isOfficial": false,
-        "createdAt": "2026-06-13T07:54:50.978Z",
-        "quantity": 1
-      }
-    ],
+    "cart": [],
     "wishlist": [],
     "reviews": [],
     "recentlyViewed": [
       {
         "id": "p-euk6sen0n",
-        "name": "test",
-        "category": "Electronics",
-        "price": 333,
-        "stock": 133,
-        "image": "https://scmaztbrymmfqgwfnykg.supabase.co/storage/v1/object/public/products/product-images/0.6968090123014967.jpg",
+        "name": "test2",
+        "category": "Fashion",
+        "price": 111,
+        "stock": 12,
+        "image": "https://scmaztbrymmfqgwfnykg.supabase.co/storage/v1/object/public/products/product-images/0.11161091885623697.jpg",
         "description": "",
         "rating": 0,
         "reviews": [],
         "storeId": "s-osf8a30gm",
         "isOfficial": false,
-        "createdAt": "2026-06-13T07:54:50.978Z"
+        "createdAt": "2026-06-13T08:40:08.315Z"
       },
       {
         "id": "p-k7tgrsnde",

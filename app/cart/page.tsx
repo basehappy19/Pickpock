@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/hooks/use-cart";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, getImgSrc } from "@/lib/utils";
 import { Trash2, ShoppingBag, ArrowLeft, Plus, Minus, CreditCard, Tag, CheckCircle2, LogIn } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

@@ -29,9 +29,9 @@ export default function Navbar() {
       { href: "/dashboard", label: t.nav.dashboard, icon: LayoutDashboard },
       { href: "/orders", label: t.nav.orders, icon: Package },
     ] : user?.store ? [
-      { href: "/dashboard", label: "My Shop", icon: LayoutDashboard },
+      { href: "/dashboard", label: t.nav.myShop, icon: LayoutDashboard },
     ] : user ? [
-      { href: "/partner/register", label: "Become a Partner", icon: ShoppingBag },
+      { href: "/partner/register", label: t.nav.becomePartner, icon: ShoppingBag },
     ] : []),
   ];
 
@@ -171,7 +171,7 @@ export default function Navbar() {
                 </span>
               )}
             </div>
-            <span className="text-[10px] font-black uppercase tracking-tighter">Wishlist</span>
+            <span className="text-[10px] font-black uppercase tracking-tighter">{t.nav.wishlist}</span>
           </Link>
           <Link
             href="/compare"
@@ -188,7 +188,7 @@ export default function Navbar() {
                 </span>
               )}
             </div>
-            <span className="text-[10px] font-black uppercase tracking-tighter">Compare</span>
+            <span className="text-[10px] font-black uppercase tracking-tighter">{t.nav.compare}</span>
           </Link>
           <Link
             href="/cart"
@@ -205,7 +205,7 @@ export default function Navbar() {
                 </span>
               )}
             </div>
-            <span className="text-[10px] font-black uppercase tracking-tighter">Cart</span>
+            <span className="text-[10px] font-black uppercase tracking-tighter">{t.nav.cart}</span>
           </Link>
         </div>
       </nav>
