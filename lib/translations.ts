@@ -6,7 +6,8 @@ export const translations = {
       orders: "Orders",
       products: "Products",
       search: "Search items...",
-      login: "Login / Register"
+      login: "Login / Register",
+      history: "Purchase History"
     },
     home: {
       heroTitle: "Discover the Future of Shopping",
@@ -15,7 +16,10 @@ export const translations = {
       categories: "Categories",
       officialStores: "Official Stores",
       dailyDiscover: "Daily Discover",
-      flashSale: "Flash Sale"
+      flashSale: "Flash Sale",
+      vouchers: "Collect Vouchers",
+      claim: "Claim",
+      claimed: "Claimed"
     },
     dashboard: {
       title: "Dashboard Overview",
@@ -40,7 +44,9 @@ export const translations = {
       filters: {
         search: "Search products...",
         allCategories: "All Categories",
-      }
+      },
+      uploadImage: "Upload Product Image",
+      uploading: "Uploading..."
     },
     orders: {
       title: "Order Management",
@@ -58,6 +64,21 @@ export const translations = {
         delivered: "Delivered",
         cancelled: "Cancelled"
       }
+    },
+    history: {
+      title: "Purchase History",
+      subtitle: "Review and track your previous purchases.",
+      writeReview: "Write Review",
+      reviewed: "Reviewed",
+      orderDate: "Ordered on",
+      noHistory: "You haven't made any purchases yet."
+    },
+    reviews: {
+      submitTitle: "Rate & Review",
+      rating: "Rating",
+      commentPlaceholder: "Share your experience with this product...",
+      submit: "Submit Review",
+      success: "Review submitted successfully!"
     },
     products: {
       listTitle: "Products",
@@ -82,7 +103,8 @@ export const translations = {
         button: "Analyze Now",
         buttonRetry: "Re-analyze",
         error: "Sorry, AI system is temporary unavailable. Please try again."
-      }
+      },
+      aiSearchPlaceholder: "Try 'Looking for high-quality wireless earbuds'"
     },
     cart: {
       title: "Shopping Cart",
@@ -122,7 +144,8 @@ export const translations = {
       orders: "คำสั่งซื้อ",
       products: "สินค้าทั้งหมด",
       search: "ค้นหาสินค้าแบรนด์แท้...",
-      login: "เข้าสู่ระบบ"
+      login: "เข้าสู่ระบบ",
+      history: "ประวัติการซื้อ"
     },
     home: {
       heroTitle: "ค้นพบอนาคตแห่งการช้อปปิ้ง",
@@ -131,7 +154,10 @@ export const translations = {
       categories: "หมวดหมู่",
       officialStores: "MSU Mall (ร้านค้าทางการ)",
       dailyDiscover: "แนะนำประจำวัน",
-      flashSale: "แฟลชเซลล์"
+      flashSale: "แฟลชเซลล์",
+      vouchers: "เก็บคูปองส่วนลด",
+      claim: "เก็บเลย",
+      claimed: "เก็บแล้ว"
     },
     dashboard: {
       title: "ภาพรวมระบบ",
@@ -156,7 +182,9 @@ export const translations = {
       filters: {
         search: "ค้นหาสินค้าในร้าน...",
         allCategories: "ทุกหมวดหมู่",
-      }
+      },
+      uploadImage: "อัปโหลดรูปสินค้า",
+      uploading: "กำลังอัปโหลด..."
     },
     orders: {
       title: "การจัดการคำสั่งซื้อ",
@@ -174,6 +202,21 @@ export const translations = {
         delivered: "ได้รับสินค้าแล้ว",
         cancelled: "ยกเลิกแล้ว"
       }
+    },
+    history: {
+      title: "ประวัติการสั่งซื้อ",
+      subtitle: "ติดตามสถานะสินค้าและเขียนรีวิวเพื่อให้คะแนน",
+      writeReview: "เขียนรีวิว",
+      reviewed: "รีวิวแล้ว",
+      orderDate: "สั่งซื้อเมื่อ",
+      noHistory: "คุณยังไม่มีประวัติการสั่งซื้อ"
+    },
+    reviews: {
+      submitTitle: "ให้คะแนนและรีวิว",
+      rating: "คะแนน",
+      commentPlaceholder: "แบ่งปันประสบการณ์ของคุณกับสินค้านี้...",
+      submit: "ส่งรีวิว",
+      success: "ส่งรีวิวสำเร็จแล้ว!"
     },
     products: {
       listTitle: "สินค้าทั้งหมด",
@@ -198,7 +241,8 @@ export const translations = {
         button: "วิเคราะห์เลย",
         buttonRetry: "ขอความเห็นใหม่",
         error: "ขออภัยครับ ระบบ AI ขัดข้องชั่วคราว ลองใหม่อีกครั้งนะ"
-      }
+      },
+      aiSearchPlaceholder: "ลองพิมพ์ 'อยากได้หูฟังเอาไปใส่วิ่ง' หรือ 'แนะนำของแต่งบ้านพรีเมียม'"
     },
     cart: {
       title: "รถเข็นของฉัน",

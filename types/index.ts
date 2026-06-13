@@ -24,6 +24,7 @@ export interface Review {
   comment: string;
   date: string;
   sentiment?: 'positive' | 'negative' | 'neutral';
+  productId?: string;
 }
 
 export interface Order {
@@ -35,6 +36,7 @@ export interface Order {
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
   createdAt: string;
   paymentStatus: 'paid' | 'unpaid';
+  reviewedItems?: string[]; // IDs of products already reviewed
 }
 
 export interface OrderItem {
@@ -56,4 +58,6 @@ export interface Coupon {
   code: string;
   discount: number;
   type: 'percent' | 'fixed';
+  description: string;
+  claimed?: boolean;
 }

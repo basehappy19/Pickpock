@@ -36,6 +36,7 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: t.nav.home, icon: Home },
     { href: "/products", label: t.nav.products, icon: Package },
+    { href: "/history", label: t.nav.history, icon: LayoutDashboard },
     ...(role !== "customer" ? [
       { href: "/dashboard", label: t.nav.dashboard, icon: LayoutDashboard },
       { href: "/orders", label: t.nav.orders, icon: Store },

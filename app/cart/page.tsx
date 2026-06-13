@@ -35,6 +35,26 @@ export default function CartPage() {
   const handleCheckout = () => {
     // Mock Payment Process
     setTimeout(() => {
+      const newOrder: any = {
+        id: `ORD-${Math.floor(Math.random() * 10000).toString().padStart(5, '0')}`,
+        customerId: "c1",
+        customerName: "Guest User",
+        totalAmount: totalPrice - appliedDiscount,
+        status: 'delivered',
+        createdAt: new Date().toISOString(),
+        paymentStatus: 'paid',
+        items: items.map(i => ({
+          productId: i.id,
+          productName: i.name,
+          quantity: i.quantity,
+          price: i.price
+        })),
+        reviewedItems: []
+      };
+
+      const existingHistory = JSON.parse(localStorage.getItem("orderHistory") || "[]");
+      localStorage.setItem("orderHistory", JSON.stringify([newOrder, ...existingHistory]));
+
       setIsPaid(true);
       clearCart();
     }, 1000);

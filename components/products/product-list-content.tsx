@@ -68,16 +68,15 @@ export default function ProductListContent({ initialProducts }: { initialProduct
       </div>
 
       {/* AI Smart Search Bar */}
-      <form onSubmit={handleAISearch} className="relative group z-10">
+      <div className="relative group z-30">
         <div className="absolute -inset-1 bg-rainbow-gradient rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200 -z-10"></div>
-        <div className="relative flex flex-col md:flex-row gap-2 bg-card p-3 rounded-2xl border shadow-xl">
-
+        <form onSubmit={handleAISearch} className="relative flex flex-col md:flex-row gap-2 bg-card p-3 rounded-2xl border shadow-xl">
           <div className="flex-1 relative flex items-center">
-            <Sparkles className="absolute left-4 h-5 w-5 text-rainbow animate-pulse" />
+            <Sparkles className="absolute left-4 h-5 w-5 text-rainbow animate-pulse pointer-events-none" />
             <input 
               type="text" 
-              placeholder="ลองพิมพ์ค้นหาแบบมนุษย์ เช่น 'อยากได้หูฟังเอาไปใส่วิ่ง'"
-              className="w-full pl-12 pr-6 py-4 rounded-xl bg-transparent outline-none text-base font-medium placeholder:text-muted-foreground/70"
+              placeholder={t.products.aiSearchPlaceholder}
+              className="w-full pl-12 pr-6 py-4 rounded-xl bg-transparent outline-none text-base font-medium placeholder:text-muted-foreground/70 focus:ring-0 border-none"
               value={aiSearchQuery}
               onChange={(e) => setAiSearchQuery(e.target.value)}
             />
@@ -89,10 +88,10 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           >
             <div className="absolute inset-0 bg-rainbow-gradient opacity-0 group-hover/btn:opacity-20 transition-opacity" />
             {isSearching ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
-            {isSearching ? "กำลังวิเคราะห์..." : "AI Search"}
+            {isSearching ? "..." : "AI Search"}
           </button>
-        </div>
-      </form>
+        </form>
+      </div>
 
       {/* Normal Filter Bar */}
       <div className="flex flex-col md:flex-row gap-4 items-center pt-4">
