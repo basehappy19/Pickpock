@@ -26,7 +26,11 @@ import {
   Settings,
   Eye,
   Sparkles,
-  AlertCircle
+  AlertCircle,
+  Zap,
+  Tag,
+  ArrowUp,
+  ArrowDown
 } from "lucide-react";
 import { cn, formatCurrency, getImgSrc } from "@/lib/utils";
 import { useState, useEffect, useMemo } from "react";
@@ -61,6 +65,7 @@ export default function FounderDashboardPage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isGeneratingDesc, setIsGeneratingDesc] = useState(false);
+  const [isUpdatingPrice, setIsUpdatingPrice] = useState<string | null>(null);
   
   const [newProduct, setNewProduct] = useState({
     id: "",
@@ -125,11 +130,11 @@ export default function FounderDashboardPage() {
         setIsGeneratingDesc(false);
         toast.success("AI สร้างคำบรรยายสินค้าให้คุณแล้ว!");
       }
-    }, 15); // Adjust speed here
+    }, 15);
   };
 
   const generateAIDescription = async () => {
-    if (!newProduct.name) {
+    if (!newProduct.name.trim()) {
       toast.error("กรุณาใส่ชื่อสินค้าก่อน / Please enter product name first");
       return;
     }
@@ -158,6 +163,24 @@ export default function FounderDashboardPage() {
       setIsGeneratingDesc(false);
       console.error("AI generation failed", e);
       toast.error("เกิดข้อผิดพลาดในการเรียก AI");
+    }
+  };
+
+  const handleApplyAISmartPrice = async (productId: string, suggestedPrice: number) => {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    setIsUpdatingPrice(productId);
+    try {
+      await updateProduct({
+        ...product,
+        price: suggestedPrice
+      });
+      toast.success(`ปรับราคาเป็น ${formatCurrency(suggestedPrice)} ตามคำแนะนำ AI แล้ว`);
+    } catch (e) {
+      toast.error("ปรับราคาไม่สำเร็จ");
+    } finally {
+      setIsUpdatingPrice(null);
     }
   };
 
@@ -291,7 +314,7 @@ export default function FounderDashboardPage() {
         const itemQty = item.quantity || 1;
         const itemPrice = item.price || product?.price || 0;
         const itemSubtotal = itemPrice * itemQty;
-        let itemNet = (idx === order.items.length - 1) ? remainingNet : Math.round((itemSubtotal / originalTotal) * netTotal);
+        let itemNet = (idx === (order.items?.length || 1) - 1) ? remainingNet : Math.round((itemSubtotal / originalTotal) * netTotal);
         remainingNet -= itemNet;
 
         if (!productSalesStats[item.productId]) productSalesStats[item.productId] = { name: item.productName || product?.name || "Product", sales: 0, revenue: 0 };
@@ -315,7 +338,21 @@ export default function FounderDashboardPage() {
       color: ['bg-blue-500', 'bg-rose-500', 'bg-amber-500', 'bg-emerald-500', 'bg-purple-500'][Object.keys(categoryCounts).indexOf(label) % 5]
     })).sort((a, b) => b.count - a.count);
 
-    return { salesTrend, percentChange, topProducts, topStores, categoryDistribution, currentPeriodRevenue, prevPeriodRevenue };
+    // AI Pricing Analysis Logic
+    const pricingInsights = products.reduce((acc, p) => {
+      const stats = productSalesStats[p.id];
+      const sales = stats?.sales || 0;
+      
+      if (sales > 10 && p.stock < 20) {
+        acc[p.id] = { type: 'increase', amount: Math.round(p.price * 1.05 / 10) * 10, reason: 'High Demand' };
+      } else if (sales === 0 && p.stock > 50) {
+        acc[p.id] = { type: 'decrease', amount: Math.round(p.price * 0.95 / 10) * 10, reason: 'Slow Moving' };
+      }
+      
+      return acc;
+    }, {} as Record<string, { type: 'increase' | 'decrease', amount: number, reason: string }>);
+
+    return { salesTrend, percentChange, topProducts, topStores, categoryDistribution, currentPeriodRevenue, prevPeriodRevenue, pricingInsights };
   }, [orders, products, stores, timeRange, t, now]);
 
   const statCards = useMemo(() => {
@@ -425,15 +462,39 @@ export default function FounderDashboardPage() {
               </tr>
             </thead>
             <tbody className="divide-y">
-              {products.map((product) => (
-                <tr key={product.id} className="hover:bg-muted/30 transition-colors group">
-                  <td className="px-8 py-6"><div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden"><img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" /></div><div><p className="font-black text-sm max-w-50 truncate">{product.name}</p><p className="text-[10px] font-bold text-muted-foreground">{product.category}</p></div></div></td>
-                  <td className="px-8 py-6"><span className={cn("px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest", product.isOfficial ? "bg-amber-500/10 text-amber-600" : "bg-blue-500/10 text-blue-600")}>{product.isOfficial ? t.dashboard.officialMall : (stores.find(s => s.store_id === product.storeId)?.name || t.dashboard.partnerStore)}</span></td>
-                  <td className="px-8 py-6 font-black text-[10px]">{product.stock} {t.product.quantity}</td>
-                  <td className="px-8 py-6 font-black text-sm">{formatCurrency(product.price)}</td>
-                  <td className="px-8 py-6 text-right"><div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => openEditModal(product)} className="p-2 text-blue-500 transition-colors cursor-pointer"><Edit className="h-4 w-4" /></button><button onClick={() => handleDelete(product.id)} className="p-2 text-rose-500 transition-colors cursor-pointer"><Trash2 className="h-4 w-4" /></button></div></td>
-                </tr>
-              ))}
+              {products.map((product) => {
+                const insight = analyticsData.pricingInsights[product.id];
+                const isPriceUpdating = isUpdatingPrice === product.id;
+
+                return (
+                  <tr key={product.id} className="hover:bg-muted/30 transition-colors group">
+                    <td className="px-8 py-6"><div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden"><img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" /></div><div><p className="font-black text-sm max-w-50 truncate">{product.name}</p><p className="text-[10px] font-bold text-muted-foreground">{product.category}</p></div></div></td>
+                    <td className="px-8 py-6"><span className={cn("px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest", product.isOfficial ? "bg-amber-500/10 text-amber-600" : "bg-blue-500/10 text-blue-600")}>{product.isOfficial ? t.dashboard.officialMall : (stores.find(s => s.store_id === product.storeId)?.name || t.dashboard.partnerStore)}</span></td>
+                    <td className="px-8 py-6 font-black text-[10px]">{product.stock} {t.product.quantity}</td>
+                    <td className="px-8 py-6">
+                      <div className="flex flex-col gap-1">
+                        <span className="font-black text-sm">{formatCurrency(product.price)}</span>
+                        {insight && (
+                          <button
+                            onClick={() => handleApplyAISmartPrice(product.id, insight.amount)}
+                            disabled={isPriceUpdating}
+                            className={cn(
+                              "flex items-center gap-1.5 px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-tighter w-fit transition-all cursor-pointer shadow-sm active:scale-95",
+                              insight.type === 'increase' ? "bg-emerald-500 text-white hover:bg-emerald-600" : "bg-rose-500 text-white hover:bg-rose-600",
+                              isPriceUpdating && "opacity-50 cursor-wait"
+                            )}
+                          >
+                            {isPriceUpdating ? <Loader2 className="h-2 w-2 animate-spin" /> : <Sparkles className="h-2 w-2" />}
+                            {insight.type === 'increase' ? <ArrowUp className="h-2 w-2" /> : <ArrowDown className="h-2 w-2" />}
+                            AI: {formatCurrency(insight.amount)}
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-8 py-6 text-right"><div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => openEditModal(product)} className="p-2 text-blue-500 transition-colors cursor-pointer"><Edit className="h-4 w-4" /></button><button onClick={() => handleDelete(product.id)} className="p-2 text-rose-500 transition-colors cursor-pointer"><Trash2 className="h-4 w-4" /></button></div></td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

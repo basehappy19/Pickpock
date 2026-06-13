@@ -25,7 +25,9 @@ import {
   Zap,
   Tag,
   AlertTriangle,
-  Lightbulb
+  Lightbulb,
+  ArrowUp,
+  ArrowDown
 } from "lucide-react";
 import { cn, formatCurrency, getImgSrc } from "@/lib/utils";
 import { useState, useEffect, useMemo } from "react";
@@ -48,6 +50,7 @@ export default function PartnerDashboardPage() {
   const [showEditStoreModal, setShowEditStoreModal] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isGeneratingDesc, setIsGeneratingDesc] = useState(false);
+  const [isUpdatingPrice, setIsUpdatingPrice] = useState<string | null>(null);
   
   const [newProduct, setNewProduct] = useState({
     id: "",
@@ -177,6 +180,32 @@ export default function PartnerDashboardPage() {
     }
   };
 
+  const handleApplyAISmartPrice = async (productId: string, suggestedPrice: number) => {
+    const product = dashboardData.products.find((p: any) => (p.product_id || p.id) === productId);
+    if (!product) return;
+
+    setIsUpdatingPrice(productId);
+    try {
+      const res = await fetch("/api/products", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...product,
+          price: suggestedPrice
+        })
+      });
+
+      if (res.ok) {
+        fetchAllData();
+        toast.success(`ปรับราคาเป็น ${formatCurrency(suggestedPrice)} ตามคำแนะนำ AI แล้ว`);
+      }
+    } catch (e) {
+      toast.error("ปรับราคาไม่สำเร็จ");
+    } finally {
+      setIsUpdatingPrice(null);
+    }
+  };
+
   const handleAddOrUpdateProduct = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!myStore) return;
@@ -279,6 +308,23 @@ export default function PartnerDashboardPage() {
     [dashboardData.orders, myProductIds]
   );
 
+  const pricingInsights = useMemo(() => {
+    const insights: Record<string, { type: 'increase' | 'decrease', amount: number }> = {};
+    
+    myProducts.forEach((p: any) => {
+      const pId = p.product_id || p.id;
+      const sales = myOrders.filter((o: any) => o.items.some((i: any) => i.product_id === pId)).length;
+      
+      if (sales > 5 && p.stock < 10) {
+        insights[pId] = { type: 'increase', amount: Math.round(p.price * 1.05 / 10) * 10 };
+      } else if (sales === 0 && p.stock > 30) {
+        insights[pId] = { type: 'decrease', amount: Math.round(p.price * 0.95 / 10) * 10 };
+      }
+    });
+    
+    return insights;
+  }, [myProducts, myOrders]);
+
   const stats = useMemo(() => {
     if (dashboardData.loading || !myStore) return [];
     const myRevenue = myOrders.reduce((sum: number, o: any) => sum + (o.total_price || 0), 0);
@@ -308,9 +354,7 @@ export default function PartnerDashboardPage() {
     if (!categories.has("Accessories")) {
       advice.push({ title: "ขยายหมวดหมู่สินค้า", desc: "ลูกค้ามักมองหาอุปกรณ์เสริมคู่กับสินค้าหลัก ลองเพิ่มสินค้าหมวด Accessories เพื่อเพิ่มยอดขายต่อบิล (AOV)", icon: Lightbulb, color: "bg-emerald-500" });
     }
-    return advice.length > 0 ? advice : [
-      { title: "ร้านค้าของคุณดูดีมาก!", desc: "รักษาระดับการตอบแชทและส่งของให้ไว เพื่อคว้าดาว 5 ดวงจาก AI ของเรา", icon: Sparkles, color: "bg-purple-500" }
-    ];
+    return advice.length > 0 ? advice : [{ title: "ร้านค้าของคุณดูดีมาก!", desc: "รักษาระดับการตอบแชทและส่งของให้ไว เพื่อคว้าดาว 5 ดวงจาก AI ของเรา", icon: Sparkles, color: "bg-purple-500" }];
   }, [myProducts, dashboardData.loading, myStore]);
 
   if (!user || (!myStore && !dashboardData.loading)) {
@@ -351,14 +395,39 @@ export default function PartnerDashboardPage() {
               <table className="w-full text-left">
                 <thead><tr className="border-b bg-muted/20"><th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.name}</th><th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.stock}</th><th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.price}</th><th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">{t.dashboard.actions}</th></tr></thead>
                 <tbody className="divide-y">
-                  {myProducts.length > 0 ? myProducts.map((product: any) => (
-                    <tr key={product.product_id || product.id} className="hover:bg-muted/30 transition-colors group">
-                      <td className="px-8 py-6"><div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden"><img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" /></div><div><p className="font-black text-sm max-w-[150px] truncate">{product.name}</p><p className="text-[10px] font-bold text-muted-foreground">{product.category}</p></div></div></td>
-                      <td className="px-8 py-6"><span className="text-[10px] font-black">{product.stock} {t.product.quantity}</span></td>
-                      <td className="px-8 py-6 font-black text-sm">{formatCurrency(product.price)}</td>
-                      <td className="px-8 py-6 text-right"><div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => openEditModal(product)} className="p-2 rounded-lg hover:bg-blue-50 text-blue-500 transition-colors cursor-pointer"><Edit className="h-4 w-4" /></button><button onClick={() => handleDeleteProduct(product.product_id || product.id)} className="p-2 rounded-lg hover:bg-rose-50 text-rose-500 transition-colors cursor-pointer"><Trash2 className="h-4 w-4" /></button></div></td>
-                    </tr>
-                  )) : <tr><td colSpan={4} className="px-8 py-12 text-center text-muted-foreground font-bold italic uppercase text-xs tracking-widest">ยังไม่มีสินค้าในร้านของคุณ / No products yet</td></tr>}
+                  {myProducts.length > 0 ? myProducts.map((product: any) => {
+                    const pId = product.product_id || product.id;
+                    const insight = pricingInsights[pId];
+                    const isPriceUpdating = isUpdatingPrice === pId;
+
+                    return (
+                      <tr key={pId} className="hover:bg-muted/30 transition-colors group">
+                        <td className="px-8 py-6"><div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden"><img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" /></div><div><p className="font-black text-sm max-w-[150px] truncate">{product.name}</p><p className="text-[10px] font-bold text-muted-foreground">{product.category}</p></div></div></td>
+                        <td className="px-8 py-6"><span className="text-[10px] font-black">{product.stock} {t.product.quantity}</span></td>
+                        <td className="px-8 py-6">
+                          <div className="flex flex-col gap-1">
+                            <span className="font-black text-sm">{formatCurrency(product.price)}</span>
+                            {insight && (
+                              <button
+                                onClick={() => handleApplyAISmartPrice(pId, insight.amount)}
+                                disabled={isPriceUpdating}
+                                className={cn(
+                                  "flex items-center gap-1.5 px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-tighter w-fit transition-all cursor-pointer shadow-sm active:scale-95",
+                                  insight.type === 'increase' ? "bg-emerald-500 text-white hover:bg-emerald-600" : "bg-rose-500 text-white hover:bg-rose-600",
+                                  isPriceUpdating && "opacity-50 cursor-wait"
+                                )}
+                              >
+                                {isPriceUpdating ? <Loader2 className="h-2 w-2 animate-spin" /> : <Sparkles className="h-2 w-2" />}
+                                {insight.type === 'increase' ? <ArrowUp className="h-2 w-2" /> : <ArrowDown className="h-2 w-2" />}
+                                AI: {formatCurrency(insight.amount)}
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                        <td className="px-8 py-6 text-right"><div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => openEditModal(product)} className="p-2 rounded-lg hover:bg-blue-50 text-blue-500 transition-colors cursor-pointer"><Edit className="h-4 w-4" /></button><button onClick={() => handleDeleteProduct(pId)} className="p-2 rounded-lg hover:bg-rose-50 text-rose-500 transition-colors cursor-pointer"><Trash2 className="h-4 w-4" /></button></div></td>
+                      </tr>
+                    );
+                  }) : <tr><td colSpan={4} className="px-8 py-12 text-center text-muted-foreground font-bold italic uppercase text-xs tracking-widest">ยังไม่มีสินค้าในร้านของคุณ / No products yet</td></tr>}
                 </tbody>
               </table>
             </div>
