@@ -123,7 +123,7 @@ export default function ProfilePage() {
   return (
     <div className="container mx-auto p-4 lg:p-8 max-w-4xl space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="space-y-2">
-        <h1 className="text-4xl font-black tracking-tighter uppercase">โปรไฟล์ของฉัน / MY PROFILE</h1>
+        <h1 className="text-4xl font-black tracking-tighter uppercase">โปรไฟล์ของฉัน</h1>
         <p className="text-muted-foreground font-bold">จัดการข้อมูลส่วนตัวและรหัสผ่านของคุณ</p>
       </div>
 

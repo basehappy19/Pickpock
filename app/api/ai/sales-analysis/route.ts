@@ -9,9 +9,6 @@ import ordersJson from '@/lib/ecommerce_orders.json';
 import productsJson from '@/lib/products.json';
 import { Product } from '@/types';
 
-const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
-const genAI = new GoogleGenAI({ apiKey });
-
 interface RawOrder {
   order_id: string;
   user_id: string;
@@ -25,7 +22,15 @@ interface RawOrder {
 }
 
 export async function POST(request: NextRequest) {
+  const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
+  const genAI = new GoogleGenAI({ apiKey });
+
   try {
+    if (!apiKey) {
+      console.error('GEMINI_API_KEY is not set in environment variables');
+      return NextResponse.json({ error: 'AI configuration error' }, { status: 500 });
+    }
+
     const { productId } = await request.json();
 
     if (!productId) {
