@@ -16,6 +16,7 @@ export default function CartPage() {
   const { t } = useLanguage();
   
   const [couponCode, setCouponCode] = useState("");
+  const [customerName, setCustomerName] = useState("");
   const [appliedDiscount, setAppliedDiscount] = useState(0);
   const [isPaid, setIsPaid] = useState(false);
 
@@ -35,12 +36,17 @@ export default function CartPage() {
   };
 
   const handleCheckout = () => {
+    if (!customerName.trim()) {
+      alert("Please enter your name before checkout / กรุณาใส่ชื่อของคุณก่อนชำระเงิน");
+      return;
+    }
+
     // Mock Payment Process
     setTimeout(() => {
       const newOrder: any = {
         id: `ORD-${Math.floor(Math.random() * 10000).toString().padStart(5, '0')}`,
         customerId: "c1",
-        customerName: "Guest User",
+        customerName: customerName,
         totalAmount: totalPrice - appliedDiscount,
         status: 'delivered',
         createdAt: new Date().toISOString(),
@@ -56,8 +62,6 @@ export default function CartPage() {
 
       addOrder(newOrder);
       
-      // Also keep orderHistory for the history page's local state if needed, 
-      // though useGlobalData handles it now.
       const existingHistory = JSON.parse(localStorage.getItem("orderHistory") || "[]");
       localStorage.setItem("orderHistory", JSON.stringify([newOrder, ...existingHistory]));
 
@@ -75,6 +79,7 @@ export default function CartPage() {
         <div className="text-center space-y-2">
           <h2 className="text-4xl font-black tracking-tight text-emerald-600">{t.cart.paymentSuccess}</h2>
           <p className="text-muted-foreground font-bold text-lg">{t.cart.paymentSuccessDesc}</p>
+          <p className="font-black text-primary uppercase text-sm">Thank you, {customerName}!</p>
         </div>
         <Link href="/" className="mt-8 h-14 px-8 rounded-xl bg-primary text-primary-foreground font-black flex items-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer">
           <ArrowLeft className="h-5 w-5" /> {t.cart.startShopping}
@@ -151,6 +156,19 @@ export default function CartPage() {
           <div className="bg-card border-2 border-primary/10 rounded-3xl p-6 lg:p-8 shadow-xl shadow-primary/5 space-y-6 sticky top-24">
             <h3 className="text-2xl font-black tracking-tight">{t.cart.summary}</h3>
             
+            {/* Customer Name */}
+            <div className="space-y-2 pb-2">
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Recipient Name / ชื่อผู้รับ</label>
+              <input 
+                type="text" 
+                placeholder="Enter your name..."
+                required
+                className="w-full px-5 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm"
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
+              />
+            </div>
+
             {/* Coupon Section */}
             <div className="flex gap-2">
               <div className="relative flex-1 group">
