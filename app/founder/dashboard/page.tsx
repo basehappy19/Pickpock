@@ -338,15 +338,25 @@ export default function FounderDashboardPage() {
       color: ['bg-blue-500', 'bg-rose-500', 'bg-amber-500', 'bg-emerald-500', 'bg-purple-500'][Object.keys(categoryCounts).indexOf(label) % 5]
     })).sort((a, b) => b.count - a.count);
 
-    // AI Pricing Analysis Logic
+    // AI Pricing Analysis Logic (Improved to prevent loops)
     const pricingInsights = products.reduce((acc, p) => {
       const stats = productSalesStats[p.id];
       const sales = stats?.sales || 0;
       
+      let suggestedAmount = 0;
+      let type: 'increase' | 'decrease' = 'increase';
+
       if (sales > 10 && p.stock < 20) {
-        acc[p.id] = { type: 'increase', amount: Math.round(p.price * 1.05 / 10) * 10, reason: 'High Demand' };
+        suggestedAmount = Math.round(p.price * 1.05 / 10) * 10;
+        type = 'increase';
       } else if (sales === 0 && p.stock > 50) {
-        acc[p.id] = { type: 'decrease', amount: Math.round(p.price * 0.95 / 10) * 10, reason: 'Slow Moving' };
+        suggestedAmount = Math.round(p.price * 0.95 / 10) * 10;
+        type = 'decrease';
+      }
+      
+      // Only suggest if the price difference is at least ฿20 to avoid infinite small adjustments
+      if (suggestedAmount > 0 && Math.abs(suggestedAmount - p.price) >= 20) {
+        acc[p.id] = { type, amount: suggestedAmount, reason: type === 'increase' ? 'High Demand' : 'Slow Moving' };
       }
       
       return acc;

@@ -315,10 +315,20 @@ export default function PartnerDashboardPage() {
       const pId = p.product_id || p.id;
       const sales = myOrders.filter((o: any) => o.items.some((i: any) => i.product_id === pId)).length;
       
+      let suggestedAmount = 0;
+      let type: 'increase' | 'decrease' = 'increase';
+
       if (sales > 5 && p.stock < 10) {
-        insights[pId] = { type: 'increase', amount: Math.round(p.price * 1.05 / 10) * 10 };
+        suggestedAmount = Math.round(p.price * 1.05 / 10) * 10;
+        type = 'increase';
       } else if (sales === 0 && p.stock > 30) {
-        insights[pId] = { type: 'decrease', amount: Math.round(p.price * 0.95 / 10) * 10 };
+        suggestedAmount = Math.round(p.price * 0.95 / 10) * 10;
+        type = 'decrease';
+      }
+
+      // Only suggest if the price difference is significant to prevent loops
+      if (suggestedAmount > 0 && Math.abs(suggestedAmount - p.price) >= 20) {
+        insights[pId] = { type, amount: suggestedAmount };
       }
     });
     

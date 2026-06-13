@@ -93,10 +93,10 @@ export default function AIChatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[100]">
+    <div className="fixed bottom-20 lg:bottom-6 right-6 z-[100]">
       {/* Chat Window */}
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-[90vw] sm:w-[420px] h-[550px] bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-bottom-6 duration-500">
+        <div className="absolute bottom-20 lg:bottom-24 right-0 w-[90vw] sm:w-[420px] h-[550px] bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-bottom-6 duration-500">
           {/* Header */}
           <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
             <div className="flex items-center gap-3">
