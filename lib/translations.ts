@@ -162,6 +162,10 @@ export const translations = {
     dashboard: {
       title: "ภาพรวมระบบ",
       subtitle: "ยินดีต้อนรับกลับ นี่คือสถานะร้านค้าของคุณวันนี้",
+      founderTitle: "แผงควบคุมผู้ดูแลระบบ (Founder)",
+      founderSubtitle: "บริหารอาณาจักรร้านค้าของคุณและขยายธุรกิจสู่ระดับสากล",
+      sellerTitle: "ศูนย์จัดการร้านค้า (Seller)",
+      sellerSubtitle: "จัดการสินค้าและคำสั่งซื้อของคุณอย่างมีประสิทธิภาพ",
       stats: {
         revenue: "ยอดขายรวม",
         users: "ผู้เข้าชม",

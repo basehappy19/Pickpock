@@ -12,7 +12,7 @@ import { useGlobalData } from "@/hooks/use-global-data";
 
 export default function CartPage() {
   const { items, removeFromCart, addToCart, totalCount, totalPrice, clearCart } = useCart();
-  const { addOrder } = useGlobalData();
+  const { addOrder, purchaseItems } = useGlobalData();
   const { t } = useLanguage();
   
   const [couponCode, setCouponCode] = useState("");
@@ -40,6 +40,9 @@ export default function CartPage() {
       alert("Please enter your name before checkout / กรุณาใส่ชื่อของคุณก่อนชำระเงิน");
       return;
     }
+
+    // Reduce stock globally
+    purchaseItems(items.map(i => ({ productId: i.id, quantity: i.quantity })));
 
     // Mock Payment Process
     setTimeout(() => {

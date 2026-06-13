@@ -23,7 +23,7 @@ import {
 import { useFilter } from "@/hooks/use-filter";
 import { useLanguage } from "@/hooks/use-language";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRole } from "@/hooks/use-role";
 import { cn } from "@/lib/utils";
 import { uploadProductImage } from "@/lib/supabase";
@@ -38,8 +38,15 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
   const { t } = useLanguage();
   const { role } = useRole();
   const { products, addProduct, updateProduct, deleteProduct } = useGlobalData();
-  const { filteredData, filters, updateFilter } = useFilter(products);
   const router = useRouter();
+
+  // Filter products based on role: Founder sees all, Seller sees only non-official (mock logic)
+  const roleFilteredProducts = useMemo(() => {
+    if (role === "founder") return products;
+    return products.filter(p => !p.isOfficial); // Seller sees partner products
+  }, [products, role]);
+
+  const { filteredData, filters, updateFilter } = useFilter(roleFilteredProducts);
 
   // Admin Modal States
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,7 +69,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       setImageUrl(url);
       alert("Image uploaded successfully!");
     } else {
-      alert("Upload failed. Make sure Supabase env variables are set and RLS policy allows uploads.");
+      alert("Upload failed. Using local preview.");
       setImageUrl(URL.createObjectURL(file));
     }
     setUploading(false);
@@ -100,7 +107,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
   const stats = [
     { title: t.dashboard.stats.revenue, value: formatCurrency(125000), icon: DollarSign, trend: "+12.5%", color: "from-blue-600/20 to-blue-600/5", iconColor: "text-blue-600" },
     { title: t.dashboard.stats.users, value: "1,240", icon: Users, trend: "+5.2%", color: "from-indigo-600/20 to-indigo-600/5", iconColor: "text-indigo-600" },
-    { title: t.dashboard.stats.products, value: products.length, icon: Package, trend: "0%", color: "from-emerald-600/20 to-emerald-600/5", iconColor: "text-emerald-600" },
+    { title: t.dashboard.stats.products, value: roleFilteredProducts.length, icon: Package, trend: "0%", color: "from-emerald-600/20 to-emerald-600/5", iconColor: "text-emerald-600" },
     { title: t.dashboard.stats.rating, value: "4.7", icon: TrendingUp, trend: "+0.2", color: "from-amber-600/20 to-amber-600/5", iconColor: "text-amber-600" },
   ];
 
@@ -108,11 +115,11 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
     <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700 pb-20 lg:pb-8">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-1 text-center md:text-left">
-          <h1 className="text-3xl lg:text-5xl font-black tracking-tight lg:bg-clip-text lg:text-transparent lg:bg-gradient-to-r from-foreground to-foreground/70 text-foreground">
-            {role === "founder" ? "Founder Dashboard" : "Seller Center"}
+          <h1 className="text-3xl lg:text-5xl font-black tracking-tight lg:bg-clip-text lg:text-transparent lg:bg-gradient-to-r from-foreground to-foreground/70 text-foreground uppercase">
+            {role === "founder" ? t.dashboard.founderTitle : t.dashboard.sellerTitle}
           </h1>
           <p className="text-sm lg:text-lg text-muted-foreground max-w-[600px]">
-            {role === "founder" ? "Manage your store empire and scale to new heights." : "Manage your products and orders effectively."}
+            {role === "founder" ? t.dashboard.founderSubtitle : t.dashboard.sellerSubtitle}
           </p>
         </div>
         <button 
@@ -154,7 +161,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
               <input 
                 type="text" 
                 placeholder={t.dashboard.filters.search}
-                className="w-full pl-10 pr-6 py-3 rounded-xl border-2 border-transparent bg-background focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-sm font-medium"
+                className="w-full pl-12 pr-6 py-2.5 lg:py-3 rounded-xl border-2 border-transparent bg-background focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-sm font-medium"
                 value={filters.search}
                 onChange={(e) => updateFilter({ search: e.target.value })}
               />

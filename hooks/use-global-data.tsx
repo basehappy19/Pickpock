@@ -14,6 +14,7 @@ interface DataContextType {
   addProduct: (product: Product) => void;
   deleteProduct: (id: string) => void;
   addOrder: (order: Order) => void;
+  purchaseItems: (items: { productId: string, quantity: number }[]) => void;
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -72,11 +73,23 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     setOrders(newOrders);
   };
 
+  const purchaseItems = (boughtItems: { productId: string, quantity: number }[]) => {
+    const newProds = products.map(p => {
+      const item = boughtItems.find(i => i.productId === p.id);
+      if (item) {
+        return { ...p, stock: Math.max(0, p.stock - item.quantity) };
+      }
+      return p;
+    });
+    setProducts(newProds);
+  };
+
   return (
     <DataContext.Provider value={{ 
       products, orders, coupons, 
       setProducts, setOrders, 
-      addProduct, updateProduct, deleteProduct, addOrder 
+      addProduct, updateProduct, deleteProduct, addOrder,
+      purchaseItems
     }}>
       {children}
     </DataContext.Provider>
