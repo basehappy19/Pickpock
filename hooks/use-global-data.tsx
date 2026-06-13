@@ -31,23 +31,26 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         const prodRes = await fetch("/api/products");
         const ordRes = await fetch("/api/orders");
         
+        let currentProds: any[] = [];
+
         if (prodRes.ok) {
           const rawProds = await prodRes.json();
           // Map JSON back to App Type
           const mappedProds = rawProds.map((p: any) => ({
-            id: p.product_id,
+            id: p.product_id || p.id,
             name: p.name,
             category: p.category,
             price: p.price,
             stock: p.stock,
             image: p.image,
-            rating: 4.5,
-            reviews: [],
-            status: 'active',
-            createdAt: new Date().toISOString(),
-            storeName: "MSU MALL Official",
-            isOfficial: true,
+            description: p.description,
+            rating: p.rating || 0,
+            reviews: Array.isArray(p.reviews) ? p.reviews : [],
+            storeId: p.storeId,
+            isOfficial: p.isOfficial || false,
+            createdAt: p.createdAt || new Date().toISOString()
           }));
+          currentProds = rawProds; // Keep raw for join
           setProductsState(mappedProds);
         }
 
@@ -56,12 +59,23 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           const mappedOrds = rawOrds.map((o: any) => ({
             id: o.order_id,
             customerId: o.user_id,
-            customerName: "Customer " + o.user_id,
+            customerName: "User " + o.user_id,
             totalAmount: o.total_price,
             status: o.status.toLowerCase(),
             createdAt: o.timestamp,
             paymentStatus: 'paid',
-            items: []
+            items: (o.items || []).map((item: any) => {
+              // Standardize item fields from JSON
+              const pId = item.productId || item.product_id;
+              const product = currentProds.find((p: any) => (p.product_id || p.id) === pId);
+              
+              return {
+                productId: pId,
+                productName: item.productName || product?.name || "Premium Product",
+                quantity: item.quantity || item.qty || 1,
+                price: item.price || product?.price || 0
+              };
+            })
           }));
           setOrdersState(mappedOrds);
         }
@@ -107,17 +121,33 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const purchaseItems = (boughtItems: { productId: string, quantity: number }[]) => {
-    const newProds = products.map(p => {
-      const item = boughtItems.find(i => i.productId === p.id);
-      if (item) {
-        const updated = { ...p, stock: Math.max(0, p.stock - item.quantity) };
-        updateProduct(updated);
-        return updated;
+  const purchaseItems = async (boughtItems: { productId: string, quantity: number }[]) => {
+    const updatedProducts = [...products];
+    
+    for (const item of boughtItems) {
+      const productIndex = updatedProducts.findIndex(p => p.id === item.productId);
+      if (productIndex !== -1) {
+        const product = updatedProducts[productIndex];
+        const newStock = Math.max(0, product.stock - item.quantity);
+        const updatedProduct = { ...product, stock: newStock };
+        
+        // Update local state
+        updatedProducts[productIndex] = updatedProduct;
+        
+        // Sync to server
+        try {
+          await fetch("/api/products", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedProduct)
+          });
+        } catch (e) {
+          console.error(`Failed to sync stock for product ${item.productId}`, e);
+        }
       }
-      return p;
-    });
-    setProductsState(newProds);
+    }
+    
+    setProductsState(updatedProducts);
   };
 
   return (

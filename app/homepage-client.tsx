@@ -141,25 +141,28 @@ export default function HomepageClient({ products }: { products: Product[] }) {
             <span className="ml-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">SMART</span>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 relative z-10">
-            {aiRecommended.map(product => (
-              <Link key={product.id} href={`/products/${product.id}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
-                <div className="aspect-square relative bg-muted overflow-hidden">
-                  <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
-                  <div className="absolute top-2 left-2 px-2 py-1 rounded-lg bg-primary/90 backdrop-blur text-white text-[10px] font-bold uppercase tracking-widest">
-                    <Zap className="h-3 w-3 inline mr-1" />AI Pick
-                  </div>
-                </div>
-                <div className="p-4 lg:p-5 space-y-2 flex-1 flex flex-col justify-between">
-                  <h3 className="font-black line-clamp-1 group-hover:text-primary transition-colors text-sm">{product.name}</h3>
-                  <div className="flex justify-between items-center pt-2">
-                    <span className="text-base font-black text-primary">{formatCurrency(product.price)}</span>
-                    <div className="flex items-center gap-1 text-amber-500 text-xs font-bold">
-                       <Star className="h-3 w-3 fill-current" /> {product.rating}
+            {aiRecommended.map(product => {
+              const pid = product.id || (product as any).product_id;
+              return (
+                <Link key={pid} href={`/products/${pid}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
+                  <div className="aspect-square relative bg-muted overflow-hidden">
+                    <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
+                    <div className="absolute top-2 left-2 px-2 py-1 rounded-lg bg-primary/90 backdrop-blur text-white text-[10px] font-bold uppercase tracking-widest">
+                      <Zap className="h-3 w-3 inline mr-1" />AI Pick
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                  <div className="p-4 lg:p-5 space-y-2 flex-1 flex flex-col justify-between">
+                    <h3 className="font-black line-clamp-1 group-hover:text-primary transition-colors text-sm">{product.name}</h3>
+                    <div className="flex justify-between items-center pt-2">
+                      <span className="text-base font-black text-primary">{formatCurrency(product.price)}</span>
+                      <div className="flex items-center gap-1 text-amber-500 text-xs font-bold">
+                        <Star className="h-3 w-3 fill-current" /> {product.rating}
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
 
@@ -170,22 +173,25 @@ export default function HomepageClient({ products }: { products: Product[] }) {
             <Link href="/products" className="text-primary font-bold hover:underline text-sm lg:text-base">{t.common.view} All</Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6 px-1">
-            {popularTrending.map(product => (
-              <Link key={product.id} href={`/products/${product.id}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
-                <div className="aspect-square relative bg-muted overflow-hidden">
-                  <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
-                  <div className="absolute bottom-3 left-3 px-2 py-1 bg-background/90 backdrop-blur text-[10px] font-black uppercase tracking-widest rounded-lg border shadow-sm">
-                    {product.storeName}
+            {popularTrending.map(product => {
+              const pid = product.id || (product as any).product_id;
+              return (
+                <Link key={pid} href={`/products/${pid}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
+                  <div className="aspect-square relative bg-muted overflow-hidden">
+                    <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
+                    <div className="absolute bottom-3 left-3 px-2 py-1 bg-background/90 backdrop-blur text-[10px] font-black uppercase tracking-widest rounded-lg border shadow-sm">
+                      {product.isOfficial ? "Official Mall" : "Partner Store"}
+                    </div>
                   </div>
-                </div>
-                <div className="p-4 lg:p-5 space-y-2 flex-1 flex flex-col justify-between">
-                  <h3 className="font-bold line-clamp-2 text-xs lg:text-sm group-hover:text-primary transition-colors leading-snug h-10">{product.name}</h3>
-                  <div className="flex justify-between items-end pt-2">
-                    <span className="text-base lg:text-xl font-black text-primary">{formatCurrency(product.price)}</span>
+                  <div className="p-4 lg:p-5 space-y-2 flex-1 flex flex-col justify-between">
+                    <h3 className="font-bold line-clamp-2 text-xs lg:text-sm group-hover:text-primary transition-colors leading-snug h-10">{product.name}</h3>
+                    <div className="flex justify-between items-end pt-2">
+                      <span className="text-base lg:text-xl font-black text-primary">{formatCurrency(product.price)}</span>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </section>
 
@@ -199,22 +205,25 @@ export default function HomepageClient({ products }: { products: Product[] }) {
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6 px-1">
-              {recentlyViewed.slice(0, 4).map(product => (
-                <Link key={product.id} href={`/products/${product.id}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
-                  <div className="aspect-square relative bg-muted overflow-hidden">
-                    <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
-                    <div className="absolute top-2 left-2 px-2 py-1 rounded-lg bg-primary/90 backdrop-blur text-white text-[8px] font-bold uppercase tracking-widest">
-                      <Eye className="h-3 w-3 inline mr-1" />Viewed
+              {recentlyViewed.slice(0, 4).map(product => {
+                const pid = product.id || (product as any).product_id;
+                return (
+                  <Link key={pid} href={`/products/${pid}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-xl transition-all cursor-pointer text-left h-full flex flex-col shadow-sm">
+                    <div className="aspect-square relative bg-muted overflow-hidden">
+                      <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
+                      <div className="absolute top-2 left-2 px-2 py-1 rounded-lg bg-primary/90 backdrop-blur text-white text-[8px] font-bold uppercase tracking-widest">
+                        <Eye className="h-3 w-3 inline mr-1" />Viewed
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-4 lg:p-5 space-y-2 flex-1 flex flex-col justify-between">
-                    <h3 className="font-bold line-clamp-2 text-xs lg:text-sm group-hover:text-primary transition-colors leading-snug h-10">{product.name}</h3>
-                    <div className="flex justify-between items-end pt-2">
-                      <span className="text-base lg:text-xl font-black text-primary">{formatCurrency(product.price)}</span>
+                    <div className="p-4 lg:p-5 space-y-2 flex-1 flex flex-col justify-between">
+                      <h3 className="font-bold line-clamp-2 text-xs lg:text-sm group-hover:text-primary transition-colors leading-snug h-10">{product.name}</h3>
+                      <div className="flex justify-between items-end pt-2">
+                        <span className="text-base lg:text-xl font-black text-primary">{formatCurrency(product.price)}</span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
           </section>
         )}

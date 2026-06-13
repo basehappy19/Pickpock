@@ -55,10 +55,19 @@ export function useFilter(initialData: Product[]) {
     return ["all", ...Array.from(cats)];
   }, [initialData]);
 
+  const resetFilters = () => {
+    setFilters({
+      search: "",
+      category: "all",
+      sortBy: "newest",
+    });
+  };
+
   return {
     filteredData,
     filters,
     updateFilter,
+    resetFilters,
     categories,
   };
 }

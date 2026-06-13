@@ -1,0 +1,22 @@
+[
+  {
+    "store_id": "s-001",
+    "name": "MSU Official Store",
+    "owner_id": "u002",
+    "description": "The official MSU store for premium gadgets and electronics.",
+    "status": "active",
+    "rating": 4.9,
+    "products": ["p-101", "p-102", "p-103", "p-104", "p-105"],
+    "joined_at": "2026-01-01T00:00:00Z"
+  },
+  {
+    "store_id": "s-002",
+    "name": "Fashion Hub",
+    "owner_id": "u005",
+    "description": "Your destination for the latest in global fashion and accessories.",
+    "status": "active",
+    "rating": 4.7,
+    "products": ["p-106", "p-107", "p-108", "p-109", "p-110"],
+    "joined_at": "2026-02-15T00:00:00Z"
+  }
+]

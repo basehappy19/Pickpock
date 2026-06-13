@@ -1,30 +1,81 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from "react";
 import { Product } from "@/types";
+import { useRole } from "./use-role";
 
 interface RecentlyViewedContextType {
   recentlyViewed: Product[];
   addToRecentlyViewed: (product: Product) => void;
   clearRecentlyViewed: () => void;
+  isLoading: boolean;
 }
 
 const RecentlyViewedContext = createContext<RecentlyViewedContextType | undefined>(undefined);
 const MAX_RECENT_ITEMS = 10;
 
 export function RecentlyViewedProvider({ children }: { children: React.ReactNode }) {
+  const { user } = useRole();
   const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const isInitialLoad = useRef(true);
 
+  // Load recently viewed data
   useEffect(() => {
-    const saved = localStorage.getItem("recentlyViewed");
-    if (saved) {
-      setRecentlyViewed(JSON.parse(saved));
-    }
-  }, []);
+    const loadRecentlyViewed = async () => {
+      setIsLoading(true);
+      if (user) {
+        try {
+          const res = await fetch(`/api/user-data/${user.id}`);
+          if (res.ok) {
+            const data = await res.json();
+            setRecentlyViewed(data.recentlyViewed || []);
+          }
+        } catch (e) {
+          console.error("Failed to fetch recently viewed from server", e);
+        }
+      } else {
+        const saved = localStorage.getItem("recentlyViewed");
+        if (saved) {
+          try {
+            setRecentlyViewed(JSON.parse(saved));
+          } catch (e) {
+            console.error("Failed to parse recently viewed from localStorage", e);
+          }
+        } else {
+          setRecentlyViewed([]);
+        }
+      }
+      setIsLoading(false);
+      isInitialLoad.current = false;
+    };
 
+    loadRecentlyViewed();
+  }, [user]);
+
+  // Sync recently viewed data to server or localStorage
   useEffect(() => {
-    localStorage.setItem("recentlyViewed", JSON.stringify(recentlyViewed));
-  }, [recentlyViewed]);
+    if (isInitialLoad.current) return;
+
+    const syncRecentlyViewed = async () => {
+      if (user) {
+        try {
+          await fetch(`/api/user-data/${user.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ recentlyViewed: recentlyViewed })
+          });
+        } catch (e) {
+          console.error("Failed to sync recently viewed to server", e);
+        }
+      } else {
+        localStorage.setItem("recentlyViewed", JSON.stringify(recentlyViewed));
+      }
+    };
+
+    const timeoutId = setTimeout(syncRecentlyViewed, 500); // Debounce sync
+    return () => clearTimeout(timeoutId);
+  }, [recentlyViewed, user]);
 
   const addToRecentlyViewed = useCallback((product: Product) => {
     setRecentlyViewed((prev) => {
@@ -38,7 +89,7 @@ export function RecentlyViewedProvider({ children }: { children: React.ReactNode
   }, []);
 
   return (
-    <RecentlyViewedContext.Provider value={{ recentlyViewed, addToRecentlyViewed, clearRecentlyViewed }}>
+    <RecentlyViewedContext.Provider value={{ recentlyViewed, addToRecentlyViewed, clearRecentlyViewed, isLoading }}>
       {children}
     </RecentlyViewedContext.Provider>
   );

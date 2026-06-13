@@ -4,12 +4,19 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export type Role = "customer" | "founder";
+export type Tier = "MEMBER" | "VIP";
 
 interface User {
   id: string;
   name: string;
   email: string;
   role: Role;
+  tier: Tier;
+  store?: {
+    store_id: string;
+    name: string;
+    status: string;
+  } | null;
 }
 
 interface RoleContextType {

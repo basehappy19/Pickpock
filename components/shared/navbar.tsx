@@ -65,13 +65,24 @@ export default function Navbar() {
           <div className="flex items-center gap-2 sm:gap-4">
             {user ? (
               <div className="flex items-center gap-2">
-                <div className={cn(
-                  "hidden xs:flex items-center gap-2 rounded-xl px-4 py-2 text-[10px] font-black uppercase border-2",
-                  role === "founder" ? "bg-amber-500/10 border-amber-500/20 text-amber-600" : "bg-blue-500/10 border-blue-500/20 text-blue-600"
+                <Link href="/profile" className={cn(
+                  "hidden xs:flex flex-col items-start gap-0.5 rounded-xl px-4 py-2 border-2 transition-all hover:scale-105 active:scale-95",
+                  user.tier === "VIP" 
+                    ? "bg-amber-500/10 border-amber-500/20 text-amber-600 hover:bg-amber-500/20" 
+                    : "bg-blue-500/10 border-blue-500/20 text-blue-600 hover:bg-blue-500/20"
                 )}>
-                  {role === "founder" ? <ShieldCheck className="h-3 w-3" /> : <User className="h-3 w-3" />}
-                  {user.name.split(" ")[0]}
-                </div>
+                  <div className="flex items-center gap-2">
+                    {role === "founder" ? <ShieldCheck className="h-3 w-3" /> : <User className="h-3 w-3" />}
+                    <span className="text-[10px] font-black uppercase tracking-tighter">{user.name.split(" ")[0]}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-[8px] font-black uppercase opacity-70 tracking-widest">{role}</span>
+                    <span className={cn(
+                      "text-[8px] font-black px-1.5 rounded-full",
+                      user.tier === "VIP" ? "bg-amber-500 text-white" : "bg-blue-500 text-white"
+                    )}>{user.tier}</span>
+                  </div>
+                </Link>
                 <button onClick={logout} className="p-2.5 rounded-xl border hover:bg-rose-50 hover:text-rose-500 transition-colors cursor-pointer">
                   <LogOut className="h-4 w-4" />
                 </button>

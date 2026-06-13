@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/navbar";
+import UserSessionBanner from "@/components/shared/user-session-banner";
 import { LanguageProvider } from "@/hooks/use-language";
 import { cookies } from "next/headers";
 import { Language } from "@/lib/translations";
@@ -59,6 +60,7 @@ export default async function RootLayout({
                   <WishlistProvider>
                     <CompareProvider>
                       <RecentlyViewedProvider>
+                        <UserSessionBanner />
                         <Navbar />
                         <main className="flex-1">
                           {children}

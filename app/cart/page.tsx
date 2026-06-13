@@ -2,18 +2,22 @@
 
 import { useCart } from "@/hooks/use-cart";
 import { formatCurrency } from "@/lib/utils";
-import { Trash2, ShoppingBag, ArrowLeft, Plus, Minus, CreditCard, Tag, CheckCircle2 } from "lucide-react";
+import { Trash2, ShoppingBag, ArrowLeft, Plus, Minus, CreditCard, Tag, CheckCircle2, LogIn } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import NextImage from "next/image";
 import { useLanguage } from "@/hooks/use-language";
 import { useState } from "react";
 import { initialCoupons } from "@/lib/initial-data";
 import { useGlobalData } from "@/hooks/use-global-data";
+import { useRole } from "@/hooks/use-role";
 
 export default function CartPage() {
   const { items, removeFromCart, addToCart, totalCount, totalPrice, clearCart } = useCart();
   const { addOrder, purchaseItems } = useGlobalData();
   const { t } = useLanguage();
+  const { user } = useRole();
+  const router = useRouter();
   
   const [couponCode, setCouponCode] = useState("");
   const [customerName, setCustomerName] = useState("");
@@ -35,42 +39,46 @@ export default function CartPage() {
     }
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
+    // Check if user is logged in
+    if (!user) {
+      alert("Please login to checkout / กรุณาเข้าสู่ระบบก่อนชำระเงิน");
+      router.push("/login");
+      return;
+    }
+
     if (!customerName.trim()) {
       alert("Please enter your name before checkout / กรุณาใส่ชื่อของคุณก่อนชำระเงิน");
       return;
     }
 
-    // Reduce stock globally
-    purchaseItems(items.map(i => ({ productId: i.id, quantity: i.quantity })));
+    // Reduce stock globally and sync to JSON
+    await purchaseItems(items.map(i => ({ productId: i.id, quantity: i.quantity })));
 
-    // Mock Payment Process
-    setTimeout(() => {
-      const newOrder: any = {
-        id: `ORD-${Math.floor(Math.random() * 10000).toString().padStart(5, '0')}`,
-        customerId: "c1",
-        customerName: customerName,
-        totalAmount: totalPrice - appliedDiscount,
-        status: 'delivered',
-        createdAt: new Date().toISOString(),
-        paymentStatus: 'paid',
-        items: items.map(i => ({
-          productId: i.id,
-          productName: i.name,
-          quantity: i.quantity,
-          price: i.price
-        })),
-        reviewedItems: []
-      };
+    // Create real order object
+    const newOrder: any = {
+      id: `ORD-${Math.floor(Math.random() * 10000).toString().padStart(5, '0')}`,
+      customerId: user.id,
+      customerName: customerName,
+      totalAmount: totalPrice - appliedDiscount,
+      status: 'delivered',
+      createdAt: new Date().toISOString(),
+      paymentStatus: 'paid',
+      items: items.map(i => ({
+        productId: i.id,
+        productName: i.name,
+        quantity: i.quantity,
+        price: i.price
+      })),
+      reviewedItems: []
+    };
 
-      addOrder(newOrder);
-      
-      const existingHistory = JSON.parse(localStorage.getItem("orderHistory") || "[]");
-      localStorage.setItem("orderHistory", JSON.stringify([newOrder, ...existingHistory]));
+    // Add order to global state and sync to ecommerce_orders.json
+    await addOrder(newOrder);
 
-      setIsPaid(true);
-      clearCart();
-    }, 1000);
+    // Finalize process
+    setIsPaid(true);
+    clearCart(); // This now correctly clears from server if logged in
   };
 
   if (isPaid) {
@@ -112,6 +120,23 @@ export default function CartPage() {
 
   return (
     <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700">
+      {!user && (
+        <div className="bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-2xl p-4 lg:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-amber-100 dark:bg-amber-800">
+              <LogIn className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+            </div>
+            <div>
+              <p className="font-black text-amber-900 dark:text-amber-100">Login Required for Checkout</p>
+              <p className="text-sm text-amber-700 dark:text-amber-300">Please login to complete your purchase</p>
+            </div>
+          </div>
+          <Link href="/login" className="h-12 px-6 rounded-xl bg-amber-500 text-white font-black hover:bg-amber-600 transition-all flex items-center gap-2 cursor-pointer shadow-lg">
+            <LogIn className="h-5 w-5" /> Login Now
+          </Link>
+        </div>
+      )}
+
       <div className="flex items-center justify-between">
         <h1 className="text-3xl lg:text-4xl font-black tracking-tight">{t.cart.title} ({totalCount})</h1>
         <button onClick={clearCart} className="text-sm font-bold text-rose-500 hover:text-rose-600 transition-colors cursor-pointer flex items-center gap-2">

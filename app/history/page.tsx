@@ -97,71 +97,120 @@ export default function HistoryPage() {
   return (
     <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700 pb-20 lg:pb-8">
       <div className="space-y-2 text-center lg:text-left">
-        <h1 className="text-4xl font-black tracking-tight uppercase tracking-tighter">{t.history.title}</h1>
+        <h1 className="text-4xl font-black tracking-tight uppercase tracking-tighter">
+          {t.history.title}
+        </h1>
         <p className="text-muted-foreground font-bold">{t.history.subtitle}</p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
         {userOrders.map((order) => (
-          <div key={order.id} className="bg-card border-2 border-primary/5 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            <div className="p-6 border-b bg-muted/20 flex flex-wrap justify-between items-center gap-4">
-              <div className="flex items-center gap-4">
-                <div className="p-3 rounded-2xl bg-background border shadow-sm text-primary">
-                  <Package className="h-6 w-6" />
+          <div key={order.id} className="bg-card border-2 border-primary/5 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+            {/* Order Header / Row Join */}
+            <div className="p-6 lg:p-8 border-b bg-muted/20 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+              <div className="flex items-center gap-6">
+                <div className="p-4 rounded-3xl bg-background border shadow-inner text-primary">
+                  <Package className="h-8 w-8" />
                 </div>
-                <div>
-                  <h3 className="font-black text-lg">{order.id}</h3>
-                  <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest">{t.history.orderDate} {formatDate(order.createdAt)}</p>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-3">
+                    <h3 className="font-black text-xl lg:text-2xl tracking-tighter">{order.id}</h3>
+                    <span className="px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-500/20">
+                      {t.orders.status[order.status as keyof typeof t.orders.status] || order.status}
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground font-black uppercase tracking-[0.1em]">
+                    {t.history.orderDate} {formatDate(order.createdAt)}
+                  </p>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <span className="px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-500/20">
-                  {t.orders.status[order.status as keyof typeof t.orders.status] || order.status}
-                </span>
-                <div className="text-2xl font-black text-primary tracking-tighter">{formatCurrency(order.totalAmount)}</div>
+              
+              <div className="flex flex-col md:items-end gap-1">
+                <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Total Investment</p>
+                <div className="text-3xl lg:text-4xl font-black text-primary tracking-tighter">
+                  {formatCurrency(order.totalAmount)}
+                </div>
               </div>
             </div>
 
-            <div className="p-6 space-y-4">
-              {order.items.map((item, idx) => {
-                const isReviewed = order.reviewedItems?.includes(item.productId);
-                const productData = products.find(p => p.id === item.productId);
+            {/* Order Items Table Join */}
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead className="bg-muted/10">
+                  <tr>
+                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Product Details</th>
+                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground hidden sm:table-cell">Price</th>
+                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground hidden sm:table-cell text-center">Qty</th>
+                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">Subtotal</th>
+                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-muted/30">
+                  {order.items.map((item, idx) => {
+                    const isReviewed = order.reviewedItems?.includes(item.productId);
+                    const productData = products.find(p => p.id === item.productId);
 
-                return (
-                  <div key={idx} className="flex flex-col sm:flex-row sm:items-center gap-6 py-4 first:pt-0 last:pb-0 border-b last:border-0 border-muted/50">
-                    <div className="relative h-20 w-20 rounded-xl overflow-hidden border bg-muted flex-shrink-0">
-                      {productData?.image ? (
-                        <NextImage src={productData.image} alt={item.productName} fill className="object-cover" />
-                      ) : (
-                        <Box className="h-full w-full p-6 text-muted-foreground opacity-20" />
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-black text-base lg:text-lg leading-tight">{item.productName}</h4>
-                      <p className="text-xs text-muted-foreground font-bold mt-1 uppercase tracking-wider">Qty: {item.quantity} • {formatCurrency(item.price || 0)}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {isReviewed ? (
-                        <div className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-muted text-muted-foreground text-xs font-black uppercase tracking-widest border">
-                          <CheckCircle2 className="h-3.5 w-3.5" />
-                          {t.history.reviewed}
-                        </div>
-                      ) : (
-                        <button 
-                          onClick={() => {
-                            setSelectedItem({ orderId: order.id, productId: item.productId, productName: item.productName });
-                            setIsReviewModalOpen(true);
-                          }}
-                          className="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground text-xs font-black uppercase tracking-widest hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer active:scale-95"
-                        >
-                          <Star className="h-3.5 w-3.5" />
-                          {t.history.writeReview}
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
+                    return (
+                      <tr key={idx} className="group hover:bg-muted/5 transition-colors">
+                        <td className="px-8 py-6">
+                          <div className="flex items-center gap-6">
+                            <div className="relative h-20 w-20 rounded-2xl overflow-hidden border bg-muted flex-shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-500">
+                              {productData?.image ? (
+                                <NextImage 
+                                  src={productData.image} 
+                                  alt={item.productName} 
+                                  fill 
+                                  className="object-cover" 
+                                />
+                              ) : (
+                                <div className="h-full w-full flex items-center justify-center bg-muted">
+                                  <Box className="h-8 w-8 text-muted-foreground/20" />
+                                </div>
+                              )}
+                            </div>
+                            <div className="space-y-1">
+                              <h4 className="font-black text-base lg:text-lg leading-tight group-hover:text-primary transition-colors">
+                                {item.productName || productData?.name}
+                              </h4>
+                              <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest">
+                                {productData?.category || "General"}
+                              </p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-8 py-6 hidden sm:table-cell font-bold text-sm">
+                          {formatCurrency(item.price || 0)}
+                        </td>
+                        <td className="px-8 py-6 hidden sm:table-cell text-center font-black">
+                          {item.quantity}
+                        </td>
+                        <td className="px-8 py-6 text-right font-black text-primary">
+                          {formatCurrency((item.price || 0) * item.quantity)}
+                        </td>
+                        <td className="px-8 py-6">
+                          {isReviewed ? (
+                            <div className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-tighter border border-emerald-100">
+                              <CheckCircle2 className="h-3 w-3" />
+                              {t.history.reviewed}
+                            </div>
+                          ) : (
+                            <button 
+                              onClick={() => {
+                                setSelectedItem({ orderId: order.id, productId: item.productId, productName: item.productName });
+                                setIsReviewModalOpen(true);
+                              }}
+                              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-tighter hover:opacity-90 transition-all shadow-lg shadow-primary/10 cursor-pointer active:scale-95 whitespace-nowrap"
+                            >
+                              <Star className="h-3 w-3" />
+                              {t.history.writeReview}
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           </div>
         ))}

@@ -14,6 +14,12 @@ export async function POST(req: Request) {
     const user = users.find((u: any) => u.email === email && u.password === password);
 
     if (user) {
+      // Find store
+      const storesPath = path.join(process.cwd(), "lib", "stores.json");
+      const storesData = fs.readFileSync(storesPath, "utf8");
+      const stores = JSON.parse(storesData);
+      const store = stores.find((s: any) => s.owner_id === user.user_id);
+
       return NextResponse.json({
         success: true,
         user: {
@@ -22,7 +28,9 @@ export async function POST(req: Request) {
           email: user.email,
           phone: user.phone,
           loyaltyPoints: user.loyalty_points,
-          role: user.role === "VIP" ? "founder" : "customer"
+          role: user.type === "founder" ? "founder" : "customer",
+          tier: user.role === "VIP" ? "VIP" : "MEMBER",
+          store: store || null
         }
       });
     }

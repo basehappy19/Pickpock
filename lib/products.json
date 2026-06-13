@@ -1,402 +1,602 @@
 [
   {
-    "product_id": "p-101",
+    "id": "p-101",
     "name": "Wireless Noise Cancelling Headphones",
     "category": "Electronics",
     "price": 2500,
     "stock": 50,
-    "image": "https://placehold.co/300x300?text=Headphones"
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.8,
+    "reviews": 128,
+    "description": "Experience pure sound with our latest noise-cancelling technology.",
+    "isOfficial": true
   },
   {
-    "product_id": "p-102",
+    "id": "p-102",
     "name": "Running Shoes Gen 5",
     "category": "Fashion",
     "price": 1800,
-    "stock": 10,
-    "image": "https://placehold.co/300x300?text=Shoes"
+    "stock": 9,
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.5,
+    "reviews": 85,
+    "description": "Lightweight and breathable running shoes for maximum performance.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-103",
+    "id": "p-103",
     "name": "Smart Watch Series X",
     "category": "Electronics",
     "price": 4500,
     "stock": 25,
-    "image": "https://placehold.co/300x300?text=Smart+Watch"
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.9,
+    "reviews": 210,
+    "description": "The ultimate companion for your healthy lifestyle.",
+    "isOfficial": true
   },
   {
-    "product_id": "p-104",
+    "id": "p-104",
     "name": "Mechanical Keyboard RGB",
     "category": "Electronics",
     "price": 3200,
-    "stock": 5,
-    "image": "https://placehold.co/300x300?text=Keyboard"
+    "stock": 2,
+    "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.7,
+    "reviews": 95,
+    "description": "Tactile and responsive mechanical keys with customizable RGB lighting.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-105",
+    "id": "p-105",
     "name": "Gaming Mouse Wireless",
     "category": "Electronics",
     "price": 1200,
     "stock": 0,
-    "image": "https://placehold.co/300x300?text=Mouse"
+    "image": "https://images.unsplash.com/photo-1527698266440-12104e498b76?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.6,
+    "reviews": 74,
+    "description": "High-precision wireless gaming mouse with ergonomic design.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-106",
+    "id": "p-106",
     "name": "4K Monitor 27 inch",
     "category": "Electronics",
     "price": 8900,
     "stock": 12,
-    "image": "https://placehold.co/300x300?text=Monitor"
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.8,
+    "reviews": 42,
+    "description": "Stunning 4K resolution with HDR support for creative professionals.",
+    "isOfficial": true
   },
   {
-    "product_id": "p-107",
+    "id": "p-107",
     "name": "USB-C Fast Charger",
     "category": "Electronics",
     "price": 550,
     "stock": 100,
-    "image": "https://placehold.co/300x300?text=Charger"
+    "image": "https://images.unsplash.com/photo-1619130771144-633054170701?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.5,
+    "reviews": 320,
+    "description": "Ultra-fast charging for all your USB-C devices.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-108",
+    "id": "p-108",
     "name": "Bluetooth Speaker Mini",
     "category": "Electronics",
     "price": 790,
     "stock": 30,
-    "image": "https://placehold.co/300x300?text=Speaker"
+    "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.4,
+    "reviews": 115,
+    "description": "Compact and powerful speaker with long-lasting battery life.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-109",
+    "id": "p-109",
     "name": "Laptop Stand Aluminum",
     "category": "Electronics",
     "price": 450,
     "stock": 45,
-    "image": "https://placehold.co/300x300?text=Stand"
+    "image": "https://images.unsplash.com/photo-1527866959252-deab27ef0d19?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.6,
+    "reviews": 180,
+    "description": "Ergonomic laptop stand made from premium aluminum.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-110",
+    "id": "p-110",
     "name": "Webcam HD 1080p",
     "category": "Electronics",
     "price": 1100,
     "stock": 8,
-    "image": "https://placehold.co/300x300?text=Webcam"
+    "image": "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.3,
+    "reviews": 65,
+    "description": "Crystal clear video calls with built-in microphone.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-111",
+    "id": "p-111",
     "name": "Cotton T-Shirt Black",
     "category": "Fashion",
     "price": 250,
     "stock": 60,
-    "image": "https://placehold.co/300x300?text=T-Shirt"
+    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.4,
+    "reviews": 240,
+    "description": "Premium 100% cotton t-shirt for everyday comfort.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-112",
+    "id": "p-112",
     "name": "Denim Jeans Slim Fit",
     "category": "Fashion",
     "price": 990,
     "stock": 20,
-    "image": "https://placehold.co/300x300?text=Jeans"
+    "image": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.5,
+    "reviews": 150,
+    "description": "Classic denim jeans with a modern slim fit cut.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-113",
+    "id": "p-113",
     "name": "Leather Wallet",
     "category": "Fashion",
     "price": 1500,
     "stock": 15,
-    "image": "https://placehold.co/300x300?text=Wallet"
+    "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.8,
+    "reviews": 88,
+    "description": "Handcrafted genuine leather wallet with RFID protection.",
+    "isOfficial": true
   },
   {
-    "product_id": "p-114",
+    "id": "p-114",
     "name": "Aviator Sunglasses",
     "category": "Fashion",
     "price": 500,
     "stock": 35,
-    "image": "https://placehold.co/300x300?text=Sunglasses"
+    "image": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.4,
+    "reviews": 132,
+    "description": "Timeless aviator style with polarized lenses.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-115",
+    "id": "p-115",
     "name": "Hoodie Sweatshirt Grey",
     "category": "Fashion",
     "price": 750,
     "stock": 0,
-    "image": "https://placehold.co/300x300?text=Hoodie"
+    "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.6,
+    "reviews": 210,
+    "description": "Soft and cozy hoodie for chilly days.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-116",
+    "id": "p-116",
     "name": "Canvas Backpack",
     "category": "Fashion",
     "price": 1200,
     "stock": 18,
-    "image": "https://placehold.co/300x300?text=Backpack"
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb94c6a62?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.7,
+    "reviews": 75,
+    "description": "Durable canvas backpack with laptop sleeve.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-117",
+    "id": "p-117",
     "name": "Sports Cap",
     "category": "Fashion",
     "price": 300,
     "stock": 50,
-    "image": "https://placehold.co/300x300?text=Cap"
+    "image": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.2,
+    "reviews": 90,
+    "description": "Breathable sports cap for outdoor activities.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-118",
+    "id": "p-118",
     "name": "Formal Shirt White",
     "category": "Fashion",
     "price": 600,
     "stock": 25,
-    "image": "https://placehold.co/300x300?text=Shirt"
+    "image": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.5,
+    "reviews": 110,
+    "description": "Premium white formal shirt for a professional look.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-119",
+    "id": "p-119",
     "name": "Winter Jacket",
     "category": "Fashion",
     "price": 2200,
     "stock": 5,
-    "image": "https://placehold.co/300x300?text=Jacket"
+    "image": "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.8,
+    "reviews": 45,
+    "description": "Insulated winter jacket for extreme cold protection.",
+    "isOfficial": true
   },
   {
-    "product_id": "p-120",
+    "id": "p-120",
     "name": "Ankle Socks (Pack of 3)",
     "category": "Fashion",
     "price": 150,
     "stock": 100,
-    "image": "https://placehold.co/300x300?text=Socks"
+    "image": "https://images.unsplash.com/photo-1582966298601-83c4c9e87daf?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.3,
+    "reviews": 180,
+    "description": "Comfortable ankle socks with reinforced heel.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-121",
+    "id": "p-121",
     "name": "Modern Desk Lamp",
     "category": "Home",
     "price": 850,
     "stock": 20,
-    "image": "https://placehold.co/300x300?text=Lamp"
+    "image": "https://images.unsplash.com/photo-1534073828943-f801091bb18c?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.6,
+    "reviews": 55,
+    "description": "Adjustable brightness and color temperature for your workspace.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-122",
+    "id": "p-122",
     "name": "Memory Foam Pillow",
     "category": "Home",
     "price": 600,
     "stock": 30,
-    "image": "https://placehold.co/300x300?text=Pillow"
+    "image": "https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.7,
+    "reviews": 142,
+    "description": "Ergonomic pillow for a better night's sleep.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-123",
+    "id": "p-123",
     "name": "Ceramic Coffee Mug",
     "category": "Home",
     "price": 120,
     "stock": 80,
-    "image": "https://placehold.co/300x300?text=Mug"
+    "image": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.5,
+    "reviews": 210,
+    "description": "Minimalist ceramic mug with comfortable grip.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-124",
+    "id": "p-124",
     "name": "Bath Towel Set",
     "category": "Home",
     "price": 450,
     "stock": 22,
-    "image": "https://placehold.co/300x300?text=Towel"
+    "image": "https://images.unsplash.com/photo-1583947581924-860bda6a26df?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.4,
+    "reviews": 85,
+    "description": "Soft and absorbent 100% Egyptian cotton towels.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-125",
+    "id": "p-125",
     "name": "Minimalist Wall Clock",
     "category": "Home",
     "price": 550,
     "stock": 14,
-    "image": "https://placehold.co/300x300?text=Clock"
+    "image": "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.6,
+    "reviews": 68,
+    "description": "Silent sweeping movement wall clock for modern interiors.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-126",
+    "id": "p-126",
     "name": "Plant Pot (Indoor)",
     "category": "Home",
     "price": 250,
     "stock": 0,
-    "image": "https://placehold.co/300x300?text=Pot"
+    "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.3,
+    "reviews": 115,
+    "description": "Stylish ceramic pot for your favorite indoor plants.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-127",
+    "id": "p-127",
     "name": "Essential Oil Diffuser",
     "category": "Home",
     "price": 990,
     "stock": 15,
-    "image": "https://placehold.co/300x300?text=Diffuser"
+    "image": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.7,
+    "reviews": 92,
+    "description": "Ultrasonic diffuser with LED mood lighting.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-128",
+    "id": "p-128",
     "name": "Non-Stick Frying Pan",
     "category": "Home",
     "price": 750,
     "stock": 28,
-    "image": "https://placehold.co/300x300?text=Pan"
+    "image": "https://images.unsplash.com/photo-1593036661105-996e25bb267c?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.5,
+    "reviews": 156,
+    "description": "Premium non-stick coating for easy cooking and cleaning.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-129",
+    "id": "p-129",
     "name": "Picture Frame 8x10",
     "category": "Home",
     "price": 180,
     "stock": 60,
-    "image": "https://placehold.co/300x300?text=Frame"
+    "image": "https://images.unsplash.com/photo-1580974852861-f381778bcd5a?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.4,
+    "reviews": 74,
+    "description": "Elegant picture frame to preserve your favorite memories.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-130",
+    "id": "p-130",
     "name": "Floor Rug (Grey)",
     "category": "Home",
     "price": 1200,
     "stock": 8,
-    "image": "https://placehold.co/300x300?text=Rug"
+    "image": "https://images.unsplash.com/photo-1531835551805-16d864c8d311?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.6,
+    "reviews": 38,
+    "description": "Soft and luxurious floor rug for any room.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-131",
+    "id": "p-131",
     "name": "Yoga Mat",
     "category": "Sports",
     "price": 350,
     "stock": 40,
-    "image": "https://placehold.co/300x300?text=Yoga+Mat"
+    "image": "https://images.unsplash.com/photo-1518611012118-29a8d63a8608?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.6,
+    "reviews": 120,
+    "description": "Non-slip yoga mat with extra cushioning.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-132",
+    "id": "p-132",
     "name": "Dumbbell Set (5kg)",
     "category": "Sports",
     "price": 900,
     "stock": 12,
-    "image": "https://placehold.co/300x300?text=Dumbbell"
+    "image": "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.8,
+    "reviews": 95,
+    "description": "Pair of 5kg vinyl coated dumbbells for home workouts.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-133",
+    "id": "p-133",
     "name": "Sports Water Bottle",
     "category": "Sports",
     "price": 150,
     "stock": 100,
-    "image": "https://placehold.co/300x300?text=Bottle"
+    "image": "https://images.unsplash.com/photo-1523362628744-4cddf5427a33?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.4,
+    "reviews": 215,
+    "description": "Leak-proof and BPA-free sports water bottle.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-134",
+    "id": "p-134",
     "name": "Football Size 5",
     "category": "Sports",
     "price": 550,
     "stock": 25,
-    "image": "https://placehold.co/300x300?text=Football"
+    "image": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.5,
+    "reviews": 130,
+    "description": "Durable training football for all weather conditions.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-135",
+    "id": "p-135",
     "name": "Badminton Racket",
     "category": "Sports",
     "price": 1200,
     "stock": 10,
-    "image": "https://placehold.co/300x300?text=Racket"
+    "image": "https://images.unsplash.com/photo-1617083277660-99f44489182d?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.7,
+    "reviews": 64,
+    "description": "Professional carbon fiber badminton racket.",
+    "isOfficial": true
   },
   {
-    "product_id": "p-136",
+    "id": "p-136",
     "name": "Resistance Bands Set",
     "category": "Sports",
     "price": 250,
     "stock": 55,
-    "image": "https://placehold.co/300x300?text=Bands"
+    "image": "https://images.unsplash.com/photo-1598289431512-b97b0917a63e?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.6,
+    "reviews": 185,
+    "description": "Set of 5 resistance bands with different tension levels.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-137",
+    "id": "p-137",
     "name": "Camping Tent (2 Person)",
     "category": "Sports",
     "price": 1800,
     "stock": 5,
-    "image": "https://placehold.co/300x300?text=Tent"
+    "image": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.8,
+    "reviews": 28,
+    "description": "Waterproof and easy to set up 2-person camping tent.",
+    "isOfficial": true
   },
   {
-    "product_id": "p-138",
+    "id": "p-138",
     "name": "Jump Rope",
     "category": "Sports",
     "price": 120,
     "stock": 70,
-    "image": "https://placehold.co/300x300?text=Rope"
+    "image": "https://images.unsplash.com/photo-1544033527-b192daee1f5b?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.5,
+    "reviews": 140,
+    "description": "Adjustable speed jump rope for cardio training.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-139",
+    "id": "p-139",
     "name": "Cycling Helmet",
     "category": "Sports",
     "price": 850,
     "stock": 15,
-    "image": "https://placehold.co/300x300?text=Helmet"
+    "image": "https://images.unsplash.com/photo-1544161515-4af6b1d462c2?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.7,
+    "reviews": 52,
+    "description": "Safety certified cycling helmet with adjustable fit.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-140",
+    "id": "p-140",
     "name": "Foam Roller",
     "category": "Sports",
     "price": 300,
     "stock": 30,
-    "image": "https://placehold.co/300x300?text=Roller"
+    "image": "https://images.unsplash.com/photo-1594737625785-a6bad4b2388f?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.6,
+    "reviews": 75,
+    "description": "High-density foam roller for muscle recovery.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-141",
+    "id": "p-141",
     "name": "Vitamin C Serum",
     "category": "Beauty",
     "price": 590,
     "stock": 45,
-    "image": "https://placehold.co/300x300?text=Serum"
+    "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.7,
+    "reviews": 120,
+    "description": "Brighten and even out your skin tone with our pure Vitamin C serum.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-142",
+    "id": "p-142",
     "name": "Matte Lipstick Red",
     "category": "Beauty",
     "price": 290,
     "stock": 60,
-    "image": "https://placehold.co/300x300?text=Lipstick"
+    "image": "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.5,
+    "reviews": 95,
+    "description": "Long-lasting matte lipstick with rich pigment.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-143",
+    "id": "p-143",
     "name": "Moisturizing Cream",
     "category": "Beauty",
     "price": 450,
     "stock": 20,
-    "image": "https://placehold.co/300x300?text=Cream"
+    "image": "https://images.unsplash.com/photo-1629732047847-50bad75599e5?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.6,
+    "reviews": 110,
+    "description": "Deeply hydrating cream for all skin types.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-144",
+    "id": "p-144",
     "name": "Sunscreen SPF 50",
     "category": "Beauty",
     "price": 390,
     "stock": 10,
-    "image": "https://placehold.co/300x300?text=Sunscreen"
+    "image": "https://images.unsplash.com/photo-1556229167-73fe6a94560b?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.8,
+    "reviews": 150,
+    "description": "High protection sunscreen with a non-greasy finish.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-145",
+    "id": "p-145",
     "name": "Perfume 50ml",
     "category": "Beauty",
     "price": 2500,
     "stock": 0,
-    "image": "https://placehold.co/300x300?text=Perfume"
+    "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.9,
+    "reviews": 65,
+    "description": "Luxurious floral fragrance with hints of sandalwood.",
+    "isOfficial": true
   },
   {
-    "product_id": "p-146",
+    "id": "p-146",
     "name": "Face Wash Gentle",
     "category": "Beauty",
     "price": 190,
     "stock": 80,
-    "image": "https://placehold.co/300x300?text=Face+Wash"
+    "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.4,
+    "reviews": 210,
+    "description": "Daily gentle face wash for sensitive skin.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-147",
+    "id": "p-147",
     "name": "Action Figure Hero",
     "category": "Toys",
     "price": 1200,
     "stock": 12,
-    "image": "https://placehold.co/300x300?text=Figure"
+    "image": "https://images.unsplash.com/photo-1566576721346-d4a3b4eaad5b?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.7,
+    "reviews": 55,
+    "description": "Articulated action figure with accessories.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-148",
+    "id": "p-148",
     "name": "Board Game Strategy",
     "category": "Toys",
     "price": 1500,
     "stock": 8,
-    "image": "https://placehold.co/300x300?text=Board+Game"
+    "image": "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.8,
+    "reviews": 42,
+    "description": "Engaging strategy game for 2-4 players.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-149",
+    "id": "p-149",
     "name": "Plush Bear Toy",
     "category": "Toys",
     "price": 400,
     "stock": 35,
-    "image": "https://placehold.co/300x300?text=Bear"
+    "image": "https://images.unsplash.com/photo-1559450338-3c58bc529f2f?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.6,
+    "reviews": 110,
+    "description": "Soft and cuddly plush bear for all ages.",
+    "isOfficial": false
   },
   {
-    "product_id": "p-150",
+    "id": "p-150",
     "name": "Building Blocks Set",
     "category": "Toys",
     "price": 850,
     "stock": 25,
-    "image": "https://placehold.co/300x300?text=Blocks"
+    "image": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=800&auto=format&fit=crop",
+    "rating": 4.5,
+    "reviews": 135,
+    "description": "Educational building blocks set for creative play.",
+    "isOfficial": false
   }
 ]

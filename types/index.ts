@@ -13,6 +13,7 @@ export interface Product {
   createdAt: string;
   specs?: Record<string, string>;
   storeName?: string;
+  storeId?: string;
   isOfficial?: boolean;
 }
 

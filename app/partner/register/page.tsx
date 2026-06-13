@@ -1,0 +1,153 @@
+"use client";
+
+import { useState } from "react";
+import { useRole } from "@/hooks/use-role";
+import { useLanguage } from "@/hooks/use-language";
+import { Store, ShoppingBag, ShieldCheck, Loader2, CheckCircle2, ArrowRight, Building2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+export default function PartnerRegisterPage() {
+  const { user, login } = useRole();
+  const { t } = useLanguage();
+  const router = useRouter();
+
+  const [storeName, setStoreName] = useState("");
+  const [description, setDescription] = useState("");
+  const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [step, setStep] = useState<"form" | "success">("form");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/stores", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          owner_id: user?.id,
+          name: storeName,
+          description: description
+        })
+      });
+
+      if (res.ok) {
+        setStep("success");
+      } else {
+        const data = await res.json();
+        setError(data.error || "Failed to create store");
+      }
+    } catch (e) {
+      setError("Network error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!user) {
+    router.push("/login");
+    return null;
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto p-4 py-12 animate-in fade-in zoom-in-95 duration-700">
+      {step === "form" ? (
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <div className="inline-flex p-4 rounded-3xl bg-primary/10 text-primary mb-2">
+              <Building2 className="h-10 w-10" />
+            </div>
+            <h1 className="text-5xl font-black tracking-tighter leading-none">
+              Become a <span className="text-primary text-rainbow-animate">Partner</span>
+            </h1>
+            <p className="text-muted-foreground font-bold text-lg">
+              Join the MSU FOUNDER ecosystem and reach thousands of customers across the globe.
+            </p>
+            <ul className="space-y-4">
+              {[
+                "Low commission rates",
+                "Advanced AI analytics",
+                "Dedicated store dashboard",
+                "24/7 Seller support"
+              ].map((benefit, i) => (
+                <li key={i} className="flex items-center gap-3 font-black text-sm uppercase tracking-tight">
+                  <div className="h-6 w-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="h-4 w-4" />
+                  </div>
+                  {benefit}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-card border-2 border-primary/10 rounded-[2.5rem] p-8 lg:p-10 shadow-2xl shadow-primary/5">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Store Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="My Amazing Shop"
+                    value={storeName}
+                    onChange={(e) => setStoreName(e.target.value)}
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all font-bold"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Business Phone</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="08X-XXX-XXXX"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all font-bold"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Store Description</label>
+                  <textarea
+                    required
+                    rows={4}
+                    placeholder="Tell us what you're selling..."
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all font-bold resize-none"
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full h-16 rounded-2xl bg-primary text-primary-foreground font-black text-lg shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
+              >
+                {loading ? <Loader2 className="h-6 w-6 animate-spin" /> : <ShoppingBag className="h-6 w-6" />}
+                SUBMIT APPLICATION
+              </button>
+            </form>
+          </div>
+        </div>
+      ) : (
+        <div className="text-center py-20 space-y-8 max-w-2xl mx-auto">
+          <div className="inline-flex p-6 rounded-full bg-emerald-100 text-emerald-600 mb-4 animate-bounce">
+            <CheckCircle2 className="h-16 w-16" />
+          </div>
+          <h2 className="text-4xl font-black tracking-tighter">Application <span className="text-emerald-500">Submitted!</span></h2>
+          <p className="text-muted-foreground font-bold text-lg">
+            Thank you for your interest. Our team will review your application and get back to you within 24-48 hours.
+          </p>
+          <button
+            onClick={() => router.push("/")}
+            className="h-14 px-10 rounded-2xl bg-primary text-primary-foreground font-black flex items-center gap-2 mx-auto hover:opacity-90 transition-all shadow-xl shadow-primary/20"
+          >
+            Return to Homepage <ArrowRight className="h-5 w-5" />
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,221 @@
+{
+  "u001": {
+    "user_id": "u001",
+    "cart": [],
+    "wishlist": [
+      {
+        "id": "p-102",
+        "name": "Running Shoes Gen 5",
+        "category": "Fashion",
+        "price": 1800,
+        "stock": 9,
+        "image": "https://placehold.co/300x300?text=Shoes",
+        "rating": 4.5,
+        "reviews": [],
+        "status": "active",
+        "createdAt": "2026-06-13T04:59:10.798Z",
+        "storeName": "MSU MALL Official",
+        "isOfficial": true
+      }
+    ],
+    "reviews": [],
+    "recentlyViewed": [
+      {
+        "id": "p-104",
+        "name": "Mechanical Keyboard RGB",
+        "category": "Electronics",
+        "price": 3200,
+        "stock": 2,
+        "image": "https://placehold.co/300x300?text=Keyboard",
+        "rating": 4.5,
+        "reviews": [],
+        "status": "active",
+        "createdAt": "2026-06-13T04:59:10.798Z",
+        "storeName": "MSU MALL Official",
+        "isOfficial": true
+      },
+      {
+        "id": "p-103",
+        "name": "Smart Watch Series X",
+        "category": "Electronics",
+        "price": 4500,
+        "stock": 25,
+        "image": "https://placehold.co/300x300?text=Smart+Watch",
+        "rating": 4.5,
+        "reviews": [],
+        "status": "active",
+        "createdAt": "2026-06-13T04:59:10.798Z",
+        "storeName": "MSU MALL Official",
+        "isOfficial": true
+      },
+      {
+        "id": "p-102",
+        "name": "Running Shoes Gen 5",
+        "category": "Fashion",
+        "price": 1800,
+        "stock": 9,
+        "image": "https://placehold.co/300x300?text=Shoes",
+        "rating": 4.5,
+        "reviews": [],
+        "status": "active",
+        "createdAt": "2026-06-13T04:59:10.798Z",
+        "storeName": "MSU MALL Official",
+        "isOfficial": true
+      }
+    ],
+    "compare": []
+  },
+  "u002": {
+    "user_id": "u002",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [
+      {
+        "name": "Football Size 5",
+        "category": "Sports",
+        "price": 550,
+        "stock": 25,
+        "image": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop",
+        "rating": 4.5,
+        "reviews": [],
+        "status": "active",
+        "createdAt": "2026-06-13T05:33:21.245Z",
+        "storeName": "MSU MALL Official",
+        "isOfficial": true
+      }
+    ],
+    "compare": []
+  },
+  "u003": {
+    "user_id": "u003",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  },
+  "u004": {
+    "user_id": "u004",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  },
+  "u005": {
+    "user_id": "u005",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  },
+  "u006": {
+    "user_id": "u006",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  },
+  "u007": {
+    "user_id": "u007",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  },
+  "u008": {
+    "user_id": "u008",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  },
+  "u009": {
+    "user_id": "u009",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [
+      {
+        "id": "p-101",
+        "name": "Wireless Noise Cancelling Headphones",
+        "category": "Electronics",
+        "price": 2500,
+        "stock": 50,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
+        "description": "Experience pure sound with our latest noise-cancelling technology.",
+        "rating": 4.8,
+        "reviews": [],
+        "isOfficial": true,
+        "createdAt": "2026-06-13T06:17:52.670Z"
+      },
+      {
+        "name": "Wireless Noise Cancelling Headphones",
+        "category": "Electronics",
+        "price": 2500,
+        "stock": 50,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
+        "rating": 4.5,
+        "reviews": [],
+        "status": "active",
+        "createdAt": "2026-06-13T05:38:33.868Z",
+        "storeName": "MSU MALL Official",
+        "isOfficial": true
+      }
+    ],
+    "compare": []
+  },
+  "u010": {
+    "user_id": "u010",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  },
+  "u011": {
+    "user_id": "u011",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  },
+  "u012": {
+    "user_id": "u012",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  },
+  "u013": {
+    "user_id": "u013",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  },
+  "u014": {
+    "user_id": "u014",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  },
+  "u015": {
+    "user_id": "u015",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": []
+  }
+}

@@ -18,12 +18,19 @@ const writeProducts = (products: any[]) => {
 
 // Map Internal Product to JSON Schema
 const toJSON = (p: Product) => ({
-  product_id: p.id,
+  id: p.id,
+  product_id: p.id, // Support both for compatibility
   name: p.name,
   category: p.category,
   price: p.price,
   stock: p.stock,
-  image: p.image
+  image: p.image,
+  description: p.description,
+  rating: p.rating || 0,
+  reviews: Array.isArray(p.reviews) ? p.reviews : [],
+  storeId: p.storeId,
+  isOfficial: p.isOfficial || false,
+  createdAt: p.createdAt || new Date().toISOString()
 });
 
 export async function GET() {

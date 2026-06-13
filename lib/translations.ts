@@ -206,10 +206,15 @@ export const translations = {
       newest: "Newest",
       rating: "Highest Rating",
       priceRange: "Price Range",
+      minPrice: "Min Price",
+      maxPrice: "Max Price",
       brand: "Brand",
       ratingFilter: "Rating",
+      availability: "Availability",
+      inStockOnly: "In Stock Only",
       applyFilters: "Apply Filters",
       clearFilters: "Clear Filters",
+      resetFilters: "Reset All Filters",
       results: "{count} results"
     },
     notifications: {
@@ -459,10 +464,15 @@ export const translations = {
       newest: "มาใหม่",
       rating: "คะแนนสูงสุด",
       priceRange: "ช่วงราคา",
+      minPrice: "ราคาเริ่มต้น",
+      maxPrice: "ราคาสูงสุด",
       brand: "แบรนด์",
       ratingFilter: "คะแนน",
+      availability: "สถานะสินค้า",
+      inStockOnly: "เฉพาะที่มีสินค้า",
       applyFilters: "ใช้ตัวกรอง",
       clearFilters: "ล้างตัวกรอง",
+      resetFilters: "ล้างตัวกรองทั้งหมด",
       results: "พบ {count} รายการ"
     },
     notifications: {
