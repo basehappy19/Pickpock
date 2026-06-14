@@ -549,7 +549,7 @@ export default function FounderDashboardPage() {
                           <div className="animate-in fade-in slide-in-from-left-2 duration-500">
                              <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 space-y-2 relative overflow-hidden group/advice">
                                 <div className="absolute top-0 right-0 p-1">
-                                   <Sparkles className="h-3 w-3 text-primary/30 animate-pulse" />
+                                   <img src="/brand/mascot.jpeg" className="h-4 w-4 object-cover rounded-full opacity-50 animate-pulse" alt="AI Mascot" />
                                 </div>
                                 <div className="flex items-center gap-2">
                                    <div className={cn("p-1.5 rounded-lg text-white", insight.type === 'increase' ? "bg-emerald-500" : "bg-rose-500")}>
@@ -720,7 +720,7 @@ export default function FounderDashboardPage() {
                           : "bg-linear-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 cursor-pointer shadow-md active:scale-95"
                       )}
                     >
-                      <Sparkles className="h-3 w-3" />
+                      <img src="/brand/mascot.jpeg" className="h-4 w-4 object-cover rounded-full" alt="AI Mascot" />
                       {isGeneratingDesc ? t.dashboard.generating : t.dashboard.aiWrite}
                     </button>
                   </div>
@@ -736,7 +736,7 @@ export default function FounderDashboardPage() {
                   />
                   {isGeneratingDesc && (
                     <div className="flex items-center gap-2 px-2 text-xs font-semibold text-primary animate-bounce">
-                      <Sparkles className="h-3 w-3" />
+                      <img src="/brand/mascot.jpeg" className="h-4 w-4 object-cover rounded-full" alt="AI Mascot" />
                       {t.dashboard.founderInsights?.typing || 'AI IS TYPING...'}
                     </div>
                   )}

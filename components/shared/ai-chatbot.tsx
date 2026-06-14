@@ -138,8 +138,8 @@ export default function AIChatbot() {
           {/* Header */}
           <div className="p-4 sm:p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 shrink-0 mt-[env(safe-area-inset-top)]">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-lg shadow-slate-900/10">
-                <Bot className="h-5 w-5" />
+              <div className="h-10 w-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-lg shadow-slate-900/10 overflow-hidden">
+                <img src="/brand/mascot.jpeg" className="h-full w-full object-cover" alt="AI Mascot" />
               </div>
               <div>
                 <h3 className="font-medium text-sm text-slate-900 uppercase tracking-wider">PickPock AI</h3>
@@ -223,7 +223,9 @@ export default function AIChatbot() {
         {isOpen ? (
           <X className="h-6 w-6 relative z-10" />
         ) : (
-          <Sparkles className="h-6 w-6 relative z-10 drop-shadow-md" />
+          <div className="h-[90%] w-[90%] rounded-full overflow-hidden relative z-10 border-2 border-white/50 bg-white shadow-sm group-hover:scale-105 transition-transform">
+            <img src="/brand/mascot.jpeg" className="h-full w-full object-cover rounded-full" alt="AI Chat" />
+          </div>
         )}
       </button>
     </div>

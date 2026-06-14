@@ -42,7 +42,7 @@ export default function AIInsights({ product }: { product: Product }) {
 
         <div className="relative space-y-6">
           <div className="flex items-center gap-3 text-rainbow font-semibold tracking-widest uppercase text-xs">
-            <Sparkles className="h-5 w-5 fill-current animate-pulse" />
+            <img src="/brand/mascot.jpeg" className="h-6 w-6 object-cover rounded-full shadow-sm animate-pulse border border-primary/20" alt="AI Mascot" />
             {t.products.aiInsights.title}
           </div>
           

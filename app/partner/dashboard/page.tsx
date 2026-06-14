@@ -495,7 +495,7 @@ export default function PartnerDashboardPage() {
                                 <p className="text-xs font-medium text-muted-foreground">{product.category}</p>
                                 <span className="text-xs text-emerald-500 font-medium bg-emerald-500/10 px-1.5 py-0.5 rounded-md">ขายแล้ว {soldCount} ชิ้น</span>
                                 <span className="flex items-center text-xs text-amber-500 font-medium bg-amber-500/10 px-1.5 py-0.5 rounded-md">
-                                  <Sparkles className="h-2 w-2 mr-0.5" />
+                                  <img src="/brand/mascot.jpeg" className="h-3 w-3 object-cover rounded-full mr-1" alt="AI Mascot" />
                                   {product.rating > 0 ? product.rating.toFixed(1) : "ไม่มีดาว"}
                                 </span>
                               </div>
@@ -516,7 +516,7 @@ export default function PartnerDashboardPage() {
                                   isPriceUpdating && "opacity-50 cursor-wait"
                                 )}
                               >
-                                {isPriceUpdating ? <Loader2 className="h-2 w-2 animate-spin" /> : <Sparkles className="h-2 w-2" />}
+                                {isPriceUpdating ? <Loader2 className="h-2 w-2 animate-spin" /> : <img src="/brand/mascot.jpeg" className="h-3 w-3 object-cover rounded-full" alt="AI Mascot" />}
                                 {insight.type === 'increase' ? <ArrowUp className="h-2 w-2" /> : <ArrowDown className="h-2 w-2" />}
                                 AI: {formatCurrency(insight.amount)}
                               </button>
@@ -557,7 +557,7 @@ export default function PartnerDashboardPage() {
 
         <div className="space-y-6">
            <div className="bg-gradient-to-br from-indigo-500 via-purple-600 to-primary rounded-4xl p-8 text-white shadow-xl shadow-primary/20 space-y-6 animate-in zoom-in duration-500">
-             <div className="flex items-center gap-3"><div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm shadow-inner"><Sparkles className="h-5 w-5" /></div><h3 className="font-semibold uppercase tracking-widest text-sm">{t.dashboard.smartAdviceTitle}</h3></div>
+             <div className="flex items-center gap-3"><div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm shadow-inner"><img src="/brand/mascot.jpeg" className="h-6 w-6 object-cover rounded-full" alt="AI Mascot" /></div><h3 className="font-semibold uppercase tracking-widest text-sm">{t.dashboard.smartAdviceTitle}</h3></div>
              <div className="space-y-4">{smartAdvice.map((adv, i) => (<div key={i} className="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 space-y-1 hover:bg-white/20 transition-colors group"><div className="flex items-center justify-between"><p className="font-semibold text-xs uppercase flex items-center gap-2"><adv.icon className="h-3.5 w-3.5" />{adv.title}</p><div className={cn("w-1.5 h-1.5 rounded-full animate-pulse", adv.color)} /></div><p className="text-[11px] font-medium opacity-80 leading-relaxed group-hover:opacity-100 transition-opacity">{adv.desc}</p></div>))}</div>
              <div className="pt-2"><p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/40 text-center italic">{t.dashboard.calculatedRealTime}</p></div>
            </div>
@@ -609,9 +609,9 @@ export default function PartnerDashboardPage() {
                         ? "bg-muted text-muted-foreground cursor-not-allowed opacity-50" 
                         : "bg-linear-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 cursor-pointer shadow-md active:scale-95"
                     )}
-                  ><Sparkles className="h-3 w-3" />{isGeneratingDesc ? t.dashboard.generating : t.dashboard.aiWrite}</button></div>
+                  ><img src="/brand/mascot.jpeg" className="h-4 w-4 object-cover rounded-full" alt="AI Mascot" />{isGeneratingDesc ? t.dashboard.generating : t.dashboard.aiWrite}</button></div>
                   <textarea rows={3} placeholder={t.dashboard.descPlaceholder} className={cn("w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium resize-none", isGeneratingDesc && "animate-pulse")} value={newProduct.description} onChange={(e) => setNewProduct({...newProduct, description: e.target.value})} />
-                  {isGeneratingDesc && (<div className="flex items-center gap-2 px-2 text-xs font-semibold text-primary animate-bounce"><Sparkles className="h-3 w-3" />AI IS TYPING...</div>)}
+                  {isGeneratingDesc && (<div className="flex items-center gap-2 px-2 text-xs font-semibold text-primary animate-bounce"><img src="/brand/mascot.jpeg" className="h-4 w-4 object-cover rounded-full" alt="AI Mascot" />AI IS TYPING...</div>)}
                 </div>
               </div>
               <button 

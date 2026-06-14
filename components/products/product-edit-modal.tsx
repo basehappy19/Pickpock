@@ -193,11 +193,11 @@ export default function ProductEditModal({
                       : "bg-linear-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 cursor-pointer shadow-md active:scale-95"
                   )}
                 >
-                  <Sparkles className="h-3 w-3" />{isGeneratingDesc ? t.dashboard.generating : t.dashboard.aiWrite}
+                  <img src="/brand/mascot.jpeg" className="h-4 w-4 object-cover rounded-full" alt="AI Mascot" />{isGeneratingDesc ? t.dashboard.generating : t.dashboard.aiWrite}
                 </button>
               </div>
               <textarea rows={3} placeholder={t.dashboard.descPlaceholder} className={cn("w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium resize-none", isGeneratingDesc && "animate-pulse")} value={editData.description} onChange={(e) => setEditData({...editData, description: e.target.value})} />
-              {isGeneratingDesc && (<div className="flex items-center gap-2 px-2 text-xs font-semibold text-primary animate-bounce"><Sparkles className="h-3 w-3" />AI IS TYPING...</div>)}
+              {isGeneratingDesc && (<div className="flex items-center gap-2 px-2 text-xs font-semibold text-primary animate-bounce"><img src="/brand/mascot.jpeg" className="h-4 w-4 object-cover rounded-full" alt="AI Mascot" />AI IS TYPING...</div>)}
             </div>
           </div>
           <button 

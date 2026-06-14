@@ -200,7 +200,7 @@ export default function HomepageClient({
       <section className="bg-background border-b px-4 lg:px-8 py-12 lg:py-16">
         <div className="max-w-xl mx-auto lg:mx-0 space-y-4">
           <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground bg-secondary border rounded-full px-3 py-1">
-            <Sparkles className="h-3 w-3" />
+            <img src="/brand/mascot.jpeg" className="h-4 w-4 object-cover rounded-full" alt="AI Mascot" />
             AI-Powered Shopping
           </span>
           <h1 className="text-3xl lg:text-4xl font-medium leading-tight tracking-tight">

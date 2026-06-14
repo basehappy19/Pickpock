@@ -74,7 +74,7 @@ export default function AIBundleSuggest({ currentProduct, allProducts }: { curre
   if (loading) {
     return (
       <div className="p-6 rounded-[2rem] bg-muted/30 border border-dashed flex items-center gap-4 animate-pulse">
-        <Sparkles className="h-6 w-6 text-primary animate-spin" />
+        <img src="/brand/mascot.jpeg" className="h-6 w-6 object-cover rounded-full animate-bounce border border-primary/20" alt="AI Mascot" />
         <span className="font-medium text-muted-foreground">{t.products.aiBundleLoading}</span>
       </div>
     );
@@ -85,7 +85,7 @@ export default function AIBundleSuggest({ currentProduct, allProducts }: { curre
   return (
     <div className="p-6 lg:p-8 rounded-[2rem] bg-gradient-to-r from-primary/5 to-transparent border border-primary/10 space-y-6">
       <div className="flex items-center gap-2 text-primary font-semibold tracking-tight">
-        <Sparkles className="h-5 w-5 fill-current" />
+        <img src="/brand/mascot.jpeg" className="h-6 w-6 object-cover rounded-full shadow-sm border border-primary/20" alt="AI Mascot" />
         {t.products.aiBundleTitle}
       </div>
 
