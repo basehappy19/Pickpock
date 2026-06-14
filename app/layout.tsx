@@ -71,8 +71,21 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(getBaseUrl()),
     title,
     description,
-    keywords: "e-commerce, AI, shopping, Thailand, PickPock",
+    keywords: "e-commerce, AI, shopping, Thailand, PickPock, artificial intelligence, online shopping, product recommendations, Thai marketplace, bilingual shopping",
     authors: [{ name: "PickPock Team" }],
+    creator: "PickPock",
+    publisher: "PickPock",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
