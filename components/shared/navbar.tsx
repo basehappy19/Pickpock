@@ -44,7 +44,7 @@ export default function Navbar() {
       <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md transition-all font-sans">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-8">
           <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity">
+            <Link href="/" className="flex items-center gap-2 text-xl font-medium tracking-tighter hover:opacity-80 transition-opacity">
               <Image
                 src="/brand/logo_full.png"
                 alt="PickPock Logo"
@@ -61,7 +61,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href} 
                   className={cn(
-                    "text-sm font-bold transition-colors hover:text-primary",
+                    "text-sm font-medium transition-colors hover:text-primary",
                     pathname === link.href ? "text-primary" : "text-muted-foreground"
                   )}
                 >
@@ -82,12 +82,12 @@ export default function Navbar() {
                 )}>
                   <div className="flex items-center gap-2">
                     {role === "founder" ? <ShieldCheck className="h-3 w-3" /> : <User className="h-3 w-3" />}
-                    <span className="text-xs font-black uppercase tracking-tighter">{user.name.split(" ")[0]}</span>
+                    <span className="text-xs font-semibold uppercase tracking-tighter">{user.name.split(" ")[0]}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <span className="text-[8px] font-black uppercase opacity-70 tracking-widest">{role}</span>
+                    <span className="text-[8px] font-semibold uppercase opacity-70 tracking-widest">{role}</span>
                     <span className={cn(
-                      "text-[8px] font-black px-1.5 rounded-full",
+                      "text-[8px] font-semibold px-1.5 rounded-full",
                       user.tier === "VIP" ? "bg-amber-500 text-white" : "bg-blue-500 text-white"
                     )}>{user.tier}</span>
                   </div>
@@ -104,7 +104,7 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
-              <Link href="/login" className="flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-black uppercase bg-primary text-primary-foreground hover:opacity-90 transition-all cursor-pointer shadow-lg shadow-primary/20">
+              <Link href="/login" className="flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold uppercase bg-primary text-primary-foreground hover:opacity-90 transition-all cursor-pointer shadow-lg shadow-primary/20">
                 <LogIn className="h-4 w-4" />
                 {t.nav.login}
               </Link>
@@ -113,7 +113,7 @@ export default function Navbar() {
             <div className="flex items-center border-l pl-4 gap-2">
               <button
                 onClick={() => setLanguage(language === "th" ? "en" : "th")}
-                className="flex items-center gap-2 rounded-xl border border-input bg-background px-3 py-2 text-xs font-black hover:bg-accent transition-colors uppercase cursor-pointer shadow-sm"
+                className="flex items-center gap-2 rounded-xl border border-input bg-background px-3 py-2 text-xs font-semibold hover:bg-accent transition-colors uppercase cursor-pointer shadow-sm"
               >
                 <Globe className="h-3.5 w-3.5" />
                 {language}
@@ -124,7 +124,7 @@ export default function Navbar() {
               <Link href="/wishlist" className="relative hidden sm:flex rounded-xl p-2.5 bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border shadow-sm cursor-pointer group">
                 <Heart className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 {wishlist.length > 0 && (
-                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs font-black text-white shadow-sm">
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs font-semibold text-white shadow-sm">
                     {wishlist.length}
                   </span>
                 )}
@@ -133,7 +133,7 @@ export default function Navbar() {
               <Link href="/compare" className="relative hidden md:flex rounded-xl p-2.5 bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border shadow-sm cursor-pointer group">
                 <GitCompare className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 {compareList.length > 0 && (
-                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-black text-white shadow-sm">
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-semibold text-white shadow-sm">
                     {compareList.length}
                   </span>
                 )}
@@ -142,7 +142,7 @@ export default function Navbar() {
               <Link href="/cart" className="relative hidden lg:flex rounded-xl p-2.5 bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border shadow-sm cursor-pointer group">
                 <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 {totalCount > 0 && (
-                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-black text-primary-foreground shadow-sm">
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground shadow-sm">
                     {totalCount}
                   </span>
                 )}
@@ -165,7 +165,7 @@ export default function Navbar() {
               )}
             >
               <link.icon className="h-6 w-6" />
-              <span className="text-xs font-black uppercase tracking-tighter">{link.label}</span>
+              <span className="text-xs font-semibold uppercase tracking-tighter">{link.label}</span>
             </Link>
           ))}
           <Link
@@ -178,12 +178,12 @@ export default function Navbar() {
             <div className="relative">
               <Heart className="h-6 w-6" />
               {wishlist.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs font-black text-white shadow-sm">
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs font-semibold text-white shadow-sm">
                   {wishlist.length}
                 </span>
               )}
             </div>
-            <span className="text-xs font-black uppercase tracking-tighter">{t.nav.wishlist}</span>
+            <span className="text-xs font-semibold uppercase tracking-tighter">{t.nav.wishlist}</span>
           </Link>
           <Link
             href="/compare"
@@ -195,12 +195,12 @@ export default function Navbar() {
             <div className="relative">
               <GitCompare className="h-6 w-6" />
               {compareList.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-black text-white shadow-sm">
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-semibold text-white shadow-sm">
                   {compareList.length}
                 </span>
               )}
             </div>
-            <span className="text-xs font-black uppercase tracking-tighter">{t.nav.compare}</span>
+            <span className="text-xs font-semibold uppercase tracking-tighter">{t.nav.compare}</span>
           </Link>
           <Link
             href="/cart"
@@ -212,12 +212,12 @@ export default function Navbar() {
             <div className="relative">
               <ShoppingCart className="h-6 w-6" />
               {totalCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-black text-primary-foreground shadow-sm">
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground shadow-sm">
                   {totalCount}
                 </span>
               )}
             </div>
-            <span className="text-xs font-black uppercase tracking-tighter">{t.nav.cart}</span>
+            <span className="text-xs font-semibold uppercase tracking-tighter">{t.nav.cart}</span>
           </Link>
         </div>
       </nav>

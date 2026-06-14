@@ -199,7 +199,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
   return (
     <div className="space-y-8 animate-in fade-in duration-700 pb-20">
       <div className="flex flex-col gap-4 text-center lg:text-left">
-        <h1 className="text-4xl font-black tracking-tight">
+        <h1 className="text-4xl font-semibold tracking-tight">
           {t.products.listTitle}
         </h1>
         <p className="text-muted-foreground text-lg font-medium">
@@ -216,7 +216,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             <input
               type="text"
               placeholder={t.products.aiSearchPlaceholder}
-              className="w-full pl-12 pr-6 py-4 rounded-xl border-2 border-primary/30 bg-accent/50 outline-none text-base font-bold placeholder:text-muted-foreground/60 transition-all z-20"
+              className="w-full pl-12 pr-6 py-4 rounded-xl border-2 border-primary/30 bg-accent/50 outline-none text-base font-medium placeholder:text-muted-foreground/60 transition-all z-20"
               value={aiSearchQuery}
               onChange={(e) => setAiSearchQuery(e.target.value)}
               autoComplete="off"
@@ -225,7 +225,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           <button 
             type="submit"
             disabled={isSearching}
-            className="px-8 py-4 rounded-xl bg-primary text-primary-foreground font-black hover:opacity-90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 min-w-35 cursor-pointer overflow-hidden group/btn shadow-lg"
+            className="px-8 py-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 min-w-35 cursor-pointer overflow-hidden group/btn shadow-lg"
           >
             <div className="absolute inset-0 bg-rainbow-gradient opacity-0 group-hover/btn:opacity-20 transition-opacity" />
             {isSearching ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
@@ -242,20 +242,20 @@ export default function ProductListContent({ initialProducts }: { initialProduct
         )}>
           {showMobileFilters && (
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-black uppercase tracking-tighter">{t.common.filter}</h2>
+              <h2 className="text-2xl font-semibold uppercase tracking-tighter">{t.common.filter}</h2>
               <button onClick={() => setShowMobileFilters(false)} className="p-2 rounded-xl bg-muted"><CloseIcon className="h-6 w-6" /></button>
             </div>
           )}
 
           <div className="space-y-6">
             <div className="space-y-4">
-              <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.common.search}</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.common.search}</h3>
               <div className="relative group">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4 group-focus-within:text-primary transition-colors" />
                 <input 
                   type="text" 
                   placeholder={t.dashboard.filters.search}
-                  className="w-full pl-11 pr-6 py-3 rounded-xl border-2 border-transparent bg-muted/50 focus:bg-background focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-sm font-bold shadow-sm"
+                  className="w-full pl-11 pr-6 py-3 rounded-xl border-2 border-transparent bg-muted/50 focus:bg-background focus:border-primary/20 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-sm font-medium shadow-sm"
                   value={filters.search}
                   onChange={(e) => {
                     setAiMatchedIds(null); 
@@ -267,12 +267,12 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.home.categories}</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.home.categories}</h3>
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => handleCategoryChange("all")}
                   className={cn(
-                    "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-tighter border-2 transition-all cursor-pointer hover:-translate-y-1",
+                    "px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-tighter border-2 transition-all cursor-pointer hover:-translate-y-1",
                     filters.category === "all" ? "bg-primary border-primary text-primary-foreground" : "bg-card border-transparent hover:border-primary/20 hover:bg-muted"
                   )}
                 >
@@ -283,7 +283,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                     key={`cat-filter-${cat}-${i}`}
                     onClick={() => handleCategoryChange(cat)}
                     className={cn(
-                      "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-tighter border-2 transition-all cursor-pointer hover:-translate-y-1",
+                      "px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-tighter border-2 transition-all cursor-pointer hover:-translate-y-1",
                       filters.category === cat ? "bg-primary border-primary text-primary-foreground" : "bg-card border-transparent hover:border-primary/20 hover:bg-muted"
                     )}
                   >
@@ -295,26 +295,26 @@ export default function ProductListContent({ initialProducts }: { initialProduct
 
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.filters.priceRange}</h3>
+                <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.filters.priceRange}</h3>
               </div>
               
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
-                  <span className="text-xs font-black uppercase text-muted-foreground">{t.filters.minPrice}</span>
+                  <span className="text-xs font-semibold uppercase text-muted-foreground">{t.filters.minPrice}</span>
                   <input 
                     type="number"
                     value={minPrice}
                     onChange={(e) => handlePriceChange(Number(e.target.value), maxPriceFilter)}
-                    className="w-full px-3 py-2 rounded-lg bg-muted/50 border-2 border-transparent focus:border-primary/20 outline-none text-xs font-bold"
+                    className="w-full px-3 py-2 rounded-lg bg-muted/50 border-2 border-transparent focus:border-primary/20 outline-none text-xs font-medium"
                   />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-xs font-black uppercase text-muted-foreground">{t.filters.maxPrice}</span>
+                  <span className="text-xs font-semibold uppercase text-muted-foreground">{t.filters.maxPrice}</span>
                   <input 
                     type="number"
                     value={maxPriceFilter}
                     onChange={(e) => handlePriceChange(minPrice, Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-muted/50 border-2 border-transparent focus:border-primary/20 outline-none text-xs font-bold"
+                    className="w-full px-3 py-2 rounded-lg bg-muted/50 border-2 border-transparent focus:border-primary/20 outline-none text-xs font-medium"
                   />
                 </div>
               </div>
@@ -331,7 +331,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.storeTitle}</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.storeTitle}</h3>
               <div className="flex flex-col gap-2">
                 <label 
                   className="flex items-center gap-3 cursor-pointer group"
@@ -360,7 +360,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                       isOfficialFilter ? "translate-x-6" : "translate-x-0"
                     )} />
                   </div>
-                  <span className="text-sm font-bold uppercase tracking-tight group-hover:text-amber-600 transition-colors">{t.filters.officialOnly}</span>
+                  <span className="text-sm font-medium uppercase tracking-tight group-hover:text-amber-600 transition-colors">{t.filters.officialOnly}</span>
                 </label>
                 <label 
                   className="flex items-center gap-3 cursor-pointer group"
@@ -389,7 +389,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                       isPartnerFilter ? "translate-x-6" : "translate-x-0"
                     )} />
                   </div>
-                  <span className="text-sm font-bold uppercase tracking-tight group-hover:text-blue-600 transition-colors">{t.filters.partnerOnly}</span>
+                  <span className="text-sm font-medium uppercase tracking-tight group-hover:text-blue-600 transition-colors">{t.filters.partnerOnly}</span>
                 </label>
               </div>
 
@@ -399,7 +399,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                   <select
                     value={selectedStoreId}
                     onChange={(e) => handleStoreChange(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-muted/50 border-2 border-transparent focus:border-primary/20 outline-none text-xs font-black uppercase tracking-widest cursor-pointer appearance-none shadow-sm hover:bg-muted transition-all"
+                    className="w-full px-3 py-2 rounded-xl bg-muted/50 border-2 border-transparent focus:border-primary/20 outline-none text-xs font-semibold uppercase tracking-widest cursor-pointer appearance-none shadow-sm hover:bg-muted transition-all"
                   >
                     <option value="all">--- {t.common.all} {t.dashboard.partnerStore} ---</option>
                     {stores
@@ -416,7 +416,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.filters.availability}</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.filters.availability}</h3>
               <label 
                 className="flex items-center gap-3 cursor-pointer group"
                 onClick={() => updateURLParams({ inStock: inStockOnly ? null : "true" })}
@@ -430,7 +430,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                     inStockOnly ? "translate-x-6" : "translate-x-0"
                   )} />
                 </div>
-                <span className="text-sm font-bold uppercase tracking-tight group-hover:text-primary transition-colors">{t.filters.inStockOnly}</span>
+                <span className="text-sm font-medium uppercase tracking-tight group-hover:text-primary transition-colors">{t.filters.inStockOnly}</span>
               </label>
             </div>
 
@@ -440,7 +440,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 setAiMatchedIds(null);
                 setAiSearchQuery("");
               }}
-              className="w-full py-4 rounded-xl border-2 border-dashed border-muted-foreground/20 text-muted-foreground font-black text-xs uppercase tracking-widest hover:border-rose-500/50 hover:text-rose-500 transition-all cursor-pointer"
+              className="w-full py-4 rounded-xl border-2 border-dashed border-muted-foreground/20 text-muted-foreground font-semibold text-xs uppercase tracking-widest hover:border-rose-500/50 hover:text-rose-500 transition-all cursor-pointer"
             >
               {t.filters.resetFilters}
             </button>
@@ -451,25 +451,25 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           <div className="flex items-center justify-between lg:hidden">
             <button 
               onClick={() => setShowMobileFilters(true)}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-card border-2 font-black text-xs uppercase tracking-widest shadow-sm"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-card border-2 font-semibold text-xs uppercase tracking-widest shadow-sm"
             >
               <Filter className="h-4 w-4" />
               {t.common.filter} & {t.common.search}
             </button>
-            <div className="text-xs font-black text-muted-foreground uppercase">
+            <div className="text-xs font-semibold text-muted-foreground uppercase">
               {finalFilteredData.length} {t.common.totalItems.replace('{count}', '')}
             </div>
           </div>
 
           <div className="hidden lg:flex items-center justify-between">
-            <div className="text-xs font-black text-muted-foreground uppercase tracking-widest">
+            <div className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
               {t.common.showing} <span className="text-primary">{finalFilteredData.length}</span> {t.nav.products}
             </div>
             {/* Sort Dropdown Placeholder */}
             <div className="flex items-center gap-2">
-              <span className="text-xs font-black uppercase text-muted-foreground tracking-widest">{t.filters.sortBy}:</span>
+              <span className="text-xs font-semibold uppercase text-muted-foreground tracking-widest">{t.filters.sortBy}:</span>
               <select 
-                className="bg-transparent font-black text-xs uppercase tracking-widest outline-none cursor-pointer"
+                className="bg-transparent font-semibold text-xs uppercase tracking-widest outline-none cursor-pointer"
                 value={filters.sortBy}
                 onChange={(e) => {
                   const params = new URLSearchParams(searchParams.toString());
@@ -488,7 +488,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           {/* All Stores Section */}
           {stores && stores.length > 0 && (
             <div className="space-y-4 mb-8">
-              <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">{t.products.allStores}</h3>
+              <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">{t.products.allStores}</h3>
               <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
                 {stores.map(store => (
                   <button 
@@ -504,8 +504,8 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                       )}
                     </div>
                     <div className="text-left space-y-0.5">
-                      <p className="text-xs font-black group-hover:text-primary transition-colors">{store.name}</p>
-                      <p className="text-xs font-bold text-muted-foreground">{store.rating ? store.rating.toFixed(1) + ' ★' : 'ร้านใหม่'}</p>
+                      <p className="text-xs font-semibold group-hover:text-primary transition-colors">{store.name}</p>
+                      <p className="text-xs font-medium text-muted-foreground">{store.rating ? store.rating.toFixed(1) + ' ★' : 'ร้านใหม่'}</p>
                     </div>
                   </button>
                 ))}
@@ -545,11 +545,11 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                         }
                       }}
                     />
-                    <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-background/80 backdrop-blur-md text-[8px] lg:text-xs font-black uppercase tracking-widest border shadow-sm">
+                    <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-background/80 backdrop-blur-md text-[8px] lg:text-xs font-semibold uppercase tracking-widest border shadow-sm">
                       {(t.categories as Record<string, string>)[product.category] || product.category}
                     </div>
                     {product.isOfficial && (
-                      <div className="absolute top-2 right-2 px-2 py-0.5 bg-amber-500 text-white text-[8px] font-black uppercase tracking-tighter rounded-md shadow-sm">
+                      <div className="absolute top-2 right-2 px-2 py-0.5 bg-amber-500 text-white text-[8px] font-semibold uppercase tracking-tighter rounded-md shadow-sm">
                         Official
                       </div>
                     )}
@@ -586,20 +586,20 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                     }}
                   >
                     <div className="space-y-1">
-                      <div className="text-xs font-black text-muted-foreground uppercase flex items-center gap-1 mb-1 truncate">
+                      <div className="text-xs font-semibold text-muted-foreground uppercase flex items-center gap-1 mb-1 truncate">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7"/></svg>
                         {stores?.find(s => s.store_id === product.storeId)?.name || 'ITMSU Store'}
                       </div>
-                      <h3 className="text-xs lg:text-base font-black leading-tight group-hover:text-primary transition-colors line-clamp-2 h-8 lg:h-10">
+                      <h3 className="text-xs lg:text-base font-semibold leading-tight group-hover:text-primary transition-colors line-clamp-2 h-8 lg:h-10">
                         {product.name}
                       </h3>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1 text-amber-500">
                           <Star className="h-3 w-3 fill-current" />
-                          <span className="text-xs font-black">{Number(product.rating).toFixed(1)}</span>
+                          <span className="text-xs font-semibold">{Number(product.rating).toFixed(1)}</span>
                         </div>
                         <div className={cn(
-                          "flex items-center gap-1 text-xs font-black uppercase",
+                          "flex items-center gap-1 text-xs font-semibold uppercase",
                           product.stock > 0 ? "text-emerald-500" : "text-rose-500"
                         )}>
                           <Package className="h-3 w-3" />
@@ -609,7 +609,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                     </div>
 
                     <div className="flex items-center justify-between pt-3 border-t border-muted">
-                      <div className="text-sm lg:text-xl font-black text-primary tracking-tighter">
+                      <div className="text-sm lg:text-xl font-semibold text-primary tracking-tighter">
                         {formatCurrency(product.price)}
                       </div>
                       <div className="h-8 w-8 lg:h-10 lg:w-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
@@ -628,8 +628,8 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 <Search className="h-8 w-8 text-muted-foreground/50" />
               </div>
               <div>
-                <h3 className="text-xl font-black text-muted-foreground uppercase tracking-widest">{t.dashboard.table.noData}</h3>
-                <p className="text-xs font-bold text-muted-foreground uppercase">{t.filters.noResultsDesc}</p>
+                <h3 className="text-xl font-semibold text-muted-foreground uppercase tracking-widest">{t.dashboard.table.noData}</h3>
+                <p className="text-xs font-medium text-muted-foreground uppercase">{t.filters.noResultsDesc}</p>
               </div>
               <button
                 onClick={() => {
@@ -644,7 +644,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                   setAiMatchedIds(null);
                   setAiSearchQuery("");
                 }}
-                className="mt-4 px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-black text-xs uppercase tracking-widest hover:opacity-90 transition-all cursor-pointer shadow-md inline-flex items-center gap-2"
+                className="mt-4 px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs uppercase tracking-widest hover:opacity-90 transition-all cursor-pointer shadow-md inline-flex items-center gap-2"
               >
                 <CloseIcon className="h-4 w-4" />
                 {t.filters.clearFilters || t.filters.resetFilters}
@@ -658,7 +658,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
               <button
                 onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
-                className="px-4 py-2 rounded-xl border-2 font-black text-xs uppercase tracking-widest bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                className="px-4 py-2 rounded-xl border-2 font-semibold text-xs uppercase tracking-widest bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
               >
                 ← {t.filters.prevPage}
               </button>
@@ -671,13 +671,13 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 }, [])
                 .map((item, i) =>
                   item === '...' ? (
-                    <span key={`ellipsis-${i}`} className="px-2 text-muted-foreground font-black text-xs">…</span>
+                    <span key={`ellipsis-${i}`} className="px-2 text-muted-foreground font-semibold text-xs">…</span>
                   ) : (
                     <button
                       key={item}
                       onClick={() => setCurrentPage(item as number)}
                       className={cn(
-                        "w-9 h-9 rounded-xl border-2 font-black text-xs transition-all cursor-pointer",
+                        "w-9 h-9 rounded-xl border-2 font-semibold text-xs transition-all cursor-pointer",
                         currentPage === item
                           ? "bg-primary border-primary text-primary-foreground"
                           : "bg-card border-transparent hover:border-primary/20 hover:bg-muted"
@@ -691,7 +691,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
               <button
                 onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage === totalPages}
-                className="px-4 py-2 rounded-xl border-2 font-black text-xs uppercase tracking-widest bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                className="px-4 py-2 rounded-xl border-2 font-semibold text-xs uppercase tracking-widest bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
               >
                 {t.filters.nextPage} →
               </button>

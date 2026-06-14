@@ -75,7 +75,7 @@ export default function AIBundleSuggest({ currentProduct, allProducts }: { curre
     return (
       <div className="p-6 rounded-[2rem] bg-muted/30 border border-dashed flex items-center gap-4 animate-pulse">
         <Sparkles className="h-6 w-6 text-primary animate-spin" />
-        <span className="font-bold text-muted-foreground">{t.products.aiBundleLoading}</span>
+        <span className="font-medium text-muted-foreground">{t.products.aiBundleLoading}</span>
       </div>
     );
   }
@@ -84,7 +84,7 @@ export default function AIBundleSuggest({ currentProduct, allProducts }: { curre
 
   return (
     <div className="p-6 lg:p-8 rounded-[2rem] bg-gradient-to-r from-primary/5 to-transparent border border-primary/10 space-y-6">
-      <div className="flex items-center gap-2 text-primary font-black tracking-tight">
+      <div className="flex items-center gap-2 text-primary font-semibold tracking-tight">
         <Sparkles className="h-5 w-5 fill-current" />
         {t.products.aiBundleTitle}
       </div>
@@ -101,9 +101,9 @@ export default function AIBundleSuggest({ currentProduct, allProducts }: { curre
         </div>
 
         <div className="flex-1 space-y-1 text-center sm:text-left">
-          <p className="text-sm font-bold line-clamp-1">{currentProduct.name} <span className="text-muted-foreground">x 1</span></p>
-          <p className="text-sm font-bold line-clamp-1 text-primary">+ {bundleProduct.name} <span className="text-muted-foreground">x 1</span></p>
-          <div className="text-xl font-black pt-2">
+          <p className="text-sm font-medium line-clamp-1">{currentProduct.name} <span className="text-muted-foreground">x 1</span></p>
+          <p className="text-sm font-medium line-clamp-1 text-primary">+ {bundleProduct.name} <span className="text-muted-foreground">x 1</span></p>
+          <div className="text-xl font-semibold pt-2">
             {formatCurrency(currentProduct.price + bundleProduct.price)}
           </div>
         </div>
@@ -113,7 +113,7 @@ export default function AIBundleSuggest({ currentProduct, allProducts }: { curre
             addToCart(currentProduct);
             addToCart(bundleProduct);
           }}
-          className="w-full sm:w-auto px-6 h-12 rounded-xl bg-foreground text-background font-black hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl"
+          className="w-full sm:w-auto px-6 h-12 rounded-xl bg-foreground text-background font-semibold hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl"
         >
           <ShoppingCart className="h-4 w-4" /> {t.products.aiBundleAdd}
         </button>

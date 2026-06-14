@@ -14,7 +14,7 @@ export default function UserSessionBanner() {
   return (
     <div className="w-full flex justify-center py-2 px-4 z-[60]">
       <div className={cn(
-        "rounded-full px-4 py-1.5 flex items-center gap-3 text-xs font-bold shadow-md",
+        "rounded-full px-4 py-1.5 flex items-center gap-3 text-xs font-medium shadow-md",
         role === "founder" ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white" :
         tier === "VIP" ? "bg-gradient-to-r from-purple-600 to-purple-700 text-white" :
         "bg-muted/90 text-muted-foreground"
@@ -37,7 +37,7 @@ export default function UserSessionBanner() {
           {tier === "VIP" && (
             <>
               <span className="w-1 h-1 rounded-full bg-current opacity-50" />
-              <span className="text-xs font-black text-amber-200">VIP</span>
+              <span className="text-xs font-semibold text-amber-200">VIP</span>
             </>
           )}
         </div>

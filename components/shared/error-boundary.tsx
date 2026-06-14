@@ -48,7 +48,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
 
             <div className="space-y-2">
-              <h1 className="text-2xl font-bold">Something went wrong</h1>
+              <h1 className="text-2xl font-medium">Something went wrong</h1>
               <p className="text-muted-foreground">
                 {this.state.error?.message || "An unexpected error occurred"}
               </p>
@@ -112,7 +112,7 @@ export function ErrorFallback({ title, message, onRetry, onHome }: ErrorFallback
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold">{title || "Something went wrong"}</h1>
+          <h1 className="text-2xl font-medium">{title || "Something went wrong"}</h1>
           <p className="text-muted-foreground">
             {message || "An unexpected error occurred. Please try again."}
           </p>

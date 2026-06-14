@@ -127,7 +127,7 @@ export default function ProductEditModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
       <div className="bg-card w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-4xl border-2 border-primary/20 shadow-2xl animate-in zoom-in-95 duration-300">
         <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary">
-          <h3 className="text-2xl font-black tracking-tight flex items-center gap-3 uppercase tracking-tighter">
+          <h3 className="text-2xl font-semibold tracking-tight flex items-center gap-3 uppercase tracking-tighter">
             <Edit className="h-6 w-6" /> {t.dashboard.editProduct}
           </h3>
           <button onClick={onClose} className="p-2 hover:bg-black/5 rounded-full cursor-pointer"><X /></button>
@@ -135,19 +135,19 @@ export default function ProductEditModal({
         <form onSubmit={handleUpdate} className="p-8 space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2 space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.name}</label>
-              <input type="text" required placeholder={t.dashboard.productNamePlaceholder} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" value={editData.name} onChange={(e) => setEditData({...editData, name: e.target.value})} />
+              <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.name}</label>
+              <input type="text" required placeholder={t.dashboard.productNamePlaceholder} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" value={editData.name} onChange={(e) => setEditData({...editData, name: e.target.value})} />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.price} (฿)</label>
-              <input type="number" required className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" value={editData.price} onChange={(e) => setEditData({...editData, price: Number(e.target.value)})} />
+              <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.price} (฿)</label>
+              <input type="number" required className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" value={editData.price} onChange={(e) => setEditData({...editData, price: Number(e.target.value)})} />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.stock}</label>
-              <input type="number" required className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" value={editData.stock} onChange={(e) => setEditData({...editData, stock: Number(e.target.value)})} />
+              <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.stock}</label>
+              <input type="number" required className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" value={editData.stock} onChange={(e) => setEditData({...editData, stock: Number(e.target.value)})} />
             </div>
             <div className="col-span-2 space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.uploadImage}</label>
+              <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.uploadImage}</label>
               <div className="flex items-center gap-4">
                 <div className="h-24 w-24 rounded-2xl bg-muted border-2 border-dashed border-primary/20 flex items-center justify-center overflow-hidden shrink-0 relative group">
                   {editData.image ? (<img src={getImgSrc(editData.image)} className="h-full w-full object-cover" alt="Preview" />) : (<ImageIcon className="h-8 w-8 text-primary/20" />)}
@@ -155,7 +155,7 @@ export default function ProductEditModal({
                 </div>
                 <div className="flex-1 space-y-2">
                   <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" id="edit-product-image-upload" disabled={isUploading} />
-                  <label htmlFor="edit-product-image-upload" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-black uppercase tracking-widest hover:bg-primary/20 transition-all cursor-pointer disabled:opacity-50">
+                  <label htmlFor="edit-product-image-upload" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-semibold uppercase tracking-widest hover:bg-primary/20 transition-all cursor-pointer disabled:opacity-50">
                     <ImageIcon className="h-3.5 w-3.5" />{isUploading ? t.dashboard.uploading : t.dashboard.selectPhoto}
                   </label>
                   <p className="text-xs text-muted-foreground font-medium italic leading-tight">{t.dashboard.photoDesc}</p>
@@ -163,8 +163,8 @@ export default function ProductEditModal({
               </div>
             </div>
             <div className="col-span-2 space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.category}</label>
-              <select className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-black uppercase text-xs" value={editData.category || "Electronics"} onChange={(e) => setEditData({...editData, category: e.target.value})}>
+              <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.category}</label>
+              <select className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-semibold uppercase text-xs" value={editData.category || "Electronics"} onChange={(e) => setEditData({...editData, category: e.target.value})}>
                 <option value="Electronics">{t.dashboard.categories?.electronics || "Electronics"}</option>
                 <option value="Fashion">{t.dashboard.categories?.fashion || "Fashion"}</option>
                 <option value="Home">{t.dashboard.categories?.home || "Home"}</option>
@@ -174,20 +174,20 @@ export default function ProductEditModal({
               </select>
             </div>
             <div className="col-span-2 grid grid-cols-2 gap-4">
-              <div className="space-y-2"><label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.weight} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label><input type="text" placeholder={t.dashboard.extendedFields?.weightPlaceholder} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" value={editData.weight || ""} onChange={(e) => setEditData({...editData, weight: e.target.value})} /></div>
-              <div className="space-y-2"><label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.dimensions} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label><input type="text" placeholder={t.dashboard.extendedFields?.dimensionsPlaceholder} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" value={editData.dimensions || ""} onChange={(e) => setEditData({...editData, dimensions: e.target.value})} /></div>
+              <div className="space-y-2"><label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.weight} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label><input type="text" placeholder={t.dashboard.extendedFields?.weightPlaceholder} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" value={editData.weight || ""} onChange={(e) => setEditData({...editData, weight: e.target.value})} /></div>
+              <div className="space-y-2"><label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.dimensions} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label><input type="text" placeholder={t.dashboard.extendedFields?.dimensionsPlaceholder} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" value={editData.dimensions || ""} onChange={(e) => setEditData({...editData, dimensions: e.target.value})} /></div>
             </div>
-            <div className="col-span-2 space-y-2"><label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.warranty} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label><input type="text" placeholder={t.dashboard.extendedFields?.warrantyPlaceholder} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" value={editData.warranty || ""} onChange={(e) => setEditData({...editData, warranty: e.target.value})} /></div>
-            <div className="col-span-2 space-y-2"><label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.additionalDetails} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label><textarea rows={2} placeholder={t.dashboard.extendedFields?.additionalDetailsPlaceholder} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold resize-none" value={editData.additionalDetails || ""} onChange={(e) => setEditData({...editData, additionalDetails: e.target.value})} /></div>
+            <div className="col-span-2 space-y-2"><label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.warranty} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label><input type="text" placeholder={t.dashboard.extendedFields?.warrantyPlaceholder} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" value={editData.warranty || ""} onChange={(e) => setEditData({...editData, warranty: e.target.value})} /></div>
+            <div className="col-span-2 space-y-2"><label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.additionalDetails} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label><textarea rows={2} placeholder={t.dashboard.extendedFields?.additionalDetailsPlaceholder} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium resize-none" value={editData.additionalDetails || ""} onChange={(e) => setEditData({...editData, additionalDetails: e.target.value})} /></div>
             <div className="col-span-2 space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.descPlaceholderLabel}</label>
+                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.descPlaceholderLabel}</label>
                 <button 
                   type="button" 
                   onClick={generateAIDescription} 
                   disabled={isGeneratingDesc || !editData.name.trim()} 
                   className={cn(
-                    "flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-black uppercase tracking-widest transition-all",
+                    "flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-widest transition-all",
                     (isGeneratingDesc || !editData.name.trim()) 
                       ? "bg-muted text-muted-foreground cursor-not-allowed opacity-50" 
                       : "bg-linear-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 cursor-pointer shadow-md active:scale-95"
@@ -196,15 +196,15 @@ export default function ProductEditModal({
                   <Sparkles className="h-3 w-3" />{isGeneratingDesc ? t.dashboard.generating : t.dashboard.aiWrite}
                 </button>
               </div>
-              <textarea rows={3} placeholder={t.dashboard.descPlaceholder} className={cn("w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold resize-none", isGeneratingDesc && "animate-pulse")} value={editData.description} onChange={(e) => setEditData({...editData, description: e.target.value})} />
-              {isGeneratingDesc && (<div className="flex items-center gap-2 px-2 text-xs font-black text-primary animate-bounce"><Sparkles className="h-3 w-3" />AI IS TYPING...</div>)}
+              <textarea rows={3} placeholder={t.dashboard.descPlaceholder} className={cn("w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium resize-none", isGeneratingDesc && "animate-pulse")} value={editData.description} onChange={(e) => setEditData({...editData, description: e.target.value})} />
+              {isGeneratingDesc && (<div className="flex items-center gap-2 px-2 text-xs font-semibold text-primary animate-bounce"><Sparkles className="h-3 w-3" />AI IS TYPING...</div>)}
             </div>
           </div>
           <button 
             type="submit" 
             disabled={isSubmitDisabled}
             className={cn(
-              "w-full h-16 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3",
+              "w-full h-16 rounded-2xl font-semibold text-lg transition-all flex items-center justify-center gap-3",
               isSubmitDisabled ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary text-primary-foreground shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 cursor-pointer"
             )}
           >

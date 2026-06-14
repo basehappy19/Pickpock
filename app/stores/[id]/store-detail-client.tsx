@@ -136,15 +136,15 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
   if (loading) return (
     <div className="h-[60vh] flex flex-col items-center justify-center gap-4">
       <div className="h-12 w-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-      <p className="font-black text-xs uppercase tracking-widest text-muted-foreground">{t.common.loading}</p>
+      <p className="font-semibold text-xs uppercase tracking-widest text-muted-foreground">{t.common.loading}</p>
     </div>
   );
 
   if (!store && storeId !== 'mall' && storeId !== 's-001' && !storeNotFound) return (
     <div className="h-[60vh] flex flex-col items-center justify-center text-center p-8 space-y-6">
       <Box className="h-16 w-16 text-muted-foreground/20" />
-      <h2 className="text-3xl font-black tracking-tight">{t.store.notFound}</h2>
-      <button onClick={() => router.back()} className="h-12 px-6 rounded-xl bg-primary text-white font-black">{t.store.goBack}</button>
+      <h2 className="text-3xl font-semibold tracking-tight">{t.store.notFound}</h2>
+      <button onClick={() => router.back()} className="h-12 px-6 rounded-xl bg-primary text-white font-semibold">{t.store.goBack}</button>
     </div>
   );
 
@@ -187,7 +187,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
            </div>
            <div className="text-white space-y-3 flex-1">
               <div className="flex items-center gap-4">
-                 <h1 className="text-4xl lg:text-7xl font-black tracking-tighter uppercase leading-none">{displayStore.name}</h1>
+                 <h1 className="text-4xl lg:text-7xl font-semibold tracking-tighter uppercase leading-none">{displayStore.name}</h1>
                  {isStoreOwner && (
                    <button
                      onClick={openEditModal}
@@ -201,7 +201,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
                     <ShieldCheck className="h-6 w-6 lg:h-8 lg:w-8" />
                  </div>
               </div>
-              <div className="flex flex-wrap items-center gap-8 text-sm font-black uppercase tracking-widest opacity-90">
+              <div className="flex flex-wrap items-center gap-8 text-sm font-semibold uppercase tracking-widest opacity-90">
                  <span className="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-xl backdrop-blur-md">
                     <Star className="h-4 w-4 fill-amber-500 text-amber-500" /> {Number(displayStore.rating).toFixed(1)} (2.4k+ {t.store.ratings})
                  </span>
@@ -220,19 +220,19 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
         {/* Left: About */}
         <aside className="space-y-8">
            <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 space-y-6 shadow-xl shadow-primary/5">
-              <h3 className="text-xs font-black uppercase tracking-widest text-primary">{t.store.about}</h3>
-              <p className="text-muted-foreground font-bold leading-relaxed text-sm">{displayStore.description}</p>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-primary">{t.store.about}</h3>
+              <p className="text-muted-foreground font-medium leading-relaxed text-sm">{displayStore.description}</p>
               <div className="pt-4 space-y-4 border-t border-muted">
-                 <div className="flex items-center gap-3 text-xs font-black uppercase tracking-widest">
+                 <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-widest">
                     <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary"><MapPin className="h-4 w-4" /></div>
                     {t.store.globalShipping}
                  </div>
-                 <div className="flex items-center gap-3 text-xs font-black uppercase tracking-widest">
+                 <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-widest">
                     <div className="h-8 w-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600"><ShieldCheck className="h-4 w-4" /></div>
                     {t.store.responseRate}
                  </div>
               </div>
-              <button onClick={openContactModal} className="w-full py-4 rounded-2xl bg-muted text-muted-foreground font-black text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-all cursor-pointer">
+              <button onClick={openContactModal} className="w-full py-4 rounded-2xl bg-muted text-muted-foreground font-semibold text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-all cursor-pointer">
                 {t.store.contact}
               </button>
            </div>
@@ -241,8 +241,8 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
         {/* Right: Products */}
         <div className="lg:col-span-3 space-y-8">
            <div className="flex items-center justify-between border-b border-muted pb-6">
-              <h2 className="text-4xl font-black tracking-tight">{t.store.collection.split(" ")[0]} <span className="text-primary uppercase">{t.store.collection.split(" ").slice(1).join(" ")}</span></h2>
-              <div className="px-4 py-1.5 rounded-full bg-muted font-black text-xs uppercase tracking-widest text-muted-foreground">
+              <h2 className="text-4xl font-semibold tracking-tight">{t.store.collection.split(" ")[0]} <span className="text-primary uppercase">{t.store.collection.split(" ").slice(1).join(" ")}</span></h2>
+              <div className="px-4 py-1.5 rounded-full bg-muted font-semibold text-xs uppercase tracking-widest text-muted-foreground">
                 {storeProducts.length} {t.store.itemsAvailable}
               </div>
            </div>
@@ -259,14 +259,14 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
                 >
                   <div className="aspect-square relative bg-muted overflow-hidden">
                     <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" sizes="(max-width: 768px) 50vw, 20vw" />
-                    <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-background/80 backdrop-blur-md text-[8px] font-black uppercase tracking-widest shadow-sm border">
+                    <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-background/80 backdrop-blur-md text-[8px] font-semibold uppercase tracking-widest shadow-sm border">
                       {(t.categories as Record<string, string>)[product.category] || product.category}
                     </div>
                   </div>
                   <div className="p-5 lg:p-6 space-y-3 flex-1 flex flex-col justify-between">
-                    <h4 className="font-black text-sm lg:text-base uppercase line-clamp-2 leading-tight group-hover:text-primary transition-colors">{product.name}</h4>
+                    <h4 className="font-semibold text-sm lg:text-base uppercase line-clamp-2 leading-tight group-hover:text-primary transition-colors">{product.name}</h4>
                     <div className="flex items-center justify-between pt-2">
-                       <p className="text-primary font-black text-lg lg:text-2xl tracking-tighter">{formatCurrency(product.price)}</p>
+                       <p className="text-primary font-semibold text-lg lg:text-2xl tracking-tighter">{formatCurrency(product.price)}</p>
                        <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><ArrowLeft className="h-4 w-4 rotate-180" /></div>
                     </div>
                   </div>
@@ -277,7 +277,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
            {storeProducts.length === 0 && (
              <div className="py-20 text-center space-y-4 bg-muted/30 rounded-[3rem] border-4 border-dashed">
                 <Box className="h-16 w-16 mx-auto text-muted-foreground/20" />
-                <p className="font-black text-muted-foreground uppercase tracking-widest">{t.store.noProducts}</p>
+                <p className="font-semibold text-muted-foreground uppercase tracking-widest">{t.store.noProducts}</p>
              </div>
            )}
         </div>
@@ -288,7 +288,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="bg-card rounded-[2.5rem] p-8 w-full max-w-lg shadow-2xl space-y-6 animate-in fade-in zoom-in duration-300">
             <div className="flex items-center justify-between border-b border-muted pb-4">
-              <h3 className="text-xl font-black tracking-tight">{t.store.editStoreDetails}</h3>
+              <h3 className="text-xl font-semibold tracking-tight">{t.store.editStoreDetails}</h3>
               <button
                 onClick={() => setIsEditing(false)}
                 className="p-2 rounded-xl hover:bg-muted transition-all cursor-pointer"
@@ -300,23 +300,23 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
 
             <div className="space-y-5">
               <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.store.storeName}</label>
+                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.store.storeName}</label>
                 <input
                   type="text"
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-muted border-2 border-transparent focus:border-primary focus:outline-none font-bold transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-muted border-2 border-transparent focus:border-primary focus:outline-none font-medium transition-all"
                   placeholder={t.store.storeNamePlaceholder}
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.store.storeDescription}</label>
+                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.store.storeDescription}</label>
                 <textarea
                   value={editDescription}
                   onChange={(e) => setEditDescription(e.target.value)}
                   rows={4}
-                  className="w-full px-4 py-3 rounded-xl bg-muted border-2 border-transparent focus:border-primary focus:outline-none font-bold resize-none transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-muted border-2 border-transparent focus:border-primary focus:outline-none font-medium resize-none transition-all"
                   placeholder={t.store.storeDescPlaceholder}
                 />
               </div>
@@ -326,14 +326,14 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
               <button
                 onClick={() => setIsEditing(false)}
                 disabled={isSaving}
-                className="flex-1 py-3 rounded-xl bg-muted font-black uppercase tracking-widest hover:bg-muted/80 transition-all disabled:opacity-50 cursor-pointer"
+                className="flex-1 py-3 rounded-xl bg-muted font-semibold uppercase tracking-widest hover:bg-muted/80 transition-all disabled:opacity-50 cursor-pointer"
               >
                 {t.common.cancel}
               </button>
               <button
                 onClick={handleSaveEdit}
                 disabled={isSaving || !editName.trim()}
-                className="flex-1 py-3 rounded-xl bg-primary text-white font-black uppercase tracking-widest hover:bg-primary/90 transition-all disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+                className="flex-1 py-3 rounded-xl bg-primary text-white font-semibold uppercase tracking-widest hover:bg-primary/90 transition-all disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
               >
                 {isSaving ? (
                   <>
@@ -362,7 +362,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
                   <MessageCircle className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-black tracking-tight">{t.store.contact}</h3>
+                  <h3 className="text-xl font-semibold tracking-tight">{t.store.contact}</h3>
                   <p className="text-xs text-muted-foreground font-medium">{displayStore.name}</p>
                 </div>
               </div>
@@ -380,7 +380,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
                 <div className="w-16 h-16 mx-auto rounded-full bg-green-100 text-green-600 flex items-center justify-center">
                   <Send className="h-8 w-8" />
                 </div>
-                <h4 className="text-xl font-black text-green-600">{t.common.confirm}</h4>
+                <h4 className="text-xl font-semibold text-green-600">{t.common.confirm}</h4>
                 <p className="text-muted-foreground">{language === 'th' ? 'ส่งข้อความถึงเจ้าของร้านแล้ว' : 'Message sent to store owner!'}</p>
               </div>
             ) : (
@@ -392,7 +392,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
                     </div>
                   )}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
+                    <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
                       {language === 'th' ? 'ข้อความ' : 'Message'}
                     </label>
                     <textarea
@@ -400,7 +400,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
                       onChange={(e) => setContactMessage(e.target.value)}
                       rows={5}
                       disabled={!user}
-                      className="w-full px-4 py-3 rounded-xl bg-muted border-2 border-transparent focus:border-primary focus:outline-none font-bold resize-none transition-all disabled:opacity-50"
+                      className="w-full px-4 py-3 rounded-xl bg-muted border-2 border-transparent focus:border-primary focus:outline-none font-medium resize-none transition-all disabled:opacity-50"
                       placeholder={language === 'th' ? 'พิมพ์ข้อความที่คุณต้องการถามเจ้าของร้าน...' : 'Type your message to the store owner...'}
                     />
                   </div>
@@ -410,14 +410,14 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
                   <button
                     onClick={() => setIsContactOpen(false)}
                     disabled={isSending}
-                    className="flex-1 py-3 rounded-xl bg-muted font-black uppercase tracking-widest hover:bg-muted/80 transition-all disabled:opacity-50 cursor-pointer"
+                    className="flex-1 py-3 rounded-xl bg-muted font-semibold uppercase tracking-widest hover:bg-muted/80 transition-all disabled:opacity-50 cursor-pointer"
                   >
                     {t.common.cancel}
                   </button>
                   <button
                     onClick={handleSendContact}
                     disabled={isSending || !contactMessage.trim() || !user}
-                    className="flex-1 py-3 rounded-xl bg-primary text-white font-black uppercase tracking-widest hover:bg-primary/90 transition-all disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+                    className="flex-1 py-3 rounded-xl bg-primary text-white font-semibold uppercase tracking-widest hover:bg-primary/90 transition-all disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
                   >
                     {isSending ? (
                       <>

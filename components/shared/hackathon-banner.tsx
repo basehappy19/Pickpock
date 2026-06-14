@@ -24,7 +24,7 @@ export default function HackathonBanner() {
 
   return (
     <div className="w-full bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 text-white py-2 px-4 relative">
-      <div className="max-w-7xl mx-auto flex items-center justify-center gap-3 text-xs md:text-sm font-bold">
+      <div className="max-w-7xl mx-auto flex items-center justify-center gap-3 text-xs md:text-sm font-medium">
         <Trophy className="h-4 w-4 md:h-5 md:w-5 text-yellow-300" />
         <span className="text-center">
           Informatics MSU Hackathon 2026 — AI Track

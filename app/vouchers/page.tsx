@@ -204,7 +204,7 @@ export default function VouchersPage() {
     return (
       <div className="h-[60vh] flex flex-col items-center justify-center gap-4">
         <Loader2 className="h-12 w-12 text-primary animate-spin" />
-        <p className="font-black text-xs uppercase tracking-widest text-muted-foreground animate-pulse">{t.vouchers.loadingRewards}</p>
+        <p className="font-semibold text-xs uppercase tracking-widest text-muted-foreground animate-pulse">{t.vouchers.loadingRewards}</p>
       </div>
     );
   }
@@ -219,13 +219,13 @@ export default function VouchersPage() {
         <div className="relative z-10 max-w-2xl space-y-6">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10">
             <Trophy className="h-4 w-4 text-amber-400" />
-            <span className="text-xs font-black uppercase tracking-[0.2em]">{t.vouchers.collected}: {userOwnedCodes.length}</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em]">{t.vouchers.collected}: {userOwnedCodes.length}</span>
           </div>
-          <h1 className="text-5xl lg:text-7xl font-black tracking-tighter leading-none">
+          <h1 className="text-5xl lg:text-7xl font-semibold tracking-tighter leading-none">
             {t.vouchers.title.split(" & ")[0]} <br />
             <span className="text-primary text-rainbow-animate">& {t.vouchers.title.split(" & ")[1]}</span>
           </h1>
-          <p className="text-lg lg:text-xl text-white/60 font-bold max-w-md">
+          <p className="text-lg lg:text-xl text-white/60 font-medium max-w-md">
             {t.vouchers.subtitle}
           </p>
         </div>
@@ -236,7 +236,7 @@ export default function VouchersPage() {
         <div className="lg:col-span-2 space-y-8">
           <div className="flex items-center gap-3">
             <Target className="h-6 w-6 text-primary" />
-            <h2 className="text-3xl font-black tracking-tight uppercase">{t.vouchers.missions}</h2>
+            <h2 className="text-3xl font-semibold tracking-tight uppercase">{t.vouchers.missions}</h2>
           </div>
 
           <div className="grid gap-6">
@@ -258,8 +258,8 @@ export default function VouchersPage() {
                         <mission.icon className="h-8 w-8" />
                       </div>
                       <div className="space-y-1 pt-1">
-                        <h3 className="text-2xl font-black tracking-tight">{mission.title}</h3>
-                        <p className="text-muted-foreground font-bold">{mission.description}</p>
+                        <h3 className="text-2xl font-semibold tracking-tight">{mission.title}</h3>
+                        <p className="text-muted-foreground font-medium">{mission.description}</p>
                         <div className="flex items-center gap-3 mt-4">
                            <div className="h-2 w-32 bg-muted rounded-full overflow-hidden">
                               <div 
@@ -267,14 +267,14 @@ export default function VouchersPage() {
                                 style={{ width: `${(mission.current / mission.target) * 100}%` }} 
                               />
                            </div>
-                           <span className="text-xs font-black uppercase text-muted-foreground">{mission.current}/{mission.target}</span>
+                           <span className="text-xs font-semibold uppercase text-muted-foreground">{mission.current}/{mission.target}</span>
                         </div>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-4">
                       {isClaimed ? (
-                        <div className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-emerald-500/10 text-emerald-600 font-black uppercase tracking-widest text-xs">
+                        <div className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-emerald-500/10 text-emerald-600 font-semibold uppercase tracking-widest text-xs">
                           <CheckCircle2 className="h-4 w-4" /> {t.vouchers.claimed}
                         </div>
                       ) : (
@@ -282,7 +282,7 @@ export default function VouchersPage() {
                           onClick={() => handleClaim(mission)}
                           disabled={!isCompleted || claimingId === mission.id}
                           className={cn(
-                            "h-14 px-8 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-2",
+                            "h-14 px-8 rounded-2xl font-semibold text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-2",
                             isCompleted 
                               ? "bg-primary text-white shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 cursor-pointer" 
                               : "bg-muted text-muted-foreground cursor-not-allowed"
@@ -299,7 +299,7 @@ export default function VouchersPage() {
                   {!isClaimed && (
                     <div className="mt-6 pt-6 border-t border-dashed flex items-center gap-3">
                        <Gift className="h-4 w-4 text-rose-500" />
-                       <span className="text-xs font-black text-rose-500 uppercase tracking-widest">{t.vouchers.rewardCouponCode}{mission.rewardCode}</span>
+                       <span className="text-xs font-semibold text-rose-500 uppercase tracking-widest">{t.vouchers.rewardCouponCode}{mission.rewardCode}</span>
                     </div>
                   )}
                 </div>
@@ -312,7 +312,7 @@ export default function VouchersPage() {
         <div className="space-y-8">
           <div className="flex items-center gap-3">
             <Sparkles className="h-6 w-6 text-amber-500" />
-            <h2 className="text-2xl font-black tracking-tight uppercase">{t.vouchers.available}</h2>
+            <h2 className="text-2xl font-semibold tracking-tight uppercase">{t.vouchers.available}</h2>
           </div>
 
           <div className="space-y-4">
@@ -330,20 +330,20 @@ export default function VouchersPage() {
                   <div className="space-y-4 relative z-10">
                     <div className="flex justify-between items-start">
                       <div className="space-y-1">
-                        <p className="text-xs font-black text-primary uppercase tracking-widest leading-none mb-1">{coupon.code}</p>
-                        <p className="text-2xl font-black tracking-tighter text-foreground leading-none">
+                        <p className="text-xs font-semibold text-primary uppercase tracking-widest leading-none mb-1">{coupon.code}</p>
+                        <p className="text-2xl font-semibold tracking-tighter text-foreground leading-none">
                           {coupon.type === 'percent' ? `${coupon.discount}% OFF` : `฿${coupon.discount} OFF`}
                         </p>
                       </div>
                       {isOwned && <div className="p-2 rounded-xl bg-emerald-500 text-white shadow-lg"><CheckCircle2 className="h-4 w-4" /></div>}
                     </div>
                     
-                    <p className="text-xs font-bold text-muted-foreground">{coupon.description}</p>
+                    <p className="text-xs font-medium text-muted-foreground">{coupon.description}</p>
                     
                     {!isOwned && (
                       <button 
                         onClick={() => handleCollectVoucher(coupon.code)}
-                        className="w-full py-3 rounded-xl bg-secondary font-black text-xs uppercase tracking-widest hover:bg-secondary/80 transition-all cursor-pointer shadow-md active:scale-95"
+                        className="w-full py-3 rounded-xl bg-secondary font-semibold text-xs uppercase tracking-widest hover:bg-secondary/80 transition-all cursor-pointer shadow-md active:scale-95"
                       >
                         {t.vouchers.collect}
                       </button>
@@ -364,7 +364,7 @@ export default function VouchersPage() {
              <div className="p-4 rounded-full bg-white w-16 h-16 flex items-center justify-center mx-auto shadow-xl shadow-indigo-100">
                 <Timer className="h-8 w-8 text-indigo-500 animate-pulse" />
              </div>
-             <p className="text-xs font-black text-indigo-900 uppercase tracking-widest">{t.vouchers.noMissions}</p>
+             <p className="text-xs font-semibold text-indigo-900 uppercase tracking-widest">{t.vouchers.noMissions}</p>
           </div>
         </div>
       </div>

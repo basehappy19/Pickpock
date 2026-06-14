@@ -28,10 +28,10 @@ export default function ComparePage() {
           <GitCompare className="h-16 w-16 text-muted-foreground/50" />
         </div>
         <div className="space-y-2">
-          <h2 className="text-3xl font-black tracking-tight">{t.compare.empty}</h2>
+          <h2 className="text-3xl font-semibold tracking-tight">{t.compare.empty}</h2>
           <p className="text-muted-foreground font-medium">{t.compare.emptyDesc}</p>
         </div>
-        <Link href="/products" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-black hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer">
+        <Link href="/products" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer">
           <Plus className="h-5 w-5" />
           {t.wishlist.startBrowsing}
         </Link>
@@ -56,25 +56,25 @@ export default function ComparePage() {
     <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700 pb-20 lg:pb-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black tracking-tight uppercase tracking-tighter flex items-center gap-3">
+          <h1 className="text-4xl font-semibold tracking-tight uppercase tracking-tighter flex items-center gap-3">
             <GitCompare className="h-8 w-8 text-primary" />
             {t.compare.title}
           </h1>
-          <p className="text-muted-foreground font-bold">
+          <p className="text-muted-foreground font-medium">
             {t.common.totalItems.replace("{count}", String(compareList.length))}
           </p>
         </div>
         <div className="flex gap-3">
           <Link
             href="/products"
-            className="px-4 py-2 rounded-xl border border-primary/20 text-primary hover:bg-primary/5 font-black text-sm transition-all cursor-pointer flex items-center gap-2"
+            className="px-4 py-2 rounded-xl border border-primary/20 text-primary hover:bg-primary/5 font-semibold text-sm transition-all cursor-pointer flex items-center gap-2"
           >
             <Plus className="h-4 w-4" />
             {t.compare.add}
           </Link>
           <button
             onClick={clearCompare}
-            className="px-4 py-2 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 font-black text-sm transition-all cursor-pointer flex items-center gap-2"
+            className="px-4 py-2 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 font-semibold text-sm transition-all cursor-pointer flex items-center gap-2"
           >
             <Trash2 className="h-4 w-4" />
             {t.compare.clearAll}
@@ -105,8 +105,8 @@ export default function ComparePage() {
                     <NextImage src={product.image} alt={product.name} fill className="object-cover" />
                   </div>
                   <div className="space-y-1">
-                    <p className="text-xs font-black uppercase text-muted-foreground tracking-wider">{product.category}</p>
-                    <h3 className="font-black text-sm leading-tight line-clamp-2">{product.name}</h3>
+                    <p className="text-xs font-semibold uppercase text-muted-foreground tracking-wider">{product.category}</p>
+                    <h3 className="font-semibold text-sm leading-tight line-clamp-2">{product.name}</h3>
                   </div>
                 </div>
               </div>
@@ -121,10 +121,10 @@ export default function ComparePage() {
                 className="grid gap-4 items-center p-4 rounded-xl bg-card border"
                 style={{ gridTemplateColumns: `200px repeat(${compareList.length}, 1fr)` }}
               >
-                <div className="font-bold text-sm text-muted-foreground">{spec.label}</div>
+                <div className="font-medium text-sm text-muted-foreground">{spec.label}</div>
                 {compareList.map((product) => (
                   <div key={product.id} className="text-center">
-                    <span className="font-black">
+                    <span className="font-semibold">
                       {spec.format ? spec.format(product[spec.key as keyof typeof product]) : (product[spec.key as keyof typeof product] as string)}
                     </span>
                   </div>
@@ -140,7 +140,7 @@ export default function ComparePage() {
               <Link
                 key={product.id}
                 href={`/product/${product.id}`}
-                className="h-12 rounded-xl bg-primary text-primary-foreground font-black text-sm hover:opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/20"
+                className="h-12 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/20"
               >
                 {t.compare.viewDetails}
               </Link>

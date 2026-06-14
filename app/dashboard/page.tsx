@@ -25,7 +25,7 @@ export default function DashboardPage() {
   return (
     <div className="h-[80vh] flex flex-col items-center justify-center gap-4">
       <Loader2 className="h-12 w-12 text-primary animate-spin" />
-      <p className="font-black text-xs uppercase tracking-widest text-muted-foreground animate-pulse">Redirecting to your dashboard...</p>
+      <p className="font-semibold text-xs uppercase tracking-widest text-muted-foreground animate-pulse">Redirecting to your dashboard...</p>
     </div>
   );
 }

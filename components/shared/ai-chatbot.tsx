@@ -99,8 +99,8 @@ export default function AIChatbot() {
                     <img src={getImgSrc(product.image)} className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" alt={product.name} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-xs text-slate-900 uppercase truncate mb-0.5">{product.name}</p>
-                    <p className="font-black text-primary text-xs">{formatCurrency(product.price)}</p>
+                    <p className="font-medium text-xs text-slate-900 uppercase truncate mb-0.5">{product.name}</p>
+                    <p className="font-semibold text-primary text-xs">{formatCurrency(product.price)}</p>
                   </div>
                   <div className="p-2 rounded-lg bg-slate-50 text-slate-400 group-hover:bg-primary group-hover:text-white transition-all">
                     <ShoppingBag className="h-4 w-4" />
@@ -118,7 +118,7 @@ export default function AIChatbot() {
         <span key={idx} className="whitespace-pre-line leading-relaxed tracking-tight inline-block">
           {boldParts.map((bp, i) => {
             if (bp.startsWith('**') && bp.endsWith('**')) {
-              return <strong key={i} className="font-bold text-slate-900">{bp.slice(2, -2)}</strong>;
+              return <strong key={i} className="font-medium text-slate-900">{bp.slice(2, -2)}</strong>;
             }
             return bp;
           })}
@@ -139,8 +139,8 @@ export default function AIChatbot() {
                 <Bot className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="font-bold text-sm text-slate-900 uppercase tracking-wider">PickPock AI</h3>
-                <p className="text-xs text-emerald-600 font-black uppercase tracking-widest flex items-center gap-1">
+                <h3 className="font-medium text-sm text-slate-900 uppercase tracking-wider">PickPock AI</h3>
+                <p className="text-xs text-emerald-600 font-semibold uppercase tracking-widest flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Online Assistant
                 </p>
               </div>
@@ -162,7 +162,7 @@ export default function AIChatbot() {
                 )}>
                   {msg.role === "assistant" ? renderMessageContent(msg.content) : msg.content}
                 </div>
-                <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest mt-1.5 mx-1">
+                <span className="text-[8px] font-medium text-slate-300 uppercase tracking-widest mt-1.5 mx-1">
                   {msg.role === "assistant" ? "PickPock AI" : "You"}
                 </span>
               </div>
@@ -175,7 +175,7 @@ export default function AIChatbot() {
                      <span className="h-1.5 w-1.5 rounded-full bg-primary animate-bounce [animation-delay:-0.15s]" />
                      <span className="h-1.5 w-1.5 rounded-full bg-primary animate-bounce" />
                    </div>
-                   <span className="text-xs font-black text-slate-400 uppercase tracking-widest">AI กำลังหาข้อมูล...</span>
+                   <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">AI กำลังหาข้อมูล...</span>
                 </div>
               </div>
             )}

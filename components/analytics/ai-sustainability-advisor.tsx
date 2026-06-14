@@ -165,7 +165,7 @@ Focus on actionable business insights. Professional and concise.`;
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center flex-col">
-                <span className={cn("text-2xl font-bold", scoreColor(metrics.score))}>
+                <span className={cn("text-2xl font-medium", scoreColor(metrics.score))}>
                   {metrics.score}
                 </span>
                 <span className="text-xs text-muted-foreground">
@@ -184,7 +184,7 @@ Focus on actionable business insights. Professional and concise.`;
                     <div className="flex-1">
                       <div className="flex justify-between text-xs mb-1">
                         <span className="font-medium">{item.label}</span>
-                        <span className={cn("font-bold", scoreColor(score))}>{score}</span>
+                        <span className={cn("font-medium", scoreColor(score))}>{score}</span>
                       </div>
                       <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                         <div
@@ -201,7 +201,7 @@ Focus on actionable business insights. Professional and concise.`;
 
           {metrics.recommendations.length > 0 && (
             <div className="space-y-2">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {language === "th" ? "ข้อเสนอแนะ" : "Recommendations"}
               </h4>
               <div className="space-y-2">

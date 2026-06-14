@@ -406,25 +406,25 @@ export default function FounderDashboardPage() {
   }, [analyticsData, users, products, t]);
 
   if (!isFounder && role !== null) return <AccessRestricted requiredRole={["founder"]} currentPage={t.dashboard.founderTitle} />;
-  if (loadingUsers) return <div className="h-[80vh] flex flex-col items-center justify-center gap-4"><Loader2 className="h-12 w-12 text-primary animate-spin" /><p className="font-black text-xs uppercase tracking-widest text-muted-foreground animate-pulse">{t.dashboard.syncing}</p></div>;
+  if (loadingUsers) return <div className="h-[80vh] flex flex-col items-center justify-center gap-4"><Loader2 className="h-12 w-12 text-primary animate-spin" /><p className="font-semibold text-xs uppercase tracking-widest text-muted-foreground animate-pulse">{t.dashboard.syncing}</p></div>;
 
   return (
     <div className="p-4 lg:p-8 space-y-8 max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 pb-20">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div className="space-y-1"><h1 className="text-4xl font-black tracking-tighter">{t.dashboard.founderTitle}</h1><p className="text-muted-foreground font-bold">{t.dashboard.founderSubtitle}</p></div>
+        <div className="space-y-1"><h1 className="text-4xl font-semibold tracking-tighter">{t.dashboard.founderTitle}</h1><p className="text-muted-foreground font-medium">{t.dashboard.founderSubtitle}</p></div>
         <div className="flex bg-muted p-1 rounded-xl shrink-0">
-          <button onClick={() => setTimeRange("12months")} className={cn("px-6 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all cursor-pointer", timeRange === "12months" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-primary")}>12 {t.common.monthly}</button>
-          <button onClick={() => setTimeRange("30days")} className={cn("px-6 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all cursor-pointer", timeRange === "30days" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-primary")}>30 {t.common.daily}</button>
+          <button onClick={() => setTimeRange("12months")} className={cn("px-6 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-widest transition-all cursor-pointer", timeRange === "12months" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-primary")}>12 {t.common.monthly}</button>
+          <button onClick={() => setTimeRange("30days")} className={cn("px-6 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-widest transition-all cursor-pointer", timeRange === "30days" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-primary")}>30 {t.common.daily}</button>
         </div>
       </div>
 
-      {orders.length === 0 && <div className="bg-amber-50 border-2 border-amber-200 p-6 rounded-3xl flex items-center gap-4"><AlertCircle className="h-8 w-8 text-amber-500" /><div><h4 className="font-black text-amber-900 uppercase text-sm">{t.dashboard.noOrderDataTitle}</h4><p className="text-amber-700 text-xs font-bold">{t.dashboard.noOrderDataDesc}</p></div></div>}
+      {orders.length === 0 && <div className="bg-amber-50 border-2 border-amber-200 p-6 rounded-3xl flex items-center gap-4"><AlertCircle className="h-8 w-8 text-amber-500" /><div><h4 className="font-semibold text-amber-900 uppercase text-sm">{t.dashboard.noOrderDataTitle}</h4><p className="text-amber-700 text-xs font-medium">{t.dashboard.noOrderDataDesc}</p></div></div>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {statCards.map((stat) => (
           <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-4xl p-6 shadow-xl shadow-primary/5 space-y-4">
             <div className="flex justify-between items-start"><div className={cn("p-3 rounded-2xl bg-muted", stat.color)}><stat.icon className="h-6 w-6" /></div></div>
-            <div><p className="text-xs font-black text-muted-foreground uppercase tracking-widest">{stat.label}</p><h3 className="text-3xl font-black tracking-tighter">{stat.value}</h3><p className={cn("text-xs font-black", stat.trend === "up" ? "text-emerald-500" : "text-rose-500")}>{stat.change} {t.dashboard.vsPrevPeriod || 'vs prev. period'}</p></div>
+            <div><p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">{stat.label}</p><h3 className="text-3xl font-semibold tracking-tighter">{stat.value}</h3><p className={cn("text-xs font-semibold", stat.trend === "up" ? "text-emerald-500" : "text-rose-500")}>{stat.change} {t.dashboard.vsPrevPeriod || 'vs prev. period'}</p></div>
           </div>
         ))}
       </div>
@@ -432,8 +432,8 @@ export default function FounderDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div><h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.salesAnalytics}</h3><p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{timeRange === '12months' ? t.dashboard.monthlyReport : t.dashboard.dailyReport} {now.toLocaleDateString(language === 'th' ? 'th-TH' : 'en-US')}</p></div>
-            <div className={cn("flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-widest", analyticsData.percentChange >= 0 ? "bg-emerald-500/10 text-emerald-600" : "bg-rose-500/10 text-rose-600")}>{analyticsData.percentChange >= 0 ? <TrendingUp className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}{analyticsData.percentChange >= 0 ? "+" : ""}{analyticsData.percentChange}% {t.dashboard.vsLastWeek}</div>
+            <div><h3 className="text-xl font-semibold tracking-tight uppercase">{t.dashboard.salesAnalytics}</h3><p className="text-xs font-medium text-muted-foreground uppercase tracking-widest">{timeRange === '12months' ? t.dashboard.monthlyReport : t.dashboard.dailyReport} {now.toLocaleDateString(language === 'th' ? 'th-TH' : 'en-US')}</p></div>
+            <div className={cn("flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold uppercase tracking-widest", analyticsData.percentChange >= 0 ? "bg-emerald-500/10 text-emerald-600" : "bg-rose-500/10 text-rose-600")}>{analyticsData.percentChange >= 0 ? <TrendingUp className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}{analyticsData.percentChange >= 0 ? "+" : ""}{analyticsData.percentChange}% {t.dashboard.vsLastWeek}</div>
           </div>
           <div className="h-75 w-full pt-4">
             <ResponsiveContainer width="100%" height="100%">
@@ -447,7 +447,7 @@ export default function FounderDashboardPage() {
           </div>
         </div>
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6 overflow-hidden flex flex-col">
-          <h3 className="text-xl font-black tracking-tight uppercase shrink-0">{t.dashboard.topProducts}</h3>
+          <h3 className="text-xl font-semibold tracking-tight uppercase shrink-0">{t.dashboard.topProducts}</h3>
           <div className="flex-1 space-y-4 overflow-y-auto pr-2">
             {analyticsData.topProducts.map((prod, i) => (
               <div 
@@ -463,11 +463,11 @@ export default function FounderDashboardPage() {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-black truncate group-hover:text-primary transition-colors">{prod.name}</p>
-                  <p className="text-xs font-bold text-muted-foreground uppercase flex items-center gap-1.5">
-                    <span className="text-primary font-black">{prod.sales} {t.dashboard.units}</span>
+                  <p className="text-sm font-semibold truncate group-hover:text-primary transition-colors">{prod.name}</p>
+                  <p className="text-xs font-medium text-muted-foreground uppercase flex items-center gap-1.5">
+                    <span className="text-primary font-semibold">{prod.sales} {t.dashboard.units}</span>
                     <span>•</span>
-                    <span className="text-emerald-500 font-black">{formatCurrency(prod.revenue)}</span>
+                    <span className="text-emerald-500 font-semibold">{formatCurrency(prod.revenue)}</span>
                   </p>
                   <div className="h-1.5 w-full bg-muted mt-2 rounded-full overflow-hidden">
                     <div 
@@ -489,7 +489,7 @@ export default function FounderDashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
-          <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.topStores}</h3>
+          <h3 className="text-xl font-semibold tracking-tight uppercase">{t.dashboard.topStores}</h3>
           <div className="h-75 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={analyticsData.topStores}><CartesianGrid strokeDasharray="3 3" vertical={false} strokeOpacity={0.1} /><XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fontWeight: 900, fill: '#888' }} /><YAxis hide /><Tooltip contentStyle={{ borderRadius: '1rem', border: 'none', fontSize: '10px', fontWeight: 900 }} formatter={(value: any) => [formatCurrency(value), t.dashboard.totalRevenue]} /><Bar dataKey="revenue" radius={[10, 10, 0, 0]}>{analyticsData.topStores.map((entry, index) => (<Cell key={`cell-${index}`} fill={['#6366f1', '#f43f5e', '#f59e0b', '#10b981', '#a855f7'][index % 5]} />))}</Bar></BarChart>
@@ -497,12 +497,12 @@ export default function FounderDashboardPage() {
           </div>
         </div>
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
-          <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.categoryDistribution}</h3>
+          <h3 className="text-xl font-semibold tracking-tight uppercase">{t.dashboard.categoryDistribution}</h3>
           <div className="space-y-5">
             {analyticsData.categoryDistribution.length > 0 ? (
               analyticsData.categoryDistribution.slice(0, 5).map((cat) => (
                 <div key={cat.label} className="space-y-2">
-                  <div className="flex justify-between items-center text-xs font-black uppercase tracking-widest">
+                  <div className="flex justify-between items-center text-xs font-semibold uppercase tracking-widest">
                     <span>{(t.categories as Record<string, string>)[cat.label] || cat.label} ({cat.count} {t.dashboard.units})</span>
                     <span>{cat.percentage}%</span>
                   </div>
@@ -517,19 +517,19 @@ export default function FounderDashboardPage() {
       </div>
 
       <div className="space-y-6">
-        <div className="flex items-center justify-between"><h2 className="text-2xl font-black tracking-tighter uppercase">{t.dashboard.platformInventory}</h2><button onClick={() => {
+        <div className="flex items-center justify-between"><h2 className="text-2xl font-semibold tracking-tighter uppercase">{t.dashboard.platformInventory}</h2><button onClick={() => {
            setNewProduct({ id: "", name: "", price: 0, category: t.dashboard.categories.electronics, stock: 0, image: "", description: "", storeId: "mall", isOfficial: true, weight: "", dimensions: "", warranty: "", additionalDetails: "" });
            setShowAddModal(true);
-        }} className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-xs uppercase tracking-widest shadow-lg shadow-primary/20 cursor-pointer"><Plus className="h-3.5 w-3.5" /> {t.dashboard.addProduct}</button></div>
+        }} className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-semibold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 cursor-pointer"><Plus className="h-3.5 w-3.5" /> {t.dashboard.addProduct}</button></div>
         <div className="bg-card border-2 border-primary/5 rounded-4xl shadow-2xl shadow-primary/5 overflow-hidden">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b bg-muted/20">
-                <th className="px-8 py-4 text-xs font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.name}</th>
-                <th className="px-8 py-4 text-xs font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.assignedStore}</th>
-                <th className="px-8 py-4 text-xs font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.stock}</th>
-                <th className="px-8 py-4 text-xs font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.price}</th>
-                <th className="px-8 py-4 text-xs font-black uppercase tracking-widest text-muted-foreground text-right">{t.dashboard.actions}</th>
+                <th className="px-8 py-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.table.name}</th>
+                <th className="px-8 py-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.assignedStore}</th>
+                <th className="px-8 py-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.table.stock}</th>
+                <th className="px-8 py-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.table.price}</th>
+                <th className="px-8 py-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground text-right">{t.dashboard.actions}</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -539,12 +539,12 @@ export default function FounderDashboardPage() {
 
                 return (
                   <tr key={product.id} className="hover:bg-muted/10 transition-colors group">
-                    <td className="px-8 py-6"><div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden"><img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" /></div><div><p className="font-black text-sm max-w-50 truncate">{product.name}</p><p className="text-xs font-bold text-muted-foreground">{(t.categories as Record<string, string>)[product.category] || product.category}</p></div></div></td>
-                    <td className="px-8 py-6"><span className={cn("px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest", product.isOfficial ? "bg-amber-500/10 text-amber-600" : "bg-blue-500/10 text-blue-600")}>{product.isOfficial ? t.dashboard.officialMall : (stores.find(s => s.store_id === product.storeId)?.name || t.dashboard.partnerStore)}</span></td>
-                    <td className="px-8 py-6 font-black text-xs">{product.stock} {t.product.quantity}</td>
+                    <td className="px-8 py-6"><div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden"><img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" /></div><div><p className="font-semibold text-sm max-w-50 truncate">{product.name}</p><p className="text-xs font-medium text-muted-foreground">{(t.categories as Record<string, string>)[product.category] || product.category}</p></div></div></td>
+                    <td className="px-8 py-6"><span className={cn("px-2 py-1 rounded-lg text-[8px] font-semibold uppercase tracking-widest", product.isOfficial ? "bg-amber-500/10 text-amber-600" : "bg-blue-500/10 text-blue-600")}>{product.isOfficial ? t.dashboard.officialMall : (stores.find(s => s.store_id === product.storeId)?.name || t.dashboard.partnerStore)}</span></td>
+                    <td className="px-8 py-6 font-semibold text-xs">{product.stock} {t.product.quantity}</td>
                     <td className="px-8 py-6 min-w-[180px]">
                       <div className="flex flex-col gap-2">
-                        <span className="font-black text-sm">{formatCurrency(product.price)}</span>
+                        <span className="font-semibold text-sm">{formatCurrency(product.price)}</span>
                         {insight && (
                           <div className="animate-in fade-in slide-in-from-left-2 duration-500">
                              <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 space-y-2 relative overflow-hidden group/advice">
@@ -556,15 +556,15 @@ export default function FounderDashboardPage() {
                                       {insight.type === 'increase' ? <TrendingUp className="h-3 w-3" /> : <TrendingUp className="h-3 w-3 rotate-180" />}
                                    </div>
                                    <div className="space-y-0.5">
-                                      <p className="text-[9px] font-black uppercase text-primary/60 leading-none">{t.dashboard.aiRecommend}</p>
-                                      <p className="text-xs font-black text-foreground">{insight.reason}</p>
+                                      <p className="text-[9px] font-semibold uppercase text-primary/60 leading-none">{t.dashboard.aiRecommend}</p>
+                                      <p className="text-xs font-semibold text-foreground">{insight.reason}</p>
                                    </div>
                                 </div>
                                 <button
                                   onClick={() => handleApplyAISmartPrice(product.id, insight.amount, insight.totalSold)}
                                   disabled={isPriceUpdating}
                                   className={cn(
-                                    "w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-black uppercase transition-all shadow-sm active:scale-95 cursor-pointer",
+                                    "w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold uppercase transition-all shadow-sm active:scale-95 cursor-pointer",
                                     insight.type === 'increase' ? "bg-emerald-500 text-white hover:bg-emerald-600" : "bg-rose-500 text-white hover:bg-rose-600",
                                     isPriceUpdating && "opacity-50 cursor-wait"
                                   )}
@@ -590,7 +590,7 @@ export default function FounderDashboardPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-card w-full max-w-4xl max-h-[90vh] flex flex-col rounded-4xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="p-6 md:p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary shrink-0">
-              <h3 className="text-2xl font-black tracking-tight flex items-center gap-3 uppercase tracking-tighter">
+              <h3 className="text-2xl font-semibold tracking-tight flex items-center gap-3 uppercase tracking-tighter">
                 {newProduct.id ? <Edit className="h-6 w-6" /> : <Plus className="h-6 w-6" />}
                 {newProduct.id ? t.dashboard.editProduct : t.dashboard.addProduct}
               </h3>
@@ -600,12 +600,12 @@ export default function FounderDashboardPage() {
             <form onSubmit={handleAddOrUpdateProduct} className="p-6 md:p-8 space-y-6 overflow-y-auto flex-1">
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2 space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.name}</label>
+                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.name}</label>
                   <input
                     type="text"
                     required
                     placeholder={t.dashboard.productNamePlaceholder}
-                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold"
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium"
                     value={newProduct.name}
                     onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}
                   />
@@ -614,27 +614,27 @@ export default function FounderDashboardPage() {
 
 
                 <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.price} (฿)</label>
+                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.price} (฿)</label>
                   <input
                     type="number"
                     required
-                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold"
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium"
                     value={newProduct.price}
                     onChange={(e) => setNewProduct({...newProduct, price: Number(e.target.value)})}
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.stock}</label>
+                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.stock}</label>
                   <input
                     type="number"
                     required
-                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold"
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium"
                     value={newProduct.stock}
                     onChange={(e) => setNewProduct({...newProduct, stock: Number(e.target.value)})}
                   />
                 </div>
                 <div className="col-span-2 space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.uploadImage}</label>
+                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.uploadImage}</label>
                   <div className="flex items-center gap-4">
                     <div className="h-24 w-24 rounded-2xl bg-muted border-2 border-dashed border-primary/20 flex items-center justify-center overflow-hidden shrink-0 relative group">
                       {newProduct.image ? (
@@ -659,7 +659,7 @@ export default function FounderDashboardPage() {
                       />
                       <label 
                         htmlFor="product-image-upload"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-black uppercase tracking-widest hover:bg-primary/20 transition-all cursor-pointer disabled:opacity-50"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-semibold uppercase tracking-widest hover:bg-primary/20 transition-all cursor-pointer disabled:opacity-50"
                       >
                         <ImageIcon className="h-3.5 w-3.5" />
                         {isUploading ? t.dashboard.uploading : t.dashboard.selectPhoto}
@@ -671,29 +671,29 @@ export default function FounderDashboardPage() {
 
                 <div className="col-span-2 grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.weight} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
-                    <input type="text" placeholder={t.dashboard.extendedFields?.weightPlaceholder} value={newProduct.weight} onChange={(e) => setNewProduct({...newProduct, weight: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" />
+                    <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.weight} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                    <input type="text" placeholder={t.dashboard.extendedFields?.weightPlaceholder} value={newProduct.weight} onChange={(e) => setNewProduct({...newProduct, weight: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.dimensions} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
-                    <input type="text" placeholder={t.dashboard.extendedFields?.dimensionsPlaceholder} value={newProduct.dimensions} onChange={(e) => setNewProduct({...newProduct, dimensions: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" />
+                    <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.dimensions} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                    <input type="text" placeholder={t.dashboard.extendedFields?.dimensionsPlaceholder} value={newProduct.dimensions} onChange={(e) => setNewProduct({...newProduct, dimensions: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" />
                   </div>
                 </div>
 
                 <div className="col-span-2 space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.warranty} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
-                  <input type="text" placeholder={t.dashboard.extendedFields?.warrantyPlaceholder} value={newProduct.warranty} onChange={(e) => setNewProduct({...newProduct, warranty: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" />
+                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.warranty} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                  <input type="text" placeholder={t.dashboard.extendedFields?.warrantyPlaceholder} value={newProduct.warranty} onChange={(e) => setNewProduct({...newProduct, warranty: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" />
                 </div>
 
                 <div className="col-span-2 space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.additionalDetails} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
-                  <textarea rows={2} placeholder={t.dashboard.extendedFields?.additionalDetailsPlaceholder} value={newProduct.additionalDetails} onChange={(e) => setNewProduct({...newProduct, additionalDetails: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold resize-none" />
+                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.additionalDetails} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                  <textarea rows={2} placeholder={t.dashboard.extendedFields?.additionalDetailsPlaceholder} value={newProduct.additionalDetails} onChange={(e) => setNewProduct({...newProduct, additionalDetails: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium resize-none" />
                 </div>
 
                 <div className="col-span-2 space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.category}</label>
+                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.category}</label>
                   <select
-                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-black uppercase text-xs"
+                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-semibold uppercase text-xs"
                     value={newProduct.category}
                     onChange={(e) => setNewProduct({...newProduct, category: e.target.value})}
                   >
@@ -708,13 +708,13 @@ export default function FounderDashboardPage() {
 
                 <div className="col-span-2 space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.descPlaceholderLabel}</label>
+                    <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.descPlaceholderLabel}</label>
                     <button
                       type="button"
                       onClick={generateAIDescription}
                       disabled={isGeneratingDesc || !newProduct.name.trim()}
                       className={cn(
-                        "flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-black uppercase tracking-widest transition-all",
+                        "flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-widest transition-all",
                         (isGeneratingDesc || !newProduct.name.trim()) 
                           ? "bg-muted text-muted-foreground cursor-not-allowed opacity-50" 
                           : "bg-linear-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 cursor-pointer shadow-md active:scale-95"
@@ -728,14 +728,14 @@ export default function FounderDashboardPage() {
                     rows={3}
                     placeholder={t.dashboard.descPlaceholder}
                     className={cn(
-                      "w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold resize-none",
+                      "w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium resize-none",
                       isGeneratingDesc && "animate-pulse"
                     )}
                     value={newProduct.description}
                     onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}
                   />
                   {isGeneratingDesc && (
-                    <div className="flex items-center gap-2 px-2 text-xs font-black text-primary animate-bounce">
+                    <div className="flex items-center gap-2 px-2 text-xs font-semibold text-primary animate-bounce">
                       <Sparkles className="h-3 w-3" />
                       {t.dashboard.founderInsights?.typing || 'AI IS TYPING...'}
                     </div>
@@ -746,7 +746,7 @@ export default function FounderDashboardPage() {
                 type="submit"
                 disabled={isGeneratingDesc || isUploading || !newProduct.name || newProduct.price === undefined || newProduct.stock === undefined || !newProduct.category}
                 className={cn(
-                  "w-full h-16 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3",
+                  "w-full h-16 rounded-2xl font-semibold text-lg transition-all flex items-center justify-center gap-3",
                   (isGeneratingDesc || isUploading || !newProduct.name || newProduct.price === undefined || newProduct.stock === undefined || !newProduct.category)
                     ? "bg-muted text-muted-foreground cursor-not-allowed opacity-50"
                     : "bg-primary text-primary-foreground shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 cursor-pointer"
@@ -768,7 +768,7 @@ export default function FounderDashboardPage() {
               <div className="w-16 h-16 mx-auto rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                 <Trash2 className="h-8 w-8" />
               </div>
-              <h3 className="text-2xl font-black tracking-tight">{t.dashboard.deleteConfirm}</h3>
+              <h3 className="text-2xl font-semibold tracking-tight">{t.dashboard.deleteConfirm}</h3>
               <p className="text-muted-foreground font-medium">
                 {language === 'th' ? 'คุณแน่ใจหรือไม่ที่จะลบสินค้านี้?' : 'Are you sure you want to delete this product?'}
               </p>
@@ -776,13 +776,13 @@ export default function FounderDashboardPage() {
             <div className="flex gap-3">
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="flex-1 py-3 rounded-xl bg-muted font-black uppercase tracking-widest hover:bg-muted/80 transition-all cursor-pointer"
+                className="flex-1 py-3 rounded-xl bg-muted font-semibold uppercase tracking-widest hover:bg-muted/80 transition-all cursor-pointer"
               >
                 {t.common.cancel}
               </button>
               <button
                 onClick={confirmDelete}
-                className="flex-1 py-3 rounded-xl bg-red-600 text-white font-black uppercase tracking-widest hover:bg-red-700 transition-all cursor-pointer"
+                className="flex-1 py-3 rounded-xl bg-red-600 text-white font-semibold uppercase tracking-widest hover:bg-red-700 transition-all cursor-pointer"
               >
                 {t.common.delete}
               </button>

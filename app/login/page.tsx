@@ -149,7 +149,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {!isLoginMode && (
               <div className="space-y-2 animate-in slide-in-from-top-2 fade-in duration-300">
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">
+                <label className="text-xs font-medium uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">
                   {language === 'th' ? "ชื่อ-นามสกุล" : "Full Name"}
                 </label>
                 <div className="relative group">
@@ -167,7 +167,7 @@ export default function LoginPage() {
             )}
 
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">{t.auth.email}</label>
+              <label className="text-xs font-medium uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">{t.auth.email}</label>
               <div className="relative group">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 dark:text-slate-500 group-focus-within:text-primary dark:group-focus-within:text-primary transition-colors" />
                 <input
@@ -182,7 +182,7 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">{t.auth.password}</label>
+              <label className="text-xs font-medium uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">{t.auth.password}</label>
               <div className="relative group">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 dark:text-slate-500 group-focus-within:text-primary dark:group-focus-within:text-primary transition-colors" />
                 <input
@@ -199,7 +199,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => setShowForgotPassword(true)}
-                    className="text-xs text-primary font-bold hover:text-primary/80 dark:hover:text-primary/90 transition-colors"
+                    className="text-xs text-primary font-medium hover:text-primary/80 dark:hover:text-primary/90 transition-colors"
                   >
                     {t.auth.forgotPassword}
                   </button>
@@ -209,14 +209,14 @@ export default function LoginPage() {
 
             {error && (
               <div className="p-4 rounded-xl bg-rose-50/80 dark:bg-rose-500/10 border border-rose-100 dark:border-rose-500/20 backdrop-blur-sm">
-                <p className="text-rose-600 dark:text-rose-400 text-xs font-bold text-center uppercase tracking-tight">{error}</p>
+                <p className="text-rose-600 dark:text-rose-400 text-xs font-medium text-center uppercase tracking-tight">{error}</p>
               </div>
             )}
 
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full h-14 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm hover:bg-slate-800 dark:hover:bg-slate-100 active:scale-[0.98] transition-all flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-slate-900/20 dark:shadow-white/10"
+              className="w-full h-14 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-sm hover:bg-slate-800 dark:hover:bg-slate-100 active:scale-[0.98] transition-all flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-slate-900/20 dark:shadow-white/10"
             >
               {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : (isLoginMode ? <LogIn className="h-5 w-5" /> : <UserPlus className="h-5 w-5" />)}
               {isLoginMode ? t.auth.loginTitle : (language === 'th' ? "สมัครสมาชิก" : "Sign Up")}
@@ -230,7 +230,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setIsLoginMode(!isLoginMode)}
-                  className="font-bold text-primary hover:text-primary/80 dark:hover:text-primary/90 transition-colors cursor-pointer"
+                  className="font-medium text-primary hover:text-primary/80 dark:hover:text-primary/90 transition-colors cursor-pointer"
                 >
                   {isLoginMode 
                     ? (language === 'th' ? "สมัครสมาชิก" : "Sign up") 
@@ -249,7 +249,7 @@ export default function LoginPage() {
                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                  </span>
-                 <p className="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest m-0">
+                 <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-widest m-0">
                    {t.auth.judgeShortcuts}
                  </p>
                </div>
@@ -259,28 +259,28 @@ export default function LoginPage() {
                  <button 
                    type="button" 
                    onClick={() => { setEmail('alice@example.com'); setPassword('1234'); }}
-                   className="p-2.5 text-[11px] font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white hover:border-primary dark:hover:border-primary transition-all cursor-pointer shadow-sm"
+                   className="p-2.5 text-[11px] font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white hover:border-primary dark:hover:border-primary transition-all cursor-pointer shadow-sm"
                  >
                    {t.auth.adminLabel}
                  </button>
                  <button 
                    type="button" 
                    onClick={() => { setEmail('somchai@example.com'); setPassword('1234'); }}
-                   className="p-2.5 text-[11px] font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white hover:border-primary dark:hover:border-primary transition-all cursor-pointer shadow-sm"
+                   className="p-2.5 text-[11px] font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white hover:border-primary dark:hover:border-primary transition-all cursor-pointer shadow-sm"
                  >
                    {t.auth.partnerLabel}
                  </button>
                  <button 
                    type="button" 
                    onClick={() => { setEmail('bob@example.com'); setPassword('1234'); }}
-                   className="p-2.5 text-[11px] font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white hover:border-primary dark:hover:border-primary transition-all cursor-pointer shadow-sm"
+                   className="p-2.5 text-[11px] font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white hover:border-primary dark:hover:border-primary transition-all cursor-pointer shadow-sm"
                  >
                    {t.auth.customerLabel}
                  </button>
                  <button 
                    type="button" 
                    onClick={() => { setEmail('charlie@example.com'); setPassword('1234'); }}
-                   className="p-2.5 text-[11px] font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white hover:border-primary dark:hover:border-primary transition-all cursor-pointer shadow-sm"
+                   className="p-2.5 text-[11px] font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white hover:border-primary dark:hover:border-primary transition-all cursor-pointer shadow-sm"
                  >
                    {t.auth.vipLabel}
                  </button>
@@ -291,7 +291,7 @@ export default function LoginPage() {
                    <span className="w-full border-t border-slate-200 dark:border-slate-800" />
                  </div>
                  <div className="relative flex justify-center text-xs">
-                   <span className="bg-slate-50 dark:bg-slate-950 px-2 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">
+                   <span className="bg-slate-50 dark:bg-slate-950 px-2 text-slate-500 dark:text-slate-400 font-medium uppercase tracking-widest">
                      {t.auth.partnerStoreOwners}
                    </span>
                  </div>
@@ -301,28 +301,28 @@ export default function LoginPage() {
                  <button 
                    type="button" 
                    onClick={() => { setEmail('bytezone@example.com'); setPassword('1234'); }}
-                   className="p-2.5 text-[11px] font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white hover:border-indigo-500 dark:hover:border-indigo-600 transition-all cursor-pointer shadow-sm"
+                   className="p-2.5 text-[11px] font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white hover:border-indigo-500 dark:hover:border-indigo-600 transition-all cursor-pointer shadow-sm"
                  >
                    ByteZone
                  </button>
                  <button 
                    type="button" 
                    onClick={() => { setEmail('smartlife@example.com'); setPassword('1234'); }}
-                   className="p-2.5 text-[11px] font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-sky-500 hover:text-white dark:hover:bg-sky-600 dark:hover:text-white hover:border-sky-500 dark:hover:border-sky-600 transition-all cursor-pointer shadow-sm"
+                   className="p-2.5 text-[11px] font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-sky-500 hover:text-white dark:hover:bg-sky-600 dark:hover:text-white hover:border-sky-500 dark:hover:border-sky-600 transition-all cursor-pointer shadow-sm"
                  >
                    SmartLife
                  </button>
                  <button 
                    type="button" 
                    onClick={() => { setEmail('campus@example.com'); setPassword('1234'); }}
-                   className="p-2.5 text-[11px] font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-amber-500 hover:text-white dark:hover:bg-amber-600 dark:hover:text-white hover:border-amber-500 dark:hover:border-amber-600 transition-all cursor-pointer shadow-sm"
+                   className="p-2.5 text-[11px] font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-amber-500 hover:text-white dark:hover:bg-amber-600 dark:hover:text-white hover:border-amber-500 dark:hover:border-amber-600 transition-all cursor-pointer shadow-sm"
                  >
                    Campus
                  </button>
                  <button 
                    type="button" 
                    onClick={() => { setEmail('cozy@example.com'); setPassword('1234'); }}
-                   className="p-2.5 text-[11px] font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-rose-400 hover:text-white dark:hover:bg-rose-500 dark:hover:text-white hover:border-rose-400 dark:hover:border-rose-500 transition-all cursor-pointer shadow-sm"
+                   className="p-2.5 text-[11px] font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-rose-400 hover:text-white dark:hover:bg-rose-500 dark:hover:text-white hover:border-rose-400 dark:hover:border-rose-500 transition-all cursor-pointer shadow-sm"
                  >
                    Cozy Living
                  </button>
@@ -337,7 +337,7 @@ export default function LoginPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-900/50">
-              <h3 className="text-lg font-bold tracking-tight flex items-center gap-2 uppercase text-slate-900 dark:text-white">
+              <h3 className="text-lg font-medium tracking-tight flex items-center gap-2 uppercase text-slate-900 dark:text-white">
                 <KeyRound className="h-5 w-5 text-primary" />
                 {t.auth.resetPassword}
               </h3>
@@ -354,13 +354,13 @@ export default function LoginPage() {
                   </p>
                   {resetError && (
                     <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-100 dark:border-rose-500/20">
-                      <p className="text-rose-600 dark:text-rose-400 text-xs font-bold text-center uppercase tracking-tight">
+                      <p className="text-rose-600 dark:text-rose-400 text-xs font-medium text-center uppercase tracking-tight">
                         {resetError}
                       </p>
                     </div>
                   )}
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">{t.auth.email}</label>
+                    <label className="text-xs font-medium uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">{t.auth.email}</label>
                     <div className="relative group">
                       <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 dark:text-slate-500 group-focus-within:text-primary dark:group-focus-within:text-primary transition-colors" />
                       <input
@@ -376,7 +376,7 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={resetLoading}
-                    className="w-full h-12 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-md"
+                    className="w-full h-12 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-md"
                   >
                     {resetLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
                     {t.auth.sendOtp}
@@ -391,19 +391,19 @@ export default function LoginPage() {
                   </p>
                   {resetError && (
                     <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-100 dark:border-rose-500/20">
-                      <p className="text-rose-600 dark:text-rose-400 text-xs font-bold text-center uppercase tracking-tight">
+                      <p className="text-rose-600 dark:text-rose-400 text-xs font-medium text-center uppercase tracking-tight">
                         {resetError}
                       </p>
                     </div>
                   )}
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">{t.auth.otp}</label>
+                    <label className="text-xs font-medium uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">{t.auth.otp}</label>
                     <input
                       type="text"
                       required
                       placeholder={t.auth.otpPlaceholder}
                       maxLength={6}
-                      className="w-full px-6 py-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 focus:border-primary dark:focus:border-primary focus:ring-4 focus:ring-primary/10 dark:focus:ring-primary/20 outline-none transition-all font-bold text-center text-3xl tracking-[0.4em] text-slate-900 dark:text-white placeholder:text-slate-300 dark:placeholder:text-slate-700"
+                      className="w-full px-6 py-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 focus:border-primary dark:focus:border-primary focus:ring-4 focus:ring-primary/10 dark:focus:ring-primary/20 outline-none transition-all font-medium text-center text-3xl tracking-[0.4em] text-slate-900 dark:text-white placeholder:text-slate-300 dark:placeholder:text-slate-700"
                       value={otp}
                       onChange={(e) => setOtp(e.target.value)}
                     />
@@ -411,7 +411,7 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={resetLoading}
-                    className="w-full h-12 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-md"
+                    className="w-full h-12 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-md"
                   >
                     {resetLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <KeyRound className="h-4 w-4" />}
                     {t.auth.verifyOtpTitle}
@@ -419,7 +419,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => setResetStep("email")}
-                    className="w-full text-xs text-slate-400 dark:text-slate-500 font-bold hover:text-primary dark:hover:text-primary transition-colors cursor-pointer"
+                    className="w-full text-xs text-slate-400 dark:text-slate-500 font-medium hover:text-primary dark:hover:text-primary transition-colors cursor-pointer"
                   >
                     {t.auth.backToEmail}
                   </button>
@@ -433,13 +433,13 @@ export default function LoginPage() {
                   </p>
                   {resetError && (
                     <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-100 dark:border-rose-500/20">
-                      <p className="text-rose-600 dark:text-rose-400 text-xs font-bold text-center uppercase tracking-tight">
+                      <p className="text-rose-600 dark:text-rose-400 text-xs font-medium text-center uppercase tracking-tight">
                         {resetError}
                       </p>
                     </div>
                   )}
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">{t.auth.newPassword}</label>
+                    <label className="text-xs font-medium uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-1">{t.auth.newPassword}</label>
                     <div className="relative group">
                       <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 dark:text-slate-500 group-focus-within:text-primary dark:group-focus-within:text-primary transition-colors" />
                       <input
@@ -455,7 +455,7 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={resetLoading}
-                    className="w-full h-12 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-md"
+                    className="w-full h-12 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-md"
                   >
                     {resetLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lock className="h-4 w-4" />}
                     {t.auth.updatePassword}
@@ -469,14 +469,14 @@ export default function LoginPage() {
                     <CheckCircle2 className="h-12 w-12" />
                   </div>
                   <div className="space-y-2">
-                    <h4 className="text-xl font-bold text-slate-900 dark:text-white">{t.auth.resetSuccess}</h4>
+                    <h4 className="text-xl font-medium text-slate-900 dark:text-white">{t.auth.resetSuccess}</h4>
                     <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
                       {t.auth.resetSuccessDesc}
                     </p>
                   </div>
                   <button
                     onClick={closeResetModal}
-                    className="w-full h-12 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all cursor-pointer shadow-md mt-6"
+                    className="w-full h-12 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all cursor-pointer shadow-md mt-6"
                   >
                     {t.auth.returnToLogin}
                   </button>

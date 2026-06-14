@@ -118,8 +118,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
               <ShoppingCart className="h-6 w-6 text-rose-600 dark:text-rose-400" />
             </div>
             <div>
-              <p className="font-black text-rose-900 dark:text-rose-100 text-lg">{t.products.restrictedTitle}</p>
-              <p className="text-sm text-rose-700 dark:text-rose-300 font-bold">{t.products.restrictedDesc}</p>
+              <p className="font-semibold text-rose-900 dark:text-rose-100 text-lg">{t.products.restrictedTitle}</p>
+              <p className="text-sm text-rose-700 dark:text-rose-300 font-medium">{t.products.restrictedDesc}</p>
             </div>
           </div>
         </div>
@@ -136,7 +136,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
               className="object-cover transition-transform duration-1000 hover:scale-110"
             />
             {product.isOfficial && (
-              <div className="absolute top-6 left-6 px-4 py-1.5 bg-amber-500 text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-lg shadow-amber-500/20 flex items-center gap-2">
+              <div className="absolute top-6 left-6 px-4 py-1.5 bg-amber-500 text-white text-xs font-semibold uppercase tracking-widest rounded-xl shadow-lg shadow-amber-500/20 flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4" /> {t.products.officialStore}
               </div>
             )}
@@ -165,19 +165,19 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           <div className="space-y-6">
             <div className="space-y-2">
               <div className="flex items-center gap-4">
-                <div className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-xs font-black uppercase tracking-widest">
+                <div className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-xs font-semibold uppercase tracking-widest">
                   {(t.categories as Record<string, string>)[product.category] || product.category}
                 </div>
                 <div className="flex items-center gap-1 text-amber-500">
                   <Star className="h-4 w-4 fill-current" />
-                  <span className="text-sm font-black">{Number(product.rating).toFixed(1)}</span>
-                  <span className="text-muted-foreground font-bold text-xs">({product.reviews.length} รีวิว)</span>
+                  <span className="text-sm font-semibold">{Number(product.rating).toFixed(1)}</span>
+                  <span className="text-muted-foreground font-medium text-xs">({product.reviews.length} รีวิว)</span>
                 </div>
               </div>
               <div className="flex items-start justify-between gap-4">
-                <h1 className="text-4xl lg:text-5xl font-black tracking-tighter leading-none">{product.name}</h1>
+                <h1 className="text-4xl lg:text-5xl font-semibold tracking-tighter leading-none">{product.name}</h1>
                 {isOwner && (
-                  <button onClick={() => setShowEditModal(true)} className="shrink-0 h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-xs uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-primary/20 cursor-pointer">
+                  <button onClick={() => setShowEditModal(true)} className="shrink-0 h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-semibold text-xs uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-primary/20 cursor-pointer">
                     <Edit className="h-4 w-4" /> {t.dashboard?.editProduct || "Edit"}
                   </button>
                 )}
@@ -185,16 +185,16 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             </div>
 
             <div className="flex items-baseline gap-4">
-              <span className="text-5xl font-black text-primary tracking-tighter">{formatCurrency(product.price)}</span>
+              <span className="text-5xl font-semibold text-primary tracking-tighter">{formatCurrency(product.price)}</span>
               {product.stock < 10 && product.stock > 0 && (
-                <span className="text-rose-500 font-black text-xs uppercase tracking-widest animate-pulse">{t.products.stockAlert1}{product.stock}{t.products.stockAlert2}</span>
+                <span className="text-rose-500 font-semibold text-xs uppercase tracking-widest animate-pulse">{t.products.stockAlert1}{product.stock}{t.products.stockAlert2}</span>
               )}
               {product.stock === 0 && (
-                <span className="text-rose-500 font-black text-xs uppercase tracking-widest">{t.products.outOfStock}</span>
+                <span className="text-rose-500 font-semibold text-xs uppercase tracking-widest">{t.products.outOfStock}</span>
               )}
             </div>
 
-            <p className="text-muted-foreground font-bold leading-relaxed max-w-lg">
+            <p className="text-muted-foreground font-medium leading-relaxed max-w-lg">
               {product.description || t.products.defaultDesc}
             </p>
 
@@ -204,8 +204,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <Truck className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-xs font-black uppercase text-muted-foreground">{t.products.shippingDetails}</p>
-                  <p className="text-xs font-black">{t.products.freeShipping}</p>
+                  <p className="text-xs font-semibold uppercase text-muted-foreground">{t.products.shippingDetails}</p>
+                  <p className="text-xs font-semibold">{t.products.freeShipping}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-4 rounded-2xl bg-muted/50 border border-primary/5">
@@ -213,8 +213,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <CheckCircle2 className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-xs font-black uppercase text-muted-foreground">{t.products.warrantyDetails}</p>
-                  <p className="text-xs font-black">{t.products.oneYearWarranty}</p>
+                  <p className="text-xs font-semibold uppercase text-muted-foreground">{t.products.warrantyDetails}</p>
+                  <p className="text-xs font-semibold">{t.products.oneYearWarranty}</p>
                 </div>
               </div>
             </div>
@@ -227,12 +227,12 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <Ticket className="h-5 w-5" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs font-black uppercase tracking-widest text-emerald-600 mb-0.5">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-0.5">
                     {language === 'th' ? "คูปองของคุณที่มีอยู่" : "My Available Coupons"}
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-1.5">
                     {myAvailableCoupons.map((c: any) => (
-                      <span key={c.code} className="inline-flex items-center gap-1 bg-white text-emerald-700 text-xs font-bold px-2 py-0.5 rounded-md border border-emerald-200">
+                      <span key={c.code} className="inline-flex items-center gap-1 bg-white text-emerald-700 text-xs font-medium px-2 py-0.5 rounded-md border border-emerald-200">
                         {c.code} ({c.type === 'percent' ? `${c.discount}%` : `฿${c.discount}`})
                       </span>
                     ))}
@@ -243,18 +243,18 @@ export default function ProductInfo({ product, allProducts }: { product: Product
 
             <div className="flex items-center gap-6">
               <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.products.quantity}</label>
+                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.products.quantity}</label>
                 <div className="flex items-center bg-muted rounded-2xl p-1 border-2 border-transparent focus-within:border-primary/20">
                   <button
                     onClick={() => setSelectedQuantity(Math.max(1, selectedQuantity - 1))}
-                    className="w-10 h-10 flex items-center justify-center font-black hover:bg-background rounded-xl transition-all"
+                    className="w-10 h-10 flex items-center justify-center font-semibold hover:bg-background rounded-xl transition-all"
                   >
                     -
                   </button>
-                  <span className="w-12 text-center font-black text-lg">{selectedQuantity}</span>
+                  <span className="w-12 text-center font-semibold text-lg">{selectedQuantity}</span>
                   <button
                     onClick={() => setSelectedQuantity(Math.min(product.stock, selectedQuantity + 1))}
-                    className="w-10 h-10 flex items-center justify-center font-black hover:bg-background rounded-xl transition-all"
+                    className="w-10 h-10 flex items-center justify-center font-semibold hover:bg-background rounded-xl transition-all"
                   >
                     +
                   </button>
@@ -265,7 +265,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   onClick={handleAddToCart}
                   disabled={product.stock === 0 || isRestricted}
                   className={cn(
-                    "w-full h-16 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl active:scale-95 cursor-pointer",
+                    "w-full h-16 rounded-2xl font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-xl active:scale-95 cursor-pointer",
                     isRestricted
                       ? "bg-muted text-muted-foreground cursor-not-allowed grayscale"
                       : isAdded
@@ -299,14 +299,14 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group"
               >
                 <Share2 className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-black uppercase tracking-widest">{t.products.shareProduct}</span>
+                <span className="text-xs font-semibold uppercase tracking-widest">{t.products.shareProduct}</span>
               </div>
               <div 
                 onClick={handleInquiry}
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group"
               >
                 <MessageSquare className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-black uppercase tracking-widest">{t.products.inquiry}</span>
+                <span className="text-xs font-semibold uppercase tracking-widest">{t.products.inquiry}</span>
               </div>
             </div>
           </div>
@@ -328,7 +328,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={cn(
-                  "px-8 py-4 text-xs font-black uppercase tracking-widest border-b-4 transition-all whitespace-nowrap",
+                  "px-8 py-4 text-xs font-semibold uppercase tracking-widest border-b-4 transition-all whitespace-nowrap",
                   activeTab === tab ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -341,27 +341,27 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           {activeTab === "description" && (
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
-                <h3 className="text-3xl font-black tracking-tight">{t.products.tabsData.description}</h3>
+                <h3 className="text-3xl font-semibold tracking-tight">{t.products.tabsData.description}</h3>
                 <p className="text-muted-foreground font-medium leading-relaxed text-lg whitespace-pre-wrap">
                   {product.description}
                 </p>
                 
                 <div className="pt-6 space-y-4 border-t border-muted">
-                  <h4 className="font-black text-lg">{t.products.tabsData.specs || "Product Details"}</h4>
+                  <h4 className="font-semibold text-lg">{t.products.tabsData.specs || "Product Details"}</h4>
                   <ul className="space-y-4">
-                    <li className="flex items-center gap-3 font-bold text-sm uppercase tracking-tight">
+                    <li className="flex items-center gap-3 font-medium text-sm uppercase tracking-tight">
                       <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
                       <span className="text-muted-foreground">{t.dashboard?.extendedFields?.weight || "Weight"}:</span> {product.weight || "-"}
                     </li>
-                    <li className="flex items-center gap-3 font-bold text-sm uppercase tracking-tight">
+                    <li className="flex items-center gap-3 font-medium text-sm uppercase tracking-tight">
                       <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
                       <span className="text-muted-foreground">{t.dashboard?.extendedFields?.dimensions || "Dimensions"}:</span> {product.dimensions || "-"}
                     </li>
-                    <li className="flex items-center gap-3 font-bold text-sm uppercase tracking-tight">
+                    <li className="flex items-center gap-3 font-medium text-sm uppercase tracking-tight">
                       <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
                       <span className="text-muted-foreground">{t.dashboard?.extendedFields?.warranty || "Warranty"}:</span> {product.warranty || "-"}
                     </li>
-                    <li className="flex items-start gap-3 font-bold text-sm uppercase tracking-tight">
+                    <li className="flex items-start gap-3 font-medium text-sm uppercase tracking-tight">
                       <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
                       <div>
                         <span className="text-muted-foreground">{t.dashboard?.extendedFields?.additionalDetails || "Details"}:</span> 
@@ -381,8 +381,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             <div className="max-w-3xl space-y-4">
               {Object.entries(product.specs).map(([key, val]) => (
                 <div key={key} className="flex justify-between py-4 border-b border-muted group hover:bg-muted/30 px-4 rounded-xl transition-all">
-                  <span className="font-black text-xs uppercase tracking-widest text-muted-foreground">{key}</span>
-                  <span className="font-black text-sm uppercase">{String(val)}</span>
+                  <span className="font-semibold text-xs uppercase tracking-widest text-muted-foreground">{key}</span>
+                  <span className="font-semibold text-sm uppercase">{String(val)}</span>
                 </div>
               ))}
             </div>
@@ -391,18 +391,18 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             <div className="space-y-8">
               <div className="flex flex-col sm:flex-row items-center gap-8 p-8 rounded-4xl bg-muted/30 border-2 border-primary/5">
                 <div className="text-center space-y-2">
-                  <p className="text-7xl font-black tracking-tighter text-primary">{Number(product.rating).toFixed(1)}</p>
+                  <p className="text-7xl font-semibold tracking-tighter text-primary">{Number(product.rating).toFixed(1)}</p>
                   <div className="flex items-center justify-center gap-1 text-amber-500">
                     {[1, 2, 3, 4, 5].map(star => (
                       <Star key={star} className={cn("h-4 w-4", star <= Math.round(product.rating) ? "fill-current" : "text-muted")} />
                     ))}
                   </div>
-                  <p className="text-xs font-black uppercase text-muted-foreground">{t.products.reviewDetails.total1}{product.reviews.length}{t.products.reviewDetails.total2}</p>
+                  <p className="text-xs font-semibold uppercase text-muted-foreground">{t.products.reviewDetails.total1}{product.reviews.length}{t.products.reviewDetails.total2}</p>
                 </div>
                 <div className="flex-1 space-y-2 w-full">
                   {[5, 4, 3, 2, 1].map((star) => (
                     <div key={star} className="flex items-center gap-4">
-                      <span className="text-xs font-black w-4">{star}</span>
+                      <span className="text-xs font-semibold w-4">{star}</span>
                       <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
                         <div
                           className="h-full bg-primary rounded-full"
@@ -421,12 +421,12 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <div key={review.id} className="p-8 rounded-4xl bg-card border-2 border-primary/5 shadow-xl shadow-primary/5 space-y-4">
                     <div className="flex justify-between items-start">
                       <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-xl bg-muted flex items-center justify-center font-black text-primary">
+                        <div className="h-12 w-12 rounded-xl bg-muted flex items-center justify-center font-semibold text-primary">
                           {review.user.charAt(0).toUpperCase()}
                         </div>
                         <div>
-                          <p className="font-black text-sm">{review.user}</p>
-                          <p className="text-xs font-bold text-muted-foreground">{t.products.reviewDetails.verified}{formatDate(review.date, language)}</p>
+                          <p className="font-semibold text-sm">{review.user}</p>
+                          <p className="text-xs font-medium text-muted-foreground">{t.products.reviewDetails.verified}{formatDate(review.date, language)}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-1 text-amber-500">
@@ -438,7 +438,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                     <p className="text-muted-foreground font-medium italic">"{review.comment}"</p>
                     {review.sentiment && (
                       <div className={cn(
-                        "inline-flex px-3 py-1 rounded-lg text-xs font-black uppercase tracking-tight",
+                        "inline-flex px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-tight",
                         review.sentiment === 'positive' ? "bg-emerald-50 text-emerald-600" :
                           review.sentiment === 'negative' ? "bg-rose-50 text-rose-600" : "bg-muted text-muted-foreground"
                       )}>
@@ -448,7 +448,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   </div>
                 )) : (
                   <div className="text-center py-10">
-                    <p className="text-muted-foreground font-bold">{t.products.reviewDetails.noReviews}</p>
+                    <p className="text-muted-foreground font-medium">{t.products.reviewDetails.noReviews}</p>
                   </div>
                 )}
               </div>
@@ -494,10 +494,10 @@ export default function ProductInfo({ product, allProducts }: { product: Product
       <div className="space-y-8 pt-12">
         <div className="flex items-end justify-between">
           <div className="space-y-1">
-            <h2 className="text-3xl font-black tracking-tight">{t.products.related.title1}<span className="text-primary">{t.products.related.title2}</span></h2>
-            <p className="text-muted-foreground font-bold">{t.products.related.fromCategory}<span className="text-primary uppercase">{(t.categories as Record<string, string>)[product.category] || product.category}</span></p>
+            <h2 className="text-3xl font-semibold tracking-tight">{t.products.related.title1}<span className="text-primary">{t.products.related.title2}</span></h2>
+            <p className="text-muted-foreground font-medium">{t.products.related.fromCategory}<span className="text-primary uppercase">{(t.categories as Record<string, string>)[product.category] || product.category}</span></p>
           </div>
-          <button onClick={() => router.push('/products')} className="h-12 px-6 rounded-xl border-2 border-primary/10 font-black text-xs uppercase tracking-widest hover:bg-primary/5 transition-all">
+          <button onClick={() => router.push('/products')} className="h-12 px-6 rounded-xl border-2 border-primary/10 font-semibold text-xs uppercase tracking-widest hover:bg-primary/5 transition-all">
             {t.products.related.viewAll}
           </button>
         </div>
@@ -517,8 +517,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 />
               </div>
               <div className="p-4 space-y-2 text-center">
-                <h4 className="font-black text-xs uppercase tracking-tight line-clamp-1">{p.name}</h4>
-                <p className="text-primary font-black tracking-tighter">{formatCurrency(p.price)}</p>
+                <h4 className="font-semibold text-xs uppercase tracking-tight line-clamp-1">{p.name}</h4>
+                <p className="text-primary font-semibold tracking-tighter">{formatCurrency(p.price)}</p>
               </div>
             </div>
           ))}

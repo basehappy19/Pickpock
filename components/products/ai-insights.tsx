@@ -41,7 +41,7 @@ export default function AIInsights({ product }: { product: Product }) {
         </div>
 
         <div className="relative space-y-6">
-          <div className="flex items-center gap-3 text-rainbow font-black tracking-widest uppercase text-xs">
+          <div className="flex items-center gap-3 text-rainbow font-semibold tracking-widest uppercase text-xs">
             <Sparkles className="h-5 w-5 fill-current animate-pulse" />
             {t.products.aiInsights.title}
           </div>
@@ -52,7 +52,7 @@ export default function AIInsights({ product }: { product: Product }) {
           
           {loading ? (
             <div className="flex items-center gap-2 p-6 rounded-2xl bg-muted/30 border-2 border-dashed border-primary/20 animate-pulse">
-              <span className="text-sm font-bold text-muted-foreground">{t.products.aiInsights.analyzing}</span>
+              <span className="text-sm font-medium text-muted-foreground">{t.products.aiInsights.analyzing}</span>
               <div className="flex gap-1 items-center">
                 <div className="typing-dot" />
                 <div className="typing-dot" />
@@ -72,7 +72,7 @@ export default function AIInsights({ product }: { product: Product }) {
           <button
             onClick={generateInsight}
             disabled={loading}
-            className="group relative h-14 px-8 rounded-2xl bg-primary text-primary-foreground font-black hover:opacity-90 transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-xl shadow-primary/20 cursor-pointer overflow-hidden"
+            className="group relative h-14 px-8 rounded-2xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-xl shadow-primary/20 cursor-pointer overflow-hidden"
           >
             <div className="absolute inset-0 bg-rainbow-gradient opacity-0 group-hover:opacity-20 transition-opacity" />
             {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <MessageSquareText className="h-5 w-5 group-hover:scale-110 transition-transform" />}
