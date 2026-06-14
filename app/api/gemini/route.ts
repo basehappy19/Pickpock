@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
     const ai = new GoogleGenAI({ apiKey });
 
-    const fullPrompt = `You are an intelligent assistant for "PICKPOCK FOUNDER" E-commerce platform.
+    const fullPrompt = `You are an intelligent assistant for "PickPock FOUNDER" E-commerce platform.
 
 Context: ${JSON.stringify(context)}
 

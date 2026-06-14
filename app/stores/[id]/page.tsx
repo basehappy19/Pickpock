@@ -141,13 +141,13 @@ export default function StoreDetailPage() {
     </div>
   );
 
-  const displayStore = store || { 
-    name: "Pickpock Mall",
-    rating: 4.9, 
-    description: language === 'th' 
-      ? "แหล่งรวมสินค้าพรีเมียมอย่างเป็นทางการโดย PICKPOCK มั่นใจในคุณภาพและของแท้ 100% พร้อมบริการเหนือระดับ" 
-      : "The official premium collection by PICKPOCK. Trusted quality, guaranteed authenticity with superior service.", 
-    joined_at: "2026-01-01" 
+  const displayStore = store || {
+    name: "PickPock Mall",
+    rating: 4.9,
+    description: language === 'th'
+      ? "แหล่งรวมสินค้าพรีเมียมอย่างเป็นทางการโดย PickPock มั่นใจในคุณภาพและของแท้ 100% พร้อมบริการเหนือระดับ"
+      : "The official premium collection by PickPock. Trusted quality, guaranteed authenticity with superior service.",
+    joined_at: "2026-01-01"
   };
 
   return (
@@ -163,10 +163,20 @@ export default function StoreDetailPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
         
         <div className="absolute bottom-10 left-10 lg:left-16 flex flex-col md:flex-row items-end md:items-center gap-10 w-full pr-10">
-           <div className="h-28 w-24 lg:h-40 lg:w-40 rounded-[3rem] bg-white p-1.5 shadow-2xl overflow-hidden shrink-0 group-hover:rotate-3 transition-transform duration-500">
-              <div className="h-full w-full rounded-[2.8rem] bg-primary flex items-center justify-center text-white shadow-inner">
-                 <Store className="h-14 w-14 lg:h-20 lg:w-20" />
-              </div>
+           <div className="h-28 w-24 lg:h-40 lg:w-40 rounded-[3rem] bg-white p-2 shadow-2xl overflow-hidden shrink-0 group-hover:rotate-3 transition-transform duration-500 flex items-center justify-center">
+              {store?.store_id === "mall" || id === "mall" ? (
+                <NextImage
+                  src="/brand/logo_full.png"
+                  alt="PickPock Mall Logo"
+                  width={150}
+                  height={150}
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <div className="h-full w-full rounded-[2.8rem] bg-primary flex items-center justify-center text-white shadow-inner">
+                  <Store className="h-14 w-14 lg:h-20 lg:w-20" />
+                </div>
+              )}
            </div>
            <div className="text-white space-y-3 flex-1">
               <div className="flex items-center gap-4">

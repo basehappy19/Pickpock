@@ -291,7 +291,7 @@ function OrdersContent() {
                  <div className="bg-white text-slate-900 p-8 rounded-lg border border-slate-200 border-dashed">
                     <div className="flex justify-between items-start mb-10">
                        <div>
-                          <h1 className="text-2xl font-bold tracking-tight text-slate-900 mb-2">PICKPOCK MALL</h1>
+                          <h1 className="text-2xl font-bold tracking-tight text-slate-900 mb-2">PickPock Mall</h1>
                           <div className="space-y-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                              <p className="flex items-center gap-2"><MapPin className="h-3 w-3" /> 123 MSU Innovation Park, Mahasarakham</p>
                              <p className="flex items-center gap-2"><Phone className="h-3 w-3" /> +66 88-888-8888</p>
@@ -378,7 +378,7 @@ function OrdersContent() {
                     </div>
                     
                     <div className="mt-12 pt-8 border-t border-slate-50 text-center">
-                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 italic">Thank you for shopping with Pickpock Mall!</p>
+                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 italic">Thank you for shopping with PickPock Mall!</p>
                        <p className="text-[8px] font-bold text-slate-300 uppercase tracking-widest">This is a computer-generated receipt.</p>
                     </div>
                  </div>

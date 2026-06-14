@@ -9,7 +9,7 @@ interface SEOProps {
   siteName?: string;
 }
 
-const defaultSiteName = "Pickpock - AI-Powered E-commerce Platform";
+const defaultSiteName = "PickPock - AI-Powered E-commerce Platform";
 const defaultDescription = "แพลตฟอร์มอีคอมเมิร์ซที่ขับเคลื่อนด้วย AI | AI-Powered Shopping Experience";
 
 export function generateMetadata(props: SEOProps = {}) {
@@ -114,7 +114,7 @@ export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Pickpock",
+    name: "PickPock",
     url: process.env.NEXT_PUBLIC_SITE_URL || "https://pickpock.com",
     logo: `${process.env.NEXT_PUBLIC_SITE_URL}/logo.png`,
     description: defaultDescription,

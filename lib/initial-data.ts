@@ -32,7 +32,7 @@ interface RawOrder {
   }[];
 }
 
-const DEFAULT_IMAGE = "https://placehold.co/600x600?text=Pickpock+Mall";
+const DEFAULT_IMAGE = "https://placehold.co/600x600?text=PickPock+Mall";
 
 const sanitizeString = (value: any): string => {
   if (typeof value !== "string") return "";
@@ -73,8 +73,8 @@ export const mapProduct = (p: RawProduct): Product => {
   const sanitized = {
     id: sanitizeString(p.id || p.product_id || `product-${Date.now()}-${Math.random()}`),
     name: sanitizeString(p.name || "Unnamed Product"),
-    description: sanitizeString(p.description || `${p.name} - High-quality product curated for Pickpock Mall.`),
-    fullDescription: sanitizeString(p.description || `${p.name} is a premium selection from Pickpock Mall. Designed for performance and style.`),
+    description: sanitizeString(p.description || `${p.name} - High-quality product curated for PickPock Mall.`),
+    fullDescription: sanitizeString(p.description || `${p.name} is a premium selection from PickPock Mall. Designed for performance and style.`),
     price: sanitizePrice(p.price),
     category: sanitizeString(p.category || "General"),
     image: sanitizeUrl(p.image),
@@ -83,7 +83,7 @@ export const mapProduct = (p: RawProduct): Product => {
     stock: sanitizeStock(p.stock),
     status: 'active' as const,
     createdAt: sanitizeString(p.createdAt) || new Date().toISOString(),
-    storeName: "Pickpock Mall",
+    storeName: "PickPock Mall",
     isOfficial: Boolean(p.isOfficial),
     storeId: sanitizeString(p.storeId) || "mall",
     specs: typeof p.specs === "object" && p.specs !== null ? p.specs : { "Origin": "MSU Premium", "Material": "Grade A", "Warranty": "1 Year" }

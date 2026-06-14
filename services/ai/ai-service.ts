@@ -110,7 +110,7 @@ export async function getAIChatResponse(
     `${p.name} (฿${p.price}) [ID:${p.id || p.product_id}]`
   ).join(', ');
 
-  const systemPrompt = `You are Pickpock Assistant, a professional and helpful shopping expert.
+  const systemPrompt = `You are PickPock Assistant, a professional and helpful shopping expert.
 Available Products in Store: ${lightweightCatalog}
 ${detailedContext}
 

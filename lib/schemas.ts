@@ -26,7 +26,7 @@ export const ProductSchema = z.object({
   status: z.enum(["active", "out_of_stock", "draft"]).default("active"),
   createdAt: z.string().default(() => new Date().toISOString()),
   specs: z.record(z.string(), z.any()).default({}),
-  storeName: z.string().default("Pickpock Mall"),
+  storeName: z.string().default("PickPock Mall"),
   storeId: z.string().default("mall"),
   isOfficial: z.boolean().default(true),
 });

@@ -13,11 +13,11 @@ interface PageMetadataProps {
 }
 
 export function generatePageMetadata({
-  title = 'Pickpock - AI-Powered E-commerce Platform',
+  title = 'PickPock - AI-Powered E-commerce Platform',
   description = 'แพลตฟอร์มอีคอมเมิร์ซที่ขับเคลื่อนด้วย AI ช้อปปิ้งสินค้าคุณภาพดี พร้อมบริการแนะนำสินค้าด้วย AI | AI-powered shopping platform for quality products',
   path = '',
   image = '/opengraph-image.png',
-  keywords = ['e-commerce', 'AI', 'shopping', 'Thailand', 'Pickpock', 'อีคอมเมิร์ซ', 'ช้อปปิ้งออนไลน์']
+  keywords = ['e-commerce', 'AI', 'shopping', 'Thailand', 'PickPock', 'อีคอมเมิร์ซ', 'ช้อปปิ้งออนไลน์']
 }: PageMetadataProps): Metadata {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pickpock.com';
   const url = `${siteUrl}${path}`;
@@ -26,9 +26,9 @@ export function generatePageMetadata({
     title,
     description,
     keywords,
-    authors: [{ name: 'Pickpock Team' }],
-    creator: 'Pickpock',
-    publisher: 'Pickpock',
+    authors: [{ name: 'PickPock Team' }],
+    creator: 'PickPock',
+    publisher: 'PickPock',
     robots: {
       index: true,
       follow: true,
@@ -52,7 +52,7 @@ export function generatePageMetadata({
           alt: title,
         },
       ],
-      siteName: 'Pickpock',
+      siteName: 'PickPock',
       locale: 'th_TH',
       type: 'website',
     },

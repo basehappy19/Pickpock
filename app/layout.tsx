@@ -30,10 +30,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pickpock - AI-Powered E-commerce Platform",
+  title: "PickPock - AI-Powered E-commerce Platform",
   description: "แพลตฟอร์มอีคอมเมิร์ซที่ขับเคลื่อนด้วย AI | AI-Powered Shopping Experience",
-  keywords: "e-commerce, AI, shopping, Thailand, Pickpock",
-  authors: [{ name: "Pickpock Team" }],
+  keywords: "e-commerce, AI, shopping, Thailand, PickPock",
+  authors: [{ name: "PickPock Team" }],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-icon.png", sizes: "120x120", type: "image/png" },
+    ],
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default async function RootLayout({

@@ -1,8 +1,8 @@
-# Pickpock 🛍️
+# PickPock 🛍️
 
 **AI-Powered E-commerce Platform for Modern Shopping**
 
-Pickpock is a cutting-edge e-commerce platform that combines artificial intelligence with seamless shopping experiences. Built for the Thai market with full bilingual support (TH/EN), Pickpock offers intelligent product recommendations, smart search, and real-time inventory management.
+PickPock is a cutting-edge e-commerce platform that combines artificial intelligence with seamless shopping experiences. Built for the Thai market with full bilingual support (TH/EN), PickPock offers intelligent product recommendations, smart search, and real-time inventory management.
 
 ## ✨ Features
 
@@ -55,7 +55,7 @@ npm run build
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see Pickpock in action.
+Open [http://localhost:3000](http://localhost:3000) to see PickPock in action.
 
 ## 🌐 Environment Variables
 

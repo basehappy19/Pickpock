@@ -17,7 +17,7 @@ interface Message {
 export default function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "สวัสดีครับ! ผมคือผู้ช่วย AI จาก Pickpock Mall ยินดีที่ได้พบคุณครับ มีอะไรที่ผมพอจะแนะนำสินค้าหรือช่วยเหลือคุณได้ในวันนี้ไหมครับ?" }
+    { role: "assistant", content: "สวัสดีครับ! ผมคือผู้ช่วย AI จาก PickPock Mall ยินดีที่ได้พบคุณครับ มีอะไรที่ผมพอจะแนะนำสินค้าหรือช่วยเหลือคุณได้ในวันนี้ไหมครับ?" }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -139,7 +139,7 @@ export default function AIChatbot() {
                 <Bot className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="font-bold text-sm text-slate-900 uppercase tracking-wider">Pickpock AI</h3>
+                <h3 className="font-bold text-sm text-slate-900 uppercase tracking-wider">PickPock AI</h3>
                 <p className="text-[10px] text-emerald-600 font-black uppercase tracking-widest flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Online Assistant
                 </p>
@@ -163,7 +163,7 @@ export default function AIChatbot() {
                   {msg.role === "assistant" ? renderMessageContent(msg.content) : msg.content}
                 </div>
                 <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest mt-1.5 mx-1">
-                  {msg.role === "assistant" ? "Pickpock AI" : "You"}
+                  {msg.role === "assistant" ? "PickPock AI" : "You"}
                 </span>
               </div>
             ))}

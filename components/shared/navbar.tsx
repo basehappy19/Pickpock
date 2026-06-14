@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ShoppingCart, Search, Menu, Globe, Box, User, ShieldCheck, Home, LayoutDashboard, Package, LogOut, LogIn, Heart, GitCompare, X, ShoppingBag, Gift } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
@@ -44,12 +45,14 @@ export default function Navbar() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-8">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity">
-              <div className="bg-gradient-to-br from-primary to-purple-600 p-1.5 rounded-xl shadow-lg shadow-primary/20">
-                <ShoppingBag className="h-6 w-6 text-white" />
-              </div>
-              <span>
-                Pick<span className="text-primary">pock</span>
-              </span>
+              <Image
+                src="/brand/logo_full.png"
+                alt="PickPock Logo"
+                width={140}
+                height={40}
+                className="h-10 w-auto"
+                priority
+              />
             </Link>
             
             <div className="hidden lg:flex gap-6">
