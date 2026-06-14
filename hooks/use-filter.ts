@@ -28,7 +28,20 @@ export function useFilter(initialData: Product[]) {
       result = result.filter((item) => item.category === filters.category);
     }
 
-    // Sort
+    // 5. Store-Specific Filter (Most specific)
+    if (filters.storeId && filters.storeId !== "all") {
+      result = result.filter(item => item.storeId === filters.storeId);
+    } else {
+      // Official / Partner Filter (General)
+      if (filters.isOfficial) {
+        result = result.filter(item => item.isOfficial || item.storeId === "mall");
+      }
+      if (filters.isPartner) {
+        result = result.filter(item => !item.isOfficial && item.storeId !== "mall");
+      }
+    }
+
+    // 6. Sort
     result.sort((a, b) => {
       switch (filters.sortBy) {
         case "price-asc":
@@ -42,19 +55,6 @@ export function useFilter(initialData: Product[]) {
           return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       }
     });
-
-    // Official / Partner Filter
-    if (filters.isOfficial) {
-      result = result.filter(item => item.isOfficial || item.storeId === "mall");
-    }
-    if (filters.isPartner) {
-      result = result.filter(item => !item.isOfficial && item.storeId !== "mall");
-    }
-
-    // Store ID Filter
-    if (filters.storeId && filters.storeId !== "all") {
-      result = result.filter(item => item.storeId === filters.storeId);
-    }
 
     return result;
   }, [initialData, filters]);

@@ -332,7 +332,16 @@ export default function ProductListContent({ initialProducts }: { initialProduct
               <div className="flex flex-col gap-2">
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <div 
-                    onClick={() => handleFilterToggle("official", !isOfficialFilter)}
+                    onClick={() => {
+                      const newValue = !isOfficialFilter;
+                      handleFilterToggle("official", newValue);
+                      if (newValue) {
+                        const params = new URLSearchParams(searchParams.toString());
+                        params.delete("partner");
+                        params.delete("storeId");
+                        router.push(`?${params.toString()}`, { scroll: false });
+                      }
+                    }}
                     className={cn(
                       "w-12 h-6 rounded-full p-1 transition-all duration-300",
                       isOfficialFilter ? "bg-amber-500" : "bg-muted"
@@ -347,7 +356,19 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 </label>
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <div 
-                    onClick={() => handleFilterToggle("partner", !isPartnerFilter)}
+                    onClick={() => {
+                      const newValue = !isPartnerFilter;
+                      handleFilterToggle("partner", newValue);
+                      if (newValue) {
+                        const params = new URLSearchParams(searchParams.toString());
+                        params.delete("official");
+                        router.push(`?${params.toString()}`, { scroll: false });
+                      } else {
+                        const params = new URLSearchParams(searchParams.toString());
+                        params.delete("storeId");
+                        router.push(`?${params.toString()}`, { scroll: false });
+                      }
+                    }}
                     className={cn(
                       "w-12 h-6 rounded-full p-1 transition-all duration-300",
                       isPartnerFilter ? "bg-blue-500" : "bg-muted"
@@ -362,26 +383,26 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 </label>
               </div>
 
-              {/* Specific Store Selection */}
-              <div className="pt-2">
-                <select
-                  value={selectedStoreId}
-                  onChange={(e) => handleStoreChange(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-muted/50 border-2 border-transparent focus:border-primary/20 outline-none text-xs font-black uppercase tracking-widest cursor-pointer appearance-none"
-                >
-                  <option value="all">--- {t.common.all} {t.dashboard.storeTitle} ---</option>
-                  <optgroup label={t.dashboard.officialMall}>
-                    <option value="mall">{t.dashboard.officialMall}</option>
-                  </optgroup>
-                  <optgroup label={t.dashboard.partnerStore}>
-                    {stores.filter(s => s.store_id !== "mall").map(store => (
-                      <option key={store.store_id} value={store.store_id}>
-                        {store.name}
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
-              </div>
+              {/* Specific Store Selection - Only show when Partner filter is on */}
+              {isPartnerFilter && (
+                <div className="pt-2 animate-in slide-in-from-top-2 duration-300">
+                  <select
+                    value={selectedStoreId}
+                    onChange={(e) => handleStoreChange(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl bg-muted/50 border-2 border-transparent focus:border-primary/20 outline-none text-xs font-black uppercase tracking-widest cursor-pointer appearance-none shadow-sm hover:bg-muted transition-all"
+                  >
+                    <option value="all">--- {t.common.all} {t.dashboard.partnerStore} ---</option>
+                    {stores
+                      .filter(s => s.store_id !== "mall")
+                      .map(store => (
+                        <option key={store.store_id} value={store.store_id}>
+                          {store.name}
+                        </option>
+                      ))
+                    }
+                  </select>
+                </div>
+              )}
             </div>
 
             <div className="space-y-4">
