@@ -56,12 +56,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     updateURLParams({ category: cat === "all" ? null : cat });
   };
 
-  const handlePriceChange = (min: number, max: number) => {
-    updateURLParams({
-      minPrice: min > 0 ? String(min) : null,
-      maxPrice: max < maxPrice ? String(max) : null
-    });
-  };
+
 
   const handleStoreChange = (sid: string) => {
     if (sid === "all") {
@@ -99,12 +94,16 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     const sid = searchParams.get("storeId") || "all";
     const sortBy = (searchParams.get("sort") as FilterOptions['sortBy']) || "newest";
 
-    setMinPrice(min);
-    setMaxPriceFilter(max);
     setInStockOnly(inStock);
     setIsOfficialFilter(official);
     setIsPartnerFilter(partner);
     setSelectedStoreId(sid);
+
+    // Only sync if URL has price params, otherwise let local state rule
+    if (searchParams.has("minPrice") || searchParams.has("maxPrice")) {
+      setMinPrice(min);
+      setMaxPriceFilter(max);
+    }
 
     updateFilter({ 
       category: cat,
@@ -125,6 +124,29 @@ export default function ProductListContent({ initialProducts }: { initialProduct
       setHasPriceSynced(true);
     }
   }, [maxPrice, hasPriceSynced, searchParams]);
+
+  // Debounced URL update for price sliders
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!hasPriceSynced) return;
+      
+      const currentUrlMin = Number(searchParams.get("minPrice")) || 0;
+      const currentUrlMax = searchParams.has("maxPrice") ? Number(searchParams.get("maxPrice")) : maxPrice;
+      
+      if (minPrice !== currentUrlMin || maxPriceFilter !== currentUrlMax) {
+        updateURLParams({
+          minPrice: minPrice > 0 ? String(minPrice) : null,
+          maxPrice: maxPriceFilter < maxPrice ? String(maxPriceFilter) : null
+        });
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [minPrice, maxPriceFilter, maxPrice, searchParams, updateURLParams, hasPriceSynced]);
+
+  const handlePriceChange = (min: number, max: number) => {
+    setMinPrice(min);
+    setMaxPriceFilter(max);
+  };
 
   const stableUpdateFilter = useCallback(updateFilter, [updateFilter]);
   

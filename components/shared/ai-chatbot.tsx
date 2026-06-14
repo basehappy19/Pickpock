@@ -96,16 +96,16 @@ export default function AIChatbot() {
 
           return (
             <Link key={idx} href={`/product/${product.id || (product as any).product_id}`} className="block my-4 first:mt-2 last:mb-2 no-underline group">
-              <div className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-primary/50 transition-all shadow-sm hover:shadow-md active:scale-[0.98]">
+              <div className="bg-card border border-border rounded-xl overflow-hidden hover:border-primary/50 transition-all shadow-sm hover:shadow-md active:scale-[0.98]">
                 <div className="flex items-center gap-4 p-3">
-                  <div className="h-14 w-14 rounded-lg overflow-hidden bg-slate-50 shrink-0 border border-slate-100">
+                  <div className="h-14 w-14 rounded-lg overflow-hidden bg-muted shrink-0 border border-border">
                     <img src={getImgSrc(product.image)} className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" alt={product.name} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-xs text-slate-900 uppercase truncate mb-0.5">{product.name}</p>
+                    <p className="font-medium text-xs text-foreground uppercase truncate mb-0.5">{product.name}</p>
                     <p className="font-semibold text-primary text-xs">{formatCurrency(product.price)}</p>
                   </div>
-                  <div className="p-2 rounded-lg bg-slate-50 text-slate-400 group-hover:bg-primary group-hover:text-white transition-all">
+                  <div className="p-2 rounded-lg bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all">
                     <ShoppingBag className="h-4 w-4" />
                   </div>
                 </div>
@@ -121,7 +121,7 @@ export default function AIChatbot() {
         <span key={idx} className="whitespace-pre-line leading-relaxed tracking-tight inline-block">
           {boldParts.map((bp, i) => {
             if (bp.startsWith('**') && bp.endsWith('**')) {
-              return <strong key={i} className="font-medium text-slate-900">{bp.slice(2, -2)}</strong>;
+              return <strong key={i} className="font-medium text-foreground">{bp.slice(2, -2)}</strong>;
             }
             return bp;
           })}
@@ -134,69 +134,69 @@ export default function AIChatbot() {
     <div className="fixed bottom-20 lg:bottom-6 right-6 z-[100]">
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 w-full h-[100dvh] sm:absolute sm:inset-auto sm:bottom-20 sm:lg:bottom-24 sm:right-0 sm:w-[420px] sm:h-[550px] bg-white sm:border border-slate-200 sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-in sm:slide-in-from-bottom-6 zoom-in-95 sm:zoom-in-100 duration-300">
+        <div className="fixed inset-0 z-50 w-full sm:absolute sm:inset-auto sm:bottom-20 sm:lg:bottom-24 sm:right-0 sm:w-[420px] sm:h-[550px] bg-background sm:border border-border sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-in sm:slide-in-from-bottom-6 zoom-in-95 sm:zoom-in-100 duration-300">
           {/* Header */}
-          <div className="p-4 sm:p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 shrink-0 mt-[env(safe-area-inset-top)]">
+          <div className="p-4 sm:p-5 border-b border-border flex justify-between items-center bg-muted/50 shrink-0 mt-[env(safe-area-inset-top)]">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-lg shadow-slate-900/10 overflow-hidden">
+              <div className="h-10 w-10 rounded-xl bg-foreground text-background flex items-center justify-center shadow-lg shadow-black/10 overflow-hidden">
                 <img src="/brand/mascot.jpeg" className="h-full w-full object-cover" alt="AI Mascot" />
               </div>
               <div>
-                <h3 className="font-medium text-sm text-slate-900 uppercase tracking-wider">PickPock AI</h3>
-                <p className="text-xs text-emerald-600 font-semibold uppercase tracking-widest flex items-center gap-1">
+                <h3 className="font-medium text-sm text-foreground uppercase tracking-wider">PickPock AI</h3>
+                <p className="text-xs text-emerald-500 font-semibold uppercase tracking-widest flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> {assistantTitle}
                 </p>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-slate-200 text-slate-400 hover:text-slate-600 rounded-lg transition-all cursor-pointer">
+            <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-muted text-muted-foreground hover:text-foreground rounded-lg transition-all cursor-pointer">
               <X className="h-5 w-5" />
             </button>
           </div>
 
           {/* Messages */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6 bg-slate-50/20">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6 bg-muted/10">
             {messages.map((msg, i) => (
               <div key={i} className={cn("flex flex-col", msg.role === "user" ? "items-end" : "items-start")}>
                 <div className={cn(
                   "max-w-[85%] px-5 py-3.5 text-sm font-medium shadow-sm transition-all",
                   msg.role === "user"
-                    ? "bg-slate-900 text-white rounded-2xl rounded-tr-none"
-                    : "bg-white border border-slate-200 text-slate-700 rounded-2xl rounded-tl-none leading-relaxed"
+                    ? "bg-primary text-primary-foreground rounded-2xl rounded-tr-none"
+                    : "bg-card border border-border text-card-foreground rounded-2xl rounded-tl-none leading-relaxed"
                 )}>
                   {msg.role === "assistant" ? renderMessageContent(msg.content) : msg.content}
                 </div>
-                <span className="text-[8px] font-medium text-slate-300 uppercase tracking-widest mt-1.5 mx-1">
+                <span className="text-[8px] font-medium text-muted-foreground uppercase tracking-widest mt-1.5 mx-1">
                   {msg.role === "assistant" ? "PickPock AI" : "You"}
                 </span>
               </div>
             ))}
             {loading && (
               <div className="flex flex-col items-start animate-in fade-in duration-300">
-                <div className="bg-white border border-slate-100 px-5 py-4 rounded-2xl rounded-tl-none shadow-sm flex items-center gap-3">
+                <div className="bg-card border border-border px-5 py-4 rounded-2xl rounded-tl-none shadow-sm flex items-center gap-3">
                    <div className="flex gap-1">
                      <span className="h-1.5 w-1.5 rounded-full bg-primary animate-bounce [animation-delay:-0.3s]" />
                      <span className="h-1.5 w-1.5 rounded-full bg-primary animate-bounce [animation-delay:-0.15s]" />
                      <span className="h-1.5 w-1.5 rounded-full bg-primary animate-bounce" />
                    </div>
-                   <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">AI กำลังหาข้อมูล...</span>
+                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">AI กำลังหาข้อมูล...</span>
                 </div>
               </div>
             )}
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSend} className="p-3 sm:p-4 bg-white border-t border-slate-100 flex gap-2 shrink-0 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+          <form onSubmit={handleSend} className="p-3 sm:p-4 bg-background border-t border-border flex gap-2 shrink-0 pb-[calc(1rem+env(safe-area-inset-bottom))]">
             <input
               type="text"
               placeholder={language === 'th' ? "พิมพ์ข้อความถาม AI..." : "Ask AI..."}
-              className="flex-1 px-4 sm:px-5 py-3 rounded-xl bg-slate-50 border border-transparent focus:bg-white focus:border-primary/30 outline-none text-sm font-medium transition-all"
+              className="flex-1 px-4 sm:px-5 py-3 rounded-xl bg-muted/50 border border-transparent focus:bg-background focus:border-primary/30 outline-none text-base font-medium transition-all text-foreground placeholder:text-muted-foreground"
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
             <button 
               type="submit" 
               disabled={!input.trim() || loading}
-              className="p-3 rounded-xl bg-slate-900 text-white hover:bg-slate-800 active:scale-95 transition-all shadow-lg shadow-slate-900/10 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shrink-0 flex items-center justify-center"
+              className="p-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 active:scale-95 transition-all shadow-lg shadow-primary/10 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shrink-0 flex items-center justify-center"
             >
               <Send className="h-5 w-5" />
             </button>
@@ -208,8 +208,8 @@ export default function AIChatbot() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "h-14 w-14 rounded-full shadow-2xl flex items-center justify-center text-white hover:scale-110 active:scale-95 transition-all cursor-pointer group relative z-10",
-          isOpen ? "hidden sm:flex bg-slate-900 border-2 border-white" : "flex bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 border-2 border-white/50"
+          "h-14 w-14 rounded-full shadow-2xl flex items-center justify-center text-primary-foreground hover:scale-110 active:scale-95 transition-all cursor-pointer group relative z-10",
+          isOpen ? "hidden sm:flex bg-foreground border-2 border-background" : "flex bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 border-2 border-white/50"
         )}
       >
         {!isOpen && (
