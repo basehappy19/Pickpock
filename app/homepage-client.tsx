@@ -13,13 +13,29 @@ import { initialCoupons } from "@/lib/initial-data";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 
 const CATEGORIES = [
-  { name: "Electronics",  icon: "💻", href: "/products?category=Electronics" },
-  { name: "Fashion",      icon: "👗", href: "/products?category=Fashion" },
-  { name: "Home",         icon: "🏠", href: "/products?category=Home+%26+Living" },
-  { name: "Furniture",    icon: "🛋️", href: "/products?category=Furniture" },
-  { name: "Beauty",       icon: "💄", href: "/products?category=Beauty" },
-  { name: "Sports",       icon: "⚽", href: "/products?category=Sports" },
-  { name: "Toys",         icon: "🧸", href: "/products?category=Toys" },
+  { name: "Electronics",      icon: "💻", href: "/products?category=Electronics" },
+  { name: "Fashion",          icon: "👗", href: "/products?category=Fashion" },
+  { name: "Home & Living",    icon: "🏠", href: "/products?category=Home+%26+Living" },
+  { name: "Furniture",        icon: "🛋️", href: "/products?category=Furniture" },
+  { name: "Beauty",           icon: "💄", href: "/products?category=Beauty" },
+  { name: "Sports",           icon: "⚽", href: "/products?category=Sports" },
+  { name: "Toys",             icon: "🧸", href: "/products?category=Toys" },
+  { name: "Food",             icon: "🍜", href: "/products?category=Food" },
+  { name: "Books",            icon: "📚", href: "/products?category=Books" },
+  { name: "Baby & Kids",      icon: "👶", href: "/products?category=Baby+%26+Kids" },
+  { name: "Health",           icon: "💊", href: "/products?category=Health" },
+  { name: "Music",            icon: "🎵", href: "/products?category=Music" },
+  { name: "Art",              icon: "🎨", href: "/products?category=Art" },
+  { name: "Home & Garden",     icon: "🌻", href: "/products?category=Home+%26+Garden" },
+  { name: "Stationery",       icon: "✏️", href: "/products?category=Stationery" },
+  { name: "Gaming & Tech",    icon: "🎮", href: "/products?category=Gaming+%26+Tech" },
+  { name: "Student Lifestyle", icon: "🎓", href: "/products?category=Student+Lifestyle" },
+  { name: "Jewelry",          icon: "💎", href: "/products?category=Jewelry" },
+  { name: "Pets",             icon: "🐕", href: "/products?category=Pets" },
+  { name: "Automotive",       icon: "🚗", href: "/products?category=Automotive" },
+  { name: "Travel",           icon: "✈️", href: "/products?category=Travel" },
+  { name: "Kitchen",          icon: "🍳", href: "/products?category=Kitchen" },
+  { name: "Office",           icon: "💼", href: "/products?category=Office" },
 ];
 
 function SectionHeader({
@@ -52,9 +68,11 @@ function SectionHeader({
 function ProductCard({
   product,
   badge,
+  priority,
 }: {
   product: Product;
   badge?: string;
+  priority?: boolean;
 }) {
   const imgSrc =
     product.image?.trim() || "https://placehold.co/600x600?text=No+Image";
@@ -71,6 +89,7 @@ function ProductCard({
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 640px) 50vw, 25vw"
+          priority={priority}
         />
         {badge && (
           <span className="absolute top-2 left-2 bg-background/90 backdrop-blur border text-[10px] text-muted-foreground px-2 py-0.5 rounded-full">
@@ -207,7 +226,7 @@ export default function HomepageClient({
         {/* ── Categories ── */}
         <section className="px-4 lg:px-8 py-6">
           <SectionHeader title={t.home.categories} />
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-2">
             {CATEGORIES.map((cat, i) => (
               <Link
                 key={`cat-${cat.name}-${i}`}
@@ -290,6 +309,7 @@ export default function HomepageClient({
               <ProductCard
                 key={`ai-${product.id || i}`}
                 product={product}
+                priority={i < 2}
               />
             ))}
           </div>

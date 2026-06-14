@@ -40,7 +40,14 @@
     "visitStore": "Visit Store",
     "noProducts": "No products listed by this store yet.",
     "openStore": "Open Your Own Shop",
-    "noStorePrompt": "You don't have a store yet. Join our partner program to start selling your products on MSU FOUNDER."
+    "noStorePrompt": "You don't have a store yet. Join our partner program to start selling your products on MSU FOUNDER.",
+    "editStoreDetails": "Edit Store Details",
+    "storeName": "Store Name",
+    "storeDescription": "Store Description",
+    "storeNamePlaceholder": "Enter store name",
+    "storeDescPlaceholder": "Enter store description",
+    "saving": "Saving...",
+    "ratings": "Ratings"
   },
   "home": {
     "heroTitle": "Discover the Future of Shopping",
@@ -695,6 +702,17 @@
     "Toys": "Toys",
     "Stationery": "Stationery",
     "Gaming & Tech": "Gaming & Tech",
-    "Student Lifestyle": "Student Lifestyle"
+    "Student Lifestyle": "Student Lifestyle",
+    "Books": "Books",
+    "Baby & Kids": "Baby & Kids",
+    "Health": "Health",
+    "Music": "Music",
+    "Art": "Art",
+    "Jewelry": "Jewelry",
+    "Pets": "Pets",
+    "Automotive": "Automotive",
+    "Travel": "Travel",
+    "Kitchen": "Kitchen",
+    "Office": "Office"
   }
 }
