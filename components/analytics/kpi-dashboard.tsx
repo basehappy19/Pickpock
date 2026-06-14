@@ -152,9 +152,9 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.salesTrendTitle}</h3>
-              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{t.dashboard.salesPerformanceTitle}</p>
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{t.dashboard.salesPerformanceTitle}</p>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 text-xs font-black uppercase tracking-widest">
               <TrendingUp className="h-3.5 w-3.5" /> {t.dashboard.salesTrendValue}
             </div>
           </div>
@@ -165,7 +165,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
             height={250}
           />
 
-          <div className="flex justify-between text-[10px] font-black text-muted-foreground uppercase tracking-widest px-1">
+          <div className="flex justify-between text-xs font-black text-muted-foreground uppercase tracking-widest px-1">
             {revenueChartData.map(d => (
               <span key={d.label}>{d.label}</span>
             ))}
@@ -193,7 +193,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
             <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-8 flex flex-col items-center justify-center">
               <div className="text-center">
                 <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.revenueShareTitle}</h3>
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Pickpock Mall vs Partners</p>
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Pickpock Mall vs Partners</p>
               </div>
 
               <DonutChart
@@ -214,13 +214,13 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
               <div className="w-full grid grid-cols-2 gap-4">
                 <div className="flex items-center gap-2">
                   <div className="h-3 w-3 rounded-full bg-primary" />
-                  <span className="text-[10px] font-black uppercase tracking-tight">
+                  <span className="text-xs font-black uppercase tracking-tight">
                     Official ({revenueShare.officialPercentage.toFixed(0)}%)
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="h-3 w-3 rounded-full bg-amber-500" />
-                  <span className="text-[10px] font-black uppercase tracking-tight">
+                  <span className="text-xs font-black uppercase tracking-tight">
                     Partners ({revenueShare.partnerPercentage.toFixed(0)}%)
                   </span>
                 </div>
@@ -246,23 +246,23 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
                     </div>
                     <div>
                       <p className="font-black text-sm">{store.storeName}</p>
-                      <p className="text-[10px] font-bold text-muted-foreground">ID: {store.storeId.slice(0, 8)}</p>
+                      <p className="text-xs font-bold text-muted-foreground">ID: {store.storeId.slice(0, 8)}</p>
                     </div>
                   </div>
                 ),
                 revenue: (
                   <span className="font-black text-sm">{formatCurrency(store.revenue)}</span>
                 ),
-                orders: <span className="text-[10px] font-black">{store.orders}</span>,
+                orders: <span className="text-xs font-black">{store.orders}</span>,
                 rating: (
                   <div className="flex items-center gap-1 text-amber-500">
                     <Star className="h-3 w-3 fill-current" />
-                    <span className="text-[10px] font-black">{store.avgRating.toFixed(1)}</span>
+                    <span className="text-xs font-black">{store.avgRating.toFixed(1)}</span>
                   </div>
                 ),
                 trend: (
                   <div className={cn(
-                    "flex items-center gap-1 text-[10px] font-black",
+                    "flex items-center gap-1 text-xs font-black",
                     store.growthRate >= 0 ? "text-emerald-500" : "text-rose-500"
                   )}>
                     {store.growthRate >= 0 ? (
@@ -291,12 +291,12 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
                 <div className="flex items-center gap-3">
                   <Package className="h-4 w-4 text-amber-500" />
                   <div>
-                    <p className="text-[10px] font-black uppercase truncate max-w-[200px]">{product.name}</p>
+                    <p className="text-xs font-black uppercase truncate max-w-[200px]">{product.name}</p>
                     <p className="text-[8px] text-muted-foreground">{product.category}</p>
                   </div>
                 </div>
                 <span className={cn(
-                  "text-[10px] font-black px-2 py-1 rounded-lg",
+                  "text-xs font-black px-2 py-1 rounded-lg",
                   product.stock === 0 ? "bg-rose-500/10 text-rose-600" :
                   product.stock < 5 ? "bg-amber-500/10 text-amber-600" :
                   "bg-blue-500/10 text-blue-600"

@@ -88,11 +88,11 @@ export default function WishlistPage() {
                 <X className="h-4 w-4" />
               </button>
               {product.stock > 0 ? (
-                <div className="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-wider">
+                <div className="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider">
                   {t.product.inStock}
                 </div>
               ) : (
-                <div className="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-rose-500 text-white text-[10px] font-bold uppercase tracking-wider">
+                <div className="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-rose-500 text-white text-xs font-bold uppercase tracking-wider">
                   {t.product.outOfStock}
                 </div>
               )}
@@ -100,7 +100,7 @@ export default function WishlistPage() {
 
             <div className="p-4 space-y-3 flex-1 flex flex-col">
               <div>
-                <p className="text-[10px] font-black uppercase text-muted-foreground tracking-wider">{product.category}</p>
+                <p className="text-xs font-black uppercase text-muted-foreground tracking-wider">{product.category}</p>
                 <h3 className="font-black leading-tight line-clamp-2 group-hover:text-primary transition-colors">
                   {product.name}
                 </h3>
@@ -114,7 +114,7 @@ export default function WishlistPage() {
                       <span key={i} className={`text-xs ${i < Math.floor(product.rating) ? "fill-current" : "opacity-30"}`}>★</span>
                     ))}
                   </div>
-                  <span className="text-[10px] font-bold text-muted-foreground">({Number(product.rating).toFixed(1)})</span>
+                  <span className="text-xs font-bold text-muted-foreground">({Number(product.rating).toFixed(1)})</span>
                 </div>
               </div>
 

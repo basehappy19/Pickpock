@@ -105,7 +105,7 @@ export default function ComparePage() {
                     <NextImage src={product.image} alt={product.name} fill className="object-cover" />
                   </div>
                   <div className="space-y-1">
-                    <p className="text-[10px] font-black uppercase text-muted-foreground tracking-wider">{product.category}</p>
+                    <p className="text-xs font-black uppercase text-muted-foreground tracking-wider">{product.category}</p>
                     <h3 className="font-black text-sm leading-tight line-clamp-2">{product.name}</h3>
                   </div>
                 </div>

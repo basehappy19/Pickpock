@@ -165,7 +165,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           <div className="space-y-6">
             <div className="space-y-2">
               <div className="flex items-center gap-4">
-                <div className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest">
+                <div className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-xs font-black uppercase tracking-widest">
                   {(t.categories as Record<string, string>)[product.category] || product.category}
                 </div>
                 <div className="flex items-center gap-1 text-amber-500">
@@ -204,7 +204,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <Truck className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-black uppercase text-muted-foreground">{t.products.shippingDetails}</p>
+                  <p className="text-xs font-black uppercase text-muted-foreground">{t.products.shippingDetails}</p>
                   <p className="text-xs font-black">{t.products.freeShipping}</p>
                 </div>
               </div>
@@ -213,7 +213,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <CheckCircle2 className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-black uppercase text-muted-foreground">{t.products.warrantyDetails}</p>
+                  <p className="text-xs font-black uppercase text-muted-foreground">{t.products.warrantyDetails}</p>
                   <p className="text-xs font-black">{t.products.oneYearWarranty}</p>
                 </div>
               </div>
@@ -227,12 +227,12 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <Ticket className="h-5 w-5" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-0.5">
+                  <p className="text-xs font-black uppercase tracking-widest text-emerald-600 mb-0.5">
                     {language === 'th' ? "คูปองของคุณที่มีอยู่" : "My Available Coupons"}
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-1.5">
                     {myAvailableCoupons.map((c: any) => (
-                      <span key={c.code} className="inline-flex items-center gap-1 bg-white text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-md border border-emerald-200">
+                      <span key={c.code} className="inline-flex items-center gap-1 bg-white text-emerald-700 text-xs font-bold px-2 py-0.5 rounded-md border border-emerald-200">
                         {c.code} ({c.type === 'percent' ? `${c.discount}%` : `฿${c.discount}`})
                       </span>
                     ))}
@@ -243,7 +243,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
 
             <div className="flex items-center gap-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.products.quantity}</label>
+                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.products.quantity}</label>
                 <div className="flex items-center bg-muted rounded-2xl p-1 border-2 border-transparent focus-within:border-primary/20">
                   <button
                     onClick={() => setSelectedQuantity(Math.max(1, selectedQuantity - 1))}
@@ -299,14 +299,14 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group"
               >
                 <Share2 className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                <span className="text-[10px] font-black uppercase tracking-widest">{t.products.shareProduct}</span>
+                <span className="text-xs font-black uppercase tracking-widest">{t.products.shareProduct}</span>
               </div>
               <div 
                 onClick={handleInquiry}
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group"
               >
                 <MessageSquare className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                <span className="text-[10px] font-black uppercase tracking-widest">{t.products.inquiry}</span>
+                <span className="text-xs font-black uppercase tracking-widest">{t.products.inquiry}</span>
               </div>
             </div>
           </div>
@@ -397,12 +397,12 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                       <Star key={star} className={cn("h-4 w-4", star <= Math.round(product.rating) ? "fill-current" : "text-muted")} />
                     ))}
                   </div>
-                  <p className="text-[10px] font-black uppercase text-muted-foreground">{t.products.reviewDetails.total1}{product.reviews.length}{t.products.reviewDetails.total2}</p>
+                  <p className="text-xs font-black uppercase text-muted-foreground">{t.products.reviewDetails.total1}{product.reviews.length}{t.products.reviewDetails.total2}</p>
                 </div>
                 <div className="flex-1 space-y-2 w-full">
                   {[5, 4, 3, 2, 1].map((star) => (
                     <div key={star} className="flex items-center gap-4">
-                      <span className="text-[10px] font-black w-4">{star}</span>
+                      <span className="text-xs font-black w-4">{star}</span>
                       <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
                         <div
                           className="h-full bg-primary rounded-full"
@@ -426,7 +426,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                         </div>
                         <div>
                           <p className="font-black text-sm">{review.user}</p>
-                          <p className="text-[10px] font-bold text-muted-foreground">{t.products.reviewDetails.verified}{review.date}</p>
+                          <p className="text-xs font-bold text-muted-foreground">{t.products.reviewDetails.verified}{review.date}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-1 text-amber-500">
@@ -438,7 +438,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                     <p className="text-muted-foreground font-medium italic">"{review.comment}"</p>
                     {review.sentiment && (
                       <div className={cn(
-                        "inline-flex px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-tight",
+                        "inline-flex px-3 py-1 rounded-lg text-xs font-black uppercase tracking-tight",
                         review.sentiment === 'positive' ? "bg-emerald-50 text-emerald-600" :
                           review.sentiment === 'negative' ? "bg-rose-50 text-rose-600" : "bg-muted text-muted-foreground"
                       )}>

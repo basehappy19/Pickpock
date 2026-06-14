@@ -97,7 +97,7 @@ export function BarChart({ data, horizontal = false }: BarChartProps) {
 
           return (
             <div key={i} className="space-y-1">
-              <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+              <div className="flex justify-between items-center text-xs font-black uppercase tracking-widest">
                 <span>{item.label}</span>
                 <span className="text-muted-foreground">{item.value}</span>
               </div>
@@ -218,7 +218,7 @@ export function StatCard({ label, value, change, trend, icon: Icon, color = "tex
         )}
         {change && trend && (
           <div className={cn(
-            "flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest",
+            "flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-black uppercase tracking-widest",
             trend === 'up' ? "bg-emerald-500/10 text-emerald-600" :
             trend === 'down' ? "bg-rose-500/10 text-rose-600" :
             "bg-muted text-muted-foreground"
@@ -228,7 +228,7 @@ export function StatCard({ label, value, change, trend, icon: Icon, color = "tex
         )}
       </div>
       <div>
-        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{label}</p>
+        <p className="text-xs font-black text-muted-foreground uppercase tracking-widest">{label}</p>
         <h3 className="text-3xl font-black tracking-tighter">{value}</h3>
       </div>
     </div>
@@ -248,7 +248,7 @@ export function KPITable({ columns, data }: KPITableProps) {
           <thead>
             <tr className="border-b bg-muted/20">
               {columns.map(col => (
-                <th key={col.key} className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                <th key={col.key} className="px-8 py-4 text-xs font-black uppercase tracking-widest text-muted-foreground">
                   {col.label}
                 </th>
               ))}

@@ -143,7 +143,7 @@ export default function ProfilePage() {
 
           <form onSubmit={handleUpdateInfo} className="space-y-4">
             <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.fullName}</label>
+              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.fullName}</label>
               <div className="relative group">
                 <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 <input 
@@ -156,7 +156,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.email}</label>
+              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.email}</label>
               <div className="relative group">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 <input 
@@ -169,7 +169,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.phone}</label>
+              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.phone}</label>
               <div className="relative group">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 <input 
@@ -200,7 +200,7 @@ export default function ProfilePage() {
 
           <form onSubmit={handleChangePassword} className="space-y-4">
             <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.currentPassword}</label>
+              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.currentPassword}</label>
               <input 
                 type="password" 
                 required
@@ -212,7 +212,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-1 pt-2 border-t border-dashed">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.newPassword}</label>
+              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.newPassword}</label>
               <input 
                 type="password" 
                 required
@@ -224,7 +224,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.confirmNewPassword}</label>
+              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.confirmNewPassword}</label>
               <input 
                 type="password" 
                 required

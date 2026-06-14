@@ -93,7 +93,7 @@ function ProductCard({
           priority={priority}
         />
         {badge && (
-          <span className="absolute top-2 left-2 bg-background/90 backdrop-blur border text-[10px] text-muted-foreground px-2 py-0.5 rounded-full">
+          <span className="absolute top-2 left-2 bg-background/90 backdrop-blur border text-xs text-muted-foreground px-2 py-0.5 rounded-full">
             {badge}
           </span>
         )}
@@ -258,7 +258,7 @@ export default function HomepageClient({
                   key={`coupon-${coupon.code}-${i}`}
                   className="min-w-45 bg-card border rounded-xl p-4 flex flex-col gap-2 shrink-0"
                 >
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground">
                     {coupon.code}
                   </p>
                   <p className="text-xl font-medium">
@@ -266,7 +266,7 @@ export default function HomepageClient({
                       ? `${coupon.discount}% OFF`
                       : `฿${coupon.discount} OFF`}
                   </p>
-                  <p className="text-[10px] text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     ขั้นต่ำ ฿0 · ไม่มีวันหมดอายุ
                   </p>
                   <button

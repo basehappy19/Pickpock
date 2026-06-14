@@ -300,7 +300,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
               
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-black uppercase text-muted-foreground">{t.filters.minPrice}</span>
+                  <span className="text-xs font-black uppercase text-muted-foreground">{t.filters.minPrice}</span>
                   <input 
                     type="number"
                     value={minPrice}
@@ -309,7 +309,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                   />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-black uppercase text-muted-foreground">{t.filters.maxPrice}</span>
+                  <span className="text-xs font-black uppercase text-muted-foreground">{t.filters.maxPrice}</span>
                   <input 
                     type="number"
                     value={maxPriceFilter}
@@ -467,7 +467,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             </div>
             {/* Sort Dropdown Placeholder */}
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">{t.filters.sortBy}:</span>
+              <span className="text-xs font-black uppercase text-muted-foreground tracking-widest">{t.filters.sortBy}:</span>
               <select 
                 className="bg-transparent font-black text-xs uppercase tracking-widest outline-none cursor-pointer"
                 value={filters.sortBy}
@@ -505,7 +505,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                     </div>
                     <div className="text-left space-y-0.5">
                       <p className="text-xs font-black group-hover:text-primary transition-colors">{store.name}</p>
-                      <p className="text-[10px] font-bold text-muted-foreground">{store.rating ? store.rating.toFixed(1) + ' ★' : 'ร้านใหม่'}</p>
+                      <p className="text-xs font-bold text-muted-foreground">{store.rating ? store.rating.toFixed(1) + ' ★' : 'ร้านใหม่'}</p>
                     </div>
                   </button>
                 ))}
@@ -545,7 +545,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                         }
                       }}
                     />
-                    <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-background/80 backdrop-blur-md text-[8px] lg:text-[10px] font-black uppercase tracking-widest border shadow-sm">
+                    <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-background/80 backdrop-blur-md text-[8px] lg:text-xs font-black uppercase tracking-widest border shadow-sm">
                       {(t.categories as Record<string, string>)[product.category] || product.category}
                     </div>
                     {product.isOfficial && (
@@ -586,7 +586,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                     }}
                   >
                     <div className="space-y-1">
-                      <div className="text-[10px] font-black text-muted-foreground uppercase flex items-center gap-1 mb-1 truncate">
+                      <div className="text-xs font-black text-muted-foreground uppercase flex items-center gap-1 mb-1 truncate">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7"/></svg>
                         {stores?.find(s => s.store_id === product.storeId)?.name || 'ITMSU Store'}
                       </div>
@@ -596,10 +596,10 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1 text-amber-500">
                           <Star className="h-3 w-3 fill-current" />
-                          <span className="text-[10px] font-black">{Number(product.rating).toFixed(1)}</span>
+                          <span className="text-xs font-black">{Number(product.rating).toFixed(1)}</span>
                         </div>
                         <div className={cn(
-                          "flex items-center gap-1 text-[10px] font-black uppercase",
+                          "flex items-center gap-1 text-xs font-black uppercase",
                           product.stock > 0 ? "text-emerald-500" : "text-rose-500"
                         )}>
                           <Package className="h-3 w-3" />

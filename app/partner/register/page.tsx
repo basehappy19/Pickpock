@@ -95,7 +95,7 @@ export default function PartnerRegisterPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.partner.storeName}</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.partner.storeName}</label>
                   <input
                     type="text"
                     required
@@ -106,7 +106,7 @@ export default function PartnerRegisterPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.partner.phone}</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.partner.phone}</label>
                   <input
                     type="tel"
                     required
@@ -117,7 +117,7 @@ export default function PartnerRegisterPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.partner.description}</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t.partner.description}</label>
                   <textarea
                     required
                     rows={4}

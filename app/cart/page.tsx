@@ -238,7 +238,7 @@ export default function CartPage() {
                     <Link href={`/product/${item.id}`} className="text-lg lg:text-xl font-black tracking-tight leading-tight hover:text-primary transition-colors cursor-pointer block">
                       {item.name}
                     </Link>
-                    <p className="text-[10px] lg:text-xs text-muted-foreground font-bold uppercase tracking-widest mt-1">{item.category}</p>
+                    <p className="text-xs lg:text-xs text-muted-foreground font-bold uppercase tracking-widest mt-1">{item.category}</p>
                   </div>
                   <button onClick={() => removeFromCart(item.id)} className="p-2 rounded-lg border text-muted-foreground hover:text-rose-50 hover:bg-rose-50 transition-all cursor-pointer hidden sm:block">
                     <Trash2 className="h-4 w-4" />
@@ -278,7 +278,7 @@ export default function CartPage() {
             
             {/* Customer Name */}
             <div className="space-y-2 pb-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.cart.recipientName}</label>
+              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.cart.recipientName}</label>
               <input 
                 type="text" 
                 placeholder={t.cart.namePlaceholder}
@@ -328,18 +328,18 @@ export default function CartPage() {
                 </div>
               )}
 
-              <div className="flex justify-between font-bold text-muted-foreground uppercase text-[10px] tracking-widest">
+              <div className="flex justify-between font-bold text-muted-foreground uppercase text-xs tracking-widest">
                 <span>{t.cart.subtotal}</span>
                 <span>{formatCurrency(discountSummary.subtotal)}</span>
               </div>
-              <div className="flex justify-between font-bold text-muted-foreground uppercase text-[10px] tracking-widest">
+              <div className="flex justify-between font-bold text-muted-foreground uppercase text-xs tracking-widest">
                 <span>{t.cart.shipping}</span>
                 <span className="text-emerald-500">{tier === 'VIP' ? t.cart.freeVip : t.cart.free}</span>
               </div>
 
               {/* Tier Discount */}
               {discountSummary.tierDiscount > 0 && (
-                <div className="flex justify-between font-bold text-amber-500 uppercase text-[10px] tracking-widest">
+                <div className="flex justify-between font-bold text-amber-500 uppercase text-xs tracking-widest">
                   <span>{t.cart.vipDiscount}</span>
                   <span>-{formatCurrency(discountSummary.tierDiscount)}</span>
                 </div>
@@ -347,7 +347,7 @@ export default function CartPage() {
 
               {/* Bulk Discount */}
               {discountSummary.bulkDiscount > 0 && (
-                <div className="flex justify-between font-bold text-blue-500 uppercase text-[10px] tracking-widest">
+                <div className="flex justify-between font-bold text-blue-500 uppercase text-xs tracking-widest">
                   <span>{t.cart.bulkDiscount}</span>
                   <span>-{formatCurrency(discountSummary.bulkDiscount)}</span>
                 </div>
@@ -356,7 +356,7 @@ export default function CartPage() {
               {/* Coupon Discount */}
               {appliedCoupon && (
                 <div className="flex justify-between items-center gap-2">
-                  <div className="flex items-center gap-2 font-bold text-rose-500 uppercase text-[10px] tracking-widest">
+                  <div className="flex items-center gap-2 font-bold text-rose-500 uppercase text-xs tracking-widest">
                     <Tag className="h-3 w-3" />
                     <span>Coupon: {appliedCoupon.code}</span>
                   </div>

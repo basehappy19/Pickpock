@@ -140,7 +140,7 @@ export default function AIChatbot() {
               </div>
               <div>
                 <h3 className="font-bold text-sm text-slate-900 uppercase tracking-wider">PickPock AI</h3>
-                <p className="text-[10px] text-emerald-600 font-black uppercase tracking-widest flex items-center gap-1">
+                <p className="text-xs text-emerald-600 font-black uppercase tracking-widest flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Online Assistant
                 </p>
               </div>
@@ -175,7 +175,7 @@ export default function AIChatbot() {
                      <span className="h-1.5 w-1.5 rounded-full bg-primary animate-bounce [animation-delay:-0.15s]" />
                      <span className="h-1.5 w-1.5 rounded-full bg-primary animate-bounce" />
                    </div>
-                   <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">AI กำลังหาข้อมูล...</span>
+                   <span className="text-xs font-black text-slate-400 uppercase tracking-widest">AI กำลังหาข้อมูล...</span>
                 </div>
               </div>
             )}

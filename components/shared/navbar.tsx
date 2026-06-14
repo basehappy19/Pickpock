@@ -82,7 +82,7 @@ export default function Navbar() {
                 )}>
                   <div className="flex items-center gap-2">
                     {role === "founder" ? <ShieldCheck className="h-3 w-3" /> : <User className="h-3 w-3" />}
-                    <span className="text-[10px] font-black uppercase tracking-tighter">{user.name.split(" ")[0]}</span>
+                    <span className="text-xs font-black uppercase tracking-tighter">{user.name.split(" ")[0]}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <span className="text-[8px] font-black uppercase opacity-70 tracking-widest">{role}</span>
@@ -124,7 +124,7 @@ export default function Navbar() {
               <Link href="/wishlist" className="relative hidden sm:flex rounded-xl p-2.5 bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border shadow-sm cursor-pointer group">
                 <Heart className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 {wishlist.length > 0 && (
-                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[10px] font-black text-white shadow-sm">
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs font-black text-white shadow-sm">
                     {wishlist.length}
                   </span>
                 )}
@@ -133,7 +133,7 @@ export default function Navbar() {
               <Link href="/compare" className="relative hidden md:flex rounded-xl p-2.5 bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border shadow-sm cursor-pointer group">
                 <GitCompare className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 {compareList.length > 0 && (
-                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-white shadow-sm">
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-black text-white shadow-sm">
                     {compareList.length}
                   </span>
                 )}
@@ -142,7 +142,7 @@ export default function Navbar() {
               <Link href="/cart" className="relative hidden lg:flex rounded-xl p-2.5 bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border shadow-sm cursor-pointer group">
                 <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 {totalCount > 0 && (
-                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-primary-foreground shadow-sm">
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-black text-primary-foreground shadow-sm">
                     {totalCount}
                   </span>
                 )}
@@ -165,7 +165,7 @@ export default function Navbar() {
               )}
             >
               <link.icon className="h-6 w-6" />
-              <span className="text-[10px] font-black uppercase tracking-tighter">{link.label}</span>
+              <span className="text-xs font-black uppercase tracking-tighter">{link.label}</span>
             </Link>
           ))}
           <Link
@@ -178,12 +178,12 @@ export default function Navbar() {
             <div className="relative">
               <Heart className="h-6 w-6" />
               {wishlist.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[10px] font-black text-white shadow-sm">
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs font-black text-white shadow-sm">
                   {wishlist.length}
                 </span>
               )}
             </div>
-            <span className="text-[10px] font-black uppercase tracking-tighter">{t.nav.wishlist}</span>
+            <span className="text-xs font-black uppercase tracking-tighter">{t.nav.wishlist}</span>
           </Link>
           <Link
             href="/compare"
@@ -195,12 +195,12 @@ export default function Navbar() {
             <div className="relative">
               <GitCompare className="h-6 w-6" />
               {compareList.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-white shadow-sm">
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-black text-white shadow-sm">
                   {compareList.length}
                 </span>
               )}
             </div>
-            <span className="text-[10px] font-black uppercase tracking-tighter">{t.nav.compare}</span>
+            <span className="text-xs font-black uppercase tracking-tighter">{t.nav.compare}</span>
           </Link>
           <Link
             href="/cart"
@@ -212,12 +212,12 @@ export default function Navbar() {
             <div className="relative">
               <ShoppingCart className="h-6 w-6" />
               {totalCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-primary-foreground shadow-sm">
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-black text-primary-foreground shadow-sm">
                   {totalCount}
                 </span>
               )}
             </div>
-            <span className="text-[10px] font-black uppercase tracking-tighter">{t.nav.cart}</span>
+            <span className="text-xs font-black uppercase tracking-tighter">{t.nav.cart}</span>
           </Link>
         </div>
       </nav>

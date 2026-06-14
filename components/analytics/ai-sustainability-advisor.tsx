@@ -168,7 +168,7 @@ Focus on actionable business insights. Professional and concise.`;
                 <span className={cn("text-2xl font-bold", scoreColor(metrics.score))}>
                   {metrics.score}
                 </span>
-                <span className="text-[10px] text-muted-foreground">
+                <span className="text-xs text-muted-foreground">
                   {language === "th" ? "คะแนน" : "Score"}
                 </span>
               </div>

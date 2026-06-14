@@ -219,7 +219,7 @@ export default function VouchersPage() {
         <div className="relative z-10 max-w-2xl space-y-6">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10">
             <Trophy className="h-4 w-4 text-amber-400" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t.vouchers.collected}: {userOwnedCodes.length}</span>
+            <span className="text-xs font-black uppercase tracking-[0.2em]">{t.vouchers.collected}: {userOwnedCodes.length}</span>
           </div>
           <h1 className="text-5xl lg:text-7xl font-black tracking-tighter leading-none">
             {t.vouchers.title.split(" & ")[0]} <br />
@@ -267,7 +267,7 @@ export default function VouchersPage() {
                                 style={{ width: `${(mission.current / mission.target) * 100}%` }} 
                               />
                            </div>
-                           <span className="text-[10px] font-black uppercase text-muted-foreground">{mission.current}/{mission.target}</span>
+                           <span className="text-xs font-black uppercase text-muted-foreground">{mission.current}/{mission.target}</span>
                         </div>
                       </div>
                     </div>
@@ -299,7 +299,7 @@ export default function VouchersPage() {
                   {!isClaimed && (
                     <div className="mt-6 pt-6 border-t border-dashed flex items-center gap-3">
                        <Gift className="h-4 w-4 text-rose-500" />
-                       <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">{t.vouchers.rewardCouponCode}{mission.rewardCode}</span>
+                       <span className="text-xs font-black text-rose-500 uppercase tracking-widest">{t.vouchers.rewardCouponCode}{mission.rewardCode}</span>
                     </div>
                   )}
                 </div>
@@ -330,7 +330,7 @@ export default function VouchersPage() {
                   <div className="space-y-4 relative z-10">
                     <div className="flex justify-between items-start">
                       <div className="space-y-1">
-                        <p className="text-[10px] font-black text-primary uppercase tracking-widest leading-none mb-1">{coupon.code}</p>
+                        <p className="text-xs font-black text-primary uppercase tracking-widest leading-none mb-1">{coupon.code}</p>
                         <p className="text-2xl font-black tracking-tighter text-foreground leading-none">
                           {coupon.type === 'percent' ? `${coupon.discount}% OFF` : `฿${coupon.discount} OFF`}
                         </p>
@@ -343,7 +343,7 @@ export default function VouchersPage() {
                     {!isOwned && (
                       <button 
                         onClick={() => handleCollectVoucher(coupon.code)}
-                        className="w-full py-3 rounded-xl bg-secondary font-black text-[10px] uppercase tracking-widest hover:bg-secondary/80 transition-all cursor-pointer shadow-md active:scale-95"
+                        className="w-full py-3 rounded-xl bg-secondary font-black text-xs uppercase tracking-widest hover:bg-secondary/80 transition-all cursor-pointer shadow-md active:scale-95"
                       >
                         {t.vouchers.collect}
                       </button>

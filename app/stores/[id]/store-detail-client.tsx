@@ -223,16 +223,16 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
               <h3 className="text-xs font-black uppercase tracking-widest text-primary">{t.store.about}</h3>
               <p className="text-muted-foreground font-bold leading-relaxed text-sm">{displayStore.description}</p>
               <div className="pt-4 space-y-4 border-t border-muted">
-                 <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest">
+                 <div className="flex items-center gap-3 text-xs font-black uppercase tracking-widest">
                     <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary"><MapPin className="h-4 w-4" /></div>
                     {t.store.globalShipping}
                  </div>
-                 <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest">
+                 <div className="flex items-center gap-3 text-xs font-black uppercase tracking-widest">
                     <div className="h-8 w-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600"><ShieldCheck className="h-4 w-4" /></div>
                     {t.store.responseRate}
                  </div>
               </div>
-              <button onClick={openContactModal} className="w-full py-4 rounded-2xl bg-muted text-muted-foreground font-black text-[10px] uppercase tracking-widest hover:bg-primary hover:text-white transition-all cursor-pointer">
+              <button onClick={openContactModal} className="w-full py-4 rounded-2xl bg-muted text-muted-foreground font-black text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-all cursor-pointer">
                 {t.store.contact}
               </button>
            </div>
@@ -242,7 +242,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
         <div className="lg:col-span-3 space-y-8">
            <div className="flex items-center justify-between border-b border-muted pb-6">
               <h2 className="text-4xl font-black tracking-tight">{t.store.collection.split(" ")[0]} <span className="text-primary uppercase">{t.store.collection.split(" ").slice(1).join(" ")}</span></h2>
-              <div className="px-4 py-1.5 rounded-full bg-muted font-black text-[10px] uppercase tracking-widest text-muted-foreground">
+              <div className="px-4 py-1.5 rounded-full bg-muted font-black text-xs uppercase tracking-widest text-muted-foreground">
                 {storeProducts.length} {t.store.itemsAvailable}
               </div>
            </div>

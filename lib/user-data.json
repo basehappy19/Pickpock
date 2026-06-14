@@ -153,6 +153,20 @@
     ],
     "recentlyViewed": [
       {
+        "id": "p-104",
+        "name": "Ergonomic Desk Chair",
+        "category": "Home",
+        "price": 5480,
+        "stock": 15,
+        "image": "https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=800",
+        "description": "Comfortable office chair with lumbar support.",
+        "rating": 4.7,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-01-01T00:00:00Z"
+      },
+      {
         "id": "p-901",
         "name": "Learning Card Set",
         "category": "Toys",

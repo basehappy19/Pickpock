@@ -13,7 +13,7 @@ import { useGlobalData } from "@/hooks/use-global-data";
 import { toast } from "sonner";
 
 export default function HistoryPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { role, user } = useRole();
   const { orders, products, updateProduct } = useGlobalData();
   
@@ -144,7 +144,7 @@ export default function HistoryPage() {
                   <div className="flex items-center gap-3">
                     <h3 className="font-black text-xl lg:text-2xl tracking-tighter">{order.id}</h3>
                     <span className={cn(
-                      "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border",
+                      "px-3 py-1 rounded-lg text-xs font-black uppercase tracking-widest border",
                       order.status.toLowerCase() === "delivered" ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" :
                       order.status.toLowerCase() === "shipped" ? "bg-blue-500/10 text-blue-600 border-blue-500/20" :
                       order.status.toLowerCase() === "pending" ? "bg-amber-500/10 text-amber-600 border-amber-500/20 animate-pulse" :
@@ -154,30 +154,30 @@ export default function HistoryPage() {
                     </span>
                   </div>
                   <p className="text-xs text-muted-foreground font-black uppercase tracking-[0.1em]">
-                    {t.history.orderDate} {formatDate(order.createdAt)}
+                    {t.history.orderDate} {formatDate(order.createdAt, language)}
                   </p>
                 </div>
               </div>
               
               <div className="flex flex-col md:items-end gap-1">
-                <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{t.history.totalInvestment}</p>
+                <p className="text-xs font-black text-muted-foreground uppercase tracking-widest">{t.history.totalInvestment}</p>
                 <div className="text-3xl lg:text-4xl font-black text-primary tracking-tighter">
                   {formatCurrency(order.totalAmount)}
                 </div>
                 {order.discounts && order.discounts.total > 0 && (
                   <div className="flex flex-col items-end mt-2 pt-2 border-t border-primary/10 w-full md:w-64">
-                    <div className="flex justify-between w-full text-[10px] font-bold text-muted-foreground uppercase">
+                    <div className="flex justify-between w-full text-xs font-bold text-muted-foreground uppercase">
                       <span>{t.history.subtotal}</span>
                       <span>{formatCurrency(order.originalAmount || order.totalAmount)}</span>
                     </div>
                     {order.discounts.tier > 0 && (
-                      <div className="flex justify-between w-full text-[10px] font-black text-emerald-600 uppercase">
+                      <div className="flex justify-between w-full text-xs font-black text-emerald-600 uppercase">
                         <span>{t.history.vipDiscount}</span>
                         <span>-{formatCurrency(order.discounts.tier)}</span>
                       </div>
                     )}
                     {order.discounts.coupon > 0 && (
-                      <div className="flex justify-between w-full text-[10px] font-black text-rose-600 uppercase">
+                      <div className="flex justify-between w-full text-xs font-black text-rose-600 uppercase">
                         <span>Coupon ({order.discounts.couponCode})</span>
                         <span>-{formatCurrency(order.discounts.coupon)}</span>
                       </div>
@@ -196,11 +196,11 @@ export default function HistoryPage() {
               <table className="w-full text-left border-collapse">
                 <thead className="bg-muted/10">
                   <tr>
-                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.history.productDetails}</th>
-                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground hidden sm:table-cell">{t.history.price}</th>
-                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground hidden sm:table-cell text-center">{t.history.qty}</th>
-                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">{t.history.subtotal}</th>
-                    <th className="px-8 py-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.history.action}</th>
+                    <th className="px-8 py-4 text-xs font-black uppercase tracking-widest text-muted-foreground">{t.history.productDetails}</th>
+                    <th className="px-8 py-4 text-xs font-black uppercase tracking-widest text-muted-foreground hidden sm:table-cell">{t.history.price}</th>
+                    <th className="px-8 py-4 text-xs font-black uppercase tracking-widest text-muted-foreground hidden sm:table-cell text-center">{t.history.qty}</th>
+                    <th className="px-8 py-4 text-xs font-black uppercase tracking-widest text-muted-foreground text-right">{t.history.subtotal}</th>
+                    <th className="px-8 py-4 text-xs font-black uppercase tracking-widest text-muted-foreground">{t.history.action}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-muted/30">
@@ -230,8 +230,8 @@ export default function HistoryPage() {
                               <h4 className="font-black text-base lg:text-lg leading-tight group-hover/link:text-primary transition-colors group-hover/link:underline">
                                 {item.productName || productData?.name}
                               </h4>
-                              <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest no-underline">
-                                {productData?.category || "General"}
+                              <p className="text-xs text-muted-foreground font-black uppercase tracking-widest no-underline">
+                                {productData?.category ? ((t.categories as Record<string, string>)[productData.category] || productData.category) : "General"}
                               </p>
                             </div>
                           </Link>
@@ -247,7 +247,7 @@ export default function HistoryPage() {
                         </td>
                         <td className="px-8 py-6">
                           {isReviewed ? (
-                            <div className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-tighter border border-emerald-100">
+                            <div className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 text-emerald-600 text-xs font-black uppercase tracking-tighter border border-emerald-100">
                               <CheckCircle2 className="h-3 w-3" />
                               {t.history.reviewed}
                             </div>
@@ -257,7 +257,7 @@ export default function HistoryPage() {
                                 setSelectedItem({ orderId: order.id, productId: item.productId, productName: item.productName });
                                 setIsReviewModalOpen(true);
                               }}
-                              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-tighter hover:opacity-90 transition-all shadow-lg shadow-primary/10 cursor-pointer active:scale-95 whitespace-nowrap"
+                              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-primary text-primary-foreground text-xs font-black uppercase tracking-tighter hover:opacity-90 transition-all shadow-lg shadow-primary/10 cursor-pointer active:scale-95 whitespace-nowrap"
                             >
                               <Star className="h-3 w-3" />
                               {t.history.writeReview}
@@ -301,7 +301,7 @@ export default function HistoryPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">{t.reviews.rating}</label>
+                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-2">{t.reviews.rating}</label>
                 <textarea 
                   required
                   placeholder={t.reviews.commentPlaceholder}

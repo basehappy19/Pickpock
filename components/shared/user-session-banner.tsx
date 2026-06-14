@@ -33,11 +33,11 @@ export default function UserSessionBanner() {
         <div className="h-4 w-[1px] bg-current opacity-30" />
 
         <div className="flex items-center gap-2">
-          <span className="text-[10px] uppercase opacity-80">{role}</span>
+          <span className="text-xs uppercase opacity-80">{role}</span>
           {tier === "VIP" && (
             <>
               <span className="w-1 h-1 rounded-full bg-current opacity-50" />
-              <span className="text-[10px] font-black text-amber-200">VIP</span>
+              <span className="text-xs font-black text-amber-200">VIP</span>
             </>
           )}
         </div>

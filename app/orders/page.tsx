@@ -11,7 +11,7 @@ import { useState, useMemo, Suspense } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 function OrdersContent() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { orders, products, updateOrderStatus } = useGlobalData();
   const { role, user } = useRole();
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
@@ -107,7 +107,7 @@ function OrdersContent() {
           <div className="relative w-full sm:w-48 group">
             <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 h-3.5 w-3.5" />
             <select 
-              className="w-full pl-10 pr-4 py-3 rounded-lg border border-slate-200 bg-white focus:border-primary outline-none transition-all font-bold uppercase text-[10px] cursor-pointer appearance-none"
+              className="w-full pl-10 pr-4 py-3 rounded-lg border border-slate-200 bg-white focus:border-primary outline-none transition-all font-bold uppercase text-xs cursor-pointer appearance-none"
               value={statusFilter}
               onChange={(e) => updateFilters("status", e.target.value)}
             >
@@ -129,7 +129,7 @@ function OrdersContent() {
                <Package className="h-6 w-6" />
             </div>
             <div>
-               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.orders.totalOrders}</p>
+               <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">{t.orders.totalOrders}</p>
                <h3 className="text-2xl font-bold tracking-tight text-slate-900">{totalCount.toLocaleString()}</h3>
             </div>
          </div>
@@ -138,7 +138,7 @@ function OrdersContent() {
                <CreditCard className="h-6 w-6" />
             </div>
             <div>
-               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.orders.combinedRevenue}</p>
+               <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">{t.orders.combinedRevenue}</p>
                <h3 className="text-2xl font-bold tracking-tight text-emerald-600">{formatCurrency(totalRevenue)}</h3>
             </div>
          </div>
@@ -147,7 +147,7 @@ function OrdersContent() {
                <Truck className="h-6 w-6" />
             </div>
             <div>
-               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.orders.activeFilters}</p>
+               <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">{t.orders.activeFilters}</p>
                <h3 className="text-xl font-bold tracking-tight text-blue-600 uppercase">{statusFilter === "ALL" ? t.orders.allStatuses : ((t.orders.status as any)[statusFilter.toLowerCase()] || statusFilter)}</h3>
             </div>
          </div>
@@ -171,18 +171,18 @@ function OrdersContent() {
                   </div>
                   <div>
                     <h3 className="font-bold text-lg text-slate-900 tracking-tight">{order.id}</h3>
-                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{formatDate(order.createdAt)}</p>
+                    <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">{formatDate(order.createdAt, language)}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-6">
                   <div className="text-right hidden sm:block">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">{t.orders.totalAmount}</p>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-0.5">{t.orders.totalAmount}</p>
                     <p className="text-xl font-bold text-slate-900 tracking-tight">{formatCurrency(order.totalAmount)}</p>
                   </div>
                   <select 
                       className={cn(
-                          "text-[10px] font-bold uppercase tracking-tight bg-white border border-slate-200 rounded-lg px-4 py-2 outline-none cursor-pointer transition-all shadow-sm",
+                          "text-xs font-bold uppercase tracking-tight bg-white border border-slate-200 rounded-lg px-4 py-2 outline-none cursor-pointer transition-all shadow-sm",
                           order.status.toUpperCase() === "PENDING" ? "text-amber-600" : 
                           order.status.toUpperCase() === "DELIVERED" ? "text-emerald-600" :
                           "text-primary"
@@ -203,8 +203,8 @@ function OrdersContent() {
               <div className="p-6">
                 <div className="space-y-6">
                   <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.orders.items}</span>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.orders.qtyPrice}</span>
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{t.orders.items}</span>
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{t.orders.qtyPrice}</span>
                   </div>
                   <div className="space-y-4">
                     {order.items.map((item: any, idx: number) => {
@@ -217,7 +217,7 @@ function OrdersContent() {
                             </div>
                             <div>
                                 <Link href={`/product/${item.productId}`} className="font-bold text-sm text-slate-900 hover:text-primary transition-colors">{item.productName || "Product"}</Link>
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{(t.categories as Record<string, string>)[product?.category || ""] || product?.category || "Category"}</p>
+                                <p className="text-xs font-bold text-slate-400 uppercase tracking-tight">{(t.categories as Record<string, string>)[product?.category || ""] || product?.category || "Category"}</p>
                             </div>
                           </div>
                           <div className="flex gap-4 text-xs font-bold items-center">
@@ -238,7 +238,7 @@ function OrdersContent() {
                     </div>
                     <div>
                       <p className="text-sm font-bold text-slate-900 uppercase tracking-tight">{order.customerName}</p>
-                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                      <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">
                         {t.orders.customer} ID: <span className="text-slate-600">{order.customerId}</span>
                       </p>
                     </div>
@@ -271,7 +271,7 @@ function OrdersContent() {
                     </div>
                     <div>
                        <h2 className="text-xl font-bold tracking-tight text-slate-900 uppercase">{t.common.monthly === "รายเดือน" ? "รายละเอียดคำสั่งซื้อ" : "Order Details"}</h2>
-                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">ID: {selectedOrder.id}</p>
+                       <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">ID: {selectedOrder.id}</p>
                     </div>
                  </div>
                  <button 
@@ -292,7 +292,7 @@ function OrdersContent() {
                     <div className="flex justify-between items-start mb-10">
                        <div>
                           <h1 className="text-2xl font-bold tracking-tight text-slate-900 mb-2">PickPock Mall</h1>
-                          <div className="space-y-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                          <div className="space-y-1 text-xs font-bold text-slate-400 uppercase tracking-wider">
                              <p className="flex items-center gap-2"><MapPin className="h-3 w-3" /> 123 MSU Innovation Park, Mahasarakham</p>
                              <p className="flex items-center gap-2"><Phone className="h-3 w-3" /> +66 88-888-8888</p>
                              <p className="flex items-center gap-2"><Mail className="h-3 w-3" /> contact@pickpock.com</p>
@@ -300,8 +300,8 @@ function OrdersContent() {
                        </div>
                        <div className="text-right">
                           <h2 className="text-lg font-bold uppercase tracking-widest text-slate-900 mb-1">{t.common.monthly === "รายเดือน" ? "ใบเสร็จรับเงิน" : "RECEIPT"}</h2>
-                          <p className="text-[10px] font-bold text-slate-400 mb-4 uppercase tracking-widest">#{selectedOrder.id}</p>
-                          <div className="inline-block px-3 py-1 rounded-md bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest">
+                          <p className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">#{selectedOrder.id}</p>
+                          <div className="inline-block px-3 py-1 rounded-md bg-emerald-500 text-white text-xs font-bold uppercase tracking-widest">
                              {t.common.monthly === "รายเดือน" ? "ชำระเงินแล้ว" : "PAID"}
                           </div>
                        </div>
@@ -309,25 +309,25 @@ function OrdersContent() {
 
                     <div className="grid grid-cols-2 gap-8 mb-10 pb-8 border-b border-slate-100 border-dashed">
                        <div className="space-y-3">
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.common.monthly === "รายเดือน" ? "ข้อมูลลูกค้า" : "BILL TO"}</p>
+                          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{t.common.monthly === "รายเดือน" ? "ข้อมูลลูกค้า" : "BILL TO"}</p>
                           <div className="space-y-1">
                              <p className="font-bold text-slate-900 uppercase">{selectedOrder.customerName}</p>
-                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Customer ID: {selectedOrder.customerId}</p>
+                             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Customer ID: {selectedOrder.customerId}</p>
                           </div>
                        </div>
                        <div className="space-y-3 text-right">
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.common.monthly === "รายเดือน" ? "วันที่สั่งซื้อ" : "DATE"}</p>
-                          <p className="font-bold text-slate-900 uppercase">{formatDate(selectedOrder.createdAt)}</p>
+                          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{t.common.monthly === "รายเดือน" ? "วันที่สั่งซื้อ" : "DATE"}</p>
+                          <p className="font-bold text-slate-900 uppercase">{formatDate(selectedOrder.createdAt, language)}</p>
                        </div>
                     </div>
 
                     <table className="w-full mb-10">
                        <thead>
                           <tr className="border-b border-slate-100">
-                             <th className="py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.dashboard.table.name}</th>
-                             <th className="py-4 text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.dashboard.table.stock}</th>
-                             <th className="py-4 text-right text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.dashboard.table.price}</th>
-                             <th className="py-4 text-right text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.common.monthly === "รายเดือน" ? "รวม" : "TOTAL"}</th>
+                             <th className="py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-widest">{t.dashboard.table.name}</th>
+                             <th className="py-4 text-center text-xs font-bold text-slate-400 uppercase tracking-widest">{t.dashboard.table.stock}</th>
+                             <th className="py-4 text-right text-xs font-bold text-slate-400 uppercase tracking-widest">{t.dashboard.table.price}</th>
+                             <th className="py-4 text-right text-xs font-bold text-slate-400 uppercase tracking-widest">{t.common.monthly === "รายเดือน" ? "รวม" : "TOTAL"}</th>
                           </tr>
                        </thead>
                        <tbody className="divide-y divide-slate-50">
@@ -338,7 +338,7 @@ function OrdersContent() {
                                 <tr key={i}>
                                    <td className="py-4">
                                       <p className="font-bold text-sm text-slate-900 uppercase">{item.productName || "Product"}</p>
-                                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{(t.categories as Record<string, string>)[product?.category || ""] || product?.category}</p>
+                                      <p className="text-xs font-bold text-slate-400 uppercase tracking-tight">{(t.categories as Record<string, string>)[product?.category || ""] || product?.category}</p>
                                    </td>
                                    <td className="py-4 text-center font-bold text-slate-900">x{item.quantity}</td>
                                    <td className="py-4 text-right font-bold text-slate-900">{formatCurrency(price)}</td>
@@ -351,20 +351,20 @@ function OrdersContent() {
 
                     <div className="flex justify-end pt-8 border-t border-slate-200">
                        <div className="w-80 space-y-3">
-                          <div className="flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                          <div className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-widest">
                              <span>{t.history.subtotal}</span>
                              <span>{formatCurrency(selectedOrder.originalAmount || selectedOrder.totalAmount)}</span>
                           </div>
                           
                           {selectedOrder.discounts?.tier > 0 && (
-                            <div className="flex justify-between items-center text-[10px] font-bold text-emerald-600 uppercase tracking-widest">
+                            <div className="flex justify-between items-center text-xs font-bold text-emerald-600 uppercase tracking-widest">
                                <span>{t.history.vipDiscount}</span>
                                <span>-{formatCurrency(selectedOrder.discounts.tier)}</span>
                             </div>
                           )}
 
                           {selectedOrder.discounts?.coupon > 0 && (
-                            <div className="flex justify-between items-center text-[10px] font-bold text-rose-600 uppercase tracking-widest">
+                            <div className="flex justify-between items-center text-xs font-bold text-rose-600 uppercase tracking-widest">
                                <span>Coupon ({selectedOrder.discounts.couponCode})</span>
                                <span>-{formatCurrency(selectedOrder.discounts.coupon)}</span>
                             </div>
@@ -378,7 +378,7 @@ function OrdersContent() {
                     </div>
                     
                     <div className="mt-12 pt-8 border-t border-slate-50 text-center">
-                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 italic">Thank you for shopping with PickPock Mall!</p>
+                       <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 italic">Thank you for shopping with PickPock Mall!</p>
                        <p className="text-[8px] font-bold text-slate-300 uppercase tracking-widest">This is a computer-generated receipt.</p>
                     </div>
                  </div>
@@ -386,15 +386,15 @@ function OrdersContent() {
                  {/* Additional Info Cards */}
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="p-5 rounded-xl bg-slate-50 border border-slate-100 space-y-3">
-                       <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                       <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
                           <Truck className="h-3.5 w-3.5" /> {t.common.monthly === "รายเดือน" ? "สถานะการจัดส่ง" : "Delivery Status"}
                        </h4>
-                       <div className="inline-flex px-3 py-1.5 rounded-md font-bold text-[10px] uppercase tracking-wider bg-white border border-slate-200">
+                       <div className="inline-flex px-3 py-1.5 rounded-md font-bold text-xs uppercase tracking-wider bg-white border border-slate-200">
                           {(t.orders.status as any)[selectedOrder.status.toLowerCase()] || selectedOrder.status}
                        </div>
                     </div>
                     <div className="p-5 rounded-xl bg-slate-50 border border-slate-100 space-y-3">
-                       <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                       <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
                           <CreditCard className="h-3.5 w-3.5" /> {t.common.monthly === "รายเดือน" ? "วิธีชำระเงิน" : "Payment Method"}
                        </h4>
                        <p className="font-bold text-sm text-slate-900 uppercase">PromptPay / QR Payment</p>
@@ -409,7 +409,7 @@ function OrdersContent() {
                     e.stopPropagation();
                     setSelectedOrder(null);
                   }}
-                  className="px-8 py-3 rounded-lg border border-slate-200 bg-white font-bold text-[10px] uppercase tracking-widest text-slate-600 hover:bg-slate-50 transition-all cursor-pointer"
+                  className="px-8 py-3 rounded-lg border border-slate-200 bg-white font-bold text-xs uppercase tracking-widest text-slate-600 hover:bg-slate-50 transition-all cursor-pointer"
                  >
                     {t.common.close}
                  </button>

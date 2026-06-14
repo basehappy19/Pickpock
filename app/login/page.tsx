@@ -290,7 +290,7 @@ export default function LoginPage() {
                  <div className="absolute inset-0 flex items-center">
                    <span className="w-full border-t border-slate-200 dark:border-slate-800" />
                  </div>
-                 <div className="relative flex justify-center text-[10px]">
+                 <div className="relative flex justify-center text-xs">
                    <span className="bg-slate-50 dark:bg-slate-950 px-2 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">
                      {t.auth.partnerStoreOwners}
                    </span>
