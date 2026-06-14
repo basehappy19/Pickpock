@@ -233,6 +233,20 @@
         "createdAt": "2026-06-30T00:00:00Z"
       },
       {
+        "id": "p-902",
+        "name": "Soft Plush Toy Bear",
+        "category": "Toys",
+        "price": 850,
+        "stock": 100,
+        "image": "https://images.unsplash.com/photo-1600881333168-2ef49b341f30?q=80&w=800",
+        "description": "Cuddly bear made with premium soft fabric.",
+        "rating": 4.9,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-30T00:00:00Z"
+      },
+      {
         "id": "p-newp0tz9o",
         "name": "Pro Gaming Mouse",
         "category": "Electronics",
@@ -301,20 +315,6 @@
         "storeId": "mall",
         "isOfficial": true,
         "createdAt": "2026-06-29T00:00:00Z"
-      },
-      {
-        "id": "p-902",
-        "name": "Soft Plush Toy Bear",
-        "category": "Toys",
-        "price": 850,
-        "stock": 100,
-        "image": "https://images.unsplash.com/photo-1559447421416-3414500d18a5?q=80&w=800",
-        "description": "Cuddly bear made with premium soft fabric.",
-        "rating": 4.9,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-06-30T00:00:00Z"
       }
     ]
   },
@@ -341,5 +341,29 @@
     "compare": [],
     "coupons": [],
     "recentlyViewed": []
+  },
+  "u005": {
+    "user_id": "u005",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [
+      {
+        "id": "p-901",
+        "name": "Learning Card Set",
+        "category": "Toys",
+        "price": 450,
+        "stock": 140,
+        "image": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=800",
+        "description": "Educational cards for early development.",
+        "rating": 4.5,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-30T00:00:00Z"
+      }
+    ],
+    "compare": [],
+    "coupons": []
   }
 }
