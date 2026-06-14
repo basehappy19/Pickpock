@@ -25,6 +25,9 @@ export default function AIChatbot() {
   const messagesRef = useRef(messages);
   const { products } = useGlobalData();
   const { role } = useRole();
+  const { language } = useLanguage();
+
+  const assistantTitle = language === 'th' ? "ผู้ช่วยออนไลน์" : "Online Assistant";
 
   useEffect(() => {
     messagesRef.current = messages;
@@ -131,9 +134,9 @@ export default function AIChatbot() {
     <div className="fixed bottom-20 lg:bottom-6 right-6 z-[100]">
       {/* Chat Window */}
       {isOpen && (
-        <div className="absolute bottom-20 lg:bottom-24 right-0 w-[90vw] sm:w-[420px] h-[550px] bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-bottom-6 duration-500">
+        <div className="fixed inset-0 z-50 w-full h-[100dvh] sm:absolute sm:inset-auto sm:bottom-20 sm:lg:bottom-24 sm:right-0 sm:w-[420px] sm:h-[550px] bg-white sm:border border-slate-200 sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-in sm:slide-in-from-bottom-6 zoom-in-95 sm:zoom-in-100 duration-300">
           {/* Header */}
-          <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+          <div className="p-4 sm:p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 shrink-0 mt-[env(safe-area-inset-top)]">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-lg shadow-slate-900/10">
                 <Bot className="h-5 w-5" />
@@ -141,7 +144,7 @@ export default function AIChatbot() {
               <div>
                 <h3 className="font-medium text-sm text-slate-900 uppercase tracking-wider">PickPock AI</h3>
                 <p className="text-xs text-emerald-600 font-semibold uppercase tracking-widest flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Online Assistant
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> {assistantTitle}
                 </p>
               </div>
             </div>
@@ -182,18 +185,18 @@ export default function AIChatbot() {
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSend} className="p-4 bg-white border-t border-slate-100 flex gap-2">
+          <form onSubmit={handleSend} className="p-3 sm:p-4 bg-white border-t border-slate-100 flex gap-2 shrink-0 pb-[calc(1rem+env(safe-area-inset-bottom))]">
             <input
               type="text"
-              placeholder="พิมพ์ข้อความถาม AI..."
-              className="flex-1 px-5 py-3 rounded-xl bg-slate-50 border border-transparent focus:bg-white focus:border-primary/30 outline-none text-sm font-medium transition-all"
+              placeholder={language === 'th' ? "พิมพ์ข้อความถาม AI..." : "Ask AI..."}
+              className="flex-1 px-4 sm:px-5 py-3 rounded-xl bg-slate-50 border border-transparent focus:bg-white focus:border-primary/30 outline-none text-sm font-medium transition-all"
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
             <button 
               type="submit" 
               disabled={!input.trim() || loading}
-              className="p-3 rounded-xl bg-slate-900 text-white hover:bg-slate-800 active:scale-95 transition-all shadow-lg shadow-slate-900/10 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-3 rounded-xl bg-slate-900 text-white hover:bg-slate-800 active:scale-95 transition-all shadow-lg shadow-slate-900/10 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shrink-0 flex items-center justify-center"
             >
               <Send className="h-5 w-5" />
             </button>
@@ -204,7 +207,10 @@ export default function AIChatbot() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="h-14 w-14 rounded-full bg-slate-900 shadow-2xl flex items-center justify-center text-white border-4 border-white hover:scale-110 active:scale-95 transition-all cursor-pointer group relative"
+        className={cn(
+          "h-14 w-14 rounded-full bg-slate-900 shadow-2xl flex items-center justify-center text-white border-4 border-white hover:scale-110 active:scale-95 transition-all cursor-pointer group relative z-10",
+          isOpen ? "hidden sm:flex" : "flex"
+        )}
       >
         <div className="absolute -inset-1.5 bg-slate-900/10 rounded-full blur-xl group-hover:bg-slate-900/20 transition-all" />
         {isOpen ? <X className="h-6 w-6 relative z-10" /> : <Sparkles className="h-6 w-6 relative z-10" />}
