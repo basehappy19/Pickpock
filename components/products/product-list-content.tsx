@@ -5,7 +5,7 @@ import { formatCurrency, cn, getImgSrc } from "@/lib/utils";
 import { Search, Filter, Star, ArrowRight, Sparkles, Loader2, Package, Heart, GitCompare, X as CloseIcon } from "lucide-react";
 import { useFilter } from "@/hooks/use-filter";
 import { useLanguage } from "@/hooks/use-language";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import NextImage from "next/image";
 import { useGlobalData } from "@/hooks/use-global-data";
@@ -23,6 +23,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
   const { addToRecentlyViewed } = useRecentlyViewed();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   
   const categories = useMemo(() => Array.from(new Set(allProducts.map(p => p.category))), [allProducts]);
   const maxPrice = useMemo(() => {
@@ -49,6 +50,29 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
+  const handleFilterToggle = (key: string, value: boolean) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set(key, "true");
+    } else {
+      params.delete(key);
+    }
+    params.set("page", "1");
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
+  const handlePriceChange = (min: number, max: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (min > 0) params.set("minPrice", String(min));
+    else params.delete("minPrice");
+    
+    if (max < maxPrice) params.set("maxPrice", String(max));
+    else params.delete("maxPrice");
+    
+    params.set("page", "1");
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPriceFilter, setMaxPriceFilter] = useState(10000);
@@ -57,21 +81,42 @@ export default function ProductListContent({ initialProducts }: { initialProduct
   const [isOfficialFilter, setIsOfficialFilter] = useState(false);
   const [isPartnerFilter, setIsPartnerFilter] = useState(false);
 
+  // Sync state with URL params
+  useEffect(() => {
+    const cat = searchParams.get("category") || "all";
+    const min = Number(searchParams.get("minPrice")) || 0;
+    const max = Number(searchParams.get("maxPrice")) || maxPrice;
+    const inStock = searchParams.get("inStock") === "true";
+    const official = searchParams.get("official") === "true";
+    const partner = searchParams.get("partner") === "true";
+    const sortBy = (searchParams.get("sort") as FilterOptions['sortBy']) || "newest";
+
+    setMinPrice(min);
+    setMaxPriceFilter(max);
+    setInStockOnly(inStock);
+    setIsOfficialFilter(official);
+    setIsPartnerFilter(partner);
+
+    updateFilter({ 
+      category: cat,
+      isOfficial: official,
+      isPartner: partner,
+      sortBy: sortBy
+    });
+  }, [searchParams, updateFilter, maxPrice]);
+
   // Sync maxPrice when products load once
   useEffect(() => {
     if (!hasPriceSynced && maxPrice > 0) {
-      setMaxPriceFilter(maxPrice);
+      const urlMax = searchParams.get("maxPrice");
+      if (!urlMax) {
+        setMaxPriceFilter(maxPrice);
+      }
       setHasPriceSynced(true);
     }
-  }, [maxPrice, hasPriceSynced]);
+  }, [maxPrice, hasPriceSynced, searchParams]);
 
   const stableUpdateFilter = useCallback(updateFilter, [updateFilter]);
-
-  // Sync URL category param with filter
-  useEffect(() => {
-    const cat = searchParams.get("category");
-    stableUpdateFilter({ category: cat || "all" });
-  }, [searchParams, stableUpdateFilter]);
   
   const [aiSearchQuery, setAiSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
@@ -233,7 +278,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                   <input 
                     type="number"
                     value={minPrice}
-                    onChange={(e) => setMinPrice(Number(e.target.value))}
+                    onChange={(e) => handlePriceChange(Number(e.target.value), maxPriceFilter)}
                     className="w-full px-3 py-2 rounded-lg bg-muted/50 border-2 border-transparent focus:border-primary/20 outline-none text-xs font-bold"
                   />
                 </div>
@@ -242,7 +287,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                   <input 
                     type="number"
                     value={maxPriceFilter}
-                    onChange={(e) => setMaxPriceFilter(Number(e.target.value))}
+                    onChange={(e) => handlePriceChange(minPrice, Number(e.target.value))}
                     className="w-full px-3 py-2 rounded-lg bg-muted/50 border-2 border-transparent focus:border-primary/20 outline-none text-xs font-bold"
                   />
                 </div>
@@ -254,7 +299,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 max={maxPrice}
                 step="100"
                 value={maxPriceFilter}
-                onChange={(e) => setMaxPriceFilter(Number(e.target.value))}
+                onChange={(e) => handlePriceChange(minPrice, Number(e.target.value))}
                 className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
               />
             </div>
@@ -264,10 +309,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
               <div className="flex flex-col gap-2">
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <div 
-                    onClick={() => {
-                      setIsOfficialFilter(!isOfficialFilter);
-                      stableUpdateFilter({ isOfficial: !isOfficialFilter });
-                    }}
+                    onClick={() => handleFilterToggle("official", !isOfficialFilter)}
                     className={cn(
                       "w-12 h-6 rounded-full p-1 transition-all duration-300",
                       isOfficialFilter ? "bg-amber-500" : "bg-muted"
@@ -282,10 +324,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 </label>
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <div 
-                    onClick={() => {
-                      setIsPartnerFilter(!isPartnerFilter);
-                      stableUpdateFilter({ isPartner: !isPartnerFilter });
-                    }}
+                    onClick={() => handleFilterToggle("partner", !isPartnerFilter)}
                     className={cn(
                       "w-12 h-6 rounded-full p-1 transition-all duration-300",
                       isPartnerFilter ? "bg-blue-500" : "bg-muted"
@@ -305,7 +344,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
               <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.filters.availability}</h3>
               <label className="flex items-center gap-3 cursor-pointer group">
                 <div 
-                  onClick={() => setInStockOnly(!inStockOnly)}
+                  onClick={() => handleFilterToggle("inStock", !inStockOnly)}
                   className={cn(
                     "w-12 h-6 rounded-full p-1 transition-all duration-300",
                     inStockOnly ? "bg-primary" : "bg-muted"
@@ -322,10 +361,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
 
             <button
               onClick={() => {
-                resetFilters();
-                setMinPrice(0);
-                setMaxPriceFilter(maxPrice);
-                setInStockOnly(false);
+                router.push(pathname);
                 setAiMatchedIds(null);
                 setAiSearchQuery("");
               }}
@@ -360,7 +396,11 @@ export default function ProductListContent({ initialProducts }: { initialProduct
               <select 
                 className="bg-transparent font-black text-xs uppercase tracking-widest outline-none cursor-pointer"
                 value={filters.sortBy}
-                onChange={(e) => stableUpdateFilter({ sortBy: e.target.value as FilterOptions['sortBy'] })}
+                onChange={(e) => {
+                  const params = new URLSearchParams(searchParams.toString());
+                  params.set("sort", e.target.value);
+                  router.push(`?${params.toString()}`, { scroll: false });
+                }}
               >
                 <option value="newest">{t.filters.newest}</option>
                 <option value="price-asc">{t.filters.priceLow}</option>
