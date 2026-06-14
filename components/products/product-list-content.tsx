@@ -180,16 +180,16 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 >
                   {t.common.all}
                 </button>
-                {categories.map(cat => (
+                {categories.map((cat, i) => (
                   <button
-                    key={cat}
+                    key={`cat-filter-${cat}-${i}`}
                     onClick={() => stableUpdateFilter({ category: cat })}
                     className={cn(
                       "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-tighter border-2 transition-all",
                       filters.category === cat ? "bg-primary border-primary text-primary-foreground" : "bg-card border-transparent hover:border-primary/20"
                     )}
                   >
-                    {cat}
+                    {(t.categories as Record<string, string>)[cat] || cat}
                   </button>
                 ))}
               </div>
@@ -371,7 +371,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                       }}
                     />
                     <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-background/80 backdrop-blur-md text-[8px] lg:text-[10px] font-black uppercase tracking-widest border shadow-sm">
-                      {product.category}
+                      {(t.categories as Record<string, string>)[product.category] || product.category}
                     </div>
                     {product.isOfficial && (
                       <div className="absolute top-2 right-2 px-2 py-0.5 bg-amber-500 text-white text-[8px] font-black uppercase tracking-tighter rounded-md shadow-sm">
@@ -424,7 +424,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                           product.stock > 0 ? "text-emerald-500" : "text-rose-500"
                         )}>
                           <Package className="h-3 w-3" />
-                          {product.stock > 0 ? `${product.stock} LEFT` : "OUT"}
+                          {product.stock > 0 ? `${product.stock} ${t.products.left}` : t.products.out}
                         </div>
                       </div>
                     </div>

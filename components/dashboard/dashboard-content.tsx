@@ -96,6 +96,10 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       stock: Number(formData.get("stock")),
       category: formData.get("category") as string,
       image: imageUrl || (editingProduct?.image || ""),
+      weight: formData.get("weight") as string,
+      dimensions: formData.get("dimensions") as string,
+      warranty: formData.get("warranty") as string,
+      additionalDetails: formData.get("additionalDetails") as string,
     };
 
     if (editingProduct) {
@@ -150,6 +154,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
     });
 
     const topProducts = Object.entries(productSales)
+      .filter(([id]) => products.some(p => p.id === id))
       .map(([id, quantity]) => ({
         name: products.find(p => p.id === id)?.name?.slice(0, 15) || id,
         value: quantity
@@ -206,7 +211,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
           onClick={() => { setEditingProduct(null); setIsModalOpen(true); }}
           className="flex items-center justify-center gap-2 px-6 py-4 text-sm font-black rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer"
         >
-          <Plus className="h-5 w-5" /> เพิ่มสินค้าใหม่
+          <Plus className="h-5 w-5" /> {t.dashboard.addProduct}
         </button>
       </div>
 
@@ -239,8 +244,8 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-6 lg:p-8 shadow-xl shadow-primary/5 space-y-6">
           <div className="flex justify-between items-center">
             <div>
-              <h3 className="text-xl font-black tracking-tight uppercase">ประสิทธิภาพยอดขาย</h3>
-              <p className="text-xs text-muted-foreground font-bold">+12% เทียบกับสัปดาห์ก่อน</p>
+              <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.salesPerformanceTitle}</h3>
+              <p className="text-xs text-muted-foreground font-bold">{t.dashboard.salesTrend}</p>
             </div>
             <div className="p-2 rounded-xl bg-primary/10 text-primary">
               <TrendingUp className="h-5 w-5" />
@@ -290,7 +295,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
         {/* Store Performance */}
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-6 lg:p-8 shadow-xl shadow-primary/5 space-y-6">
           <div className="flex justify-between items-center">
-            <h3 className="text-xl font-black tracking-tight uppercase">ร้านค้าทำยอดสูงสุด</h3>
+            <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.topStores}</h3>
             <Store className="h-5 w-5 text-indigo-600" />
           </div>
           
@@ -315,14 +320,14 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
           </div>
 
           <button className="w-full py-4 rounded-xl border-2 border-dashed border-muted-foreground/20 text-xs font-black uppercase tracking-widest hover:bg-muted/50 transition-all flex items-center justify-center gap-2">
-            ดูรายงานร้านค้าทั้งหมด <ArrowRight className="h-4 w-4" />
+            {t.dashboard.viewAllStoreReports} <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       </div>
 
       {/* Best Selling Products */}
       <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-6 lg:p-8 shadow-xl shadow-primary/5 space-y-6">
-        <h3 className="text-xl font-black tracking-tight uppercase">สินค้าขายดี (จำนวนชิ้น)</h3>
+        <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.bestSellingProducts}</h3>
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={analyticsData.topProducts}>
@@ -352,7 +357,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       {/* Product Management Table */}
       <div className="bg-card rounded-2xl border shadow-sm overflow-hidden flex flex-col">
         <div className="p-4 lg:p-8 border-b bg-muted/30 flex flex-col lg:flex-row justify-between gap-4 lg:gap-6 text-center md:text-left">
-          <h2 className="text-2xl font-black tracking-tight uppercase tracking-tighter">รายการสินค้าในระบบ</h2>
+          <h2 className="text-2xl font-black tracking-tight uppercase tracking-tighter">{t.dashboard.systemProducts}</h2>
           <div className="flex flex-col sm:flex-row gap-4 items-center flex-1 max-w-xl">
             <div className="relative flex-1 w-full group">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4 group-focus-within:text-primary transition-colors" />
@@ -382,7 +387,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
               {filteredData.map((item) => (
                 <tr key={item.id} className="group hover:bg-muted/50 transition-colors">
                   <td className="px-6 lg:px-8 py-4 lg:py-5 font-bold text-foreground/90">{item.name}</td>
-                  <td className="px-6 lg:px-8 py-4 lg:py-5 text-[10px] font-black uppercase text-muted-foreground">{item.category}</td>
+                  <td className="px-6 lg:px-8 py-4 lg:py-5 text-[10px] font-black uppercase text-muted-foreground">{(t.categories as Record<string, string>)[item.category] || item.category}</td>
                   <td className="px-6 lg:px-8 py-4 lg:py-5 font-mono font-black text-primary">{formatCurrency(item.price)}</td>
                   <td className="px-6 lg:px-8 py-4 lg:py-5 font-bold hidden sm:table-cell">{item.stock}</td>
                   <td className="px-6 lg:px-8 py-4 lg:py-5 text-right">
@@ -400,15 +405,15 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
 
       {isModalOpen && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-card w-full max-w-lg rounded-2xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
-            <div className="p-6 lg:p-8 bg-rainbow-gradient border-b flex justify-between items-center">
+          <div className="bg-card w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            <div className="p-6 lg:p-8 bg-rainbow-gradient border-b flex justify-between items-center shrink-0">
               <h3 className="text-xl lg:text-2xl font-black tracking-tight flex items-center gap-2 uppercase tracking-tighter">
                 <ShieldCheck className="h-6 w-6 text-primary" />
-                {editingProduct ? "แก้ไขสินค้า" : "เพิ่มสินค้าใหม่"}
+                {editingProduct ? t.dashboard.editProduct : t.dashboard.addProduct}
               </h3>
               <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-black/5 rounded-full cursor-pointer"><X /></button>
             </div>
-            <form onSubmit={handleSave} className="p-6 lg:p-8 space-y-6">
+            <form onSubmit={handleSave} className="p-6 lg:p-8 space-y-6 overflow-y-auto flex-1">
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.uploadImage}</label>
                 <div className="flex items-center gap-4">
@@ -418,32 +423,65 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
                   <div className="flex-1">
                     <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" id="img-upload" disabled={uploading} />
                     <label htmlFor="img-upload" className="inline-flex h-9 px-4 items-center justify-center rounded-lg border-2 border-dashed border-primary/30 text-[10px] font-black uppercase tracking-widest hover:bg-primary/5 transition-colors cursor-pointer">
-                      {uploading ? t.dashboard.uploading : <><Upload className="h-3.5 w-3.5 mr-2" /> เลือกรูปภาพ</>}
+                      {uploading ? t.dashboard.uploading : <><Upload className="h-3.5 w-3.5 mr-2" /> {t.dashboard.chooseImage}</>}
                     </label>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">ชื่อสินค้า</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.name}</label>
                 <input name="name" defaultValue={editingProduct?.name} required className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">ราคา (บาท)</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.price} (฿)</label>
                   <input name="price" type="number" defaultValue={editingProduct?.price} required className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">สต็อก</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.stock}</label>
                   <input name="stock" type="number" defaultValue={editingProduct?.stock} required className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm" />
                 </div>
               </div>
+              
+              <div className="col-span-2 space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.table.category}</label>
+                <select
+                  className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm"
+                  name="category"
+                  defaultValue={editingProduct?.category || "Electronics"}
+                >
+                  <option>{t.dashboard.categories.electronics}</option>
+                  <option>{t.dashboard.categories.fashion}</option>
+                  <option>{t.dashboard.categories.home}</option>
+                  <option>{t.dashboard.categories.sports}</option>
+                  <option>{t.dashboard.categories.beauty}</option>
+                  <option>{t.dashboard.categories.toys}</option>
+                </select>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.extendedFields?.weight} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                  <input name="weight" placeholder={t.dashboard.extendedFields?.weightPlaceholder} defaultValue={editingProduct?.weight} className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.extendedFields?.dimensions} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                  <input name="dimensions" placeholder={t.dashboard.extendedFields?.dimensionsPlaceholder} defaultValue={editingProduct?.dimensions} className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm" />
+                </div>
+              </div>
+              
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">หมวดหมู่</label>
-                <input name="category" defaultValue={editingProduct?.category} required className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm" />
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.extendedFields?.warranty} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                <input name="warranty" placeholder={t.dashboard.extendedFields?.warrantyPlaceholder} defaultValue={editingProduct?.warranty} className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm" />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.extendedFields?.additionalDetails} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                <textarea name="additionalDetails" placeholder={t.dashboard.extendedFields?.additionalDetailsPlaceholder} defaultValue={editingProduct?.additionalDetails} className="w-full px-4 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm min-h-[100px]" />
               </div>
               <button type="submit" className="w-full h-14 rounded-xl bg-primary text-primary-foreground font-black text-lg shadow-xl shadow-primary/20 hover:opacity-90 transition-all flex items-center justify-center gap-3 cursor-pointer">
-                <Save className="h-5 w-5" /> บันทึกสินค้า
+                <Save className="h-5 w-5" /> {t.dashboard.saveProduct}
               </button>
             </form>
           </div>

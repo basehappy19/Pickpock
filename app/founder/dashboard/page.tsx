@@ -72,12 +72,16 @@ export default function FounderDashboardPage() {
     id: "",
     name: "",
     price: 0,
-    category: "อิเล็กทรอนิกส์",
+    category: t.dashboard.categories.electronics,
     stock: 0,
     image: "",
     description: "",
     storeId: "mall",
-    isOfficial: true
+    isOfficial: true,
+    weight: "",
+    dimensions: "",
+    warranty: "",
+    additionalDetails: ""
   });
 
   const isFounder = role === "founder";
@@ -107,9 +111,9 @@ export default function FounderDashboardPage() {
     const url = await uploadProductImage(file);
     if (url) {
       setNewProduct(prev => ({ ...prev, image: url }));
-      toast.success("อัปโหลดรูปภาพสำเร็จ");
+      toast.success(t.dashboard.uploadSuccess);
     } else {
-      toast.error("อัปโหลดรูปภาพล้มเหลว");
+      toast.error(t.dashboard.uploadError);
     }
     setIsUploading(false);
   };
@@ -129,14 +133,14 @@ export default function FounderDashboardPage() {
       } else {
         clearInterval(interval);
         setIsGeneratingDesc(false);
-        toast.success("AI สร้างคำบรรยายสินค้าให้คุณแล้ว!");
+        toast.success(t.dashboard.aiGeneratedSuccess);
       }
     }, 15);
   };
 
   const generateAIDescription = async () => {
     if (!newProduct.name.trim()) {
-      toast.error("กรุณาใส่ชื่อสินค้าก่อน / Please enter product name first");
+      toast.error(t.dashboard.enterProductName);
       return;
     }
 
@@ -158,12 +162,12 @@ export default function FounderDashboardPage() {
         typeText(fullDesc);
       } else {
         setIsGeneratingDesc(false);
-        toast.error("AI ไม่สามารถเขียนคำบรรยายได้ในขณะนี้");
+        toast.error(t.dashboard.aiGenerateError);
       }
     } catch (e) {
       setIsGeneratingDesc(false);
       console.error("AI generation failed", e);
-      toast.error("เกิดข้อผิดพลาดในการเรียก AI");
+      toast.error(t.dashboard.aiApiError);
     }
   };
 
@@ -178,9 +182,9 @@ export default function FounderDashboardPage() {
         price: suggestedPrice,
         lastAnalyzedSaleCount: totalSoldAtAnalysis // Persist analysis point
       } as any);
-      toast.success(`อัปเดตราคาอัจฉริยะสำเร็จ! ราคาใหม่: ${formatCurrency(suggestedPrice)}`);
+      toast.success(`${t.dashboard.smartPriceSuccess}${formatCurrency(suggestedPrice)}`);
     } catch (e) {
-      toast.error("ปรับราคาไม่สำเร็จ");
+      toast.error(t.dashboard.smartPriceError);
     } finally {
       setIsUpdatingPrice(null);
     }
@@ -202,20 +206,20 @@ export default function FounderDashboardPage() {
 
     if (isEditing) {
       await updateProduct(productData);
-      toast.success("อัปเดตข้อมูลสินค้าเรียบร้อยแล้ว");
+      toast.success(t.dashboard.updateSuccess);
     } else {
       await addProduct(productData);
-      toast.success("เพิ่มสินค้าใหม่สำเร็จแล้ว");
+      toast.success(t.dashboard.addSuccess);
     }
     
     setShowAddModal(false);
-    setNewProduct({ id: "", name: "", price: 0, category: "อิเล็กทรอนิกส์", stock: 0, image: "", description: "", storeId: "mall", isOfficial: true });
+    setNewProduct({ id: "", name: "", price: 0, category: t.dashboard.categories.electronics, stock: 0, image: "", description: "", storeId: "mall", isOfficial: true, weight: "", dimensions: "", warranty: "", additionalDetails: "" });
   };
 
   const handleDelete = async (productId: string) => {
     if (!confirm(t.dashboard.deleteConfirm)) return;
     await deleteProduct(productId);
-    toast.success("ลบสินค้าเรียบร้อยแล้ว");
+    toast.success(t.dashboard.deleteSuccess);
   };
 
   const openEditModal = (product: Product) => {
@@ -228,7 +232,11 @@ export default function FounderDashboardPage() {
       image: product.image,
       description: product.description || "",
       storeId: product.storeId || "mall",
-      isOfficial: product.isOfficial ?? true
+      isOfficial: product.isOfficial ?? true,
+      weight: product.weight || "",
+      dimensions: product.dimensions || "",
+      warranty: product.warranty || "",
+      additionalDetails: product.additionalDetails || ""
     });
     setShowAddModal(true);
   };
@@ -300,7 +308,7 @@ export default function FounderDashboardPage() {
     const salesTrend = trendLabels.map(label => ({ day: label, amount: salesByLabel[label] }));
     const percentChange = prevPeriodRevenue > 0 ? Math.round(((currentPeriodRevenue - prevPeriodRevenue) / prevPeriodRevenue) * 100) : (currentPeriodRevenue > 0 ? 100 : 0);
 
-    const productSalesStats: Record<string, { name: string, sales: number, revenue: number }> = {};
+    const productSalesStats: Record<string, { id: string, image: string, name: string, sales: number, revenue: number }> = {};
     const storeSalesStats: Record<string, { name: string, sales: number, revenue: number }> = {};
 
     orders.forEach((order) => {
@@ -319,7 +327,7 @@ export default function FounderDashboardPage() {
         let itemNet = (idx === (order.items?.length || 1) - 1) ? remainingNet : Math.round((itemSubtotal / originalTotal) * netTotal);
         remainingNet -= itemNet;
 
-        if (!productSalesStats[item.productId]) productSalesStats[item.productId] = { name: item.productName || product?.name || "Product", sales: 0, revenue: 0 };
+        if (!productSalesStats[item.productId]) productSalesStats[item.productId] = { id: item.productId, image: product?.image || "", name: item.productName || product?.name || "Product", sales: 0, revenue: 0 };
         productSalesStats[item.productId].sales += itemQty;
         productSalesStats[item.productId].revenue += itemNet;
 
@@ -329,7 +337,10 @@ export default function FounderDashboardPage() {
       });
     });
 
-    const topProducts = Object.values(productSalesStats).sort((a, b) => b.sales - a.sales).slice(0, 5);
+    const topProducts = Object.values(productSalesStats)
+      .filter(p => productMap[p.id])
+      .sort((a, b) => b.sales - a.sales)
+      .slice(0, 5);
     const topStores = Object.values(storeSalesStats).sort((a, b) => b.revenue - a.revenue).slice(0, 5);
 
     const categoryCounts = products.reduce((acc, p) => { acc[p.category || 'Other'] = (acc[p.category || 'Other'] || 0) + 1; return acc; }, {} as Record<string, number>);
@@ -362,7 +373,7 @@ export default function FounderDashboardPage() {
       }
       
       if (suggestedAmount > 0 && Math.abs(suggestedAmount - p.price) >= 20) {
-        acc[p.id] = { type, amount: suggestedAmount, reason: type === 'increase' ? 'ขายดี/สต็อกน้อย' : 'สินค้าเคลื่อนไหวช้า', totalSold: sales };
+        acc[p.id] = { type, amount: suggestedAmount, reason: type === 'increase' ? t.dashboard.founderInsights.reasonIncrease : t.dashboard.founderInsights.reasonDecrease, totalSold: sales };
       }
       
       return acc;
@@ -379,8 +390,8 @@ export default function FounderDashboardPage() {
     };
 
     return [
-      { label: t.dashboard.stats.revenue + " (Global)", value: formatCurrency(analyticsData.currentPeriodRevenue), change: getChange(analyticsData.currentPeriodRevenue, analyticsData.prevPeriodRevenue), trend: analyticsData.currentPeriodRevenue >= analyticsData.prevPeriodRevenue ? "up" : "down", icon: TrendingUp, color: "text-emerald-500" },
-      { label: t.dashboard.stats.revenue + " (Mall)", value: formatCurrency(analyticsData.currentPeriodRevenue), change: getChange(analyticsData.currentPeriodRevenue, analyticsData.prevPeriodRevenue), trend: analyticsData.currentPeriodRevenue >= analyticsData.prevPeriodRevenue ? "up" : "down", icon: ShoppingBag, color: "text-amber-500" },
+      { label: t.dashboard.stats.globalRevenue || "Global Revenue", value: formatCurrency(analyticsData.currentPeriodRevenue), change: getChange(analyticsData.currentPeriodRevenue, analyticsData.prevPeriodRevenue), trend: analyticsData.currentPeriodRevenue >= analyticsData.prevPeriodRevenue ? "up" : "down", icon: TrendingUp, color: "text-emerald-500" },
+      { label: t.dashboard.stats.mallRevenue || "Mall Revenue", value: formatCurrency(analyticsData.currentPeriodRevenue), change: getChange(analyticsData.currentPeriodRevenue, analyticsData.prevPeriodRevenue), trend: analyticsData.currentPeriodRevenue >= analyticsData.prevPeriodRevenue ? "up" : "down", icon: ShoppingBag, color: "text-amber-500" },
       { label: t.dashboard.stats.users, value: users.length.toLocaleString(), change: "+5.2%", trend: "up", icon: Users, color: "text-blue-500" },
       { label: t.dashboard.stats.products, value: products.length.toLocaleString(), change: products.length > 20 ? "+2.5%" : "0%", trend: "up", icon: Package, color: "text-purple-500" },
     ];
@@ -399,13 +410,13 @@ export default function FounderDashboardPage() {
         </div>
       </div>
 
-      {orders.length === 0 && <div className="bg-amber-50 border-2 border-amber-200 p-6 rounded-3xl flex items-center gap-4"><AlertCircle className="h-8 w-8 text-amber-500" /><div><h4 className="font-black text-amber-900 uppercase text-sm">ไม่พบข้อมูลคำสั่งซื้อในระบบ</h4><p className="text-amber-700 text-xs font-bold">กรุณาตรวจสอบไฟล์ ecommerce_orders.json หรือทำการสั่งซื้อสินค้าเพื่อดูยอดขาย</p></div></div>}
+      {orders.length === 0 && <div className="bg-amber-50 border-2 border-amber-200 p-6 rounded-3xl flex items-center gap-4"><AlertCircle className="h-8 w-8 text-amber-500" /><div><h4 className="font-black text-amber-900 uppercase text-sm">{t.dashboard.noOrderDataTitle}</h4><p className="text-amber-700 text-xs font-bold">{t.dashboard.noOrderDataDesc}</p></div></div>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {statCards.map((stat) => (
           <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-4xl p-6 shadow-xl shadow-primary/5 space-y-4">
             <div className="flex justify-between items-start"><div className={cn("p-3 rounded-2xl bg-muted", stat.color)}><stat.icon className="h-6 w-6" /></div></div>
-            <div><p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{stat.label}</p><h3 className="text-3xl font-black tracking-tighter">{stat.value}</h3><p className={cn("text-[10px] font-black", stat.trend === "up" ? "text-emerald-500" : "text-rose-500")}>{stat.change} vs prev. period</p></div>
+            <div><p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{stat.label}</p><h3 className="text-3xl font-black tracking-tighter">{stat.value}</h3><p className={cn("text-[10px] font-black", stat.trend === "up" ? "text-emerald-500" : "text-rose-500")}>{stat.change} {t.dashboard.vsPrevPeriod || 'vs prev. period'}</p></div>
           </div>
         ))}
       </div>
@@ -413,7 +424,7 @@ export default function FounderDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div><h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.salesAnalytics}</h3><p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{timeRange === '12months' ? t.dashboard.monthlyReport : t.dashboard.dailyReport} (Reference: {now.toLocaleDateString()})</p></div>
+            <div><h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.salesAnalytics}</h3><p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{timeRange === '12months' ? t.dashboard.monthlyReport : t.dashboard.dailyReport} {now.toLocaleDateString()}</p></div>
             <div className={cn("flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest", analyticsData.percentChange >= 0 ? "bg-emerald-500/10 text-emerald-600" : "bg-rose-500/10 text-rose-600")}>{analyticsData.percentChange >= 0 ? <TrendingUp className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}{analyticsData.percentChange >= 0 ? "+" : ""}{analyticsData.percentChange}% {t.dashboard.vsLastWeek}</div>
           </div>
           <div className="h-75 w-full pt-4">
@@ -427,12 +438,43 @@ export default function FounderDashboardPage() {
             </ResponsiveContainer>
           </div>
         </div>
-        <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
-          <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.topProducts}</h3>
-          <div className="h-75 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={analyticsData.topProducts} layout="vertical"><XAxis type="number" hide /><YAxis dataKey="name" type="category" width={100} axisLine={false} tickLine={false} tick={{ fontSize: 8, fontWeight: 800, fill: '#666' }} /><Tooltip cursor={{ fill: 'transparent' }} contentStyle={{ borderRadius: '1rem', border: 'none', fontSize: '10px', fontWeight: 900 }} formatter={(value: any) => [`${value} ${t.dashboard.units}`, t.dashboard.salesCount]} /><Bar dataKey="sales" radius={[0, 10, 10, 0]}>{analyticsData.topProducts.map((entry, index) => (<Cell key={`cell-${index}`} fill={['#6366f1', '#f43f5e', '#f59e0b', '#10b981', '#a855f7'][index % 5]} />))}</Bar></BarChart>
-            </ResponsiveContainer>
+        <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6 overflow-hidden flex flex-col">
+          <h3 className="text-xl font-black tracking-tight uppercase shrink-0">{t.dashboard.topProducts}</h3>
+          <div className="flex-1 space-y-4 overflow-y-auto pr-2">
+            {analyticsData.topProducts.map((prod, i) => (
+              <div 
+                key={i} 
+                onClick={() => router.push(`/products/${prod.id}`)}
+                className="group flex items-center gap-4 p-3 rounded-2xl hover:bg-muted/50 cursor-pointer transition-all border border-transparent hover:border-primary/10"
+              >
+                <div className="h-12 w-12 rounded-xl bg-primary/10 overflow-hidden shrink-0 relative">
+                  {prod.image ? (
+                    <img src={getImgSrc(prod.image)} className="w-full h-full object-cover group-hover:scale-110 transition-transform" alt={prod.name} />
+                  ) : (
+                    <Package className="h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary/30" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-black truncate group-hover:text-primary transition-colors">{prod.name}</p>
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase flex items-center gap-1.5">
+                    <span className="text-primary font-black">{prod.sales} {t.dashboard.units}</span>
+                    <span>•</span>
+                    <span className="text-emerald-500 font-black">{formatCurrency(prod.revenue)}</span>
+                  </p>
+                  <div className="h-1.5 w-full bg-muted mt-2 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-primary to-purple-500 transition-all duration-1000"
+                      style={{ width: `${Math.max(5, (prod.sales / (analyticsData.topProducts[0]?.sales || 1)) * 100)}%` }}
+                    />
+                  </div>
+                </div>
+                <div className="shrink-0 pl-2">
+                  <div className="h-8 w-8 rounded-full bg-background border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-0 -translate-x-2">
+                    <ArrowUpRight className="h-4 w-4 text-primary" />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -452,7 +494,7 @@ export default function FounderDashboardPage() {
             {analyticsData.categoryDistribution.length > 0 ? (
               analyticsData.categoryDistribution.slice(0, 5).map((cat) => (
                 <div key={cat.label} className="space-y-2">
-                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest"><span>{cat.label}</span><span>{cat.count}%</span></div>
+                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest"><span>{(t.categories as Record<string, string>)[cat.label] || cat.label}</span><span>{cat.count}%</span></div>
                   <div className="h-2 w-full bg-muted rounded-full overflow-hidden"><div className={cn("h-full rounded-full transition-all duration-1000", cat.color)} style={{ width: `${cat.count}%` }} /></div>
                 </div>
               ))
@@ -463,7 +505,7 @@ export default function FounderDashboardPage() {
 
       <div className="space-y-6">
         <div className="flex items-center justify-between"><h2 className="text-2xl font-black tracking-tighter uppercase">{t.dashboard.platformInventory}</h2><button onClick={() => {
-           setNewProduct({ id: "", name: "", price: 0, category: "อิเล็กทรอนิกส์", stock: 0, image: "", description: "", storeId: "mall", isOfficial: true });
+           setNewProduct({ id: "", name: "", price: 0, category: t.dashboard.categories.electronics, stock: 0, image: "", description: "", storeId: "mall", isOfficial: true, weight: "", dimensions: "", warranty: "", additionalDetails: "" });
            setShowAddModal(true);
         }} className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary/20 cursor-pointer"><Plus className="h-3.5 w-3.5" /> {t.dashboard.addProduct}</button></div>
         <div className="bg-card border-2 border-primary/5 rounded-4xl shadow-2xl shadow-primary/5 overflow-hidden">
@@ -484,7 +526,7 @@ export default function FounderDashboardPage() {
 
                 return (
                   <tr key={product.id} className="hover:bg-muted/10 transition-colors group">
-                    <td className="px-8 py-6"><div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden"><img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" /></div><div><p className="font-black text-sm max-w-50 truncate">{product.name}</p><p className="text-[10px] font-bold text-muted-foreground">{product.category}</p></div></div></td>
+                    <td className="px-8 py-6"><div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden"><img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" /></div><div><p className="font-black text-sm max-w-50 truncate">{product.name}</p><p className="text-[10px] font-bold text-muted-foreground">{(t.categories as Record<string, string>)[product.category] || product.category}</p></div></div></td>
                     <td className="px-8 py-6"><span className={cn("px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest", product.isOfficial ? "bg-amber-500/10 text-amber-600" : "bg-blue-500/10 text-blue-600")}>{product.isOfficial ? t.dashboard.officialMall : (stores.find(s => s.store_id === product.storeId)?.name || t.dashboard.partnerStore)}</span></td>
                     <td className="px-8 py-6 font-black text-[10px]">{product.stock} {t.product.quantity}</td>
                     <td className="px-8 py-6 min-w-[180px]">
@@ -501,7 +543,7 @@ export default function FounderDashboardPage() {
                                       {insight.type === 'increase' ? <TrendingUp className="h-3 w-3" /> : <TrendingUp className="h-3 w-3 rotate-180" />}
                                    </div>
                                    <div className="space-y-0.5">
-                                      <p className="text-[9px] font-black uppercase text-primary/60 leading-none">AI แนะนำ</p>
+                                      <p className="text-[9px] font-black uppercase text-primary/60 leading-none">{t.dashboard.aiRecommend}</p>
                                       <p className="text-[10px] font-black text-foreground">{insight.reason}</p>
                                    </div>
                                 </div>
@@ -514,7 +556,7 @@ export default function FounderDashboardPage() {
                                     isPriceUpdating && "opacity-50 cursor-wait"
                                   )}
                                 >
-                                  <span>{isPriceUpdating ? "กำลังปรับ..." : "ปรับเป็น ฿" + insight.amount}</span>
+                                  <span>{isPriceUpdating ? t.dashboard.updatingPrice : t.dashboard.changeToPrice + insight.amount}</span>
                                   <ChevronRight className="h-3 w-3 group-hover/advice:translate-x-1 transition-transform" />
                                 </button>
                              </div>
@@ -533,8 +575,8 @@ export default function FounderDashboardPage() {
 
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-card w-full max-w-lg rounded-4xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
-            <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary">
+          <div className="bg-card w-full max-w-4xl max-h-[90vh] flex flex-col rounded-4xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            <div className="p-6 md:p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary shrink-0">
               <h3 className="text-2xl font-black tracking-tight flex items-center gap-3 uppercase tracking-tighter">
                 {newProduct.id ? <Edit className="h-6 w-6" /> : <Plus className="h-6 w-6" />}
                 {newProduct.id ? t.dashboard.editProduct : t.dashboard.addProduct}
@@ -542,40 +584,21 @@ export default function FounderDashboardPage() {
               <button onClick={() => setShowAddModal(false)} className="p-2 hover:bg-black/5 rounded-full cursor-pointer"><X /></button>
             </div>
             
-            <form onSubmit={handleAddOrUpdateProduct} className="p-8 space-y-6">
+            <form onSubmit={handleAddOrUpdateProduct} className="p-6 md:p-8 space-y-6 overflow-y-auto flex-1">
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2 space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.name}</label>
                   <input
                     type="text"
                     required
-                    placeholder="Enter product name..."
+                    placeholder={t.dashboard.productNamePlaceholder}
                     className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold"
                     value={newProduct.name}
                     onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}
                   />
                 </div>
                 
-                <div className="col-span-2 space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.assignedStore}</label>
-                  <select
-                    className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-black uppercase text-xs"
-                    value={newProduct.storeId}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setNewProduct({
-                        ...newProduct,
-                        storeId: val,
-                        isOfficial: val === "mall"
-                      });
-                    }}
-                  >
-                    <option value="mall">{t.dashboard.officialMall}</option>
-                    {stores.map((s) => (
-                      <option key={s.store_id} value={s.store_id}>{s.name}</option>
-                    ))}
-                  </select>
-                </div>
+
 
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.price} (฿)</label>
@@ -633,6 +656,27 @@ export default function FounderDashboardPage() {
                   </div>
                 </div>
 
+                <div className="col-span-2 grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.weight} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                    <input type="text" placeholder={t.dashboard.extendedFields?.weightPlaceholder} value={newProduct.weight} onChange={(e) => setNewProduct({...newProduct, weight: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.dimensions} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                    <input type="text" placeholder={t.dashboard.extendedFields?.dimensionsPlaceholder} value={newProduct.dimensions} onChange={(e) => setNewProduct({...newProduct, dimensions: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" />
+                  </div>
+                </div>
+
+                <div className="col-span-2 space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.warranty} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                  <input type="text" placeholder={t.dashboard.extendedFields?.warrantyPlaceholder} value={newProduct.warranty} onChange={(e) => setNewProduct({...newProduct, warranty: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold" />
+                </div>
+
+                <div className="col-span-2 space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.extendedFields?.additionalDetails} <span className="lowercase">{t.dashboard.extendedFields?.optional}</span></label>
+                  <textarea rows={2} placeholder={t.dashboard.extendedFields?.additionalDetailsPlaceholder} value={newProduct.additionalDetails} onChange={(e) => setNewProduct({...newProduct, additionalDetails: e.target.value})} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold resize-none" />
+                </div>
+
                 <div className="col-span-2 space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.category}</label>
                   <select
@@ -651,7 +695,7 @@ export default function FounderDashboardPage() {
 
                 <div className="col-span-2 space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">รายละเอียดสินค้า / Description</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.descPlaceholderLabel}</label>
                     <button
                       type="button"
                       onClick={generateAIDescription}
@@ -664,12 +708,12 @@ export default function FounderDashboardPage() {
                       )}
                     >
                       <Sparkles className="h-3 w-3" />
-                      {isGeneratingDesc ? "กำลังสร้าง..." : "AI เขียนให้"}
+                      {isGeneratingDesc ? t.dashboard.generating : t.dashboard.aiWrite}
                     </button>
                   </div>
                   <textarea
                     rows={3}
-                    placeholder="Enter product description or use AI to generate..."
+                    placeholder={t.dashboard.descPlaceholder}
                     className={cn(
                       "w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-bold resize-none",
                       isGeneratingDesc && "animate-pulse"
@@ -680,7 +724,7 @@ export default function FounderDashboardPage() {
                   {isGeneratingDesc && (
                     <div className="flex items-center gap-2 px-2 text-[10px] font-black text-primary animate-bounce">
                       <Sparkles className="h-3 w-3" />
-                      AI IS TYPING...
+                      {t.dashboard.founderInsights?.typing || 'AI IS TYPING...'}
                     </div>
                   )}
                 </div>

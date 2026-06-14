@@ -10,6 +10,48 @@
     ],
     "recentlyViewed": [
       {
+        "id": "p-102",
+        "name": "Smart Watch Series 7",
+        "category": "Electronics",
+        "price": 12000,
+        "stock": 30,
+        "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800",
+        "description": "Latest generation smart watch with health tracking.",
+        "rating": 4.9,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-01-01T00:00:00Z"
+      },
+      {
+        "id": "p-105",
+        "name": "Yoga Mat Non-Slip",
+        "category": "Sports",
+        "price": 850,
+        "stock": 40,
+        "image": "https://images.unsplash.com/photo-1599447421416-3414500d18a5?q=80&w=800",
+        "description": "Eco-friendly non-slip yoga mat.",
+        "rating": 5,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-01-01T00:00:00Z"
+      },
+      {
+        "id": "p-101",
+        "name": "Wireless Headphones Pro",
+        "category": "Electronics",
+        "price": 2500,
+        "stock": 50,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800",
+        "description": "Premium wireless headphones with noise cancellation.",
+        "rating": 4.9,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-01-01T00:00:00Z"
+      },
+      {
         "id": "p-103",
         "name": "Premium Cotton T-Shirt",
         "category": "Fashion",
@@ -34,7 +76,68 @@
       "WELCOME100",
       "MSU500"
     ],
-    "recentlyViewed": []
+    "recentlyViewed": [
+      {
+        "id": "p-pthnkh6kc",
+        "name": "test",
+        "category": "Electronics",
+        "price": 333,
+        "stock": 333,
+        "image": "https://scmaztbrymmfqgwfnykg.supabase.co/storage/v1/object/public/products/product-images/0.049030639979677826.png",
+        "description": "ยกระดับทุกสัมผัสของเทคโนโลยีที่คุณเคยรู้จัก ด้วย 'TEST'\n\nเบื่อไหมกับอุปกรณ์ไอทีทั่วไปที่ไม่ได้มาตรฐานและขาดเสน่ห์?\n\n'TEST' คือคำตอบสำหรับผู้ที่มองหาความสมบูรณ์แบบ ด้วยนวัตกรรมระดับพรีเมียมที่ออกแบบมาเพื่อเปลี่ยนชีวิตประจำวันของคุณให้ง่าย สมาร์ท และหรูหรากว่าที่เคย สัมผัสประสิทธิภาพที่เหนือกว่าและดีไซน์ที่สะท้อนรสนิยมที่แท้จริงของคุณ\n\nสัมผัสความเหนือระดับได้แล้ววันนี้ เพื่อชีวิตที่สมบูรณ์แบบยิ่งขึ้น",
+        "rating": 0,
+        "reviews": [],
+        "storeId": "s-y6zerm8o5",
+        "isOfficial": false,
+        "createdAt": "2026-06-14T04:18:59.054Z",
+        "weight": "",
+        "dimensions": "",
+        "warranty": "",
+        "additionalDetails": ""
+      },
+      {
+        "id": "p-805",
+        "name": "Brow Defining Kit",
+        "category": "Beauty",
+        "price": 550,
+        "stock": 120,
+        "image": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=800",
+        "description": "Everything you need for perfect brows.",
+        "rating": 4.4,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-29T00:00:00Z"
+      },
+      {
+        "id": "p-901",
+        "name": "Learning Card Set",
+        "category": "Toys",
+        "price": 450,
+        "stock": 140,
+        "image": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=800",
+        "description": "Educational cards for early development.",
+        "rating": 4.5,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-30T00:00:00Z"
+      },
+      {
+        "id": "p-101",
+        "name": "Wireless Headphones Pro",
+        "category": "Electronics",
+        "price": 2500,
+        "stock": 50,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800",
+        "description": "Premium wireless headphones with noise cancellation.",
+        "rating": 4.9,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-01-01T00:00:00Z"
+      }
+    ]
   },
   "u003": {
     "cart": [
@@ -106,5 +209,14 @@
         "createdAt": "2026-01-01T00:00:00Z"
       }
     ]
+  },
+  "u004": {
+    "user_id": "u004",
+    "cart": [],
+    "wishlist": [],
+    "reviews": [],
+    "recentlyViewed": [],
+    "compare": [],
+    "coupons": []
   }
 }

@@ -71,8 +71,8 @@ export default function StoreDetailPage() {
     name: "Pickpock Mall",
     rating: 4.9, 
     description: language === 'th' 
-      ? "แหล่งรวมสินค้าพรีเมียมอย่างเป็นทางการโดย MSU FOUNDER มั่นใจในคุณภาพและของแท้ 100% พร้อมบริการเหนือระดับ" 
-      : "The official premium collection by MSU FOUNDER. Trusted quality, guaranteed authenticity with superior service.", 
+      ? "แหล่งรวมสินค้าพรีเมียมอย่างเป็นทางการโดย PICKPOCK มั่นใจในคุณภาพและของแท้ 100% พร้อมบริการเหนือระดับ" 
+      : "The official premium collection by PICKPOCK. Trusted quality, guaranteed authenticity with superior service.", 
     joined_at: "2026-01-01" 
   };
 

@@ -50,7 +50,11 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           reviews: Array.isArray(p.reviews) ? p.reviews : [],
           storeId: p.storeId,
           isOfficial: p.isOfficial || false,
-          createdAt: p.createdAt || new Date().toISOString()
+          createdAt: p.createdAt || new Date().toISOString(),
+          weight: p.weight,
+          dimensions: p.dimensions,
+          warranty: p.warranty,
+          additionalDetails: p.additionalDetails
         }));
         currentProds = mappedProds;
         setProductsState(mappedProds);

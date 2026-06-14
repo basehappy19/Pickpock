@@ -50,7 +50,7 @@ export default function ProfilePage() {
     return (
       <div className="container mx-auto p-8 text-center space-y-4">
         <Loader2 className="h-12 w-12 animate-spin mx-auto text-primary" />
-        <p className="font-black uppercase tracking-widest text-muted-foreground">กรุณาเข้าสู่ระบบ</p>
+        <p className="font-black uppercase tracking-widest text-muted-foreground">{t.profile.loginRequired}</p>
       </div>
     );
   }
@@ -74,12 +74,12 @@ export default function ProfilePage() {
       const data = await res.json();
       if (data.success) {
         updateUserInfo({ name, email });
-        toast.success("อัปเดตข้อมูลส่วนตัวเรียบร้อยแล้ว");
+        toast.success(t.profile.updateSuccess);
       } else {
-        toast.error(data.error || "เกิดข้อผิดพลาด");
+        toast.error(data.error || t.profile.error);
       }
     } catch (e) {
-      toast.error("เกิดข้อผิดพลาดในการเชื่อมต่อ");
+      toast.error(t.profile.networkError);
     } finally {
       setIsSaving(false);
     }
@@ -88,7 +88,7 @@ export default function ProfilePage() {
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      toast.error("รหัสผ่านใหม่ไม่ตรงกัน");
+      toast.error(t.profile.passwordMismatch);
       return;
     }
 
@@ -106,15 +106,15 @@ export default function ProfilePage() {
 
       const data = await res.json();
       if (data.success) {
-        toast.success("เปลี่ยนรหัสผ่านเรียบร้อยแล้ว");
+        toast.success(t.profile.passwordUpdateSuccess);
         setCurrentPassword("");
         setNewPassword("");
         setConfirmPassword("");
       } else {
-        toast.error(data.error || "รหัสผ่านเดิมไม่ถูกต้อง");
+        toast.error(data.error || t.profile.invalidOldPassword);
       }
     } catch (e) {
-      toast.error("เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน");
+      toast.error(t.profile.passwordUpdateError);
     } finally {
       setIsChangingPass(false);
     }
@@ -123,8 +123,8 @@ export default function ProfilePage() {
   return (
     <div className="container mx-auto p-4 lg:p-8 max-w-4xl space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="space-y-2">
-        <h1 className="text-4xl font-black tracking-tighter uppercase">โปรไฟล์ของฉัน</h1>
-        <p className="text-muted-foreground font-bold">จัดการข้อมูลส่วนตัวและรหัสผ่านของคุณ</p>
+        <h1 className="text-4xl font-black tracking-tighter uppercase">{t.profile.title}</h1>
+        <p className="text-muted-foreground font-bold">{t.profile.subtitle}</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
@@ -143,7 +143,7 @@ export default function ProfilePage() {
 
           <form onSubmit={handleUpdateInfo} className="space-y-4">
             <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">ชื่อ-นามสกุล</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.fullName}</label>
               <div className="relative group">
                 <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 <input 
@@ -156,7 +156,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">อีเมล</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.email}</label>
               <div className="relative group">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 <input 
@@ -169,7 +169,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">เบอร์โทรศัพท์</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.phone}</label>
               <div className="relative group">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 <input 
@@ -195,12 +195,12 @@ export default function ProfilePage() {
 
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-xl shadow-primary/5 space-y-6">
           <h3 className="text-xl font-black tracking-tight uppercase flex items-center gap-2 border-b pb-6 mb-2">
-            <Lock className="h-5 w-5 text-primary" /> เปลี่ยนรหัสผ่าน
+            <Lock className="h-5 w-5 text-primary" /> {t.profile.changePasswordTitle}
           </h3>
 
           <form onSubmit={handleChangePassword} className="space-y-4">
             <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">รหัสผ่านปัจจุบัน</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.currentPassword}</label>
               <input 
                 type="password" 
                 required
@@ -212,7 +212,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-1 pt-2 border-t border-dashed">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">รหัสผ่านใหม่</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.newPassword}</label>
               <input 
                 type="password" 
                 required
@@ -224,7 +224,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">ยืนยันรหัสผ่านใหม่</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.profile.confirmNewPassword}</label>
               <input 
                 type="password" 
                 required
@@ -241,7 +241,7 @@ export default function ProfilePage() {
               className="w-full h-14 mt-4 rounded-xl bg-secondary font-black uppercase tracking-widest shadow-lg hover:bg-secondary/80 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               {isChangingPass ? <Loader2 className="h-5 w-5 animate-spin" /> : <Lock className="h-5 w-5" />}
-              อัปเดตรหัสผ่าน
+              {t.profile.updatePasswordBtn}
             </button>
           </form>
 
@@ -250,7 +250,7 @@ export default function ProfilePage() {
                 onClick={() => logout()}
                 className="w-full h-14 rounded-xl border-2 border-rose-500/20 text-rose-500 font-black uppercase tracking-widest hover:bg-rose-50 transition-all flex items-center justify-center gap-2 cursor-pointer"
              >
-                <LogOut className="h-5 w-5" /> ออกจากระบบ
+                <LogOut className="h-5 w-5" /> {t.profile.logout}
              </button>
           </div>
         </div>

@@ -85,13 +85,35 @@ export async function getAIChatResponse(
   products: any[],
   userContext?: { tier?: string; recentViews?: string[] }
 ): Promise<string> {
-  const productContext = products.slice(0, 15).map(p =>
-    `- ${p.name} (฿${p.price}): ${p.description} [ID: ${p.id || p.product_id}]`
-  ).join('\n');
+  // 1. Extract product IDs mentioned in chat history
+  const mentionedIds = new Set<string>();
+  const idRegex = /\[PRODUCT:([^\]]+)\]/g;
+  
+  messages.forEach(m => {
+    let match;
+    while ((match = idRegex.exec(m.content)) !== null) {
+      mentionedIds.add(match[1]);
+    }
+  });
+
+  // 2. Full details ONLY for mentioned products
+  const mentionedProducts = products.filter(p => mentionedIds.has(p.id) || mentionedIds.has(p.product_id));
+  let detailedContext = '';
+  if (mentionedProducts.length > 0) {
+    detailedContext = "\nDetailed Info for Mentioned Products:\n" + mentionedProducts.map(p => 
+      `- ${p.name} [ID: ${p.id || p.product_id}]\n  Price: ฿${p.price}\n  Category: ${p.category}\n  Desc: ${p.description}\n  Specs: Weight ${p.weight||'-'}, Dim ${p.dimensions||'-'}`
+    ).join('\n\n');
+  }
+
+  // 3. Lightweight catalog (Name, Price, ID only) to save tokens
+  const lightweightCatalog = products.map(p => 
+    `${p.name} (฿${p.price}) [ID:${p.id || p.product_id}]`
+  ).join(', ');
 
   const systemPrompt = `You are Pickpock Assistant, a professional and helpful shopping expert.
-Available Products:
-${productContext}
+Available Products in Store: ${lightweightCatalog}
+${detailedContext}
+
 User Tier: ${userContext?.tier || 'MEMBER'}
 
 CORE RULES:

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { Product, FilterOptions } from "@/types";
 
 export function useFilter(initialData: Product[]) {
@@ -54,22 +54,32 @@ export function useFilter(initialData: Product[]) {
     return result;
   }, [initialData, filters]);
 
-  const updateFilter = (newFilters: Partial<FilterOptions>) => {
-    setFilters((prev) => ({ ...prev, ...newFilters }));
-  };
+  const updateFilter = useCallback((newFilters: Partial<FilterOptions>) => {
+    setFilters((prev) => {
+      let hasChanges = false;
+      for (const key in newFilters) {
+        if (prev[key as keyof FilterOptions] !== newFilters[key as keyof FilterOptions]) {
+          hasChanges = true;
+          break;
+        }
+      }
+      if (!hasChanges) return prev;
+      return { ...prev, ...newFilters };
+    });
+  }, []);
 
   const categories = useMemo(() => {
     const cats = new Set(initialData.map((item) => item.category));
     return ["all", ...Array.from(cats)];
   }, [initialData]);
 
-  const resetFilters = () => {
+  const resetFilters = useCallback(() => {
     setFilters({
       search: "",
       category: "all",
       sortBy: "newest",
     });
-  };
+  }, []);
 
   return {
     filteredData,

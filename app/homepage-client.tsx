@@ -18,6 +18,7 @@ const CATEGORIES = [
   { name: "Furniture",    icon: "🛋️", href: "/products?category=Furniture" },
   { name: "Beauty",       icon: "💄", href: "/products?category=Beauty" },
   { name: "Sports",       icon: "⚽", href: "/products?category=Sports" },
+  { name: "Toys",         icon: "🧸", href: "/products?category=Toys" },
 ];
 
 function SectionHeader({
@@ -146,15 +147,15 @@ export default function HomepageClient({
         <section className="px-4 lg:px-8 py-6">
           <SectionHeader title={t.home.categories} />
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-            {CATEGORIES.map((cat) => (
+            {CATEGORIES.map((cat, i) => (
               <Link
-                key={cat.name}
+                key={`cat-${cat.name}-${i}`}
                 href={cat.href}
                 className="flex flex-col items-center gap-2 p-3 rounded-xl bg-secondary/50 hover:bg-secondary transition-colors"
               >
                 <span className="text-2xl">{cat.icon}</span>
                 <span className="text-[11px] text-muted-foreground text-center leading-tight">
-                  {cat.name}
+                  {(t.categories as Record<string, string>)[cat.name] || cat.name}
                 </span>
               </Link>
             ))}
@@ -169,11 +170,11 @@ export default function HomepageClient({
             href="/vouchers"
           />
           <div className="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1 no-scrollbar">
-            {initialCoupons.map((coupon) => {
+            {initialCoupons.map((coupon, i) => {
               const claimed = claimedCodes.includes(coupon.code);
               return (
                 <div
-                  key={coupon.code}
+                  key={`coupon-${coupon.code}-${i}`}
                   className="min-w-45 bg-card border rounded-xl p-4 flex flex-col gap-2 shrink-0"
                 >
                   <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -224,9 +225,9 @@ export default function HomepageClient({
             href="/products"
           />
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            {aiRecommended.map((product) => (
+            {aiRecommended.map((product, i) => (
               <ProductCard
-                key={product.id}
+                key={`ai-${product.id || i}`}
                 product={product}
               />
             ))}
@@ -241,9 +242,9 @@ export default function HomepageClient({
             href="/products"
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {popularTrending.map((product) => (
+            {popularTrending.map((product, i) => (
               <ProductCard
-                key={product.id}
+                key={`pop-${product.id || i}`}
                 product={product}
                 badge={product.isOfficial ? t.dashboard.officialMall : t.dashboard.partnerStore}
               />
@@ -259,9 +260,9 @@ export default function HomepageClient({
               href="/products?sort=newest"
             />
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-              {newArrivals.map((product) => (
+              {newArrivals.map((product, i) => (
                 <ProductCard
-                  key={product.id}
+                  key={`new-${product.id || i}`}
                   product={product}
                   badge="ใหม่"
                 />
@@ -279,9 +280,9 @@ export default function HomepageClient({
               href="/recently-viewed"
             />
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              {recentlyViewed.slice(0, 4).map((product) => (
+              {recentlyViewed.slice(0, 4).map((product, i) => (
                 <ProductCard
-                  key={product.id}
+                  key={`rec-${product.id || i}`}
                   product={product}
                   badge="เคยดู"
                 />

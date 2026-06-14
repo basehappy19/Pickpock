@@ -30,7 +30,11 @@ const toJSON = (p: Product) => ({
   reviews: Array.isArray(p.reviews) ? p.reviews : [],
   storeId: p.storeId,
   isOfficial: p.isOfficial || false,
-  createdAt: p.createdAt || new Date().toISOString()
+  createdAt: p.createdAt || new Date().toISOString(),
+  weight: p.weight,
+  dimensions: p.dimensions,
+  warranty: p.warranty,
+  additionalDetails: p.additionalDetails
 });
 
 export async function GET() {

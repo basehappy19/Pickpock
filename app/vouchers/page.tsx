@@ -108,13 +108,13 @@ export default function VouchersPage() {
 
   const handleClaim = async (mission: Mission) => {
     if (!user) {
-      toast.error("กรุณาเข้าสู่ระบบก่อน / Please login first");
+      toast.error(t.vouchers.loginRequired);
       router.push("/login");
       return;
     }
 
     if (userOwnedCodes.includes(mission.rewardCode)) {
-      toast.info("คุณรับรางวัลนี้ไปแล้ว / Already claimed");
+      toast.info(t.vouchers.alreadyClaimed);
       return;
     }
 
@@ -129,10 +129,10 @@ export default function VouchersPage() {
 
       if (res.ok) {
         setUserOwnedCodes(newCoupons);
-        toast.success(`รับรางวัล ${mission.rewardCode} สำเร็จ! ไปช้อปต่อเลย`);
+        toast.success(`${t.vouchers.claimSuccess1}${mission.rewardCode}${t.vouchers.claimSuccess2}`);
       }
     } catch (e) {
-      toast.error("เกิดข้อผิดพลาดในการรับรางวัล");
+      toast.error(t.vouchers.claimError);
     } finally {
       setClaimingId(null);
     }
@@ -140,13 +140,13 @@ export default function VouchersPage() {
 
   const handleCollectVoucher = async (code: string) => {
     if (!user) {
-      toast.error("กรุณาเข้าสู่ระบบก่อน / Please login first");
+      toast.error(t.vouchers.loginRequired);
       router.push("/login");
       return;
     }
 
     if (userOwnedCodes.includes(code)) {
-      toast.info("คุณเก็บคูปองนี้ไปแล้ว");
+      toast.info(t.vouchers.couponAlreadyCollected);
       return;
     }
 
@@ -160,10 +160,10 @@ export default function VouchersPage() {
 
       if (res.ok) {
         setUserOwnedCodes(newCoupons);
-        toast.success(`เก็บคูปอง ${code} เรียบร้อยแล้ว!`);
+        toast.success(`${t.vouchers.couponCollectSuccess1}${code}${t.vouchers.couponCollectSuccess2}`);
       }
     } catch (e) {
-      toast.error("เกิดข้อผิดพลาดในการเก็บคูปอง");
+      toast.error(t.vouchers.couponCollectError);
     }
   };
 
@@ -171,7 +171,7 @@ export default function VouchersPage() {
     return (
       <div className="h-[60vh] flex flex-col items-center justify-center gap-4">
         <Loader2 className="h-12 w-12 text-primary animate-spin" />
-        <p className="font-black text-xs uppercase tracking-widest text-muted-foreground animate-pulse">กำลังโหลดรางวัล...</p>
+        <p className="font-black text-xs uppercase tracking-widest text-muted-foreground animate-pulse">{t.vouchers.loadingRewards}</p>
       </div>
     );
   }
@@ -256,7 +256,7 @@ export default function VouchersPage() {
                           )}
                         >
                           {claimingId === mission.id ? <Loader2 className="h-4 w-4 animate-spin" /> : isCompleted ? <Zap className="h-4 w-4" /> : <Timer className="h-4 w-4" />}
-                          {isCompleted ? t.vouchers.claim : "IN PROGRESS"}
+                          {isCompleted ? t.vouchers.claim : t.vouchers.inProgress}
                         </button>
                       )}
                     </div>
@@ -266,7 +266,7 @@ export default function VouchersPage() {
                   {!isClaimed && (
                     <div className="mt-6 pt-6 border-t border-dashed flex items-center gap-3">
                        <Gift className="h-4 w-4 text-rose-500" />
-                       <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">รางวัล: คูปองส่วนลดโค้ด {mission.rewardCode}</span>
+                       <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">{t.vouchers.rewardCouponCode}{mission.rewardCode}</span>
                     </div>
                   )}
                 </div>

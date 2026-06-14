@@ -17,10 +17,10 @@ export default function LoginPage() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   // Password Reset State
-  const [resetPhone, setResetPhone] = useState("");
+  const [resetEmail, setResetEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [resetStep, setResetStep] = useState<"phone" | "otp" | "success">("phone");
+  const [resetStep, setResetStep] = useState<"email" | "otp" | "password" | "success">("email");
   const [resetLoading, setResetLoading] = useState(false);
   const [resetError, setResetError] = useState("");
 
@@ -59,7 +59,7 @@ export default function LoginPage() {
       const res = await fetch("/api/auth/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: resetPhone, step: "request" })
+        body: JSON.stringify({ email: resetEmail, step: "request" })
       });
       if (res.ok) {
         setResetStep("otp");
@@ -73,7 +73,29 @@ export default function LoginPage() {
     setResetLoading(false);
   };
 
-  const handleResetPassword = async (e: React.FormEvent) => {
+  const handleVerifyOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setResetLoading(true);
+    setResetError("");
+    try {
+      const res = await fetch("/api/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: resetEmail, otp, step: "verify-otp" })
+      });
+      if (res.ok) {
+        setResetStep("password");
+      } else {
+        const data = await res.json();
+        setResetError(data.error || "Invalid OTP");
+      }
+    } catch (e) {
+      setResetError(t.auth.networkError);
+    }
+    setResetLoading(false);
+  };
+
+  const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setResetLoading(true);
     setResetError("");
@@ -82,10 +104,10 @@ export default function LoginPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
-          phone: resetPhone, 
+          email: resetEmail, 
           otp, 
           newPassword, 
-          step: "verify" 
+          step: "update" 
         })
       });
       if (res.ok) {
@@ -102,8 +124,8 @@ export default function LoginPage() {
 
   const closeResetModal = () => {
     setShowForgotPassword(false);
-    setResetStep("phone");
-    setResetPhone("");
+    setResetStep("email");
+    setResetEmail("");
     setOtp("");
     setNewPassword("");
     setResetError("");
@@ -231,10 +253,10 @@ export default function LoginPage() {
             </div>
             
             <div className="p-8">
-              {resetStep === "phone" && (
+              {resetStep === "email" && (
                 <form onSubmit={handleRequestOtp} className="space-y-5">
                   <p className="text-sm text-slate-500 font-medium">
-                    {t.auth.resetPhoneDesc}
+                    {t.auth.resetEmailDesc}
                   </p>
                   {resetError && (
                     <div className="p-3 rounded-lg bg-rose-50 border border-rose-100">
@@ -244,16 +266,16 @@ export default function LoginPage() {
                     </div>
                   )}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-600 ml-1">{t.auth.phone}</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-600 ml-1">{t.auth.email}</label>
                     <div className="relative group">
-                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-primary transition-colors" />
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-primary transition-colors" />
                       <input
-                        type="tel"
+                        type="email"
                         required
-                        placeholder={t.auth.phonePlaceholder}
+                        placeholder={t.auth.emailPlaceholder}
                         className="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-200 focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all font-medium text-slate-900"
-                        value={resetPhone}
-                        onChange={(e) => setResetPhone(e.target.value)}
+                        value={resetEmail}
+                        onChange={(e) => setResetEmail(e.target.value)}
                       />
                     </div>
                   </div>
@@ -262,16 +284,16 @@ export default function LoginPage() {
                     disabled={resetLoading}
                     className="w-full h-12 rounded-lg bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
-                    {resetLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Smartphone className="h-4 w-4" />}
+                    {resetLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
                     {t.auth.sendOtp}
                   </button>
                 </form>
               )}
 
               {resetStep === "otp" && (
-                <form onSubmit={handleResetPassword} className="space-y-5">
+                <form onSubmit={handleVerifyOtp} className="space-y-5">
                   <p className="text-sm text-slate-500 font-medium">
-                    {t.auth.resetOtpDesc.replace('{phone}', resetPhone)}
+                    {t.auth.resetOtpDesc.replace('{phone}', resetEmail)}
                   </p>
                   {resetError && (
                     <div className="p-3 rounded-lg bg-rose-50 border border-rose-100">
@@ -280,33 +302,17 @@ export default function LoginPage() {
                       </p>
                     </div>
                   )}
-                  <div className="space-y-5">
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-600 ml-1">{t.auth.otp}</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder={t.auth.otpPlaceholder}
-                        maxLength={6}
-                        className="w-full px-6 py-4 rounded-lg border border-slate-200 focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all font-bold text-center text-2xl tracking-[0.5em] text-slate-900"
-                        value={otp}
-                        onChange={(e) => setOtp(e.target.value)}
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-600 ml-1">{t.auth.newPassword}</label>
-                      <div className="relative group">
-                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-primary transition-colors" />
-                        <input
-                          type="password"
-                          required
-                          placeholder={t.auth.passPlaceholder}
-                          className="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-200 focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all font-medium text-slate-900"
-                          value={newPassword}
-                          onChange={(e) => setNewPassword(e.target.value)}
-                        />
-                      </div>
-                    </div>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-600 ml-1">{t.auth.otp}</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder={t.auth.otpPlaceholder}
+                      maxLength={6}
+                      className="w-full px-6 py-4 rounded-lg border border-slate-200 focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all font-bold text-center text-2xl tracking-[0.5em] text-slate-900"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                    />
                   </div>
                   <button
                     type="submit"
@@ -314,14 +320,51 @@ export default function LoginPage() {
                     className="w-full h-12 rounded-lg bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     {resetLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <KeyRound className="h-4 w-4" />}
-                    {t.auth.updatePassword}
+                    {t.auth.verifyOtpTitle}
                   </button>
                   <button
                     type="button"
-                    onClick={() => setResetStep("phone")}
-                    className="w-full text-xs text-slate-400 font-bold hover:text-primary transition-colors"
+                    onClick={() => setResetStep("email")}
+                    className="w-full text-xs text-slate-400 font-bold hover:text-primary transition-colors cursor-pointer"
                   >
-                    {t.auth.backToPhone}
+                    {t.auth.backToEmail}
+                  </button>
+                </form>
+              )}
+
+              {resetStep === "password" && (
+                <form onSubmit={handleUpdatePassword} className="space-y-5">
+                  <p className="text-sm text-slate-500 font-medium">
+                    {t.auth.otpVerifiedDesc}
+                  </p>
+                  {resetError && (
+                    <div className="p-3 rounded-lg bg-rose-50 border border-rose-100">
+                      <p className="text-rose-600 text-xs font-bold text-center uppercase tracking-tight">
+                        {resetError}
+                      </p>
+                    </div>
+                  )}
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-600 ml-1">{t.auth.newPassword}</label>
+                    <div className="relative group">
+                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-primary transition-colors" />
+                      <input
+                        type="password"
+                        required
+                        placeholder={t.auth.passPlaceholder}
+                        className="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-200 focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all font-medium text-slate-900"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={resetLoading}
+                    className="w-full h-12 rounded-lg bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  >
+                    {resetLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lock className="h-4 w-4" />}
+                    {t.auth.updatePassword}
                   </button>
                 </form>
               )}

@@ -40,12 +40,16 @@ export default function ComparePage() {
   }
 
   const specs = [
-    { key: "category", label: "หมวดหมู่ / Category" },
-    { key: "price", label: "ราคา / Price", format: (v: any) => formatCurrency(v) },
-    { key: "stock", label: "สต็อก / Stock" },
-    { key: "rating", label: "คะแนน / Rating", format: (v: any) => `${Number(v).toFixed(1)} / 5` },
-    { key: "storeName", label: "ร้านค้า / Store" },
-    { key: "isOfficial", label: "ร้านค้าทางการ / Official", format: (v: any) => v ? "✓" : "-" },
+    { key: "category", label: t.compare.specs.category },
+    { key: "price", label: t.compare.specs.price, format: (v: any) => formatCurrency(v) },
+    { key: "stock", label: t.compare.specs.stock },
+    { key: "rating", label: t.compare.specs.rating, format: (v: any) => `${Number(v || 0).toFixed(1)} / 5` },
+    { key: "storeName", label: t.compare.specs.store },
+    { key: "isOfficial", label: t.compare.specs.official, format: (v: any) => v ? "✓" : "-" },
+    { key: "weight", label: t.dashboard?.extendedFields?.weight || "Weight", format: (v: any) => v || "-" },
+    { key: "dimensions", label: t.dashboard?.extendedFields?.dimensions || "Dimensions", format: (v: any) => v || "-" },
+    { key: "warranty", label: t.dashboard?.extendedFields?.warranty || "Warranty", format: (v: any) => v || "-" },
+    { key: "additionalDetails", label: t.dashboard?.extendedFields?.additionalDetails || "Details", format: (v: any) => v || "-" },
   ];
 
   return (
@@ -96,11 +100,11 @@ export default function ComparePage() {
                 >
                   <X className="h-3 w-3" />
                 </button>
-                <div className="bg-card rounded-2xl border overflow-hidden shadow-sm">
-                  <div className="aspect-square relative bg-muted">
+                <div className="bg-card rounded-2xl border overflow-hidden shadow-sm p-4 text-center">
+                  <div className="w-24 h-24 mx-auto relative bg-muted rounded-xl overflow-hidden mb-3">
                     <NextImage src={product.image} alt={product.name} fill className="object-cover" />
                   </div>
-                  <div className="p-3">
+                  <div className="space-y-1">
                     <p className="text-[10px] font-black uppercase text-muted-foreground tracking-wider">{product.category}</p>
                     <h3 className="font-black text-sm leading-tight line-clamp-2">{product.name}</h3>
                   </div>
@@ -138,7 +142,7 @@ export default function ComparePage() {
                 href={`/products/${product.id}`}
                 className="h-12 rounded-xl bg-primary text-primary-foreground font-black text-sm hover:opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/20"
               >
-                ดูรายละเอียด / View Details
+                {t.compare.viewDetails}
               </Link>
             ))}
           </div>

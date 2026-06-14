@@ -11,6 +11,7 @@ import { TrendingUp, Users, Package, ShoppingBag, Star, ArrowUpRight, ArrowDownR
 import { useMemo } from "react";
 import { calculateFounderKPIs, generateRevenueChartData, generateCategoryDistribution, calculateStorePerformance, getLowStockProducts, calculateRevenueShare } from "@/services/analytics/analytics-service";
 import { Product, Order } from "@/types";
+import { useLanguage } from "@/hooks/use-language";
 
 interface KPIDashboardProps {
   orders: Order[];
@@ -21,6 +22,7 @@ interface KPIDashboardProps {
 }
 
 export function KPIDashboard({ orders, products, stores, users = [], storeId }: KPIDashboardProps) {
+  const { t } = useLanguage();
   const isPartnerView = !!storeId;
 
   // Calculate KPIs
@@ -101,7 +103,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
   // Stats cards
   const stats = useMemo(() => [
     {
-      label: "ยอดขาย",
+      label: t.dashboard.stats.revenue,
       value: formatCurrency(kpis.totalRevenue),
       change: "+12.5%",
       trend: 'up' as const,
@@ -109,7 +111,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
       color: "text-emerald-500"
     },
     {
-      label: "คำสั่งซื้อ",
+      label: t.dashboard.orders,
       value: kpis.totalOrders.toLocaleString(),
       change: "+8.2%",
       trend: 'up' as const,
@@ -117,7 +119,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
       color: "text-blue-500"
     },
     {
-      label: isPartnerView ? "ลูกค้า" : "ผู้ใช้งาน",
+      label: isPartnerView ? t.dashboard.customers : t.dashboard.users,
       value: kpis.totalUsers.toLocaleString(),
       change: "+5.2%",
       trend: 'up' as const,
@@ -125,14 +127,14 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
       color: "text-purple-500"
     },
     {
-      label: "สินค้า",
+      label: t.dashboard.products,
       value: kpis.totalProducts.toLocaleString(),
       change: "-2.1%",
       trend: 'down' as const,
       icon: Package,
       color: "text-amber-500"
     }
-  ], [kpis, isPartnerView]);
+  ], [kpis, isPartnerView, t]);
 
   return (
     <div className="space-y-8">
@@ -149,11 +151,11 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
         <div className="lg:col-span-2 bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-black tracking-tight uppercase">แนวโน้มยอดขาย</h3>
-              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">ประสิทธิภาพยอดขาย</p>
+              <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.salesTrendTitle}</h3>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{t.dashboard.salesPerformanceTitle}</p>
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest">
-              <TrendingUp className="h-3.5 w-3.5" /> +12% จากสัปดาห์ก่อน
+              <TrendingUp className="h-3.5 w-3.5" /> {t.dashboard.salesTrendValue}
             </div>
           </div>
 
@@ -172,7 +174,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
 
         {/* Category Distribution */}
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
-          <h3 className="text-xl font-black tracking-tight uppercase">สัดส่วนหมวดหมู่</h3>
+          <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.categoryDistribution}</h3>
           <BarChart
             data={categoryData.slice(0, 5).map(cat => ({
               label: cat.category,
@@ -190,7 +192,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
           {revenueShare && (
             <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-8 flex flex-col items-center justify-center">
               <div className="text-center">
-                <h3 className="text-xl font-black tracking-tight uppercase">สัดส่วนรายได้</h3>
+                <h3 className="text-xl font-black tracking-tight uppercase">{t.dashboard.revenueShareTitle}</h3>
                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Pickpock Mall vs Partners</p>
               </div>
 
@@ -230,11 +232,11 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
           {storePerformance.length > 0 && (
             <KPITable
               columns={[
-                { key: 'store', label: 'ร้านค้า' },
-                { key: 'revenue', label: 'ยอดขาย' },
-                { key: 'orders', label: 'คำสั่งซื้อ' },
-                { key: 'rating', label: 'คะแนน' },
-                { key: 'trend', label: 'แนวโน้ม' }
+                { key: 'store', label: t.dashboard.storeTitle },
+                { key: 'revenue', label: t.dashboard.stats.revenue },
+                { key: 'orders', label: t.dashboard.orders },
+                { key: 'rating', label: t.dashboard.rating },
+                { key: 'trend', label: t.dashboard.trend }
               ]}
               data={storePerformance.slice(0, 5).map(store => ({
                 store: (
@@ -281,7 +283,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
       {lowStockProducts.length > 0 && (
         <div className="bg-card border-2 border-primary/10 rounded-[2.5rem] p-8 shadow-xl shadow-primary/5 space-y-6">
           <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">
-            แจ้งเตือนสต็อกต่ำ / Low Stock Alerts
+            {t.dashboard.inventoryAlerts}
           </h3>
           <div className="space-y-4">
             {lowStockProducts.slice(0, 5).map((product) => (
@@ -299,7 +301,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
                   product.stock < 5 ? "bg-amber-500/10 text-amber-600" :
                   "bg-blue-500/10 text-blue-600"
                 )}>
-                  {product.stock} ชิ้น
+                  {product.stock} {t.dashboard.pieces}
                 </span>
               </div>
             ))}

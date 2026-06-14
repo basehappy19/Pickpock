@@ -2,24 +2,36 @@
 
 import { useGlobalData } from "@/hooks/use-global-data";
 import { cn, formatCurrency, formatDate, getImgSrc } from "@/lib/utils";
-import { Package, Truck, Search, User, X, Receipt, MapPin, Phone, Mail, CreditCard, Filter } from "lucide-react";
+import { Package, Truck, Search, User, X, Receipt, MapPin, Phone, Mail, CreditCard, Filter, Loader2 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { useRole } from "@/hooks/use-role";
 import AccessRestricted from "@/components/shared/access-restricted";
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
-export default function OrdersPage() {
+function OrdersContent() {
   const { t } = useLanguage();
   const { orders, products, updateOrderStatus } = useGlobalData();
   const { role, user } = useRole();
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("ALL");
 
-  if (role === "customer") {
-    return <AccessRestricted requiredRole={["founder", "partner"]} currentPage="Orders Management" />;
-  }
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const searchTerm = searchParams.get("q") || "";
+  const statusFilter = searchParams.get("status") || "ALL";
+
+  const updateFilters = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value && value !== "ALL") {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  };
 
   // Filter orders based on role, status, and search
   const filteredOrders = useMemo(() => {
@@ -49,6 +61,10 @@ export default function OrdersPage() {
     });
   }, [orders, products, role, user, statusFilter, searchTerm]);
 
+  if (role === "customer") {
+    return <AccessRestricted requiredRole={["founder", "partner"]} currentPage="Orders Management" />;
+  }
+
   // Calculate metrics for filtered results
   const totalRevenue = filteredOrders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
   const totalCount = filteredOrders.length;
@@ -72,7 +88,7 @@ export default function OrdersPage() {
              {role === "founder" ? t.orders.title : (user?.store?.name || t.orders.title)}
           </h1>
           <p className="text-slate-500 font-medium">
-             {role === "founder" ? "Monitor every transaction across the platform." : `Manage orders for ${user?.store?.name || "your store"}.`}
+             {role === "founder" ? t.orders.founderSubtitle : (t.orders.partnerSubtitle?.replace("{storeName}", user?.store?.name || "your store") || `Manage orders for ${user?.store?.name || "your store"}.`)}
           </p>
         </div>
         
@@ -85,7 +101,7 @@ export default function OrdersPage() {
               placeholder={t.orders.filterBySearch}
               className="w-full pl-11 pr-4 py-3 rounded-lg border border-slate-200 bg-white focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all font-medium"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => updateFilters("q", e.target.value)}
             />
           </div>
           <div className="relative w-full sm:w-48 group">
@@ -93,7 +109,7 @@ export default function OrdersPage() {
             <select 
               className="w-full pl-10 pr-4 py-3 rounded-lg border border-slate-200 bg-white focus:border-primary outline-none transition-all font-bold uppercase text-[10px] cursor-pointer appearance-none"
               value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
+              onChange={(e) => updateFilters("status", e.target.value)}
             >
               <option value="ALL">{t.orders.allStatuses}</option>
               <option value="PENDING">{t.orders.status.pending}</option>
@@ -132,7 +148,7 @@ export default function OrdersPage() {
             </div>
             <div>
                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.orders.activeFilters}</p>
-               <h3 className="text-xl font-bold tracking-tight text-blue-600 uppercase">{statusFilter === "ALL" ? t.orders.allStatuses : statusFilter}</h3>
+               <h3 className="text-xl font-bold tracking-tight text-blue-600 uppercase">{statusFilter === "ALL" ? t.orders.allStatuses : ((t.orders.status as any)[statusFilter.toLowerCase()] || statusFilter)}</h3>
             </div>
          </div>
       </div>
@@ -141,7 +157,7 @@ export default function OrdersPage() {
       {filteredOrders.length === 0 ? (
         <div className="p-20 text-center rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50">
             <Package className="h-16 w-16 text-slate-300 mx-auto mb-4" />
-            <p className="text-slate-400 font-bold text-lg uppercase tracking-widest">No orders found</p>
+            <p className="text-slate-400 font-bold text-lg uppercase tracking-widest">{t.orders.noOrdersFound || "No orders found"}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6">
@@ -201,7 +217,7 @@ export default function OrdersPage() {
                             </div>
                             <div>
                                 <Link href={`/products/${item.productId}`} className="font-bold text-sm text-slate-900 hover:text-primary transition-colors">{item.productName || "Product"}</Link>
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{product?.category || "Category"}</p>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{(t.categories as Record<string, string>)[product?.category || ""] || product?.category || "Category"}</p>
                             </div>
                           </div>
                           <div className="flex gap-4 text-xs font-bold items-center">
@@ -322,7 +338,7 @@ export default function OrdersPage() {
                                 <tr key={i}>
                                    <td className="py-4">
                                       <p className="font-bold text-sm text-slate-900 uppercase">{item.productName || "Product"}</p>
-                                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{product?.category}</p>
+                                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{(t.categories as Record<string, string>)[product?.category || ""] || product?.category}</p>
                                    </td>
                                    <td className="py-4 text-center font-bold text-slate-900">x{item.quantity}</td>
                                    <td className="py-4 text-right font-bold text-slate-900">{formatCurrency(price)}</td>
@@ -374,7 +390,7 @@ export default function OrdersPage() {
                           <Truck className="h-3.5 w-3.5" /> {t.common.monthly === "รายเดือน" ? "สถานะการจัดส่ง" : "Delivery Status"}
                        </h4>
                        <div className="inline-flex px-3 py-1.5 rounded-md font-bold text-[10px] uppercase tracking-wider bg-white border border-slate-200">
-                          {selectedOrder.status}
+                          {(t.orders.status as any)[selectedOrder.status.toLowerCase()] || selectedOrder.status}
                        </div>
                     </div>
                     <div className="p-5 rounded-xl bg-slate-50 border border-slate-100 space-y-3">
@@ -402,5 +418,13 @@ export default function OrdersPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function OrdersPage() {
+  return (
+    <Suspense fallback={<div className="p-20 text-center flex flex-col items-center justify-center min-h-[50vh]"><Loader2 className="h-10 w-10 animate-spin text-primary mb-4" /><p className="text-slate-500 font-bold uppercase tracking-widest text-sm">Loading Orders...</p></div>}>
+      <OrdersContent />
+    </Suspense>
   );
 }

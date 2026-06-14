@@ -71,12 +71,12 @@ export default function CartPage() {
     const code = couponCode.toUpperCase().trim();
     
     if (!userOwnedCodes.includes(code)) {
-      toast.error("คุณไม่มีคูปองนี้ / You don't own this coupon");
+      toast.error(t.cart.errors.notOwnCoupon);
       return;
     }
 
     if (usedCoupons.includes(code)) {
-      toast.error("คุณใช้โค้ดนี้ไปแล้ว / You have already used this coupon");
+      toast.error(t.cart.errors.alreadyUsedCoupon);
       return;
     }
 
@@ -84,31 +84,31 @@ export default function CartPage() {
     if (coupon) {
       applyCoupon(coupon);
       setCouponCode("");
-      toast.success(`ใช้คูปอง ${code} สำเร็จ!`);
+      toast.success(t.cart.success.couponApplied);
     } else {
-      toast.error("โค้ดไม่ถูกต้อง / Invalid coupon code");
+      toast.error(t.cart.errors.invalidCoupon);
     }
   };
 
   const selectCoupon = (coupon: Coupon) => {
     if (usedCoupons.includes(coupon.code)) {
-      toast.error("คุณใช้โค้ดนี้ไปแล้ว / You have already used this coupon");
+      toast.error(t.cart.errors.alreadyUsedCoupon);
       return;
     }
     applyCoupon(coupon);
     setShowCouponSelector(false);
-    toast.success(`ใช้คูปอง ${coupon.code} สำเร็จ!`);
+    toast.success(t.cart.success.couponApplied);
   };
 
   const handleCheckout = async () => {
     if (!user) {
-      toast.error("กรุณาเข้าสู่ระบบก่อนชำระเงิน");
+      toast.error(t.cart.errors.loginRequired);
       router.push("/login");
       return;
     }
 
     if (!customerName.trim()) {
-      toast.error("กรุณาใส่ชื่อผู้รับ");
+      toast.error(t.cart.errors.nameRequired);
       return;
     }
 
@@ -148,7 +148,7 @@ export default function CartPage() {
     await addOrder(newOrder);
     setIsPaid(true);
     clearCart();
-    toast.success("สั่งซื้อสินค้าสำเร็จ!");
+    toast.success(t.cart.paymentSuccess);
   };
 
   if (isPaid) {
@@ -160,7 +160,7 @@ export default function CartPage() {
         <div className="text-center space-y-2">
           <h2 className="text-4xl font-black tracking-tight text-emerald-600">{t.cart.paymentSuccess}</h2>
           <p className="text-muted-foreground font-bold text-lg">{t.cart.paymentSuccessDesc}</p>
-          <p className="font-black text-primary uppercase text-sm">Thank you, {customerName}!</p>
+          <p className="font-black text-primary uppercase text-sm">{t.cart.thankYou}, {customerName}!</p>
         </div>
         <Link href="/" className="mt-8 h-14 px-8 rounded-xl bg-primary text-primary-foreground font-black flex items-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/20 cursor-pointer">
           <ArrowLeft className="h-5 w-5" /> {t.cart.startShopping}
@@ -207,12 +207,12 @@ export default function CartPage() {
               <LogIn className="h-5 w-5 text-amber-600 dark:text-amber-400" />
             </div>
             <div>
-              <p className="font-black text-amber-900 dark:text-amber-100">Login Required for Checkout</p>
-              <p className="text-sm text-amber-700 dark:text-amber-300">Please login to complete your purchase</p>
+              <p className="font-black text-amber-900 dark:text-amber-100">{t.cart.loginRequiredTitle}</p>
+              <p className="text-sm text-amber-700 dark:text-amber-300">{t.cart.loginRequiredDesc}</p>
             </div>
           </div>
           <Link href="/login" className="h-12 px-6 rounded-xl bg-amber-500 text-white font-black hover:bg-amber-600 transition-all flex items-center gap-2 cursor-pointer shadow-lg">
-            <LogIn className="h-5 w-5" /> Login Now
+            <LogIn className="h-5 w-5" /> {t.cart.loginNow}
           </Link>
         </div>
       )}
@@ -264,7 +264,7 @@ export default function CartPage() {
                 </div>
                 {/* Mobile Delete */}
                 <button onClick={() => removeFromCart(item.id)} className="mt-4 p-2 text-rose-500 font-bold text-xs flex items-center justify-center gap-1 sm:hidden">
-                   <Trash2 className="h-3 w-3" /> Remove Item
+                   <Trash2 className="h-3 w-3" /> {t.cart.removeFromCart}
                 </button>
               </div>
             </div>
@@ -278,10 +278,10 @@ export default function CartPage() {
             
             {/* Customer Name */}
             <div className="space-y-2 pb-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Recipient Name / ชื่อผู้รับ</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t.cart.recipientName}</label>
               <input 
                 type="text" 
-                placeholder="Enter your name..."
+                placeholder={t.cart.namePlaceholder}
                 required
                 className="w-full px-5 py-3 rounded-xl bg-muted/50 border-none focus:ring-2 focus:ring-primary outline-none font-bold text-sm"
                 value={customerName}
@@ -313,7 +313,7 @@ export default function CartPage() {
               >
                 <div className="flex items-center gap-3">
                   <Tag className="h-5 w-5 text-primary" />
-                  <span className="text-xs font-black uppercase tracking-widest text-primary">เลือกคูปองของคุณ ({myAvailableCoupons.length})</span>
+                  <span className="text-xs font-black uppercase tracking-widest text-primary">{t.cart.selectYourCoupon} ({myAvailableCoupons.length})</span>
                 </div>
                 <ChevronRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
               </button>
@@ -323,7 +323,7 @@ export default function CartPage() {
               {/* VIP Badge */}
               {tier === 'VIP' && (
                 <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2">
-                  <span>VIP Member</span>
+                  <span>{t.cart.vipMember}</span>
                   <span className="bg-white/20 px-2 py-0.5 rounded">-10%</span>
                 </div>
               )}
@@ -334,13 +334,13 @@ export default function CartPage() {
               </div>
               <div className="flex justify-between font-bold text-muted-foreground uppercase text-[10px] tracking-widest">
                 <span>{t.cart.shipping}</span>
-                <span className="text-emerald-500">{tier === 'VIP' ? 'ฟรี (VIP)' : t.cart.free}</span>
+                <span className="text-emerald-500">{tier === 'VIP' ? t.cart.freeVip : t.cart.free}</span>
               </div>
 
               {/* Tier Discount */}
               {discountSummary.tierDiscount > 0 && (
                 <div className="flex justify-between font-bold text-amber-500 uppercase text-[10px] tracking-widest">
-                  <span>ส่วนลด VIP (10%)</span>
+                  <span>{t.cart.vipDiscount}</span>
                   <span>-{formatCurrency(discountSummary.tierDiscount)}</span>
                 </div>
               )}
@@ -348,7 +348,7 @@ export default function CartPage() {
               {/* Bulk Discount */}
               {discountSummary.bulkDiscount > 0 && (
                 <div className="flex justify-between font-bold text-blue-500 uppercase text-[10px] tracking-widest">
-                  <span>ส่วนลดจำนวนมาก</span>
+                  <span>{t.cart.bulkDiscount}</span>
                   <span>-{formatCurrency(discountSummary.bulkDiscount)}</span>
                 </div>
               )}
@@ -379,7 +379,7 @@ export default function CartPage() {
               {discountSummary.totalDiscount > 0 && (
                 <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl p-3 text-center">
                   <p className="text-emerald-600 dark:text-emerald-400 font-black text-xs uppercase tracking-widest">
-                    ประหยัด {formatCurrency(discountSummary.totalDiscount)} ในการสั่งซื้อนี้!
+                    {t.cart.savings1} {formatCurrency(discountSummary.totalDiscount)} {t.cart.savings2}
                   </p>
                 </div>
               )}
@@ -406,7 +406,7 @@ export default function CartPage() {
           <div className="bg-card w-full max-w-md rounded-[2.5rem] border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="p-6 bg-primary text-primary-foreground flex justify-between items-center">
               <h3 className="text-xl font-black uppercase tracking-widest flex items-center gap-3">
-                <Tag className="h-6 w-6" /> คูปองที่ฉันเก็บไว้
+                <Tag className="h-6 w-6" /> {t.cart.myCollectedCoupons}
               </h3>
               <button onClick={() => setShowCouponSelector(false)} className="p-2 hover:bg-white/10 rounded-full cursor-pointer"><X /></button>
             </div>
@@ -442,7 +442,7 @@ export default function CartPage() {
                            <div className="h-1 w-12 bg-muted rounded-full overflow-hidden">
                               <div className="h-full bg-rose-400" style={{ width: `${(discountSummary.subtotal / (coupon.minPurchase || 1)) * 100}%` }} />
                            </div>
-                           <p className="text-[9px] font-black text-rose-500 uppercase tracking-tighter">ซื้อเพิ่มอีก {formatCurrency((coupon.minPurchase || 0) - discountSummary.subtotal)}</p>
+                           <p className="text-[9px] font-black text-rose-500 uppercase tracking-tighter">{t.cart.buyMore1} {formatCurrency((coupon.minPurchase || 0) - discountSummary.subtotal)} {t.cart.buyMore2}</p>
                         </div>
                       )}
                     </div>
@@ -464,7 +464,7 @@ export default function CartPage() {
                   <div className="p-4 rounded-full bg-muted w-16 h-16 flex items-center justify-center mx-auto">
                     <Tag className="h-8 w-8 text-muted-foreground/30" />
                   </div>
-                  <p className="text-muted-foreground font-bold italic uppercase text-xs">ไม่มีคูปองที่ใช้ได้ / No collected coupons found</p>
+                  <p className="text-muted-foreground font-bold italic uppercase text-xs">{t.cart.noCouponsFound}</p>
                 </div>
               )}
             </div>

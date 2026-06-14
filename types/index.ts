@@ -15,6 +15,10 @@ export interface Product {
   storeName?: string;
   storeId?: string;
   isOfficial?: boolean;
+  weight?: string;
+  dimensions?: string;
+  warranty?: string;
+  additionalDetails?: string;
 }
 
 export interface Review {

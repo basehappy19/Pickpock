@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/hooks/use-language";
 import { formatCurrency, cn, getImgSrc } from "@/lib/utils";
-import { Star, ShieldCheck, ShoppingCart, Heart, Truck, MessageSquare, Store as StoreIcon, ArrowRight, Share2, CheckCircle2, GitCompare, Info } from "lucide-react";
+import { Star, ShieldCheck, ShoppingCart, Heart, Truck, MessageSquare, Store as StoreIcon, ArrowRight, Share2, CheckCircle2, GitCompare, Info, Edit } from "lucide-react";
 import { useState, useEffect } from "react";
 import NextImage from "next/image";
 import { Product, Store } from "@/types";
@@ -13,6 +13,7 @@ import { useCompare } from "@/hooks/use-compare";
 import { useRouter } from "next/navigation";
 import { useRole } from "@/hooks/use-role";
 import AIBundleSuggest from "./ai-bundle-suggest";
+import ProductEditModal from "./product-edit-modal";
 
 export default function ProductInfo({ product, allProducts }: { product: Product, allProducts: Product[] }) {
   const { t, language } = useLanguage();
@@ -20,14 +21,16 @@ export default function ProductInfo({ product, allProducts }: { product: Product
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const { addToRecentlyViewed } = useRecentlyViewed();
   const { addToCompare } = useCompare();
-  const { role } = useRole();
+  const { role, user } = useRole();
   const [activeTab, setActiveTab] = useState<"description" | "specs" | "reviews">("description");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
   const [storeData, setStoreData] = useState<Store | null>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
   const router = useRouter();
 
   const isRestricted = role === "founder" || role === "partner";
+  const isOwner = (role === "founder" && product.isOfficial) || (role === "partner" && user?.store?.store_id === product.storeId);
 
   useEffect(() => {
     if (product) {
@@ -73,7 +76,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
         });
       } else {
         await navigator.clipboard.writeText(window.location.href);
-        alert("คัดลอกลิงก์ไปยังคลิปบอร์ดแล้ว / Link copied to clipboard!");
+        alert(t.products.copied);
       }
     } catch (err) {
       console.error("Error sharing:", err);
@@ -81,8 +84,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
   };
 
   const handleInquiry = () => {
-    // Open AI Chatbot and send a message about this product
-    window.dispatchEvent(new CustomEvent('openChat'));
+    window.dispatchEvent(new CustomEvent('openChat', { detail: { product } }));
   };
 
   const placeholderImg = "https://placehold.co/800x800?text=Product+Not+Found";
@@ -96,8 +98,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
               <ShoppingCart className="h-6 w-6 text-rose-600 dark:text-rose-400" />
             </div>
             <div>
-              <p className="font-black text-rose-900 dark:text-rose-100 text-lg">บัญชีผู้จัดการถูกจำกัดการซื้อ</p>
-              <p className="text-sm text-rose-700 dark:text-rose-300 font-bold">Founder และ Partner ไม่ได้รับอนุญาตให้สั่งซื้อสินค้า กรุณาใช้บัญชีสมาชิกทั่วไปเพื่อสั่งซื้อ</p>
+              <p className="font-black text-rose-900 dark:text-rose-100 text-lg">{t.products.restrictedTitle}</p>
+              <p className="text-sm text-rose-700 dark:text-rose-300 font-bold">{t.products.restrictedDesc}</p>
             </div>
           </div>
         </div>
@@ -115,7 +117,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             />
             {product.isOfficial && (
               <div className="absolute top-6 left-6 px-4 py-1.5 bg-amber-500 text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-lg shadow-amber-500/20 flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4" /> Official Store
+                <ShieldCheck className="h-4 w-4" /> {t.products.officialStore}
               </div>
             )}
             <div className="absolute top-6 right-6 flex flex-col gap-2">
@@ -144,7 +146,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             <div className="space-y-2">
               <div className="flex items-center gap-4">
                 <div className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest">
-                  {product.category}
+                  {(t.categories as Record<string, string>)[product.category] || product.category}
                 </div>
                 <div className="flex items-center gap-1 text-amber-500">
                   <Star className="h-4 w-4 fill-current" />
@@ -152,21 +154,28 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <span className="text-muted-foreground font-bold text-xs">({product.reviews.length} รีวิว)</span>
                 </div>
               </div>
-              <h1 className="text-4xl lg:text-5xl font-black tracking-tighter leading-none">{product.name}</h1>
+              <div className="flex items-start justify-between gap-4">
+                <h1 className="text-4xl lg:text-5xl font-black tracking-tighter leading-none">{product.name}</h1>
+                {isOwner && (
+                  <button onClick={() => setShowEditModal(true)} className="shrink-0 h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-xs uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-primary/20 cursor-pointer">
+                    <Edit className="h-4 w-4" /> {t.dashboard?.editProduct || "Edit"}
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className="flex items-baseline gap-4">
               <span className="text-5xl font-black text-primary tracking-tighter">{formatCurrency(product.price)}</span>
               {product.stock < 10 && product.stock > 0 && (
-                <span className="text-rose-500 font-black text-xs uppercase tracking-widest animate-pulse">เหลือเพียง {product.stock} ชิ้นในสต็อก!</span>
+                <span className="text-rose-500 font-black text-xs uppercase tracking-widest animate-pulse">{t.products.stockAlert1}{product.stock}{t.products.stockAlert2}</span>
               )}
               {product.stock === 0 && (
-                <span className="text-rose-500 font-black text-xs uppercase tracking-widest">สินค้าหมด</span>
+                <span className="text-rose-500 font-black text-xs uppercase tracking-widest">{t.products.outOfStock}</span>
               )}
             </div>
 
             <p className="text-muted-foreground font-bold leading-relaxed max-w-lg">
-              {product.description || "ยกระดับไลฟ์สไตล์ของคุณด้วยผลิตภัณฑ์พรีเมียมชิ้นนี้ ที่ออกแบบมาเพื่อประสิทธิภาพและสไตล์ที่โดดเด่น ส่วนหนึ่งของคอลเลกชันที่คัดสรรโดย AI ของเรา"}
+              {product.description || t.products.defaultDesc}
             </p>
 
             <div className="grid grid-cols-2 gap-4">
@@ -175,8 +184,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <Truck className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-black uppercase text-muted-foreground">การจัดส่ง</p>
-                  <p className="text-xs font-black">ส่งฟรีทั่วประเทศ</p>
+                  <p className="text-[10px] font-black uppercase text-muted-foreground">{t.products.shippingDetails}</p>
+                  <p className="text-xs font-black">{t.products.freeShipping}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-4 rounded-2xl bg-muted/50 border border-primary/5">
@@ -184,8 +193,8 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   <CheckCircle2 className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-black uppercase text-muted-foreground">การรับประกัน</p>
-                  <p className="text-xs font-black">รับประกัน 1 ปี</p>
+                  <p className="text-[10px] font-black uppercase text-muted-foreground">{t.products.warrantyDetails}</p>
+                  <p className="text-xs font-black">{t.products.oneYearWarranty}</p>
                 </div>
               </div>
             </div>
@@ -194,7 +203,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           <div className="space-y-6 pt-8 border-t">
             <div className="flex items-center gap-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">จำนวน</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.products.quantity}</label>
                 <div className="flex items-center bg-muted rounded-2xl p-1 border-2 border-transparent focus-within:border-primary/20">
                   <button
                     onClick={() => setSelectedQuantity(Math.max(1, selectedQuantity - 1))}
@@ -227,17 +236,17 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   {isRestricted ? (
                     <>
                       <Info className="h-6 w-6" />
-                      ถูกจำกัดสำหรับผู้จัดการ
+                      {t.products.restrictedManager}
                     </>
                   ) : isAdded ? (
                     <>
                       <CheckCircle2 className="h-6 w-6" />
-                      เพิ่มลงรถเข็นแล้ว
+                      {t.products.addedToCart}
                     </>
                   ) : (
                     <>
                       <ShoppingCart className="h-6 w-6" />
-                      {product.stock === 0 ? "สินค้าหมด" : "เพิ่มลงรถเข็น"}
+                      {product.stock === 0 ? t.products.outOfStock : t.products.addToCart}
                     </>
                   )}
                 </button>
@@ -250,14 +259,14 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group"
               >
                 <Share2 className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                <span className="text-[10px] font-black uppercase tracking-widest">แชร์สินค้านี้</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">{t.products.shareProduct}</span>
               </div>
               <div 
                 onClick={handleInquiry}
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group"
               >
                 <MessageSquare className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                <span className="text-[10px] font-black uppercase tracking-widest">สอบถามข้อมูล</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">{t.products.inquiry}</span>
               </div>
             </div>
           </div>
@@ -283,7 +292,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                   activeTab === tab ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
                 )}
               >
-                {tab === "description" ? "รายละเอียด" : tab === "specs" ? "ข้อมูลทางเทคนิค" : "รีวิว"}
+                {tab === "description" ? t.products.tabsData.description : tab === "specs" ? t.products.tabsData.specs : t.products.tabsData.reviews}
               </button>
             );
           })}
@@ -292,18 +301,35 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           {activeTab === "description" && (
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
-                <h3 className="text-3xl font-black tracking-tight">ที่สุดของ <span className="text-primary">ประสบการณ์</span></h3>
-                <p className="text-muted-foreground font-medium leading-relaxed text-lg">
-                  {product.description} สินค้าพรีเมียมในหมวดหมู่ {product.category} นี้ถูกออกแบบมาเพื่อให้ได้รับประสบการณ์ที่ดีที่สุดสำหรับลูกค้าของเรา เรามุ่งเน้นที่ความทนทาน ความสวยงาม และประสิทธิภาพในทุกรายละเอียด
+                <h3 className="text-3xl font-black tracking-tight">{t.products.tabsData.description}</h3>
+                <p className="text-muted-foreground font-medium leading-relaxed text-lg whitespace-pre-wrap">
+                  {product.description}
                 </p>
-                <ul className="space-y-4">
-                  {["วัสดุคุณภาพเยี่ยม", "บรรจุภัณฑ์ที่เป็นมิตรต่อสิ่งแวดล้อม", "การออกแบบที่เน้นผู้ใช้เป็นศูนย์กลาง"].map((item) => (
-                    <li key={item} className="flex items-center gap-3 font-black text-sm uppercase tracking-tight">
-                      <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                      {item}
+                
+                <div className="pt-6 space-y-4 border-t border-muted">
+                  <h4 className="font-black text-lg">{t.products.tabsData.specs || "Product Details"}</h4>
+                  <ul className="space-y-4">
+                    <li className="flex items-center gap-3 font-bold text-sm uppercase tracking-tight">
+                      <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                      <span className="text-muted-foreground">{t.dashboard?.extendedFields?.weight || "Weight"}:</span> {product.weight || "-"}
                     </li>
-                  ))}
-                </ul>
+                    <li className="flex items-center gap-3 font-bold text-sm uppercase tracking-tight">
+                      <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                      <span className="text-muted-foreground">{t.dashboard?.extendedFields?.dimensions || "Dimensions"}:</span> {product.dimensions || "-"}
+                    </li>
+                    <li className="flex items-center gap-3 font-bold text-sm uppercase tracking-tight">
+                      <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                      <span className="text-muted-foreground">{t.dashboard?.extendedFields?.warranty || "Warranty"}:</span> {product.warranty || "-"}
+                    </li>
+                    <li className="flex items-start gap-3 font-bold text-sm uppercase tracking-tight">
+                      <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                      <div>
+                        <span className="text-muted-foreground">{t.dashboard?.extendedFields?.additionalDetails || "Details"}:</span> 
+                        <p className="mt-1 lowercase normal-case">{product.additionalDetails || "-"}</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
                 <NextImage src={getImgSrc(product.image) || placeholderImg} alt="Detail" fill className="object-cover" />
@@ -331,7 +357,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                       <Star key={star} className={cn("h-4 w-4", star <= Math.round(product.rating) ? "fill-current" : "text-muted")} />
                     ))}
                   </div>
-                  <p className="text-[10px] font-black uppercase text-muted-foreground">จากทั้งหมด {product.reviews.length} รีวิว</p>
+                  <p className="text-[10px] font-black uppercase text-muted-foreground">{t.products.reviewDetails.total1}{product.reviews.length}{t.products.reviewDetails.total2}</p>
                 </div>
                 <div className="flex-1 space-y-2 w-full">
                   {[5, 4, 3, 2, 1].map((star) => (
@@ -360,7 +386,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                         </div>
                         <div>
                           <p className="font-black text-sm">{review.user}</p>
-                          <p className="text-[10px] font-bold text-muted-foreground">ยืนยันการซื้อแล้ว • {review.date}</p>
+                          <p className="text-[10px] font-bold text-muted-foreground">{t.products.reviewDetails.verified}{review.date}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-1 text-amber-500">
@@ -376,13 +402,13 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                         review.sentiment === 'positive' ? "bg-emerald-50 text-emerald-600" :
                           review.sentiment === 'negative' ? "bg-rose-50 text-rose-600" : "bg-muted text-muted-foreground"
                       )}>
-                        ความรู้สึกโดย AI: {review.sentiment === 'positive' ? 'เชิงบวก' : review.sentiment === 'negative' ? 'เชิงลบ' : 'กลาง'}
+                        {t.products.reviewDetails.sentimentPrefix}{review.sentiment === 'positive' ? t.products.reviewDetails.positive : review.sentiment === 'negative' ? t.products.reviewDetails.negative : t.products.reviewDetails.neutral}
                       </div>
                     )}
                   </div>
                 )) : (
                   <div className="text-center py-10">
-                    <p className="text-muted-foreground font-bold">ยังไม่มีรีวิว ร่วมเป็นคนแรกที่รีวิวสินค้านี้!</p>
+                    <p className="text-muted-foreground font-bold">{t.products.reviewDetails.noReviews}</p>
                   </div>
                 )}
               </div>
@@ -407,7 +433,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 {Number(storeData?.rating || 4.9).toFixed(1)}
               </span>
               <span>·</span>
-              <span className="text-emerald-700 font-medium">ตอบกลับรวดเร็ว</span>
+              <span className="text-emerald-700 font-medium">{t.products.storeData.fastReply}</span>
               <span>·</span>
               <span className="bg-background border border-border px-1.5 py-px rounded-full text-[11px] text-muted-foreground">
                 {product.isOfficial ? "Official" : "Trusted"}
@@ -420,7 +446,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           onClick={() => router.push(`/stores/${storeData?.store_id || "mall"}`)}
           className="h-8.5 px-4 rounded-lg bg-background text-foreground border border-border text-[13px] hover:bg-accent transition-colors cursor-pointer whitespace-nowrap"
         >
-          เยี่ยมชมร้านค้า →
+          {t.products.storeData.visitStore}
         </button>
       </div>
 
@@ -428,11 +454,11 @@ export default function ProductInfo({ product, allProducts }: { product: Product
       <div className="space-y-8 pt-12">
         <div className="flex items-end justify-between">
           <div className="space-y-1">
-            <h2 className="text-3xl font-black tracking-tight">สินค้าที่คุณ <span className="text-primary">อาจสนใจ</span></h2>
-            <p className="text-muted-foreground font-bold">จากหมวดหมู่ <span className="text-primary uppercase">{product.category}</span></p>
+            <h2 className="text-3xl font-black tracking-tight">{t.products.related.title1}<span className="text-primary">{t.products.related.title2}</span></h2>
+            <p className="text-muted-foreground font-bold">{t.products.related.fromCategory}<span className="text-primary uppercase">{(t.categories as Record<string, string>)[product.category] || product.category}</span></p>
           </div>
           <button onClick={() => router.push('/products')} className="h-12 px-6 rounded-xl border-2 border-primary/10 font-black text-xs uppercase tracking-widest hover:bg-primary/5 transition-all">
-            ดูทั้งหมด
+            {t.products.related.viewAll}
           </button>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -458,6 +484,12 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           ))}
         </div>
       </div>
+
+      <ProductEditModal 
+        product={product} 
+        isOpen={showEditModal} 
+        onClose={() => setShowEditModal(false)} 
+      />
     </div>
   );
 }

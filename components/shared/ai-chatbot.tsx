@@ -22,14 +22,46 @@ export default function AIChatbot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const messagesRef = useRef(messages);
   const { products } = useGlobalData();
   const { role } = useRole();
 
   useEffect(() => {
-    const handleOpenChat = () => setIsOpen(true);
+    messagesRef.current = messages;
+  }, [messages]);
+
+  const processMessage = async (displayMsg: string, aiMsg?: string) => {
+    const currentMsgs = messagesRef.current;
+    setMessages((prev) => [...prev, { role: "user", content: displayMsg }]);
+    setLoading(true);
+
+    try {
+      const response = await getAIChatResponse(
+        [...currentMsgs, { role: "user", content: aiMsg || displayMsg }],
+        products,
+        { tier: role === "founder" ? "FOUNDER" : "MEMBER" }
+      );
+      setMessages((prev) => [...prev, { role: "assistant", content: response }]);
+    } catch (error) {
+      setMessages((prev) => [...prev, { role: "assistant", content: "ขออภัยครับ ระบบ AI ขัดข้องชั่วคราว ลองถามอีกครั้งได้ไหมครับ?" }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleOpenChat = (e: any) => {
+      setIsOpen(true);
+      if (e.detail && e.detail.product) {
+        const p = e.detail.product;
+        const displayMsg = `สอบถามข้อมูลสินค้า: ${p.name}`;
+        const aiMsg = `ฉันต้องการสอบถามข้อมูลเกี่ยวกับสินค้าชื่อ "${p.name}" [PRODUCT:${p.id || p.product_id}]`;
+        processMessage(displayMsg, aiMsg);
+      }
+    };
     window.addEventListener('openChat', handleOpenChat);
     return () => window.removeEventListener('openChat', handleOpenChat);
-  }, []);
+  }, [products, role]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -43,31 +75,22 @@ export default function AIChatbot() {
 
     const userMsg = input;
     setInput("");
-    setMessages((prev) => [...prev, { role: "user", content: userMsg }]);
-    setLoading(true);
-
-    try {
-      const response = await getAIChatResponse(
-        [...messages, { role: "user", content: userMsg }],
-        products,
-        { tier: role === "founder" ? "FOUNDER" : "MEMBER" }
-      );
-      setMessages((prev) => [...prev, { role: "assistant", content: response }]);
-    } catch (error) {
-      setMessages((prev) => [...prev, { role: "assistant", content: "ขออภัยครับ ระบบ AI ขัดข้องชั่วคราว ลองถามอีกครั้งได้ไหมครับ?" }]);
-    } finally {
-      setLoading(false);
-    }
+    await processMessage(userMsg);
   };
 
   const renderMessageContent = (content: string) => {
     const parts = content.split(/(\[PRODUCT:[\w-]+\])/g);
+    const renderedIds = new Set<string>();
+
     return parts.map((part, idx) => {
       if (part.startsWith('[PRODUCT:') && part.endsWith(']')) {
         const productId = part.slice(9, -1);
         const product = products.find(p => p.id === productId || (p as any).product_id === productId);
         
         if (product) {
+          if (renderedIds.has(productId)) return null;
+          renderedIds.add(productId);
+
           return (
             <Link key={idx} href={`/products/${product.id || (product as any).product_id}`} className="block my-4 first:mt-2 last:mb-2 no-underline group">
               <div className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-primary/50 transition-all shadow-sm hover:shadow-md active:scale-[0.98]">
@@ -88,7 +111,19 @@ export default function AIChatbot() {
           );
         }
       }
-      return <span key={idx} className="whitespace-pre-line leading-relaxed tracking-tight inline-block">{part}</span>;
+      
+      // Parse **bold** text
+      const boldParts = part.split(/(\*\*.*?\*\*)/g);
+      return (
+        <span key={idx} className="whitespace-pre-line leading-relaxed tracking-tight inline-block">
+          {boldParts.map((bp, i) => {
+            if (bp.startsWith('**') && bp.endsWith('**')) {
+              return <strong key={i} className="font-bold text-slate-900">{bp.slice(2, -2)}</strong>;
+            }
+            return bp;
+          })}
+        </span>
+      );
     });
   };
 

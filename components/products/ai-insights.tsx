@@ -52,7 +52,7 @@ export default function AIInsights({ product }: { product: Product }) {
           
           {loading ? (
             <div className="flex items-center gap-2 p-6 rounded-2xl bg-muted/30 border-2 border-dashed border-primary/20 animate-pulse">
-              <span className="text-sm font-bold text-muted-foreground">AI กำลังวิเคราะห์ข้อมูล</span>
+              <span className="text-sm font-bold text-muted-foreground">{t.products.aiInsights.analyzing}</span>
               <div className="flex gap-1 items-center">
                 <div className="typing-dot" />
                 <div className="typing-dot" />
