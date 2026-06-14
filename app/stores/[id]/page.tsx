@@ -243,7 +243,7 @@ export default function StoreDetailPage() {
                   <div className="aspect-square relative bg-muted overflow-hidden">
                     <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" sizes="(max-width: 768px) 50vw, 20vw" />
                     <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-white/80 backdrop-blur-md text-[8px] font-black uppercase tracking-widest shadow-sm">
-                      {product.category}
+                      {(t.categories as Record<string, string>)[product.category] || product.category}
                     </div>
                   </div>
                   <div className="p-5 lg:p-6 space-y-3 flex-1 flex flex-col justify-between">
