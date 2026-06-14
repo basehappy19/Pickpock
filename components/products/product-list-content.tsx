@@ -31,7 +31,12 @@ export default function ProductListContent({ initialProducts }: { initialProduct
   }, [allProducts]);
   
   const ITEMS_PER_PAGE = 100;
-  const [currentPage, setCurrentPage] = useState(1);
+  const currentPage = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
+  const setCurrentPage = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', String(page));
+    router.push(`?${params.toString()}`, { scroll: true });
+  };
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPriceFilter, setMaxPriceFilter] = useState(10000);
@@ -105,7 +110,9 @@ export default function ProductListContent({ initialProducts }: { initialProduct
 
   // Reset to page 1 when filters change
   useEffect(() => {
-    setCurrentPage(1);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', '1');
+    router.replace(`?${params.toString()}`, { scroll: false });
   }, [filters, minPrice, maxPriceFilter, inStockOnly, aiMatchedIds]);
 
   return (
@@ -400,6 +407,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                       src={getImgSrc(product.image)}
                       alt={product.name}
                       fill
+                      priority={idx < 4}
                       sizes="(max-width: 768px) 50vw, 25vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-110 cursor-pointer"
                       onClick={() => {
@@ -503,7 +511,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           {totalPages > 1 && (
             <div className="flex items-center justify-center gap-2 pt-4">
               <button
-                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
                 className="px-4 py-2 rounded-xl border-2 font-black text-xs uppercase tracking-widest bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
               >
@@ -536,7 +544,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 )
               }
               <button
-                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage === totalPages}
                 className="px-4 py-2 rounded-xl border-2 font-black text-xs uppercase tracking-widest bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
               >

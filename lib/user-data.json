@@ -219,6 +219,20 @@
     ],
     "recentlyViewed": [
       {
+        "id": "p-newp0tz9o",
+        "name": "Pro Gaming Mouse",
+        "category": "Electronics",
+        "price": 1290,
+        "stock": 100,
+        "image": "https://images.unsplash.com/photo-1583743089695-4b816a340f82?w=800",
+        "description": "เมาส์เกมมิ่งเซ็นเซอร์แม่นยำสูง ปรับ DPI ได้ถึง 16000 พร้อมไฟ RGB",
+        "rating": 5,
+        "reviews": [],
+        "storeId": "s-j244hxavy",
+        "isOfficial": false,
+        "createdAt": "2026-06-14T05:04:57.840Z"
+      },
+      {
         "id": "p-901",
         "name": "Learning Card Set",
         "category": "Toys",
@@ -273,20 +287,6 @@
         "storeId": "s-j244hxavy",
         "isOfficial": false,
         "createdAt": "2026-06-14T05:04:57.841Z"
-      },
-      {
-        "id": "p-newp0tz9o",
-        "name": "Pro Gaming Mouse",
-        "category": "Electronics",
-        "price": 1290,
-        "stock": 100,
-        "image": "https://images.unsplash.com/photo-1527814050087-37938154798c?w=800",
-        "description": "เมาส์เกมมิ่งเซ็นเซอร์แม่นยำสูง ปรับ DPI ได้ถึง 16000 พร้อมไฟ RGB",
-        "rating": 5,
-        "reviews": [],
-        "storeId": "s-j244hxavy",
-        "isOfficial": false,
-        "createdAt": "2026-06-14T05:04:57.840Z"
       },
       {
         "id": "p-806",

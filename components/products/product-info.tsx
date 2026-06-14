@@ -15,6 +15,7 @@ import { useRole } from "@/hooks/use-role";
 import { useGlobalData } from "@/hooks/use-global-data";
 import AIBundleSuggest from "./ai-bundle-suggest";
 import ProductEditModal from "./product-edit-modal";
+import { toast } from "sonner";
 
 export default function ProductInfo({ product, allProducts }: { product: Product, allProducts: Product[] }) {
   const { t, language } = useLanguage();
@@ -95,7 +96,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
         });
       } else {
         await navigator.clipboard.writeText(window.location.href);
-        alert(t.products.copied);
+        toast.success(t.products.copied);
       }
     } catch (err) {
       console.error("Error sharing:", err);

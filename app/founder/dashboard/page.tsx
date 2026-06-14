@@ -67,6 +67,7 @@ export default function FounderDashboardPage() {
   const [isUploading, setIsUploading] = useState(false);
   const [isGeneratingDesc, setIsGeneratingDesc] = useState(false);
   const [isUpdatingPrice, setIsUpdatingPrice] = useState<string | null>(null);
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   
   const [newProduct, setNewProduct] = useState({
     id: "",
@@ -217,9 +218,15 @@ export default function FounderDashboardPage() {
   };
 
   const handleDelete = async (productId: string) => {
-    if (!confirm(t.dashboard.deleteConfirm)) return;
-    await deleteProduct(productId);
-    toast.success(t.dashboard.deleteSuccess);
+    setDeleteConfirm(productId);
+  };
+
+  const confirmDelete = async () => {
+    if (deleteConfirm) {
+      await deleteProduct(deleteConfirm);
+      toast.success(t.dashboard.deleteSuccess);
+      setDeleteConfirm(null);
+    }
   };
 
   const openEditModal = (product: Product) => {
@@ -737,6 +744,37 @@ export default function FounderDashboardPage() {
                 {newProduct.id ? t.dashboard.updateProduct : t.dashboard.createProduct}
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="bg-card rounded-[2.5rem] p-8 w-full max-w-md shadow-2xl space-y-6 animate-in fade-in zoom-in duration-300">
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 mx-auto rounded-full bg-red-100 text-red-600 flex items-center justify-center">
+                <Trash2 className="h-8 w-8" />
+              </div>
+              <h3 className="text-2xl font-black tracking-tight">{t.dashboard.deleteConfirm}</h3>
+              <p className="text-muted-foreground font-medium">
+                {t.language === 'th' ? 'คุณแน่ใจหรือไม่ที่จะลบสินค้านี้?' : 'Are you sure you want to delete this product?'}
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setDeleteConfirm(null)}
+                className="flex-1 py-3 rounded-xl bg-muted font-black uppercase tracking-widest hover:bg-muted/80 transition-all cursor-pointer"
+              >
+                {t.common.cancel}
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="flex-1 py-3 rounded-xl bg-red-600 text-white font-black uppercase tracking-widest hover:bg-red-700 transition-all cursor-pointer"
+              >
+                {t.common.delete}
+              </button>
+            </div>
           </div>
         </div>
       )}

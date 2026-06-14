@@ -32,7 +32,7 @@ export default function HackathonBanner() {
         <span className="hidden sm:inline text-white/80">|</span>
         <span className="hidden sm:flex items-center gap-1 text-white/90">
           <Code className="h-3 w-3" />
-          Team MSU
+          MSU เด้ง
         </span>
         <button
           onClick={handleClose}

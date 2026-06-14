@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useRole } from "@/hooks/use-role";
 import AccessRestricted from "@/components/shared/access-restricted";
 import { useGlobalData } from "@/hooks/use-global-data";
+import { toast } from "sonner";
 
 export default function HistoryPage() {
   const { t } = useLanguage();
@@ -94,12 +95,12 @@ export default function HistoryPage() {
       }
 
       // 3. Force re-fetch global data to sync UI
-      window.location.reload(); 
-      
-      alert(t.reviews.success);
+      window.location.reload();
+
+      toast.success(t.reviews.success);
     } catch (error) {
       console.error("Failed to submit review", error);
-      alert("Failed to save review to JSON database");
+      toast.error("Failed to save review to JSON database");
     } finally {
       setIsSubmitting(false);
       setIsReviewModalOpen(false);
