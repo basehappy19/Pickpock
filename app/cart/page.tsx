@@ -187,7 +187,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="container mx-auto p-4 pb-32 lg:pb-8 lg:p-8 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {isRestricted ? (
         <div className="bg-rose-50 dark:bg-rose-900/20 border-2 border-rose-200 dark:border-rose-800 rounded-2xl p-4 lg:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -402,16 +402,16 @@ export default function CartPage() {
 
       {/* Coupon Selector Modal */}
       {showCouponSelector && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-card w-full max-w-md rounded-[2.5rem] border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
-            <div className="p-6 bg-primary text-primary-foreground flex justify-between items-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center sm:p-4 p-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-card w-full h-[100dvh] sm:h-auto max-w-md sm:rounded-[2.5rem] sm:border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col">
+            <div className="p-6 bg-primary text-primary-foreground flex justify-between items-center shrink-0">
               <h3 className="text-xl font-semibold uppercase tracking-widest flex items-center gap-3">
                 <Tag className="h-6 w-6" /> {t.cart.myCollectedCoupons}
               </h3>
               <button onClick={() => setShowCouponSelector(false)} className="p-2 hover:bg-white/10 rounded-full cursor-pointer"><X /></button>
             </div>
             
-            <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
+            <div className="p-6 space-y-4 flex-1 sm:max-h-[60vh] overflow-y-auto">
               {myAvailableCoupons.length > 0 ? myAvailableCoupons.map((coupon) => {
                 const isUsed = usedCoupons.includes(coupon.code);
                 const isSelected = appliedCoupon?.code === coupon.code;

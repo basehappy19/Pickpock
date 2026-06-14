@@ -197,8 +197,8 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
   ];
 
   return (
-    <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700 pb-20 lg:pb-8">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <div className="container mx-auto p-0 sm:p-4 lg:p-8 space-y-6 sm:space-y-8 animate-in fade-in duration-700 pb-28 lg:pb-8">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-4 sm:px-0 mt-4 sm:mt-0">
         <div className="space-y-1 text-center md:text-left">
           <h1 className="text-3xl lg:text-5xl font-semibold tracking-tight lg:bg-clip-text lg:text-transparent lg:bg-gradient-to-r from-foreground to-foreground/70 text-foreground uppercase tracking-tighter">
             {t.dashboard.founderTitle}
@@ -216,7 +216,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6 px-4 sm:px-0">
         {stats.map((stat, i) => (
           <div key={i} className="group relative overflow-hidden bg-card p-5 lg:p-6 rounded-2xl border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
             <div className={`absolute top-0 right-0 h-32 w-32 bg-gradient-to-br ${stat.color} rounded-full -mr-16 -mt-16 blur-3xl opacity-50 group-hover:opacity-100 transition-opacity`} />
@@ -241,7 +241,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       {/* Analytics Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Sales Graph */}
-        <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-6 lg:p-8 shadow-xl shadow-primary/5 space-y-6">
+        <div className="bg-card border-y sm:border-2 border-primary/5 sm:rounded-[2.5rem] p-4 sm:p-6 lg:p-8 shadow-sm sm:shadow-xl shadow-primary/5 space-y-6">
           <div className="flex justify-between items-center">
             <div>
               <h3 className="text-xl font-semibold tracking-tight uppercase">{t.dashboard.salesPerformanceTitle}</h3>
@@ -293,7 +293,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
         </div>
 
         {/* Store Performance */}
-        <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-6 lg:p-8 shadow-xl shadow-primary/5 space-y-6">
+        <div className="bg-card border-y sm:border-2 border-primary/5 sm:rounded-[2.5rem] p-4 sm:p-6 lg:p-8 shadow-sm sm:shadow-xl shadow-primary/5 space-y-6">
           <div className="flex justify-between items-center">
             <h3 className="text-xl font-semibold tracking-tight uppercase">{t.dashboard.topStores}</h3>
             <Store className="h-5 w-5 text-indigo-600" />
@@ -326,7 +326,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       </div>
 
       {/* Best Selling Products */}
-      <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-6 lg:p-8 shadow-xl shadow-primary/5 space-y-6">
+      <div className="bg-card border-y sm:border-2 border-primary/5 sm:rounded-[2.5rem] p-4 sm:p-6 lg:p-8 shadow-sm sm:shadow-xl shadow-primary/5 space-y-6">
         <h3 className="text-xl font-semibold tracking-tight uppercase">{t.dashboard.bestSellingProducts}</h3>
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
@@ -355,7 +355,7 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       </div>
 
       {/* Product Management Table */}
-      <div className="bg-card rounded-2xl border shadow-sm overflow-hidden flex flex-col">
+      <div className="bg-card sm:rounded-2xl border-y sm:border shadow-sm overflow-x-auto flex flex-col w-full">
         <div className="p-4 lg:p-8 border-b bg-muted/30 flex flex-col lg:flex-row justify-between gap-4 lg:gap-6 text-center md:text-left">
           <h2 className="text-2xl font-semibold tracking-tight uppercase tracking-tighter">{t.dashboard.systemProducts}</h2>
           <div className="flex flex-col sm:flex-row gap-4 items-center flex-1 max-w-xl">
@@ -404,8 +404,8 @@ export default function DashboardContent({ initialProducts }: DashboardContentPr
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-card w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center sm:p-4 p-0 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-card w-full h-[100dvh] sm:h-auto max-w-4xl sm:max-h-[90vh] flex flex-col sm:rounded-2xl sm:border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="p-6 lg:p-8 bg-rainbow-gradient border-b flex justify-between items-center shrink-0">
               <h3 className="text-xl lg:text-2xl font-semibold tracking-tight flex items-center gap-2 uppercase tracking-tighter">
                 <ShieldCheck className="h-6 w-6 text-primary" />

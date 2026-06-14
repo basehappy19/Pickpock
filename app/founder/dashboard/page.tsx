@@ -409,8 +409,8 @@ export default function FounderDashboardPage() {
   if (loadingUsers) return <div className="h-[80vh] flex flex-col items-center justify-center gap-4"><Loader2 className="h-12 w-12 text-primary animate-spin" /><p className="font-semibold text-xs uppercase tracking-widest text-muted-foreground animate-pulse">{t.dashboard.syncing}</p></div>;
 
   return (
-    <div className="p-4 lg:p-8 space-y-8 max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 pb-20">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <div className="p-0 sm:p-4 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 pb-28">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-4 sm:px-0 mt-4 sm:mt-0">
         <div className="space-y-1"><h1 className="text-4xl font-semibold tracking-tighter">{t.dashboard.founderTitle}</h1><p className="text-muted-foreground font-medium">{t.dashboard.founderSubtitle}</p></div>
         <div className="flex bg-muted p-1 rounded-xl shrink-0">
           <button onClick={() => setTimeRange("12months")} className={cn("px-6 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-widest transition-all cursor-pointer", timeRange === "12months" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-primary")}>12 {t.common.monthly}</button>
@@ -420,9 +420,9 @@ export default function FounderDashboardPage() {
 
       {orders.length === 0 && <div className="bg-amber-50 border-2 border-amber-200 p-6 rounded-3xl flex items-center gap-4"><AlertCircle className="h-8 w-8 text-amber-500" /><div><h4 className="font-semibold text-amber-900 uppercase text-sm">{t.dashboard.noOrderDataTitle}</h4><p className="text-amber-700 text-xs font-medium">{t.dashboard.noOrderDataDesc}</p></div></div>}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 px-4 sm:px-0">
         {statCards.map((stat) => (
-          <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-4xl p-6 shadow-xl shadow-primary/5 space-y-4">
+          <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-2xl sm:rounded-4xl p-4 sm:p-6 shadow-xl shadow-primary/5 space-y-3 sm:space-y-4">
             <div className="flex justify-between items-start"><div className={cn("p-3 rounded-2xl bg-muted", stat.color)}><stat.icon className="h-6 w-6" /></div></div>
             <div><p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">{stat.label}</p><h3 className="text-3xl font-semibold tracking-tighter">{stat.value}</h3><p className={cn("text-xs font-semibold", stat.trend === "up" ? "text-emerald-500" : "text-rose-500")}>{stat.change} {t.dashboard.vsPrevPeriod || 'vs prev. period'}</p></div>
           </div>
@@ -430,7 +430,7 @@ export default function FounderDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
+        <div className="lg:col-span-2 bg-card border-y sm:border-2 border-primary/5 sm:rounded-[2.5rem] p-4 sm:p-8 shadow-sm sm:shadow-2xl shadow-primary/5 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div><h3 className="text-xl font-semibold tracking-tight uppercase">{t.dashboard.salesAnalytics}</h3><p className="text-xs font-medium text-muted-foreground uppercase tracking-widest">{timeRange === '12months' ? t.dashboard.monthlyReport : t.dashboard.dailyReport} {now.toLocaleDateString(language === 'th' ? 'th-TH' : 'en-US')}</p></div>
             <div className={cn("flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold uppercase tracking-widest", analyticsData.percentChange >= 0 ? "bg-emerald-500/10 text-emerald-600" : "bg-rose-500/10 text-rose-600")}>{analyticsData.percentChange >= 0 ? <TrendingUp className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}{analyticsData.percentChange >= 0 ? "+" : ""}{analyticsData.percentChange}% {t.dashboard.vsLastWeek}</div>
@@ -446,7 +446,7 @@ export default function FounderDashboardPage() {
             </ResponsiveContainer>
           </div>
         </div>
-        <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6 overflow-hidden flex flex-col">
+        <div className="bg-card border-y sm:border-2 border-primary/5 sm:rounded-[2.5rem] p-4 sm:p-8 shadow-sm sm:shadow-2xl shadow-primary/5 space-y-6 overflow-hidden flex flex-col">
           <h3 className="text-xl font-semibold tracking-tight uppercase shrink-0">{t.dashboard.topProducts}</h3>
           <div className="flex-1 space-y-4 overflow-y-auto pr-2">
             {analyticsData.topProducts.map((prod, i) => (
@@ -488,7 +488,7 @@ export default function FounderDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
+        <div className="lg:col-span-2 bg-card border-y sm:border-2 border-primary/5 sm:rounded-[2.5rem] p-4 sm:p-8 shadow-sm sm:shadow-2xl shadow-primary/5 space-y-6">
           <h3 className="text-xl font-semibold tracking-tight uppercase">{t.dashboard.topStores}</h3>
           <div className="h-75 w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -496,7 +496,7 @@ export default function FounderDashboardPage() {
             </ResponsiveContainer>
           </div>
         </div>
-        <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
+        <div className="bg-card border-y sm:border-2 border-primary/5 sm:rounded-[2.5rem] p-4 sm:p-8 shadow-sm sm:shadow-2xl shadow-primary/5 space-y-6">
           <h3 className="text-xl font-semibold tracking-tight uppercase">{t.dashboard.categoryDistribution}</h3>
           <div className="space-y-5">
             {analyticsData.categoryDistribution.length > 0 ? (
@@ -517,11 +517,11 @@ export default function FounderDashboardPage() {
       </div>
 
       <div className="space-y-6">
-        <div className="flex items-center justify-between"><h2 className="text-2xl font-semibold tracking-tighter uppercase">{t.dashboard.platformInventory}</h2><button onClick={() => {
+        <div className="flex items-center justify-between px-4 sm:px-0"><h2 className="text-xl sm:text-2xl font-semibold tracking-tighter uppercase">{t.dashboard.platformInventory}</h2><button onClick={() => {
            setNewProduct({ id: "", name: "", price: 0, category: t.dashboard.categories.electronics, stock: 0, image: "", description: "", storeId: "mall", isOfficial: true, weight: "", dimensions: "", warranty: "", additionalDetails: "" });
            setShowAddModal(true);
         }} className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-semibold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 cursor-pointer"><Plus className="h-3.5 w-3.5" /> {t.dashboard.addProduct}</button></div>
-        <div className="bg-card border-2 border-primary/5 rounded-4xl shadow-2xl shadow-primary/5 overflow-hidden">
+        <div className="bg-card border-y sm:border-2 border-primary/5 sm:rounded-4xl shadow-sm sm:shadow-2xl shadow-primary/5 overflow-x-auto w-full">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b bg-muted/20">
@@ -587,8 +587,8 @@ export default function FounderDashboardPage() {
       </div>
 
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-card w-full max-w-4xl max-h-[90vh] flex flex-col rounded-4xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center sm:p-4 p-0 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-card w-full max-w-4xl h-[100dvh] sm:h-auto sm:max-h-[90vh] flex flex-col sm:rounded-4xl sm:border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="p-6 md:p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary shrink-0">
               <h3 className="text-2xl font-semibold tracking-tight flex items-center gap-3 uppercase tracking-tighter">
                 {newProduct.id ? <Edit className="h-6 w-6" /> : <Plus className="h-6 w-6" />}
@@ -762,8 +762,8 @@ export default function FounderDashboardPage() {
 
       {/* Delete Confirmation Modal */}
       {deleteConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-card rounded-[2.5rem] p-8 w-full max-w-md shadow-2xl space-y-6 animate-in fade-in zoom-in duration-300">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm sm:p-4 p-0">
+          <div className="bg-card sm:rounded-[2.5rem] rounded-t-[2.5rem] p-8 w-full max-w-md shadow-2xl space-y-6 animate-in slide-in-from-bottom sm:slide-in-from-bottom-0 sm:fade-in sm:zoom-in duration-300">
             <div className="text-center space-y-4">
               <div className="w-16 h-16 mx-auto rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                 <Trash2 className="h-8 w-8" />

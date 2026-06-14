@@ -285,8 +285,8 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
 
       {/* Edit Modal */}
       {isEditing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-card rounded-[2.5rem] p-8 w-full max-w-lg shadow-2xl space-y-6 animate-in fade-in zoom-in duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm sm:p-4 p-0">
+          <div className="bg-card sm:rounded-[2.5rem] p-8 w-full max-w-lg h-[100dvh] sm:h-auto shadow-2xl space-y-6 animate-in fade-in zoom-in duration-300 flex flex-col">
             <div className="flex items-center justify-between border-b border-muted pb-4">
               <h3 className="text-xl font-semibold tracking-tight">{t.store.editStoreDetails}</h3>
               <button
@@ -298,7 +298,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
               </button>
             </div>
 
-            <div className="space-y-5">
+            <div className="space-y-5 flex-1 overflow-y-auto">
               <div className="space-y-2">
                 <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.store.storeName}</label>
                 <input
@@ -310,7 +310,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 flex-1 overflow-y-auto">
                 <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.store.storeDescription}</label>
                 <textarea
                   value={editDescription}
@@ -354,8 +354,8 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
 
       {/* Contact Modal */}
       {isContactOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-card rounded-[2.5rem] p-8 w-full max-w-lg shadow-2xl space-y-6 animate-in fade-in zoom-in duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm sm:p-4 p-0">
+          <div className="bg-card sm:rounded-[2.5rem] p-8 w-full max-w-lg h-[100dvh] sm:h-auto shadow-2xl space-y-6 animate-in fade-in zoom-in duration-300 flex flex-col">
             <div className="flex items-center justify-between border-b border-muted pb-4">
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-xl bg-primary/10 text-primary">

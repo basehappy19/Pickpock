@@ -441,8 +441,8 @@ export default function PartnerDashboardPage() {
   }
 
   return (
-    <div className="p-4 lg:p-8 space-y-8 max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 pb-20">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div className="p-0 sm:p-4 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 pb-28">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-4 sm:px-0 mt-4 sm:mt-0">
         <div className="space-y-1"><h1 className="text-4xl font-semibold tracking-tighter">{t.dashboard.sellerTitle}</h1><div className="flex items-center gap-2"><p className="text-muted-foreground font-medium">{myStore?.name}</p><button onClick={() => setShowEditStoreModal(true)} className="text-xs text-primary hover:underline font-medium">({t.dashboard.editStore})</button></div></div>
         <div className="flex items-center gap-2">
           <button onClick={() => router.push(`/stores/${myStore?.store_id}`)} className="h-10 px-4 rounded-xl bg-secondary text-secondary-foreground flex items-center gap-2 font-semibold text-xs uppercase tracking-widest hover:opacity-90 transition-all shadow-sm cursor-pointer border border-border">
@@ -455,9 +455,9 @@ export default function PartnerDashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 px-4 sm:px-0">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-4xl p-6 shadow-xl shadow-primary/5 space-y-4">
+          <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-2xl sm:rounded-4xl p-4 sm:p-6 shadow-xl shadow-primary/5 space-y-3 sm:space-y-4">
             <div className="flex justify-between items-start"><div className={cn("p-3 rounded-2xl bg-muted", stat.color)}><stat.icon className="h-6 w-6" /></div></div>
             <div><p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">{stat.label}</p><h3 className="text-3xl font-semibold tracking-tighter">{stat.value}</h3><p className="text-xs font-semibold text-emerald-500">{stat.change}</p></div>
           </div>
@@ -466,7 +466,7 @@ export default function PartnerDashboardPage() {
 
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          <div className="bg-card border-2 border-primary/5 rounded-4xl shadow-2xl shadow-primary/5 overflow-hidden">
+          <div className="bg-card border-y sm:border-2 border-primary/5 sm:rounded-4xl shadow-sm sm:shadow-2xl shadow-primary/5 overflow-x-auto w-full">
             <div className="p-8 border-b"><h3 className="text-xl font-semibold tracking-tight">{t.dashboard.table.title}</h3></div>
             <div className="overflow-x-auto">
               <table className="w-full text-left">
@@ -536,7 +536,7 @@ export default function PartnerDashboardPage() {
               </table>
             </div>
           </div>
-          <div className="bg-card border-2 border-primary/5 rounded-4xl shadow-2xl shadow-primary/5 overflow-hidden">
+          <div className="bg-card border-y sm:border-2 border-primary/5 sm:rounded-4xl shadow-sm sm:shadow-2xl shadow-primary/5 overflow-x-auto w-full">
             <div className="p-8 border-b"><h3 className="text-xl font-semibold tracking-tight">{t.dashboard.recentOrders}</h3></div>
             <div className="overflow-x-auto">
               <table className="w-full text-left">
@@ -566,19 +566,19 @@ export default function PartnerDashboardPage() {
       </div>
 
       {showEditStoreModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-card w-full max-w-lg rounded-4xl border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
-            <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary"><h3 className="text-2xl font-semibold tracking-tight flex items-center gap-3 uppercase tracking-tighter"><Settings className="h-6 w-6" />{t.dashboard.editStore}</h3><button onClick={() => setShowEditStoreModal(false)} className="p-2 hover:bg-black/5 rounded-full cursor-pointer"><X /></button></div>
-            <form onSubmit={handleEditStore} className="p-8 space-y-6"><div className="space-y-4"><div className="space-y-2"><label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.storeName}</label><input type="text" required className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" value={editStoreData.name} onChange={(e) => setEditStoreData({...editStoreData, name: e.target.value})} /></div><div className="space-y-2"><label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.storeDesc}</label><textarea required rows={4} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium resize-none" value={editStoreData.description} onChange={(e) => setEditStoreData({...editStoreData, description: e.target.value})} /></div></div><button type="submit" className="w-full h-16 rounded-2xl bg-primary text-primary-foreground font-semibold text-lg shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3 cursor-pointer">{t.dashboard.saveChanges}</button></form>
+        <div className="fixed inset-0 z-50 flex items-center justify-center sm:p-4 p-0 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-card w-full h-[100dvh] sm:h-auto max-w-lg sm:rounded-4xl sm:border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col">
+            <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary shrink-0"><h3 className="text-2xl font-semibold tracking-tight flex items-center gap-3 uppercase tracking-tighter"><Settings className="h-6 w-6" />{t.dashboard.editStore}</h3><button onClick={() => setShowEditStoreModal(false)} className="p-2 hover:bg-black/5 rounded-full cursor-pointer"><X /></button></div>
+            <form onSubmit={handleEditStore} className="p-8 space-y-6 flex-1 overflow-y-auto"><div className="space-y-4"><div className="space-y-2"><label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.storeName}</label><input type="text" required className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" value={editStoreData.name} onChange={(e) => setEditStoreData({...editStoreData, name: e.target.value})} /></div><div className="space-y-2"><label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.storeDesc}</label><textarea required rows={4} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium resize-none" value={editStoreData.description} onChange={(e) => setEditStoreData({...editStoreData, description: e.target.value})} /></div></div><button type="submit" className="w-full h-16 rounded-2xl bg-primary text-primary-foreground font-semibold text-lg shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3 cursor-pointer">{t.dashboard.saveChanges}</button></form>
           </div>
         </div>
       )}
 
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-card w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-4xl border-2 border-primary/20 shadow-2xl animate-in zoom-in-95 duration-300">
-            <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary"><h3 className="text-2xl font-semibold tracking-tight flex items-center gap-3 uppercase tracking-tighter">{newProduct.id ? <Edit className="h-6 w-6" /> : <Plus className="h-6 w-6" />}{newProduct.id ? t.dashboard.editProduct : t.dashboard.addProduct}</h3><button onClick={() => setShowAddModal(false)} className="p-2 hover:bg-black/5 rounded-full cursor-pointer"><X /></button></div>
-            <form onSubmit={handleAddOrUpdateProduct} className="p-8 space-y-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center sm:p-4 p-0 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-card w-full h-[100dvh] sm:h-auto max-w-4xl sm:max-h-[90vh] flex flex-col sm:rounded-4xl sm:border-2 border-primary/20 shadow-2xl animate-in zoom-in-95 duration-300">
+            <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary shrink-0"><h3 className="text-2xl font-semibold tracking-tight flex items-center gap-3 uppercase tracking-tighter">{newProduct.id ? <Edit className="h-6 w-6" /> : <Plus className="h-6 w-6" />}{newProduct.id ? t.dashboard.editProduct : t.dashboard.addProduct}</h3><button onClick={() => setShowAddModal(false)} className="p-2 hover:bg-black/5 rounded-full cursor-pointer"><X /></button></div>
+            <form onSubmit={handleAddOrUpdateProduct} className="p-8 space-y-6 flex-1 overflow-y-auto">
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2 space-y-2"><label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.name}</label><input type="text" required placeholder={t.dashboard.productNamePlaceholder} className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" value={newProduct.name} onChange={(e) => setNewProduct({...newProduct, name: e.target.value})} /></div>
                 <div className="space-y-2"><label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.price} (฿)</label><input type="number" required className="w-full px-6 py-4 rounded-2xl bg-muted/50 border-2 border-transparent focus:bg-background focus:border-primary/20 outline-none transition-all font-medium" value={newProduct.price} onChange={(e) => setNewProduct({...newProduct, price: Number(e.target.value)})} /></div>
@@ -634,8 +634,8 @@ export default function PartnerDashboardPage() {
 
       {/* Delete Confirmation Modal */}
       {deleteConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-card rounded-[2.5rem] p-8 w-full max-w-md shadow-2xl space-y-6 animate-in fade-in zoom-in duration-300">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm sm:p-4 p-0">
+          <div className="bg-card sm:rounded-[2.5rem] rounded-t-[2.5rem] p-8 w-full max-w-md shadow-2xl space-y-6 animate-in slide-in-from-bottom sm:slide-in-from-bottom-0 sm:fade-in sm:zoom-in duration-300">
             <div className="text-center space-y-4">
               <div className="w-16 h-16 mx-auto rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                 <Trash2 className="h-8 w-8" />

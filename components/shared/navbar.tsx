@@ -222,29 +222,111 @@ export default function Navbar() {
             <span className="text-[9px] font-semibold uppercase tracking-tighter">{t.nav.cart}</span>
           </Link>
 
-          {navLinks[2] ? (
-            <Link
-              href={navLinks[2].href}
-              className={cn(
-                "flex flex-col items-center justify-end h-full gap-1 flex-1 transition-all",
-                pathname === navLinks[2].href ? "text-primary scale-105" : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {(() => {
-                const Icon = navLinks[2].icon;
-                return <Icon className="h-5 w-5" />;
-              })()}
-              <span className="text-[9px] font-semibold uppercase tracking-tighter truncate max-w-[60px] text-center w-full">{navLinks[2].label}</span>
-            </Link>
-          ) : (
-            <div className="flex-1" />
-          )}
-
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className={cn(
+              "flex flex-col items-center justify-end h-full gap-1 flex-1 transition-all",
+              mobileMenuOpen ? "text-primary scale-105" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            <Menu className="h-5 w-5" />
+            <span className="text-[9px] font-semibold uppercase tracking-tighter truncate max-w-[60px] text-center w-full">{language === 'th' ? 'เมนู' : 'Menu'}</span>
+          </button>
         </div>
       </nav>
 
       {/* Spacer for bottom nav on mobile */}
       <div className="lg:hidden h-16" />
+
+      {/* Full-Screen Mobile Menu Modal */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[100] w-full h-[100dvh] bg-background flex flex-col animate-in fade-in duration-200 lg:hidden overflow-hidden">
+          <div className="flex justify-between items-center p-4 border-b bg-card">
+            <h2 className="text-lg font-bold tracking-tight">{language === 'th' ? 'เมนู' : 'Menu'}</h2>
+            <button onClick={() => setMobileMenuOpen(false)} className="p-2 rounded-full hover:bg-accent transition-colors">
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto p-4 pb-24 space-y-4 bg-slate-50 dark:bg-slate-900/50">
+            {user && (
+              <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 flex items-center gap-3 mb-4">
+                <div className="h-12 w-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xl">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <p className="font-bold text-base text-foreground">{user.name}</p>
+                  <p className="text-xs font-semibold text-primary uppercase tracking-widest">
+                    {language === 'th' 
+                      ? (role === 'founder' ? 'ผู้ก่อตั้ง' : role === 'partner' ? 'พาร์ทเนอร์' : role) 
+                      : role} 
+                    {' '}•{' '} 
+                    {language === 'th' && user.tier === 'MEMBER' ? 'สมาชิก' : user.tier}
+                  </p>
+                </div>
+              </div>
+            )}
+            
+            <div className="grid grid-cols-2 gap-3">
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn(
+                      "flex flex-col items-center justify-center p-5 rounded-2xl border bg-card text-card-foreground shadow-sm hover:border-primary/50 hover:bg-accent/50 transition-all",
+                      pathname === link.href ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20" : ""
+                    )}
+                  >
+                    <Icon className={cn("h-7 w-7 mb-2 opacity-80", pathname === link.href ? "text-primary opacity-100" : "")} />
+                    <span className="font-bold text-xs text-center uppercase tracking-tighter">{link.label}</span>
+                  </Link>
+                );
+              })}
+              
+              <Link
+                href="/compare"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex flex-col items-center justify-center p-5 rounded-2xl border bg-card text-card-foreground shadow-sm hover:border-primary/50 hover:bg-accent/50 transition-all"
+              >
+                <div className="relative">
+                  <GitCompare className="h-7 w-7 mb-2 opacity-80" />
+                  {compareList.length > 0 && (
+                    <span className="absolute -top-1 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white shadow-sm ring-2 ring-background">
+                      {compareList.length}
+                    </span>
+                  )}
+                </div>
+                <span className="font-bold text-xs text-center uppercase tracking-tighter">{language === 'th' ? 'เปรียบเทียบ' : 'Compare'}</span>
+              </Link>
+            </div>
+            
+            {user ? (
+              <button
+                onClick={() => {
+                  logout();
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full flex items-center justify-center gap-2 p-4 rounded-xl border border-rose-200 bg-rose-50 text-rose-600 font-bold hover:bg-rose-100 transition-colors mt-6 active:scale-95"
+              >
+                <LogOut className="h-5 w-5" />
+                {language === 'th' ? 'ออกจากระบบ' : 'Logout'}
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 p-4 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity mt-6 shadow-md active:scale-95"
+              >
+                <LogIn className="h-5 w-5" />
+                {t.nav.login}
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 }

@@ -124,15 +124,15 @@ export default function ProductEditModal({
   const isSubmitDisabled = isUploading || isGeneratingDesc || !editData.name || editData.price === "" || editData.stock === "" || !editData.category;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="bg-card w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-4xl border-2 border-primary/20 shadow-2xl animate-in zoom-in-95 duration-300">
-        <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary">
+    <div className="fixed inset-0 z-50 flex items-center justify-center sm:p-4 p-0 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
+      <div className="bg-card w-full h-[100dvh] sm:h-auto max-w-4xl sm:max-h-[90vh] flex flex-col sm:rounded-4xl sm:border-2 border-primary/20 shadow-2xl animate-in zoom-in-95 duration-300">
+        <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary shrink-0">
           <h3 className="text-2xl font-semibold tracking-tight flex items-center gap-3 uppercase tracking-tighter">
             <Edit className="h-6 w-6" /> {t.dashboard.editProduct}
           </h3>
           <button onClick={onClose} className="p-2 hover:bg-black/5 rounded-full cursor-pointer"><X /></button>
         </div>
-        <form onSubmit={handleUpdate} className="p-8 space-y-6">
+        <form onSubmit={handleUpdate} className="p-8 space-y-6 flex-1 overflow-y-auto">
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2 space-y-2">
               <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-1">{t.dashboard.table.name}</label>

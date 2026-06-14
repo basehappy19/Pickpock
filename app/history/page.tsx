@@ -123,8 +123,8 @@ export default function HistoryPage() {
   }
 
   return (
-    <div className="container mx-auto p-4 lg:p-8 space-y-8 animate-in fade-in duration-700 pb-20 lg:pb-8">
-      <div className="space-y-2 text-center lg:text-left">
+    <div className="container mx-auto p-0 sm:p-4 lg:p-8 space-y-6 sm:space-y-8 animate-in fade-in duration-700 pb-28 lg:pb-8">
+      <div className="space-y-2 text-center lg:text-left px-4 sm:px-0 mt-4 sm:mt-0">
         <h1 className="text-4xl font-semibold tracking-tight uppercase tracking-tighter">
           {t.history.title}
         </h1>
@@ -133,7 +133,7 @@ export default function HistoryPage() {
 
       <div className="space-y-8">
         {userOrders.map((order) => (
-          <div key={order.id} className="bg-card border-2 border-primary/5 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+          <div key={order.id} className="bg-card border-y sm:border-2 border-primary/5 sm:rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
             {/* Order Header / Row Join */}
             <div className="p-6 lg:p-8 border-b bg-muted/20 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div className="flex items-center gap-6">
@@ -276,13 +276,13 @@ export default function HistoryPage() {
 
       {/* Review Modal */}
       {isReviewModalOpen && selectedItem && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-card w-full max-w-lg rounded-[2.5rem] border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
-            <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center sm:p-4 p-0 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-card w-full h-[100dvh] sm:h-auto max-w-lg sm:rounded-[2.5rem] sm:border-2 border-primary/20 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col">
+            <div className="p-8 bg-rainbow-gradient border-b flex justify-between items-center text-primary shrink-0">
               <h3 className="text-2xl font-semibold tracking-tight uppercase tracking-tighter">{t.reviews.submitTitle}</h3>
               <button onClick={() => setIsReviewModalOpen(false)} className="p-2 hover:bg-black/5 rounded-full cursor-pointer transition-colors"><X /></button>
             </div>
-            <form onSubmit={handleReviewSubmit} className="p-8 space-y-8">
+            <form onSubmit={handleReviewSubmit} className="p-8 space-y-8 flex-1 overflow-y-auto">
               <div className="text-center space-y-4">
                 <p className="font-semibold text-muted-foreground uppercase text-xs tracking-widest">{selectedItem.productName}</p>
                 <div className="flex justify-center gap-2 text-amber-500">
