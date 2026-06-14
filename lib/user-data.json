@@ -218,5 +218,122 @@
     "recentlyViewed": [],
     "compare": [],
     "coupons": []
+  },
+  "u-q09g17ans": {
+    "cart": [],
+    "wishlist": [],
+    "history": [],
+    "compare": [],
+    "coupons": [],
+    "recentlyViewed": [
+      {
+        "id": "p-1gp2tm71e",
+        "name": "Adjustable Phone Stand",
+        "category": "Electronics",
+        "price": 250,
+        "stock": 100,
+        "image": "https://images.unsplash.com/photo-1586521995568-39abaa0c2311?w=800",
+        "description": "แท่นวางมือถือและแท็บเล็ตอลูมิเนียม ปรับระดับได้ แข็งแรง ทนทาน",
+        "rating": 5,
+        "reviews": [],
+        "storeId": "s-1yjwh04my",
+        "isOfficial": false,
+        "createdAt": "2026-06-14T05:04:57.841Z"
+      },
+      {
+        "id": "p-yxdiwtedd",
+        "name": "Mechanical Keyboard (Blue Switch)",
+        "category": "Electronics",
+        "price": 2190,
+        "stock": 100,
+        "image": "https://images.unsplash.com/photo-1595225476474-87563907a212?w=800",
+        "description": "คีย์บอร์ดแบบ Mechanical พิมพ์สนุก เล่นเกมมันส์ แสงไฟ RGB ปรับได้ 10 โหมด",
+        "rating": 5,
+        "reviews": [],
+        "storeId": "s-j244hxavy",
+        "isOfficial": false,
+        "createdAt": "2026-06-14T05:04:57.841Z"
+      },
+      {
+        "id": "p-newp0tz9o",
+        "name": "Pro Gaming Mouse",
+        "category": "Electronics",
+        "price": 1290,
+        "stock": 100,
+        "image": "https://images.unsplash.com/photo-1527814050087-37938154798c?w=800",
+        "description": "เมาส์เกมมิ่งเซ็นเซอร์แม่นยำสูง ปรับ DPI ได้ถึง 16000 พร้อมไฟ RGB",
+        "rating": 5,
+        "reviews": [],
+        "storeId": "s-j244hxavy",
+        "isOfficial": false,
+        "createdAt": "2026-06-14T05:04:57.840Z"
+      },
+      {
+        "id": "p-901",
+        "name": "Learning Card Set",
+        "category": "Toys",
+        "price": 450,
+        "stock": 140,
+        "image": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=800",
+        "description": "Educational cards for early development.",
+        "rating": 4.5,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-30T00:00:00Z"
+      },
+      {
+        "id": "p-806",
+        "name": "Shea Butter Balm",
+        "category": "Beauty",
+        "price": 290,
+        "stock": 250,
+        "image": "https://images.unsplash.com/photo-1552046122-03184de85e08?q=80&w=800",
+        "description": "Intense moisture for lips and cuticles.",
+        "rating": 4.3,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-29T00:00:00Z"
+      },
+      {
+        "id": "p-902",
+        "name": "Soft Plush Toy Bear",
+        "category": "Toys",
+        "price": 850,
+        "stock": 100,
+        "image": "https://images.unsplash.com/photo-1559447421416-3414500d18a5?q=80&w=800",
+        "description": "Cuddly bear made with premium soft fabric.",
+        "rating": 4.9,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-30T00:00:00Z"
+      }
+    ]
+  },
+  "u-74wly9c9m": {
+    "cart": [],
+    "wishlist": [],
+    "history": [],
+    "compare": [],
+    "coupons": [],
+    "recentlyViewed": []
+  },
+  "u-oy7hvh0na": {
+    "cart": [],
+    "wishlist": [],
+    "history": [],
+    "compare": [],
+    "coupons": [],
+    "recentlyViewed": []
+  },
+  "u-pdosdw8a2": {
+    "cart": [],
+    "wishlist": [],
+    "history": [],
+    "compare": [],
+    "coupons": [],
+    "recentlyViewed": []
   }
 }

@@ -228,12 +228,77 @@ export default function LoginPage() {
         </form>
 
         <div className="pt-8 border-t border-slate-100 text-center space-y-4">
-           <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
-             <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-2">{t.auth.demoAccounts}</p>
-             <p className="text-xs text-slate-600 font-medium leading-relaxed">
-               <span className="font-bold text-slate-900">{t.auth.founder}:</span> alice@example.com <br/>
-               <span className="font-bold text-slate-900">{t.auth.customer}:</span> somchai@example.com
-             </p>
+           <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+             <div className="flex items-center justify-center gap-2 mb-4">
+               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+               <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest m-0">
+                 Hackathon Judge Shortcuts (Pass: 1234)
+               </p>
+             </div>
+             <div className="grid grid-cols-2 gap-2 mb-4">
+               <button 
+                 type="button" 
+                 onClick={() => { setEmail('alice@example.com'); setPassword('1234'); }}
+                 className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer"
+               >
+                 ผู้ดูแลระบบ (Admin)
+               </button>
+               <button 
+                 type="button" 
+                 onClick={() => { setEmail('somchai@example.com'); setPassword('1234'); }}
+                 className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer"
+               >
+                 ลูกค้าที่มีร้าน (Partner)
+               </button>
+               <button 
+                 type="button" 
+                 onClick={() => { setEmail('bob@example.com'); setPassword('1234'); }}
+                 className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer"
+               >
+                 ลูกค้าทั่วไป (ไม่มีร้าน)
+               </button>
+               <button 
+                 type="button" 
+                 onClick={() => { setEmail('charlie@example.com'); setPassword('1234'); }}
+                 className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer"
+               >
+                 ลูกค้า VIP
+               </button>
+             </div>
+             
+             <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-2 border-t border-slate-200 pt-3">
+               Partner Store Owners
+             </div>
+             <div className="grid grid-cols-2 gap-2">
+               <button 
+                 type="button" 
+                 onClick={() => { setEmail('bytezone@example.com'); setPassword('1234'); }}
+                 className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-indigo-500 hover:text-white hover:border-indigo-500 transition-all cursor-pointer"
+               >
+                 ByteZone Gaming
+               </button>
+               <button 
+                 type="button" 
+                 onClick={() => { setEmail('smartlife@example.com'); setPassword('1234'); }}
+                 className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-all cursor-pointer"
+               >
+                 SmartLife Gadget
+               </button>
+               <button 
+                 type="button" 
+                 onClick={() => { setEmail('campus@example.com'); setPassword('1234'); }}
+                 className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-amber-500 hover:text-white hover:border-amber-500 transition-all cursor-pointer"
+               >
+                 Campus Essentials
+               </button>
+               <button 
+                 type="button" 
+                 onClick={() => { setEmail('cozy@example.com'); setPassword('1234'); }}
+                 className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-rose-400 hover:text-white hover:border-rose-400 transition-all cursor-pointer"
+               >
+                 Cozy Living
+               </button>
+             </div>
            </div>
         </div>
       </div>

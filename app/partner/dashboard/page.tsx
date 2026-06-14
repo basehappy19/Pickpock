@@ -383,10 +383,18 @@ export default function PartnerDashboardPage() {
       revenueColor = change > 0 ? "text-emerald-500" : change < 0 ? "text-rose-500" : "text-slate-500";
     }
 
+    let realRating = 0;
+    if (myOrders.length > 0) {
+      const ratedProducts = myProducts.filter((p: any) => p.rating > 0);
+      if (ratedProducts.length > 0) {
+        realRating = ratedProducts.reduce((sum: number, p: any) => sum + p.rating, 0) / ratedProducts.length;
+      }
+    }
+
     return [
       { label: t.dashboard.stats.revenue, value: formatCurrency(myRevenue), change: revenueGrowth, trend: revenueTrend as any, icon: TrendingUp, color: revenueColor },
-      { label: t.dashboard.stats.users, value: (myStore.views || 0).toLocaleString(), change: t.dashboard.stats.realTime || "Real-time", trend: "up", icon: Users, color: "text-blue-500" },
-      { label: t.dashboard.stats.products, value: myProducts.length.toLocaleString(), change: t.dashboard.itemsCount, trend: "neutral", icon: Package, color: "text-amber-500" },
+      { label: t.dashboard.rating || "Store Rating", value: realRating > 0 ? realRating.toFixed(1) : "ไม่มีดาว", change: `${t.dashboard.ordersCount} ${myOrders.length}`, trend: realRating > 0 ? "up" : "neutral", icon: Sparkles, color: "text-amber-500" },
+      { label: t.dashboard.stats.products, value: myProducts.length.toLocaleString(), change: t.dashboard.itemsCount, trend: "neutral", icon: Package, color: "text-blue-500" },
       { label: t.dashboard.recentOrders, value: myOrders.length.toLocaleString(), change: t.dashboard.ordersCount, trend: "up", icon: ShoppingBag, color: "text-purple-500" },
     ];
   }, [dashboardData.loading, myStore, t, myOrders, myProducts]);
@@ -430,7 +438,15 @@ export default function PartnerDashboardPage() {
     <div className="p-4 lg:p-8 space-y-8 max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 pb-20">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="space-y-1"><h1 className="text-4xl font-black tracking-tighter">{t.dashboard.sellerTitle}</h1><div className="flex items-center gap-2"><p className="text-muted-foreground font-bold">{myStore?.name}</p><button onClick={() => setShowEditStoreModal(true)} className="text-xs text-primary hover:underline font-bold">({t.dashboard.editStore})</button></div></div>
-        <div className="flex items-center gap-2"><button onClick={() => { setNewProduct({ id: "", name: "", price: 0, category: "Electronics", stock: 0, image: "", description: "", weight: "", dimensions: "", warranty: "", additionalDetails: "" }); setShowAddModal(true); }} className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-[10px] uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-primary/20 cursor-pointer"><Plus className="h-3.5 w-3.5" /> {t.dashboard.addProduct}</button></div>
+        <div className="flex items-center gap-2">
+          <button onClick={() => router.push(`/stores/${myStore?.store_id}`)} className="h-10 px-4 rounded-xl bg-secondary text-secondary-foreground flex items-center gap-2 font-black text-[10px] uppercase tracking-widest hover:opacity-90 transition-all shadow-sm cursor-pointer border border-border">
+            <ArrowUpRight className="h-3.5 w-3.5" />
+            {t.store.visitStore}
+          </button>
+          <button onClick={() => { setNewProduct({ id: "", name: "", price: 0, category: "Electronics", stock: 0, image: "", description: "", weight: "", dimensions: "", warranty: "", additionalDetails: "" }); setShowAddModal(true); }} className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-black text-[10px] uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-primary/20 cursor-pointer">
+            <Plus className="h-3.5 w-3.5" /> {t.dashboard.addProduct}
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -454,17 +470,39 @@ export default function PartnerDashboardPage() {
                     const pId = product.product_id || product.id;
                     const insight = pricingInsights[pId];
                     const isPriceUpdating = isUpdatingPrice === pId;
+                    
+                    const soldCount = myOrders.reduce((count: number, order: any) => {
+                      const item = order.items.find((i: any) => (i.product_id || i.id) === pId);
+                      return count + (item ? item.quantity : 0);
+                    }, 0);
 
                     return (
-                      <tr key={pId} className="hover:bg-muted/30 transition-colors group">
-                        <td className="px-8 py-6"><div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden"><img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" /></div><div><p className="font-black text-sm max-w-[150px] truncate">{product.name}</p><p className="text-[10px] font-bold text-muted-foreground">{product.category}</p></div></div></td>
-                        <td className="px-8 py-6"><span className="text-[10px] font-black">{product.stock} {t.product.quantity}</span></td>
+                      <tr key={pId} className="hover:bg-muted/30 transition-colors group cursor-pointer" onClick={() => router.push(`/product/${pId}`)}>
                         <td className="px-8 py-6">
+                          <div className="flex items-center gap-3">
+                            <div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden">
+                              <img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" />
+                            </div>
+                            <div>
+                              <p className="font-black text-sm max-w-[150px] truncate hover:text-primary transition-colors">{product.name}</p>
+                              <div className="flex items-center gap-2 mt-1">
+                                <p className="text-[10px] font-bold text-muted-foreground">{product.category}</p>
+                                <span className="text-[10px] text-emerald-500 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded-md">ขายแล้ว {soldCount} ชิ้น</span>
+                                <span className="flex items-center text-[10px] text-amber-500 font-bold bg-amber-500/10 px-1.5 py-0.5 rounded-md">
+                                  <Sparkles className="h-2 w-2 mr-0.5" />
+                                  {product.rating > 0 ? product.rating.toFixed(1) : "ไม่มีดาว"}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-8 py-6" onClick={(e) => e.stopPropagation()}><span className="text-[10px] font-black">{product.stock} {t.product.quantity}</span></td>
+                        <td className="px-8 py-6" onClick={(e) => e.stopPropagation()}>
                           <div className="flex flex-col gap-1">
                             <span className="font-black text-sm">{formatCurrency(product.price)}</span>
                             {insight && (
                               <button
-                                onClick={() => handleApplyAISmartPrice(pId, insight.amount)}
+                                onClick={(e) => { e.stopPropagation(); handleApplyAISmartPrice(pId, insight.amount); }}
                                 disabled={isPriceUpdating}
                                 className={cn(
                                   "flex items-center gap-1.5 px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-tighter w-fit transition-all cursor-pointer shadow-sm active:scale-95",
@@ -479,7 +517,12 @@ export default function PartnerDashboardPage() {
                             )}
                           </div>
                         </td>
-                        <td className="px-8 py-6 text-right"><div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => openEditModal(product)} className="p-2 rounded-lg hover:bg-blue-50 text-blue-500 transition-colors cursor-pointer"><Edit className="h-4 w-4" /></button><button onClick={() => handleDeleteProduct(pId)} className="p-2 rounded-lg hover:bg-rose-50 text-rose-500 transition-colors cursor-pointer"><Trash2 className="h-4 w-4" /></button></div></td>
+                        <td className="px-8 py-6 text-right" onClick={(e) => e.stopPropagation()}>
+                          <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button onClick={(e) => { e.stopPropagation(); openEditModal(product); }} className="p-2 rounded-lg hover:bg-blue-50 text-blue-500 transition-colors cursor-pointer"><Edit className="h-4 w-4" /></button>
+                            <button onClick={(e) => { e.stopPropagation(); handleDeleteProduct(pId); }} className="p-2 rounded-lg hover:bg-rose-50 text-rose-500 transition-colors cursor-pointer"><Trash2 className="h-4 w-4" /></button>
+                          </div>
+                        </td>
                       </tr>
                     );
                   }) : <tr><td colSpan={4} className="px-8 py-12 text-center text-muted-foreground font-bold italic uppercase text-xs tracking-widest">{t.dashboard.noProductsYet}</td></tr>}

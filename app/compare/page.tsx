@@ -139,7 +139,7 @@ export default function ComparePage() {
             {compareList.map((product) => (
               <Link
                 key={product.id}
-                href={`/products/${product.id}`}
+                href={`/product/${product.id}`}
                 className="h-12 rounded-xl bg-primary text-primary-foreground font-black text-sm hover:opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/20"
               >
                 {t.compare.viewDetails}

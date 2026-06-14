@@ -154,7 +154,11 @@
       "home": "Home",
       "sports": "Sports",
       "beauty": "Beauty",
-      "toys": "Toys"
+      "toys": "Toys",
+      "home & garden": "Home & Garden",
+      "stationery": "Stationery",
+      "gaming & tech": "Gaming & Tech",
+      "student lifestyle": "Student Lifestyle"
     },
     "noData": "No Data",
     "productNamePlaceholder": "Enter product name...",
@@ -321,9 +325,11 @@
     "success": "Review submitted successfully!"
   },
   "products": {
-    "listTitle": "Products",
-    "listSubtitle": "Explore our collection of AI-powered premium products.",
-    "reviews": "reviews",
+    "listTitle": "All Products",
+    "listSubtitle": "Explore our AI-curated premium collection",
+    "allStores": "All Stores",
+    "soldBy": "Sold by",
+    "reviews": "Reviews",
     "warranty": "1 Year Warranty",
     "shipping": "Free Shipping",
     "addToCart": "Add to Cart",
@@ -572,7 +578,8 @@
     "applyFilters": "Apply Filters",
     "clearFilters": "Clear Filters",
     "resetFilters": "Reset All Filters",
-    "results": "{count} results"
+    "results": "{count} results",
+    "noResultsDesc": "Try adjusting your filters or AI search request."
   },
   "notifications": {
     "priceDrop": "Price Drop Alert",
@@ -667,11 +674,15 @@
     "Electronics": "Electronics",
     "Fashion": "Fashion",
     "Home & Living": "Home & Living",
+    "Home & Garden": "Home & Garden",
     "Furniture": "Furniture",
     "Beauty": "Beauty",
     "Sports": "Sports",
     "Food": "Food",
     "Home": "Home",
-    "Toys": "Toys"
+    "Toys": "Toys",
+    "Stationery": "Stationery",
+    "Gaming & Tech": "Gaming & Tech",
+    "Student Lifestyle": "Student Lifestyle"
   }
 }

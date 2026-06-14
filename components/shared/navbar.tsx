@@ -110,7 +110,7 @@ export default function Navbar() {
             <div className="flex items-center border-l pl-4 gap-2">
               <button
                 onClick={() => setLanguage(language === "th" ? "en" : "th")}
-                className="flex items-center gap-2 rounded-xl border border-input px-3 py-2 text-xs font-black hover:bg-accent transition-colors uppercase cursor-pointer"
+                className="flex items-center gap-2 rounded-xl border border-input bg-background px-3 py-2 text-xs font-black hover:bg-accent transition-colors uppercase cursor-pointer shadow-sm"
               >
                 <Globe className="h-3.5 w-3.5" />
                 {language}
@@ -118,7 +118,7 @@ export default function Navbar() {
 
               <ThemeToggle />
 
-              <Link href="/wishlist" className="relative hidden sm:flex rounded-xl p-2.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border cursor-pointer group">
+              <Link href="/wishlist" className="relative hidden sm:flex rounded-xl p-2.5 bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border shadow-sm cursor-pointer group">
                 <Heart className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 {wishlist.length > 0 && (
                   <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[10px] font-black text-white shadow-sm">
@@ -127,7 +127,7 @@ export default function Navbar() {
                 )}
               </Link>
 
-              <Link href="/compare" className="relative hidden md:flex rounded-xl p-2.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border cursor-pointer group">
+              <Link href="/compare" className="relative hidden md:flex rounded-xl p-2.5 bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border shadow-sm cursor-pointer group">
                 <GitCompare className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 {compareList.length > 0 && (
                   <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-white shadow-sm">
@@ -136,7 +136,7 @@ export default function Navbar() {
                 )}
               </Link>
 
-              <Link href="/cart" className="relative hidden lg:flex rounded-xl p-2.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border cursor-pointer group">
+              <Link href="/cart" className="relative hidden lg:flex rounded-xl p-2.5 bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border shadow-sm cursor-pointer group">
                 <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 {totalCount > 0 && (
                   <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-primary-foreground shadow-sm">

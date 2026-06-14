@@ -210,7 +210,7 @@ export default function HistoryPage() {
                     return (
                       <tr key={idx} className="group hover:bg-muted/5 transition-colors">
                         <td className="px-8 py-6">
-                          <Link href={`/products/${item.productId}`} className="flex items-center gap-6 cursor-pointer group/link block w-full">
+                          <Link href={`/product/${item.productId}`} className="flex items-center gap-6 cursor-pointer group/link block w-full">
                             <div className="relative h-20 w-20 rounded-2xl overflow-hidden border bg-muted flex-shrink-0 shadow-sm group-hover/link:scale-105 transition-transform duration-500">
                               {productData?.image ? (
                                 <NextImage 

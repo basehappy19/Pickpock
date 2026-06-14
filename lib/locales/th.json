@@ -154,7 +154,11 @@
       "home": "ของใช้ในบ้าน",
       "sports": "กีฬา",
       "beauty": "ความงาม",
-      "toys": "ของเล่น"
+      "toys": "ของเล่น",
+      "home & garden": "บ้านและสวน",
+      "stationery": "เครื่องเขียน",
+      "gaming & tech": "เกมมิ่งและไอที",
+      "student lifestyle": "ไลฟ์สไตล์นักศึกษา"
     },
     "noData": "ไม่มีข้อมูล",
     "productNamePlaceholder": "ใส่ชื่อสินค้า...",
@@ -323,6 +327,8 @@
   "products": {
     "listTitle": "สินค้าทั้งหมด",
     "listSubtitle": "สำรวจคอลเลกชันสินค้าพรีเมียมที่ขับเคลื่อนด้วย AI",
+    "allStores": "ร้านค้าทั้งหมด",
+    "soldBy": "จัดจำหน่ายโดย",
     "reviews": "รีวิว",
     "warranty": "รับประกัน 1 ปี",
     "shipping": "ส่งฟรีทั่วประเทศ",
@@ -572,7 +578,8 @@
     "applyFilters": "ใช้ตัวกรอง",
     "clearFilters": "ล้างตัวกรอง",
     "resetFilters": "ล้างตัวกรองทั้งหมด",
-    "results": "พบ {count} รายการ"
+    "results": "พบ {count} รายการ",
+    "noResultsDesc": "ลองปรับตัวกรองหรือคำค้นหา AI ใหม่อีกครั้ง"
   },
   "notifications": {
     "priceDrop": "แจ้งเตือนราคาลด",
@@ -667,11 +674,15 @@
     "Electronics": "อิเล็กทรอนิกส์",
     "Fashion": "แฟชั่น",
     "Home & Living": "บ้านและที่อยู่อาศัย",
+    "Home & Garden": "บ้านและสวน",
     "Furniture": "เฟอร์นิเจอร์",
     "Beauty": "ความงาม",
     "Sports": "กีฬา",
     "Food": "อาหาร",
     "Home": "บ้าน",
-    "Toys": "ของเล่น"
+    "Toys": "ของเล่น",
+    "Stationery": "เครื่องเขียน",
+    "Gaming & Tech": "เกมมิ่งและไอที",
+    "Student Lifestyle": "ไลฟ์สไตล์นักศึกษา"
   }
 }

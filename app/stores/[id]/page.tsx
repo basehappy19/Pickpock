@@ -154,7 +154,7 @@ export default function StoreDetailPage() {
                   className="group bg-card rounded-[2rem] border overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col h-full"
                   onClick={() => {
                     addToRecentlyViewed(product);
-                    router.push(`/products/${product.id}`);
+                    router.push(`/product/${product.id}`);
                   }}
                 >
                   <div className="aspect-square relative bg-muted overflow-hidden">

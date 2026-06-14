@@ -466,7 +466,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
             <div
               key={p.id}
               className="group bg-card rounded-2xl border overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer"
-              onClick={() => router.push(`/products/${p.id}`)}
+              onClick={() => router.push(`/product/${p.id}`)}
             >
               <div className="aspect-square relative overflow-hidden bg-muted">
                 <NextImage

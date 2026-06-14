@@ -444,7 +444,7 @@ export default function FounderDashboardPage() {
             {analyticsData.topProducts.map((prod, i) => (
               <div 
                 key={i} 
-                onClick={() => router.push(`/products/${prod.id}`)}
+                onClick={() => router.push(`/product/${prod.id}`)}
                 className="group flex items-center gap-4 p-3 rounded-2xl hover:bg-muted/50 cursor-pointer transition-all border border-transparent hover:border-primary/10"
               >
                 <div className="h-12 w-12 rounded-xl bg-primary/10 overflow-hidden shrink-0 relative">

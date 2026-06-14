@@ -92,7 +92,7 @@ export default function AIChatbot() {
           renderedIds.add(productId);
 
           return (
-            <Link key={idx} href={`/products/${product.id || (product as any).product_id}`} className="block my-4 first:mt-2 last:mb-2 no-underline group">
+            <Link key={idx} href={`/product/${product.id || (product as any).product_id}`} className="block my-4 first:mt-2 last:mb-2 no-underline group">
               <div className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-primary/50 transition-all shadow-sm hover:shadow-md active:scale-[0.98]">
                 <div className="flex items-center gap-4 p-3">
                   <div className="h-14 w-14 rounded-lg overflow-hidden bg-slate-50 shrink-0 border border-slate-100">

@@ -29,6 +29,74 @@
     "rating": 5,
     "products": [],
     "joined_at": "2026-06-13T14:00:42.394Z",
-    "views": 1
+    "views": 2
+  },
+  {
+    "store_id": "s-j244hxavy",
+    "name": "ByteZone Gaming",
+    "owner_id": "u-q09g17ans",
+    "description": "ร้านจำหน่ายอุปกรณ์เกมมิ่งเกียร์คุณภาพสูง ตอบโจทย์ทุกไลฟ์สไตล์ของนักเรียนและเกมเมอร์ตัวจริง ในราคาสุดคุ้ม",
+    "status": "active",
+    "rating": 5,
+    "products": [
+      "p-newp0tz9o",
+      "p-yxdiwtedd",
+      "p-7sh39dlan",
+      "p-lqkrdqeyb",
+      "p-j4orpd357"
+    ],
+    "joined_at": "2026-06-14T05:04:57.841Z",
+    "views": 3
+  },
+  {
+    "store_id": "s-1yjwh04my",
+    "name": "SmartLife Gadget",
+    "owner_id": "u-74wly9c9m",
+    "description": "คัดสรร Gadget และอุปกรณ์ไอทีอัจฉริยะ เพื่อยกระดับการใช้ชีวิตประจำวันของคุณให้สะดวกสบายยิ่งขึ้น",
+    "status": "active",
+    "rating": 5,
+    "products": [
+      "p-f70qns6d1",
+      "p-bgzewom99",
+      "p-mx3ge2ewa",
+      "p-1gp2tm71e",
+      "p-1laegvkx8"
+    ],
+    "joined_at": "2026-06-14T05:04:57.841Z",
+    "views": 2
+  },
+  {
+    "store_id": "s-t6yap6b2q",
+    "name": "Campus Essentials",
+    "owner_id": "u-oy7hvh0na",
+    "description": "ศูนย์รวมของใช้จำเป็นสำหรับนักเรียนและนักศึกษา ดีไซน์สวย ใช้งานได้จริง ในราคาที่เป็นมิตร",
+    "status": "active",
+    "rating": 5,
+    "products": [
+      "p-izftzy9ic",
+      "p-vwl41ysta",
+      "p-i058sj50e",
+      "p-2ld0yh381",
+      "p-qncbj8r4p"
+    ],
+    "joined_at": "2026-06-14T05:04:57.841Z",
+    "views": 0
+  },
+  {
+    "store_id": "s-65ewh2j9u",
+    "name": "Cozy Living",
+    "owner_id": "u-pdosdw8a2",
+    "description": "ตกแต่งพื้นที่ส่วนตัวของคุณให้อบอุ่นและน่าอยู่ยิ่งขึ้น ด้วยของแต่งห้องสไตล์โคซี่ ดีไซน์ทันสมัย",
+    "status": "active",
+    "rating": 5,
+    "products": [
+      "p-vdtl55vsk",
+      "p-jlxfkqdr4",
+      "p-s585zg5k5",
+      "p-0maefp0f2",
+      "p-nnbf2mjsq"
+    ],
+    "joined_at": "2026-06-14T05:04:57.841Z",
+    "views": 0
   }
 ]

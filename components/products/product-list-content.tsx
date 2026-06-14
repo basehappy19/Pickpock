@@ -15,7 +15,7 @@ import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 
 export default function ProductListContent({ initialProducts }: { initialProducts: Product[] }) {
   const { t } = useLanguage();
-  const { products } = useGlobalData();
+  const { products, stores } = useGlobalData();
   const allProducts = useMemo(() => products.length > 0 ? products : initialProducts, [products, initialProducts]);
   const { filteredData, filters, updateFilter, resetFilters } = useFilter(allProducts);
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
@@ -343,6 +343,34 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             </div>
           </div>
 
+          {/* All Stores Section */}
+          {stores && stores.length > 0 && (
+            <div className="space-y-4 mb-8">
+              <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">{t.products.allStores}</h3>
+              <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
+                {stores.map(store => (
+                  <button 
+                    key={store.store_id}
+                    onClick={() => router.push(`/stores/${store.store_id}`)}
+                    className="flex-shrink-0 flex items-center gap-3 p-3 pr-6 rounded-2xl border-2 border-transparent bg-muted/30 hover:bg-muted hover:border-primary/20 transition-all cursor-pointer group"
+                  >
+                    <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center overflow-hidden">
+                      {store.image ? (
+                        <img src={getImgSrc(store.image)} alt={store.name} className="h-full w-full object-cover" />
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-primary"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7"/></svg>
+                      )}
+                    </div>
+                    <div className="text-left space-y-0.5">
+                      <p className="text-xs font-black group-hover:text-primary transition-colors">{store.name}</p>
+                      <p className="text-[10px] font-bold text-muted-foreground">{store.rating ? store.rating.toFixed(1) + ' ★' : 'ร้านใหม่'}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
             {finalFilteredData.map((product) => {
@@ -364,7 +392,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                         const pid = product.id;
                         if (pid) {
                           addToRecentlyViewed(product);
-                          router.push(`/products/${pid}`);
+                          router.push(`/product/${pid}`);
                         } else {
                           console.error("Product ID is missing for", product);
                         }
@@ -407,10 +435,14 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                     className="p-4 lg:p-6 space-y-3 flex-1 flex flex-col justify-between cursor-pointer"
                     onClick={() => {
                       addToRecentlyViewed(product);
-                      router.push(`/products/${product.id}`);
+                      router.push(`/product/${product.id}`);
                     }}
                   >
                     <div className="space-y-1">
+                      <div className="text-[10px] font-black text-muted-foreground uppercase flex items-center gap-1 mb-1 truncate">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7"/></svg>
+                        {stores?.find(s => s.store_id === product.storeId)?.name || 'ITMSU Store'}
+                      </div>
                       <h3 className="text-xs lg:text-base font-black leading-tight group-hover:text-primary transition-colors line-clamp-2 h-8 lg:h-10">
                         {product.name}
                       </h3>
@@ -449,7 +481,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 <Search className="h-8 w-8 text-muted-foreground/50" />
               </div>
               <h3 className="text-xl font-black text-muted-foreground uppercase tracking-widest">{t.dashboard.table.noData}</h3>
-              <p className="text-xs font-bold text-muted-foreground uppercase">Try adjusting your filters or AI search request.</p>
+              <p className="text-xs font-bold text-muted-foreground uppercase">{t.filters.noResultsDesc}</p>
             </div>
           )}
         </div>

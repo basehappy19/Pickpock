@@ -22,7 +22,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="relative inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border bg-background/50 backdrop-blur-sm cursor-pointer h-10 w-10"
+      className="relative inline-flex items-center justify-center rounded-xl p-2.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors border bg-background shadow-sm cursor-pointer h-10 w-10"
       aria-label="Toggle theme"
     >
       <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

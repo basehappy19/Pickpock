@@ -216,7 +216,7 @@ function OrdersContent() {
                                 <img src={getImgSrc(product?.image)} className="w-full h-full object-cover" alt={item.productName} />
                             </div>
                             <div>
-                                <Link href={`/products/${item.productId}`} className="font-bold text-sm text-slate-900 hover:text-primary transition-colors">{item.productName || "Product"}</Link>
+                                <Link href={`/product/${item.productId}`} className="font-bold text-sm text-slate-900 hover:text-primary transition-colors">{item.productName || "Product"}</Link>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{(t.categories as Record<string, string>)[product?.category || ""] || product?.category || "Category"}</p>
                             </div>
                           </div>

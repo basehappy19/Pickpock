@@ -30,5 +30,37 @@
     "password": "1234",
     "role": "customer",
     "isVip": true
+  },
+  {
+    "id": "u-q09g17ans",
+    "name": "ByteZone Gaming Owner",
+    "email": "bytezone@example.com",
+    "password": "1234",
+    "role": "partner",
+    "isVip": false
+  },
+  {
+    "id": "u-74wly9c9m",
+    "name": "SmartLife Gadget Owner",
+    "email": "smartlife@example.com",
+    "password": "1234",
+    "role": "partner",
+    "isVip": false
+  },
+  {
+    "id": "u-oy7hvh0na",
+    "name": "Campus Essentials Owner",
+    "email": "campus@example.com",
+    "password": "1234",
+    "role": "partner",
+    "isVip": false
+  },
+  {
+    "id": "u-pdosdw8a2",
+    "name": "Cozy Living Owner",
+    "email": "cozy@example.com",
+    "password": "1234",
+    "role": "partner",
+    "isVip": false
   }
 ]

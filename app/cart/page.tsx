@@ -229,13 +229,13 @@ export default function CartPage() {
         <div className="lg:col-span-2 space-y-4">
           {items.map((item) => (
             <div key={item.id} className="bg-card border rounded-2xl p-4 lg:p-6 flex flex-col sm:flex-row gap-4 lg:gap-6 shadow-sm hover:shadow-md transition-shadow group relative">
-              <Link href={`/products/${item.id}`} className="relative h-24 w-24 sm:h-32 sm:w-32 rounded-xl overflow-hidden border bg-muted flex-shrink-0 mx-auto sm:mx-0 cursor-pointer block">
+              <Link href={`/product/${item.id}`} className="relative h-24 w-24 sm:h-32 sm:w-32 rounded-xl overflow-hidden border bg-muted flex-shrink-0 mx-auto sm:mx-0 cursor-pointer block">
                 <NextImage src={getImgSrc(item.image)} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
               </Link>
               <div className="flex-1 flex flex-col justify-between text-center sm:text-left">
                 <div className="flex justify-between items-start gap-4">
                   <div className="flex-1">
-                    <Link href={`/products/${item.id}`} className="text-lg lg:text-xl font-black tracking-tight leading-tight hover:text-primary transition-colors cursor-pointer block">
+                    <Link href={`/product/${item.id}`} className="text-lg lg:text-xl font-black tracking-tight leading-tight hover:text-primary transition-colors cursor-pointer block">
                       {item.name}
                     </Link>
                     <p className="text-[10px] lg:text-xs text-muted-foreground font-bold uppercase tracking-widest mt-1">{item.category}</p>

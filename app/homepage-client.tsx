@@ -60,7 +60,7 @@ function ProductCard({
 
   return (
     <Link
-      href={`/products/${product.id}`}
+      href={`/product/${product.id}`}
       className="group bg-card border rounded-xl overflow-hidden flex flex-col hover:border-border/60 transition-colors"
     >
       <div className="aspect-square relative bg-muted overflow-hidden">
