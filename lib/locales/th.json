@@ -535,7 +535,7 @@
     "emailPlaceholder": "you@example.com",
     "invalidLogin": "อีเมลหรือรหัสผ่านไม่ถูกต้อง รหัสผ่านทั้งหมดคือ '1234'",
     "demoAccounts": "บัญชีทดลอง (รหัสผ่าน: 1234):",
-    "founder": "ผู้ดูแลระบบ",
+    "founder": "ผู้จัดการ",
     "customer": "ลูกค้า",
     "phone": "เบอร์โทรศัพท์",
     "otp": "รหัสยืนยัน (OTP)",

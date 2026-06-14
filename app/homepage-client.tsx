@@ -224,7 +224,7 @@ export default function HomepageClient({
         {/* ── Categories ── */}
         <section className="px-4 lg:px-8 py-6">
           <SectionHeader title={t.home.categories} />
-          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-2">
+          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-8 xl:grid-cols-12 gap-2">
             {CATEGORIES.map((cat, i) => (
               <Link
                 key={`cat-${cat.name}-${i}`}
@@ -301,7 +301,7 @@ export default function HomepageClient({
             icon={Sparkles}
             href="/products"
           />
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
             {aiRecommended.map((product, i) => (
               <ProductCard
                 key={`ai-${product.id || i}`}
@@ -319,7 +319,7 @@ export default function HomepageClient({
             icon={TrendingUp}
             href="/products"
           />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
             {popularTrending.map((product, i) => (
               <ProductCard
                 key={`pop-${product.id || i}`}
@@ -337,7 +337,7 @@ export default function HomepageClient({
               title="สินค้ามาใหม่"
               href="/products?sort=newest"
             />
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
               {newArrivals.map((product, i) => (
                 <ProductCard
                   key={`new-${product.id || i}`}
@@ -357,7 +357,7 @@ export default function HomepageClient({
               icon={Clock}
               href="/recently-viewed"
             />
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
               {recentlyViewed.slice(0, 4).map((product, i) => (
                 <ProductCard
                   key={`rec-${product.id || i}`}

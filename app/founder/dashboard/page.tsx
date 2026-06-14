@@ -36,6 +36,7 @@ import {
 import { cn, formatCurrency, getImgSrc } from "@/lib/utils";
 import { useState, useEffect, useMemo } from "react";
 import AccessRestricted from "@/components/shared/access-restricted";
+import PlatformInventory from "@/components/dashboard/platform-inventory";
 import { uploadProductImage } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import { Product, Order, User, Store } from "@/types";
@@ -181,7 +182,7 @@ export default function FounderDashboardPage() {
       await updateProduct({
         ...product,
         price: suggestedPrice,
-        lastAnalyzedSaleCount: totalSoldAtAnalysis // Persist analysis point
+        aiPriceAdjusted: true
       } as any);
       toast.success(`${t.dashboard.smartPriceSuccess}${formatCurrency(suggestedPrice)}`);
     } catch (e) {
@@ -364,9 +365,8 @@ export default function FounderDashboardPage() {
       const stats = productSalesStats[p.id];
       const sales = stats?.sales || 0;
       
-      // Persistence check: If we've already suggested for this sales volume, skip
-      const lastAnalyzedCount = (p as any).lastAnalyzedSaleCount || 0;
-      if (sales <= lastAnalyzedCount && sales > 0) return acc; 
+      // Persistence check: If we've already adjusted price by AI for this product, skip
+      if ((p as any).aiPriceAdjusted) return acc;
 
       let suggestedAmount = 0;
       let type: 'increase' | 'decrease' = 'increase';
@@ -374,7 +374,7 @@ export default function FounderDashboardPage() {
       if (sales > 10 && p.stock < 20) {
         suggestedAmount = Math.round(p.price * 1.05 / 10) * 10;
         type = 'increase';
-      } else if (sales === 0 && p.stock > 50 && lastAnalyzedCount === 0) {
+      } else if (sales === 0 && p.stock > 50) {
         // Only suggest decrease if never analyzed before
         suggestedAmount = Math.round(p.price * 0.95 / 10) * 10;
         type = 'decrease';
@@ -420,7 +420,7 @@ export default function FounderDashboardPage() {
 
       {orders.length === 0 && <div className="bg-amber-50 border-2 border-amber-200 p-6 rounded-3xl flex items-center gap-4"><AlertCircle className="h-8 w-8 text-amber-500" /><div><h4 className="font-semibold text-amber-900 uppercase text-sm">{t.dashboard.noOrderDataTitle}</h4><p className="text-amber-700 text-xs font-medium">{t.dashboard.noOrderDataDesc}</p></div></div>}
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 px-4 sm:px-0">
+      <div className="grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-6 px-4 sm:px-0">
         {statCards.map((stat) => (
           <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-2xl sm:rounded-4xl p-4 sm:p-6 shadow-xl shadow-primary/5 space-y-3 sm:space-y-4">
             <div className="flex justify-between items-start"><div className={cn("p-3 rounded-2xl bg-muted", stat.color)}><stat.icon className="h-6 w-6" /></div></div>
@@ -516,75 +516,17 @@ export default function FounderDashboardPage() {
         </div>
       </div>
 
-      <div className="space-y-6">
-        <div className="flex items-center justify-between px-4 sm:px-0"><h2 className="text-xl sm:text-2xl font-semibold tracking-tighter uppercase">{t.dashboard.platformInventory}</h2><button onClick={() => {
+      <PlatformInventory
+        analyticsData={analyticsData}
+        isUpdatingPrice={isUpdatingPrice}
+        onAddClick={() => {
            setNewProduct({ id: "", name: "", price: 0, category: t.dashboard.categories.electronics, stock: 0, image: "", description: "", storeId: "mall", isOfficial: true, weight: "", dimensions: "", warranty: "", additionalDetails: "" });
            setShowAddModal(true);
-        }} className="h-10 px-4 rounded-xl bg-primary text-primary-foreground flex items-center gap-2 font-semibold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 cursor-pointer"><Plus className="h-3.5 w-3.5" /> {t.dashboard.addProduct}</button></div>
-        <div className="bg-card border-y sm:border-2 border-primary/5 sm:rounded-4xl shadow-sm sm:shadow-2xl shadow-primary/5 overflow-x-auto w-full">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b bg-muted/20">
-                <th className="px-8 py-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.table.name}</th>
-                <th className="px-8 py-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.assignedStore}</th>
-                <th className="px-8 py-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.table.stock}</th>
-                <th className="px-8 py-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.table.price}</th>
-                <th className="px-8 py-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground text-right">{t.dashboard.actions}</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {products.map((product) => {
-                const insight = analyticsData.pricingInsights[product.id];
-                const isPriceUpdating = isUpdatingPrice === product.id;
-
-                return (
-                  <tr key={product.id} className="hover:bg-muted/10 transition-colors group">
-                    <td className="px-8 py-6"><div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-primary/10 overflow-hidden"><img src={getImgSrc(product.image)} className="w-full h-full object-cover" alt="" /></div><div><p className="font-semibold text-sm max-w-50 truncate">{product.name}</p><p className="text-xs font-medium text-muted-foreground">{(t.categories as Record<string, string>)[product.category] || product.category}</p></div></div></td>
-                    <td className="px-8 py-6"><span className={cn("px-2 py-1 rounded-lg text-[8px] font-semibold uppercase tracking-widest", product.isOfficial ? "bg-amber-500/10 text-amber-600" : "bg-blue-500/10 text-blue-600")}>{product.isOfficial ? t.dashboard.officialMall : (stores.find(s => s.store_id === product.storeId)?.name || t.dashboard.partnerStore)}</span></td>
-                    <td className="px-8 py-6 font-semibold text-xs">{product.stock} {t.product.quantity}</td>
-                    <td className="px-8 py-6 min-w-[180px]">
-                      <div className="flex flex-col gap-2">
-                        <span className="font-semibold text-sm">{formatCurrency(product.price)}</span>
-                        {insight && (
-                          <div className="animate-in fade-in slide-in-from-left-2 duration-500">
-                             <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 space-y-2 relative overflow-hidden group/advice">
-                                <div className="absolute top-0 right-0 p-1">
-                                   <img src="/brand/mascot.jpeg" className="h-4 w-4 object-cover rounded-full opacity-50 animate-pulse" alt="AI Mascot" />
-                                </div>
-                                <div className="flex items-center gap-2">
-                                   <div className={cn("p-1.5 rounded-lg text-white", insight.type === 'increase' ? "bg-emerald-500" : "bg-rose-500")}>
-                                      {insight.type === 'increase' ? <TrendingUp className="h-3 w-3" /> : <TrendingUp className="h-3 w-3 rotate-180" />}
-                                   </div>
-                                   <div className="space-y-0.5">
-                                      <p className="text-[9px] font-semibold uppercase text-primary/60 leading-none">{t.dashboard.aiRecommend}</p>
-                                      <p className="text-xs font-semibold text-foreground">{insight.reason}</p>
-                                   </div>
-                                </div>
-                                <button
-                                  onClick={() => handleApplyAISmartPrice(product.id, insight.amount, insight.totalSold)}
-                                  disabled={isPriceUpdating}
-                                  className={cn(
-                                    "w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold uppercase transition-all shadow-sm active:scale-95 cursor-pointer",
-                                    insight.type === 'increase' ? "bg-emerald-500 text-white hover:bg-emerald-600" : "bg-rose-500 text-white hover:bg-rose-600",
-                                    isPriceUpdating && "opacity-50 cursor-wait"
-                                  )}
-                                >
-                                  <span>{isPriceUpdating ? t.dashboard.updatingPrice : t.dashboard.changeToPrice + insight.amount}</span>
-                                  <ChevronRight className="h-3 w-3 group-hover/advice:translate-x-1 transition-transform" />
-                                </button>
-                             </div>
-                          </div>
-                        )}
-                      </div>
-                    </td>
-                    <td className="px-8 py-6 text-right"><div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => openEditModal(product)} className="p-2 text-blue-500 transition-colors cursor-pointer"><Edit className="h-4 w-4" /></button><button onClick={() => handleDelete(product.id)} className="p-2 text-rose-500 transition-colors cursor-pointer"><Trash2 className="h-4 w-4" /></button></div></td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+        }}
+        onEditClick={openEditModal}
+        onDeleteClick={handleDelete}
+        onApplyPrice={handleApplyAISmartPrice}
+      />
 
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center sm:p-4 p-0 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">

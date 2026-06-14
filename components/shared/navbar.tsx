@@ -55,7 +55,7 @@ export default function Navbar() {
               />
             </Link>
             
-            <div className="hidden lg:flex gap-6">
+            <div className="hidden lg:flex gap-4 xl:gap-6">
               {navLinks.map((link) => (
                 <Link 
                   key={link.href}
@@ -258,7 +258,7 @@ export default function Navbar() {
                   <p className="font-bold text-base text-foreground">{user.name}</p>
                   <p className="text-xs font-semibold text-primary uppercase tracking-widest">
                     {language === 'th' 
-                      ? (role === 'founder' ? 'ผู้ก่อตั้ง' : role === 'partner' ? 'พาร์ทเนอร์' : role) 
+                      ? (role === 'founder' ? 'ผู้จัดการ' : role === 'partner' ? 'พาร์ทเนอร์' : role) 
                       : role} 
                     {' '}•{' '} 
                     {language === 'th' && user.tier === 'MEMBER' ? 'สมาชิก' : user.tier}

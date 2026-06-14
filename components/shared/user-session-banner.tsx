@@ -39,7 +39,7 @@ export default function UserSessionBanner() {
               : role === "partner"
               ? (language === "th" ? "พาร์ทเนอร์ร้านค้า" : "Partner")
               : role === "founder"
-              ? (language === "th" ? "ผู้ก่อตั้ง" : "Founder")
+              ? (language === "th" ? "ผู้จัดการ" : "Founder")
               : role}
           </span>
           {tier === "VIP" && (

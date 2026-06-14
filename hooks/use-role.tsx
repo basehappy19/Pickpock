@@ -18,6 +18,7 @@ interface RoleContextType {
   logout: () => void;
   setRole: (role: Role) => void;
   updateUserStore: (store: any) => void;
+  cancelUserStore: () => Promise<boolean>;
   updateUserInfo: (info: Partial<User>) => void;
   upgradeToVIP: () => Promise<boolean>;
   getUserDiscount: () => number;
@@ -137,6 +138,31 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const cancelUserStore = async () => {
+    if (user && user.store) {
+      try {
+        const res = await fetch(`/api/stores/${user.store.store_id}`, {
+          method: 'DELETE',
+        });
+        
+        if (res.ok) {
+          const { store, ...userWithoutStore } = user;
+          const updatedUser: User = { 
+            ...userWithoutStore, 
+            role: 'customer' as Role 
+          };
+          setUser(updatedUser);
+          setRoleState('customer');
+          localStorage.setItem("authUser", JSON.stringify(updatedUser));
+          return true;
+        }
+      } catch (e) {
+        console.error("Failed to cancel store", e);
+      }
+    }
+    return false;
+  };
+
   const updateUserInfo = (info: Partial<User>) => {
     if (user) {
       const updatedUser: User = { ...user, ...info };
@@ -214,6 +240,7 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
       logout,
       setRole,
       updateUserStore,
+      cancelUserStore,
       updateUserInfo,
       upgradeToVIP,
       getUserDiscount,

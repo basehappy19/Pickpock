@@ -36,7 +36,7 @@ import { uploadProductImage } from "@/lib/supabase";
 import { toast } from "sonner";
 
 export default function PartnerDashboardPage() {
-  const { role, user, updateUserStore } = useRole();
+  const { role, user, updateUserStore, cancelUserStore } = useRole();
   const { t, language } = useLanguage();
   const router = useRouter();
   const [dashboardData, setDashboardData] = useState<any>({
@@ -85,6 +85,20 @@ export default function PartnerDashboardPage() {
       });
     }
   }, [myStore]);
+
+  const handleCancelStore = async () => {
+    if (confirm(language === 'th' ? "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการสมัครร้านค้า? (ข้อมูลร้านค้าจะถูกลบและคุณจะกลับเป็นสมาชิกทั่วไป)" : "Are you sure you want to cancel your store? (Store data will be deleted)")) {
+      setDashboardData((prev: any) => ({ ...prev, loading: true }));
+      const success = await cancelUserStore();
+      if (success) {
+        toast.success(language === 'th' ? "ยกเลิกการสมัครร้านค้าเรียบร้อยแล้ว" : "Store cancelled successfully");
+        router.push("/");
+      } else {
+        toast.error(language === 'th' ? "เกิดข้อผิดพลาดในการยกเลิกร้านค้า" : "Failed to cancel store");
+        setDashboardData((prev: any) => ({ ...prev, loading: false }));
+      }
+    }
+  };
 
   const fetchAllData = async () => {
     try {
@@ -196,7 +210,8 @@ export default function PartnerDashboardPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...product,
-          price: suggestedPrice
+          price: suggestedPrice,
+          aiPriceAdjusted: true
         })
       });
 
@@ -340,8 +355,8 @@ export default function PartnerDashboardPage() {
         type = 'decrease';
       }
 
-      // Only suggest if the price difference is significant to prevent loops
-      if (suggestedAmount > 0 && Math.abs(suggestedAmount - p.price) >= 20) {
+      // Only suggest if the price difference is significant and hasn't been adjusted before
+      if (suggestedAmount > 0 && Math.abs(suggestedAmount - p.price) >= 20 && !p.aiPriceAdjusted) {
         insights[pId] = { type, amount: suggestedAmount };
       }
     });
@@ -445,6 +460,10 @@ export default function PartnerDashboardPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-4 sm:px-0 mt-4 sm:mt-0">
         <div className="space-y-1"><h1 className="text-4xl font-semibold tracking-tighter">{t.dashboard.sellerTitle}</h1><div className="flex items-center gap-2"><p className="text-muted-foreground font-medium">{myStore?.name}</p><button onClick={() => setShowEditStoreModal(true)} className="text-xs text-primary hover:underline font-medium">({t.dashboard.editStore})</button></div></div>
         <div className="flex items-center gap-2">
+          <button onClick={handleCancelStore} className="h-10 px-4 rounded-xl bg-rose-500/10 text-rose-600 flex items-center gap-2 font-semibold text-xs uppercase tracking-widest hover:bg-rose-500/20 transition-all shadow-sm cursor-pointer border border-rose-200">
+            <Trash2 className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">{language === 'th' ? 'ยกเลิกร้านค้า' : 'Cancel Store'}</span>
+          </button>
           <button onClick={() => router.push(`/stores/${myStore?.store_id}`)} className="h-10 px-4 rounded-xl bg-secondary text-secondary-foreground flex items-center gap-2 font-semibold text-xs uppercase tracking-widest hover:opacity-90 transition-all shadow-sm cursor-pointer border border-border">
             <ArrowUpRight className="h-3.5 w-3.5" />
             {t.store.visitStore}
@@ -455,7 +474,7 @@ export default function PartnerDashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 px-4 sm:px-0">
+      <div className="grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-6 px-4 sm:px-0">
         {stats.map((stat) => (
           <div key={stat.label} className="bg-card border-2 border-primary/5 rounded-2xl sm:rounded-4xl p-4 sm:p-6 shadow-xl shadow-primary/5 space-y-3 sm:space-y-4">
             <div className="flex justify-between items-start"><div className={cn("p-3 rounded-2xl bg-muted", stat.color)}><stat.icon className="h-6 w-6" /></div></div>
