@@ -60,7 +60,8 @@ export async function generateMetadata(): Promise<Metadata> {
 // Server Component - fetches data on server for instant load
 async function getProducts() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/products`, {
+    const { getBaseUrl } = await import("@/lib/utils");
+    const res = await fetch(`${getBaseUrl()}/api/products`, {
       cache: 'no-store',
     });
     if (res.ok) {

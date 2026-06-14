@@ -25,8 +25,9 @@ export function generateMetadata(props: SEOProps = {}) {
   } = props;
 
   const fullTitle = title ? `${title} | ${siteName}` : siteName;
-  const siteUrl = url || process.env.NEXT_PUBLIC_SITE_URL || "https://pickpock.com";
-  const imageUrl = image || `${siteUrl}/og-image.png`;
+  const { getBaseUrl } = require("@/lib/utils");
+  const siteUrl = url || getBaseUrl();
+  const imageUrl = image || `${siteUrl}/brand/banner.jpg`;
 
   return {
     title: fullTitle,
@@ -111,7 +112,8 @@ export function generateBreadcrumbSchema(items: { name: string; item: string }[]
 }
 
 export function generateOrganizationSchema() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pickpock.com";
+  const { getBaseUrl } = require("@/lib/utils");
+  const siteUrl = getBaseUrl();
   return {
     "@context": "https://schema.org",
     "@type": "Organization",

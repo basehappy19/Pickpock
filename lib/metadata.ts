@@ -19,7 +19,8 @@ export function generatePageMetadata({
   image = '/opengraph-image.png',
   keywords = ['e-commerce', 'AI', 'shopping', 'Thailand', 'PickPock', 'อีคอมเมิร์ซ', 'ช้อปปิ้งออนไลน์']
 }: PageMetadataProps): Metadata {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pickpock.com';
+  const { getBaseUrl } = require("@/lib/utils");
+  const siteUrl = getBaseUrl();
   const url = `${siteUrl}${path}`;
 
   return {
