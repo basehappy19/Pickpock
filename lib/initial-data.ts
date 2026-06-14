@@ -120,10 +120,11 @@ export const initialOrders: Order[] = (ordersJson as RawOrder[]).map((o) => {
 });
 
 export const initialCoupons: Coupon[] = [
-  { code: "FOUNDER10", discount: 10, type: "percent" as const, description: "10% Off for Founders", minPurchase: 0 },
-  { code: "MSU500", discount: 500, type: "fixed" as const, description: "฿500 Off MSU Special", minPurchase: 1000 },
-  { code: "VIP20", discount: 20, type: "percent" as const, description: "VIP Exclusive 20% Off", minPurchase: 500, applicableTiers: ["VIP" as const] },
-  { code: "NEWUSER", discount: 150, type: "fixed" as const, description: "New Customer Welcome", minPurchase: 300 },
+  { code: "WELCOME100", discount: 100, type: "fixed" as const, description: "ส่วนลดต้อนรับสมาชิกใหม่ 100 บาท", minPurchase: 0, newMemberOnly: true },
+  { code: "FOUNDER10", discount: 10, type: "percent" as const, description: "ส่วนลดพิเศษสำหรับผู้ก่อตั้ง 10%", minPurchase: 0, applicableRoles: ["founder"] },
+  { code: "MSU500", discount: 500, type: "fixed" as const, description: "ส่วนลดพิเศษ MSU 500 บาท เมื่อซื้อครบ 2,000", minPurchase: 2000 },
+  { code: "GADGET15", discount: 15, type: "percent" as const, description: "ลดแรงหมวดหมู่ Gadget 15%", minPurchase: 0, applicableCategory: "Electronics" },
+  { code: "FREESHIP", discount: 50, type: "fixed" as const, description: "คูปองช่วยค่าจัดส่ง 50 บาท", minPurchase: 0 },
 ].map(c => {
   const validated = CouponSchema.safeParse(c);
   return validated.success ? validated.data : c;

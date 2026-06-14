@@ -92,6 +92,9 @@ export interface Coupon {
   maxDiscount?: number;
   expiresAt?: string;
   applicableTiers?: Tier[];
+  applicableCategory?: string;
+  applicableRoles?: Role[];
+  newMemberOnly?: boolean;
 }
 
 export type Tier = 'MEMBER' | 'VIP';

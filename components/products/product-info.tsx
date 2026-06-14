@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/hooks/use-language";
 import { formatCurrency, cn, getImgSrc } from "@/lib/utils";
-import { Star, ShieldCheck, ShoppingCart, Heart, Truck, MessageSquare, Store as StoreIcon, ArrowRight, Share2, CheckCircle2, GitCompare, Info, Edit } from "lucide-react";
+import { Star, ShieldCheck, ShoppingCart, Heart, Truck, MessageSquare, Store as StoreIcon, ArrowRight, Share2, CheckCircle2, GitCompare, Info, Edit, Ticket } from "lucide-react";
 import { useState, useEffect } from "react";
 import NextImage from "next/image";
 import { Product, Store } from "@/types";
@@ -12,6 +12,7 @@ import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 import { useCompare } from "@/hooks/use-compare";
 import { useRouter } from "next/navigation";
 import { useRole } from "@/hooks/use-role";
+import { useGlobalData } from "@/hooks/use-global-data";
 import AIBundleSuggest from "./ai-bundle-suggest";
 import ProductEditModal from "./product-edit-modal";
 
@@ -29,8 +30,26 @@ export default function ProductInfo({ product, allProducts }: { product: Product
   const [showEditModal, setShowEditModal] = useState(false);
   const router = useRouter();
 
+  const { coupons } = useGlobalData();
+  const [userOwnedCodes, setUserOwnedCodes] = useState<string[]>([]);
+
   const isRestricted = role === "founder" || role === "partner";
   const isOwner = (role === "founder" && product.isOfficial) || (role === "partner" && user?.store?.store_id === product.storeId);
+
+  useEffect(() => {
+    if (user) {
+      fetch(`/api/user-data/${user.id}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.coupons) setUserOwnedCodes(data.coupons);
+        });
+    } else {
+      const guestCoupons = localStorage.getItem("guest_coupons");
+      if (guestCoupons) setUserOwnedCodes(JSON.parse(guestCoupons));
+    }
+  }, [user]);
+
+  const myAvailableCoupons = coupons.filter((c: any) => userOwnedCodes.includes(c.code));
 
   useEffect(() => {
     if (product) {
@@ -201,6 +220,26 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           </div>
 
           <div className="space-y-6 pt-8 border-t">
+            {myAvailableCoupons.length > 0 && (
+              <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex items-center gap-3 animate-in fade-in zoom-in-95">
+                <div className="p-2 bg-emerald-100 rounded-lg text-emerald-600">
+                  <Ticket className="h-5 w-5" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-0.5">
+                    {language === 'th' ? "คูปองของคุณที่มีอยู่" : "My Available Coupons"}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 mt-1.5">
+                    {myAvailableCoupons.map((c: any) => (
+                      <span key={c.code} className="inline-flex items-center gap-1 bg-white text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-md border border-emerald-200">
+                        {c.code} ({c.type === 'percent' ? `${c.discount}%` : `฿${c.discount}`})
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="flex items-center gap-6">
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t.products.quantity}</label>

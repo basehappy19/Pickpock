@@ -66,6 +66,9 @@ export const CouponSchema = z.object({
   maxDiscount: z.number().nonnegative().optional(),
   expiresAt: z.string().optional(),
   applicableTiers: z.array(z.enum(["MEMBER", "VIP"])).optional(),
+  applicableCategory: z.string().optional(),
+  applicableRoles: z.array(z.enum(["customer", "founder", "partner"])).optional(),
+  newMemberOnly: z.boolean().optional(),
 });
 
 export const StoreSchema = z.object({

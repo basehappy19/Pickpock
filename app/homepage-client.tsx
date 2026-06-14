@@ -5,11 +5,12 @@ import NextImage from "next/image";
 import Link from "next/link";
 import { ArrowRight, Star, ShieldCheck, Gift, Sparkles, TrendingUp, Clock } from "lucide-react";
 import { Product } from "@/types";
-import { formatCurrency } from "@/lib/utils";
-import { useState } from "react";
+import { useRole } from "@/hooks/use-role";
+import { useGlobalData } from "@/hooks/use-global-data";
+import { formatCurrency, cn, getImgSrc } from "@/lib/utils";
+import { useState, useEffect } from "react";
 import { initialCoupons } from "@/lib/initial-data";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
-import { cn } from "@/lib/utils";
 
 const CATEGORIES = [
   { name: "Electronics",  icon: "💻", href: "/products?category=Electronics" },
@@ -109,10 +110,70 @@ export default function HomepageClient({
   const popularTrending = products.slice(4, 12);
   const newArrivals    = products.slice(12, 16);
 
-  const handleClaim = (code: string) => {
+  const { user } = useRole();
+  const { orders } = useGlobalData();
+
+  useEffect(() => {
+    if (user) {
+      fetch(`/api/user-data/${user.id}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.coupons) setClaimedCodes(data.coupons);
+        });
+    } else {
+      const guestCoupons = localStorage.getItem("guest_coupons");
+      if (guestCoupons) setClaimedCodes(JSON.parse(guestCoupons));
+    }
+  }, [user]);
+
+  const handleClaim = async (code: string) => {
     if (claimedCodes.includes(code)) return;
-    setClaimedCodes((prev) => [...prev, code]);
-    alert(`คูปอง ${code} ถูกเก็บแล้ว! ใช้ได้เมื่อชำระเงิน`);
+    
+    // Find the coupon rules
+    const coupon = initialCoupons.find(c => c.code === code);
+    if (!coupon) return;
+
+    // Check conditions
+    if (coupon.newMemberOnly) {
+      if (!user) {
+        alert("กรุณาเข้าสู่ระบบก่อนเก็บคูปองนี้");
+        return;
+      }
+      // Usually, we'd check if user has orders, but for the hackathon context we can assume any logged in user can claim unless they already used it, or check the 'totalSpent' / 'orders'
+      // Since we don't have orders directly here, we'll fetch user data or assume they are new if they have no reviews/cart?
+      // Let's check user orders from useGlobalData
+      const userOrders = orders.filter((o: any) => o.customerId === user.id);
+      if (userOrders.length > 0) {
+        alert("คูปองนี้สำหรับสมาชิกใหม่ที่ไม่เคยสั่งซื้อเท่านั้น");
+        return;
+      }
+    }
+
+    if (coupon.applicableRoles && coupon.applicableRoles.length > 0) {
+      if (!user || !coupon.applicableRoles.includes(user.role as any)) {
+        alert("คุณไม่เข้าเงื่อนไขสำหรับคูปองนี้ (เฉพาะผู้ใช้งานบางประเภท)");
+        return;
+      }
+    }
+
+    const newCoupons = [...claimedCodes, code];
+    setClaimedCodes(newCoupons);
+
+    if (user) {
+      try {
+        await fetch(`/api/user-data/${user.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ coupons: newCoupons })
+        });
+      } catch (e) {
+        console.error("Failed to save coupon to user data", e);
+      }
+    } else {
+      localStorage.setItem("guest_coupons", JSON.stringify(newCoupons));
+    }
+
+    alert(`คูปอง ${code} ถูกเก็บแล้ว!`);
   };
 
   return (
