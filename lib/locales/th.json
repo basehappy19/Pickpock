@@ -588,7 +588,10 @@
     "clearFilters": "ล้างตัวกรอง",
     "resetFilters": "ล้างตัวกรองทั้งหมด",
     "results": "พบ {count} รายการ",
-    "noResultsDesc": "ลองปรับตัวกรองหรือคำค้นหา AI ใหม่อีกครั้ง"
+    "noResultsDesc": "ลองปรับตัวกรองหรือคำค้นหา AI ใหม่อีกครั้ง",
+    "prevPage": "ก่อนหน้า",
+    "nextPage": "หน้าถัดไป",
+    "page": "หน้า"
   },
   "notifications": {
     "priceDrop": "แจ้งเตือนราคาลด",

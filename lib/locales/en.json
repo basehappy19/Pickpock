@@ -588,7 +588,10 @@
     "clearFilters": "Clear Filters",
     "resetFilters": "Reset All Filters",
     "results": "{count} results",
-    "noResultsDesc": "Try adjusting your filters or AI search request."
+    "noResultsDesc": "Try adjusting your filters or AI search request.",
+    "prevPage": "Prev",
+    "nextPage": "Next",
+    "page": "Page"
   },
   "notifications": {
     "priceDrop": "Price Drop Alert",

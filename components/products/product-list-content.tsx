@@ -30,7 +30,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     return prices.length > 0 ? Math.max(...prices) : 10000;
   }, [allProducts]);
   
-  const ITEMS_PER_PAGE = 12;
+  const ITEMS_PER_PAGE = 100;
   const [currentPage, setCurrentPage] = useState(1);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(0);
@@ -507,7 +507,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 disabled={currentPage === 1}
                 className="px-4 py-2 rounded-xl border-2 font-black text-xs uppercase tracking-widest bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
               >
-                ← Prev
+                ← {t.filters.prevPage}
               </button>
               {Array.from({ length: totalPages }, (_, i) => i + 1)
                 .filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 2)
@@ -540,7 +540,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 disabled={currentPage === totalPages}
                 className="px-4 py-2 rounded-xl border-2 font-black text-xs uppercase tracking-widest bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
               >
-                Next →
+                {t.filters.nextPage} →
               </button>
             </div>
           )}
