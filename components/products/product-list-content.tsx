@@ -39,57 +39,44 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     router.push(`?${params.toString()}`, { scroll: true });
   };
 
-  const handleCategoryChange = (cat: string) => {
+  const updateURLParams = useCallback((updates: Record<string, string | null>) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (cat === "all") {
-      params.delete("category");
-    } else {
-      params.set("category", cat);
-    }
+    Object.entries(updates).forEach(([key, value]) => {
+      if (value === null) {
+        params.delete(key);
+      } else {
+        params.set(key, value);
+      }
+    });
     params.set("page", "1");
     router.push(`?${params.toString()}`, { scroll: false });
-  };
+  }, [router, searchParams]);
 
-  const handleFilterToggle = (key: string, value: boolean) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (value) {
-      params.set(key, "true");
-    } else {
-      params.delete(key);
-    }
-    params.set("page", "1");
-    router.push(`?${params.toString()}`, { scroll: false });
+  const handleCategoryChange = (cat: string) => {
+    updateURLParams({ category: cat === "all" ? null : cat });
   };
 
   const handlePriceChange = (min: number, max: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (min > 0) params.set("minPrice", String(min));
-    else params.delete("minPrice");
-    
-    if (max < maxPrice) params.set("maxPrice", String(max));
-    else params.delete("maxPrice");
-    
-    params.set("page", "1");
-    router.push(`?${params.toString()}`, { scroll: false });
+    updateURLParams({
+      minPrice: min > 0 ? String(min) : null,
+      maxPrice: max < maxPrice ? String(max) : null
+    });
   };
 
   const handleStoreChange = (sid: string) => {
-    const params = new URLSearchParams(searchParams.toString());
     if (sid === "all") {
-      params.delete("storeId");
+      updateURLParams({ storeId: null });
     } else {
-      params.set("storeId", sid);
-      // If picking a specific store, it's likely a partner unless it's the mall
+      const updates: Record<string, string | null> = { storeId: sid };
       if (sid !== "mall") {
-        params.set("partner", "true");
-        params.delete("official");
+        updates.partner = "true";
+        updates.official = null;
       } else {
-        params.set("official", "true");
-        params.delete("partner");
+        updates.official = "true";
+        updates.partner = null;
       }
+      updateURLParams(updates);
     }
-    params.set("page", "1");
-    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -155,13 +142,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     // Clear all filters when doing AI Search
     router.push(pathname, { scroll: false });
     resetFilters();
-    setMinPrice(0);
-    setMaxPriceFilter(maxPrice);
-    setInStockOnly(false);
-    setIsOfficialFilter(false);
-    setIsPartnerFilter(false);
-    setSelectedStoreId("all");
-
+    
     setIsSearching(true);
     try {
       const res = await fetch("/api/ai-search", {
@@ -340,23 +321,28 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             <div className="space-y-4">
               <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.storeTitle}</h3>
               <div className="flex flex-col gap-2">
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <div 
-                    onClick={() => {
-                      const newValue = !isOfficialFilter;
-                      handleFilterToggle("official", newValue);
-                      if (newValue) {
-                        const params = new URLSearchParams(searchParams.toString());
-                        params.delete("partner");
-                        params.delete("storeId");
-                        router.push(`?${params.toString()}`, { scroll: false });
-                      }
-                    }}
-                    className={cn(
-                      "w-12 h-6 rounded-full p-1 transition-all duration-300",
-                      isOfficialFilter ? "bg-amber-500" : "bg-muted"
-                    )}
-                  >
+                <label 
+                  className="flex items-center gap-3 cursor-pointer group"
+                  onClick={() => {
+                    const params = new URLSearchParams(searchParams.toString());
+                    const newValue = !isOfficialFilter;
+                    
+                    if (newValue) {
+                      params.set("official", "true");
+                      params.delete("partner");
+                      params.delete("storeId");
+                    } else {
+                      params.delete("official");
+                    }
+                    
+                    params.set("page", "1");
+                    router.push(`?${params.toString()}`, { scroll: false });
+                  }}
+                >
+                  <div className={cn(
+                    "w-12 h-6 rounded-full p-1 transition-all duration-300",
+                    isOfficialFilter ? "bg-amber-500" : "bg-muted"
+                  )}>
                     <div className={cn(
                       "bg-white w-4 h-4 rounded-full transition-all duration-300",
                       isOfficialFilter ? "translate-x-6" : "translate-x-0"
@@ -364,26 +350,28 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                   </div>
                   <span className="text-sm font-bold uppercase tracking-tight group-hover:text-amber-600 transition-colors">{t.filters.officialOnly}</span>
                 </label>
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <div 
-                    onClick={() => {
-                      const newValue = !isPartnerFilter;
-                      handleFilterToggle("partner", newValue);
-                      if (newValue) {
-                        const params = new URLSearchParams(searchParams.toString());
-                        params.delete("official");
-                        router.push(`?${params.toString()}`, { scroll: false });
-                      } else {
-                        const params = new URLSearchParams(searchParams.toString());
-                        params.delete("storeId");
-                        router.push(`?${params.toString()}`, { scroll: false });
-                      }
-                    }}
-                    className={cn(
-                      "w-12 h-6 rounded-full p-1 transition-all duration-300",
-                      isPartnerFilter ? "bg-blue-500" : "bg-muted"
-                    )}
-                  >
+                <label 
+                  className="flex items-center gap-3 cursor-pointer group"
+                  onClick={() => {
+                    const params = new URLSearchParams(searchParams.toString());
+                    const newValue = !isPartnerFilter;
+                    
+                    if (newValue) {
+                      params.set("partner", "true");
+                      params.delete("official");
+                    } else {
+                      params.delete("partner");
+                      params.delete("storeId");
+                    }
+                    
+                    params.set("page", "1");
+                    router.push(`?${params.toString()}`, { scroll: false });
+                  }}
+                >
+                  <div className={cn(
+                    "w-12 h-6 rounded-full p-1 transition-all duration-300",
+                    isPartnerFilter ? "bg-blue-500" : "bg-muted"
+                  )}>
                     <div className={cn(
                       "bg-white w-4 h-4 rounded-full transition-all duration-300",
                       isPartnerFilter ? "translate-x-6" : "translate-x-0"
@@ -417,14 +405,14 @@ export default function ProductListContent({ initialProducts }: { initialProduct
 
             <div className="space-y-4">
               <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.filters.availability}</h3>
-              <label className="flex items-center gap-3 cursor-pointer group">
-                <div 
-                  onClick={() => handleFilterToggle("inStock", !inStockOnly)}
-                  className={cn(
-                    "w-12 h-6 rounded-full p-1 transition-all duration-300",
-                    inStockOnly ? "bg-primary" : "bg-muted"
-                  )}
-                >
+              <label 
+                className="flex items-center gap-3 cursor-pointer group"
+                onClick={() => updateURLParams({ inStock: inStockOnly ? null : "true" })}
+              >
+                <div className={cn(
+                  "w-12 h-6 rounded-full p-1 transition-all duration-300",
+                  inStockOnly ? "bg-primary" : "bg-muted"
+                )}>
                   <div className={cn(
                     "bg-white w-4 h-4 rounded-full transition-all duration-300",
                     inStockOnly ? "translate-x-6" : "translate-x-0"
