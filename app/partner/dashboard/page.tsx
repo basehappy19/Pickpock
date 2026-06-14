@@ -333,7 +333,7 @@ export default function PartnerDashboardPage() {
 
   const myOrders = useMemo(() => 
     dashboardData.orders.filter((o: any) => 
-      o.items.some((item: any) => myProductIds.includes(item.product_id))
+      o.items.some((item: any) => myProductIds.includes(item.product_id || item.productId || item.id))
     ),
     [dashboardData.orders, myProductIds]
   );
@@ -343,7 +343,7 @@ export default function PartnerDashboardPage() {
     
     myProducts.forEach((p: any) => {
       const pId = p.product_id || p.id;
-      const sales = myOrders.filter((o: any) => o.items.some((i: any) => i.product_id === pId)).length;
+      const sales = myOrders.filter((o: any) => o.items.some((i: any) => (i.product_id || i.productId || i.id) === pId)).length;
       
       let suggestedAmount = 0;
       let type: 'increase' | 'decrease' = 'increase';
@@ -505,7 +505,7 @@ export default function PartnerDashboardPage() {
                     const isPriceUpdating = isUpdatingPrice === pId;
                     
                     const soldCount = myOrders.reduce((count: number, order: any) => {
-                      const item = order.items.find((i: any) => (i.product_id || i.id) === pId);
+                      const item = order.items.find((i: any) => (i.product_id || i.productId || i.id) === pId);
                       return count + (item ? (item.quantity || item.qty || 0) : 0);
                     }, 0);
 
