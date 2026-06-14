@@ -13,7 +13,7 @@
         "email": "somchai@example.com",
         "password": "1234",
         "role": "partner",
-        "isVip": true
+        "isVip": false
     },
     {
         "id": "u003",
