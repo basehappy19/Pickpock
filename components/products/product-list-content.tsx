@@ -152,6 +152,16 @@ export default function ProductListContent({ initialProducts }: { initialProduct
       return;
     }
 
+    // Clear all filters when doing AI Search
+    router.push(pathname, { scroll: false });
+    resetFilters();
+    setMinPrice(0);
+    setMaxPriceFilter(maxPrice);
+    setInStockOnly(false);
+    setIsOfficialFilter(false);
+    setIsPartnerFilter(false);
+    setSelectedStoreId("all");
+
     setIsSearching(true);
     try {
       const res = await fetch("/api/ai-search", {
