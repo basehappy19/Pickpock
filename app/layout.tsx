@@ -63,6 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = lang === "th" ? "แพลตฟอร์มอีคอมเมิร์ซที่ขับเคลื่อนด้วย AI สุดล้ำ" : "State-of-the-art AI-Powered Shopping Experience";
 
   return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://pickpock.vercel.app"),
     title,
     description,
     keywords: "e-commerce, AI, shopping, Thailand, PickPock",
