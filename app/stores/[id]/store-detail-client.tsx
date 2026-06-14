@@ -259,7 +259,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
                 >
                   <div className="aspect-square relative bg-muted overflow-hidden">
                     <NextImage src={getImgSrc(product.image)} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" sizes="(max-width: 768px) 50vw, 20vw" />
-                    <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-white/80 backdrop-blur-md text-[8px] font-black uppercase tracking-widest shadow-sm">
+                    <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-background/80 backdrop-blur-md text-[8px] font-black uppercase tracking-widest shadow-sm border">
                       {(t.categories as Record<string, string>)[product.category] || product.category}
                     </div>
                   </div>
