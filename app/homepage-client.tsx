@@ -282,7 +282,7 @@ export default function HomepageClient({
                       </>
                     ) : (
                       <>
-                        <Ticket className="h-3 w-3" />
+                        <Gift className="h-3 w-3" />
                         {!user ? "เข้าสู่ระบบเพื่อเก็บ" : t.home.claim}
                       </>
                     )}
