@@ -341,29 +341,5 @@
     "compare": [],
     "coupons": [],
     "recentlyViewed": []
-  },
-  "u005": {
-    "user_id": "u005",
-    "cart": [],
-    "wishlist": [],
-    "reviews": [],
-    "recentlyViewed": [
-      {
-        "id": "p-901",
-        "name": "Learning Card Set",
-        "category": "Toys",
-        "price": 450,
-        "stock": 140,
-        "image": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=800",
-        "description": "Educational cards for early development.",
-        "rating": 4.5,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-06-30T00:00:00Z"
-      }
-    ],
-    "compare": [],
-    "coupons": []
   }
 }

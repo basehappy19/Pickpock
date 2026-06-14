@@ -1,77 +1,66 @@
-﻿{
-    "value":  [
-                  {
-                      "id":  "u001",
-                      "name":  "Alice Founder",
-                      "email":  "alice@example.com",
-                      "password":  "1234",
-                      "role":  "founder",
-                      "isVip":  false
-                  },
-                  {
-                      "id":  "u002",
-                      "name":  "Somchai VIP",
-                      "email":  "somchai@example.com",
-                      "password":  "1234",
-                      "role":  "partner",
-                      "isVip":  true
-                  },
-                  {
-                      "id":  "u003",
-                      "name":  "Bob Regular",
-                      "email":  "bob@example.com",
-                      "password":  "1234",
-                      "role":  "customer",
-                      "isVip":  false
-                  },
-                  {
-                      "id":  "u004",
-                      "name":  "Charlie Regular",
-                      "email":  "charlie@example.com",
-                      "password":  "1234",
-                      "role":  "customer",
-                      "isVip":  true
-                  },
-                  {
-                      "id":  "u-q09g17ans",
-                      "name":  "ByteZone Gaming Owner",
-                      "email":  "bytezone@example.com",
-                      "password":  "1234",
-                      "role":  "partner",
-                      "isVip":  false
-                  },
-                  {
-                      "id":  "u-74wly9c9m",
-                      "name":  "SmartLife Gadget Owner",
-                      "email":  "smartlife@example.com",
-                      "password":  "1234",
-                      "role":  "partner",
-                      "isVip":  false
-                  },
-                  {
-                      "id":  "u-oy7hvh0na",
-                      "name":  "Campus Essentials Owner",
-                      "email":  "campus@example.com",
-                      "password":  "1234",
-                      "role":  "partner",
-                      "isVip":  false
-                  },
-                  {
-                      "id":  "u-pdosdw8a2",
-                      "name":  "Cozy Living Owner",
-                      "email":  "cozy@example.com",
-                      "password":  "1234",
-                      "role":  "partner",
-                      "isVip":  false
-                  },
-                  {
-                      "id":  "u005",
-                      "name":  "test",
-                      "email":  "test@gmail.com",
-                      "password":  "1234",
-                      "role":  "customer",
-                      "isVip":  false
-                  }
-              ],
-    "Count":  9
-}
+﻿[
+    {
+        "id": "u001",
+        "name": "Alice Founder",
+        "email": "alice@example.com",
+        "password": "1234",
+        "role": "founder",
+        "isVip": false
+    },
+    {
+        "id": "u002",
+        "name": "Somchai VIP",
+        "email": "somchai@example.com",
+        "password": "1234",
+        "role": "partner",
+        "isVip": true
+    },
+    {
+        "id": "u003",
+        "name": "Bob Regular",
+        "email": "bob@example.com",
+        "password": "1234",
+        "role": "customer",
+        "isVip": false
+    },
+    {
+        "id": "u004",
+        "name": "Charlie Regular",
+        "email": "charlie@example.com",
+        "password": "1234",
+        "role": "customer",
+        "isVip": true
+    },
+    {
+        "id": "u-q09g17ans",
+        "name": "ByteZone Gaming Owner",
+        "email": "bytezone@example.com",
+        "password": "1234",
+        "role": "partner",
+        "isVip": false
+    },
+    {
+        "id": "u-74wly9c9m",
+        "name": "SmartLife Gadget Owner",
+        "email": "smartlife@example.com",
+        "password": "1234",
+        "role": "partner",
+        "isVip": false
+    },
+    {
+        "id": "u-oy7hvh0na",
+        "name": "Campus Essentials Owner",
+        "email": "campus@example.com",
+        "password": "1234",
+        "role": "partner",
+        "isVip": false
+    },
+    {
+        "id": "u-pdosdw8a2",
+        "name": "Cozy Living Owner",
+        "email": "cozy@example.com",
+        "password": "1234",
+        "role": "partner",
+        "isVip": false
+    }
+]
