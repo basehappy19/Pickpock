@@ -28,6 +28,7 @@ export function ProductCard({
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 640px) 50vw, 25vw"
           priority={priority}
+          quality={60}
         />
         {badge && (
           <span className="absolute top-2 left-2 bg-background/90 backdrop-blur border text-xs text-muted-foreground px-2 py-0.5 rounded-full">
