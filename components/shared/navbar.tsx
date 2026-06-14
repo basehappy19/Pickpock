@@ -50,7 +50,7 @@ export default function Navbar() {
                 alt="PickPock Logo"
                 width={140}
                 height={40}
-                className="h-10"
+                className="h-10 w-auto"
                 priority
               />
             </Link>
