@@ -64,9 +64,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const getBaseUrl = () => {
     if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
-    if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
-    if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-    return "http://localhost:3000";
+    return "https://team-msudeng-msu.basehappy19.site";
   };
 
   return {
@@ -91,7 +89,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: "https://pickpock.com",
+      url: "https://team-msudeng-msu.basehappy19.site/",
       siteName: "PickPock",
       images: [
         {
