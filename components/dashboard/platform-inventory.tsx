@@ -43,8 +43,8 @@ function InventoryContent({
       if (order.status !== 'cancelled') {
         const item = order.items.find(i => i.productId === product.id);
         if (item) {
-          soldCount += item.quantity;
-          revenue += item.price * item.quantity;
+          soldCount += (item.quantity || item.qty || 0);
+          revenue += (item.price || 0) * (item.quantity || item.qty || 0);
         }
       }
     });

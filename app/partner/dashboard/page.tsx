@@ -505,7 +505,7 @@ export default function PartnerDashboardPage() {
                     
                     const soldCount = myOrders.reduce((count: number, order: any) => {
                       const item = order.items.find((i: any) => (i.product_id || i.id) === pId);
-                      return count + (item ? item.quantity : 0);
+                      return count + (item ? (item.quantity || item.qty || 0) : 0);
                     }, 0);
 
                     return (
