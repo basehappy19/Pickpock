@@ -320,7 +320,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                       isOfficialFilter ? "translate-x-6" : "translate-x-0"
                     )} />
                   </div>
-                  <span className="text-sm font-bold uppercase tracking-tight group-hover:text-amber-600 transition-colors">Official Only</span>
+                  <span className="text-sm font-bold uppercase tracking-tight group-hover:text-amber-600 transition-colors">{t.filters.officialOnly}</span>
                 </label>
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <div 
@@ -335,7 +335,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                       isPartnerFilter ? "translate-x-6" : "translate-x-0"
                     )} />
                   </div>
-                  <span className="text-sm font-bold uppercase tracking-tight group-hover:text-blue-600 transition-colors">Partner Only</span>
+                  <span className="text-sm font-bold uppercase tracking-tight group-hover:text-blue-600 transition-colors">{t.filters.partnerOnly}</span>
                 </label>
               </div>
             </div>
