@@ -507,6 +507,13 @@
   "auth": {
     "login": "Login",
     "register": "Register",
+    "judgeShortcuts": "Hackathon Judge Shortcuts (Pass: 1234)",
+    "judgeDesc": "Judges can click the buttons below to instantly log in and test different user roles.",
+    "partnerStoreOwners": "Partner Store Owners",
+    "adminLabel": "Admin",
+    "partnerLabel": "Partner (Has Store)",
+    "customerLabel": "General Customer",
+    "vipLabel": "VIP Customer",
     "email": "Email Address",
     "password": "Password",
     "forgotPassword": "Forgot password?",

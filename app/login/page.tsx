@@ -133,42 +133,13 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50/50 animate-in fade-in duration-700">
-      <div className="w-full max-w-md space-y-10 bg-white border border-slate-200 rounded-xl p-8 lg:p-12 shadow-sm">
+      <div className="w-full max-w-xl space-y-10 bg-white border border-slate-200 rounded-xl p-8 lg:p-12 shadow-sm">
         <div className="text-center space-y-3">
           <div className="inline-flex p-3 rounded-lg bg-primary/10 text-primary mb-2">
              <ShieldCheck className="h-10 w-10" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 uppercase">Pickpock</h1>
           <p className="text-slate-500 font-medium text-sm">{t.auth.login}</p>
-        </div>
-
-        {/* Quick Demo Login */}
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            type="button"
-            onClick={() => handleDemoLogin('founder')}
-            disabled={loading}
-            className="group relative h-12 rounded-lg border-2 border-primary/20 bg-primary/5 text-slate-900 font-bold text-sm hover:bg-primary/10 hover:border-primary/40 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <ShieldCheck className="h-4 w-4 text-primary" />
-            <span>{t.auth.founder}</span>
-            <span className="absolute top-1 right-1.5 h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-          </button>
-          <button
-            type="button"
-            onClick={() => handleDemoLogin('customer')}
-            disabled={loading}
-            className="h-12 rounded-lg bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <User className="h-4 w-4" />
-            <span>{t.auth.customer}</span>
-          </button>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <div className="flex-1 h-px bg-slate-200" />
-          <span className="text-xs text-slate-400 font-bold uppercase tracking-widest">{t.auth.or}</span>
-          <div className="flex-1 h-px bg-slate-200" />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -229,45 +200,46 @@ export default function LoginPage() {
 
         <div className="pt-8 border-t border-slate-100 text-center space-y-4">
            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
-             <div className="flex items-center justify-center gap-2 mb-4">
+             <div className="flex items-center justify-center gap-2 mb-2">
                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest m-0">
-                 Hackathon Judge Shortcuts (Pass: 1234)
+                 {t.auth.judgeShortcuts}
                </p>
              </div>
+             <p className="text-[10px] text-slate-400 font-medium mb-4">{t.auth.judgeDesc}</p>
              <div className="grid grid-cols-2 gap-2 mb-4">
                <button 
                  type="button" 
                  onClick={() => { setEmail('alice@example.com'); setPassword('1234'); }}
                  className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer"
                >
-                 ผู้ดูแลระบบ (Admin)
+                 {t.auth.adminLabel}
                </button>
                <button 
                  type="button" 
                  onClick={() => { setEmail('somchai@example.com'); setPassword('1234'); }}
                  className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer"
                >
-                 ลูกค้าที่มีร้าน (Partner)
+                 {t.auth.partnerLabel}
                </button>
                <button 
                  type="button" 
                  onClick={() => { setEmail('bob@example.com'); setPassword('1234'); }}
                  className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer"
                >
-                 ลูกค้าทั่วไป (ไม่มีร้าน)
+                 {t.auth.customerLabel}
                </button>
                <button 
                  type="button" 
                  onClick={() => { setEmail('charlie@example.com'); setPassword('1234'); }}
                  className="p-2 text-[10px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer"
                >
-                 ลูกค้า VIP
+                 {t.auth.vipLabel}
                </button>
              </div>
              
              <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-2 border-t border-slate-200 pt-3">
-               Partner Store Owners
+               {t.auth.partnerStoreOwners}
              </div>
              <div className="grid grid-cols-2 gap-2">
                <button 
