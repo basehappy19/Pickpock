@@ -4,13 +4,14 @@ import initialStores from "@/lib/stores.json";
 import { generateBreadcrumbSchema, generateOrganizationSchema } from "@/lib/seo-utils";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // Generate dynamic metadata for SEO
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
   // Handle 'mall' as special case
-  const storeId = params.id === 'mall' ? 'mall' : params.id;
+  const storeId = id === 'mall' ? 'mall' : id;
   const store = initialStores.find((s: any) => s.store_id === storeId || s.store_id === 'mall');
 
   if (!store) {
@@ -86,12 +87,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 // Server Component
-export default function StoreDetailPage({ params }: Props) {
-  const storeId = params.id === 'mall' ? 'mall' : params.id;
+export default async function StoreDetailPage({ params }: Props) {
+  const { id } = await params;
+  const storeId = id === 'mall' ? 'mall' : id;
   const store = initialStores.find((s: any) => s.store_id === storeId || s.store_id === 'mall');
 
   if (!store) {
-    return <StoreDetailClient storeId={params.id} storeNotFound={true} />;
+    return <StoreDetailClient storeId={id} storeNotFound={true} />;
   }
 
   // Generate structured data for SEO
@@ -115,7 +117,7 @@ export default function StoreDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
 
-      <StoreDetailClient storeId={params.id} initialStore={store} />
+      <StoreDetailClient storeId={id} initialStore={store} />
     </>
   );
 }

@@ -5,12 +5,13 @@ import { generateProductSchema, generateBreadcrumbSchema, generateOrganizationSc
 import { initialProducts } from "@/lib/initial-data";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // Generate dynamic metadata for SEO
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const product = initialProducts.find(p => p.id === params.id);
+  const { id } = await params;
+  const product = initialProducts.find(p => p.id === id);
 
   if (!product) {
     return {
@@ -86,8 +87,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 // Server Component
-export default function ProductDetailPage({ params }: Props) {
-  const product = initialProducts.find(p => p.id === params.id);
+export default async function ProductDetailPage({ params }: Props) {
+  const { id } = await params;
+  const product = initialProducts.find(p => p.id === id);
 
   if (!product) {
     notFound();
@@ -128,7 +130,7 @@ export default function ProductDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
 
-      <ProductInfoClient productId={params.id} />
+      <ProductInfoClient productId={id} />
     </>
   );
 }
