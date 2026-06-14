@@ -354,9 +354,10 @@ export default function FounderDashboardPage() {
     const totalProducts = products.length;
     const categoryDistribution = Object.entries(categoryCounts).map(([label, count]) => ({
       label,
-      count: Math.round((count / (totalProducts || 1)) * 100),
+      percentage: Math.round((count / (totalProducts || 1)) * 100),
+      count: count,
       color: ['bg-blue-500', 'bg-rose-500', 'bg-amber-500', 'bg-emerald-500', 'bg-purple-500'][Object.keys(categoryCounts).indexOf(label) % 5]
-    })).sort((a, b) => b.count - a.count);
+    })).sort((a, b) => b.percentage - a.percentage);
 
     // AI Pricing Analysis Logic (Improved to suggest ONLY when new sales occur)
     const pricingInsights = products.reduce((acc, p) => {
@@ -501,8 +502,13 @@ export default function FounderDashboardPage() {
             {analyticsData.categoryDistribution.length > 0 ? (
               analyticsData.categoryDistribution.slice(0, 5).map((cat) => (
                 <div key={cat.label} className="space-y-2">
-                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest"><span>{(t.categories as Record<string, string>)[cat.label] || cat.label}</span><span>{cat.count}%</span></div>
-                  <div className="h-2 w-full bg-muted rounded-full overflow-hidden"><div className={cn("h-full rounded-full transition-all duration-1000", cat.color)} style={{ width: `${cat.count}%` }} /></div>
+                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+                    <span>{(t.categories as Record<string, string>)[cat.label] || cat.label} ({cat.count} {t.dashboard.units})</span>
+                    <span>{cat.percentage}%</span>
+                  </div>
+                  <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                    <div className={cn("h-full rounded-full transition-all duration-1000", cat.color)} style={{ width: `${cat.percentage}%` }} />
+                  </div>
                 </div>
               ))
             ) : <div className="text-center py-8">{t.dashboard.noData}</div>}
