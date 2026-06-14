@@ -69,7 +69,14 @@ export default async function RootLayout({
                           {children}
                         </main>
                         <AIChatbot />
-                        <Toaster position="top-right" richColors closeButton />
+                        <Toaster 
+                          position="bottom-right" 
+                          richColors 
+                          closeButton 
+                          toastOptions={{
+                            className: "mb-[140px] lg:mb-[90px]"
+                          }}
+                        />
                       </RecentlyViewedProvider>
                     </CompareProvider>
                   </WishlistProvider>

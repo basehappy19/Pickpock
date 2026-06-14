@@ -140,30 +140,16 @@
     ]
   },
   "u003": {
-    "cart": [
-      {
-        "id": "p-804",
-        "name": "Matte Finish Primer",
-        "category": "Beauty",
-        "price": 850,
-        "stock": 95,
-        "image": "https://images.unsplash.com/photo-1583001838478-20f3837ec164?q=80&w=800",
-        "description": "Perfect base for long-lasting makeup.",
-        "rating": 4.7,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-06-28T00:00:00Z",
-        "quantity": 1
-      }
-    ],
+    "cart": [],
     "wishlist": [],
     "history": [],
     "compare": [],
     "coupons": [
       "WELCOME100",
       "GADGET15",
-      "MSU500"
+      "MSU500",
+      "FOUNDER10",
+      "FREESHIP"
     ],
     "recentlyViewed": [
       {

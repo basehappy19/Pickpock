@@ -38,7 +38,7 @@ interface Mission {
 export default function VouchersPage() {
   const { user, updateUserInfo } = useRole();
   const { t } = useLanguage();
-  const { coupons: allCoupons } = useGlobalData();
+  const { coupons: allCoupons, orders } = useGlobalData();
   const router = useRouter();
   
   const [userOwnedCodes, setUserOwnedCodes] = useState<string[]>([]);
@@ -118,6 +118,23 @@ export default function VouchersPage() {
       return;
     }
 
+    const coupon = allCoupons.find(c => c.code === mission.rewardCode);
+    if (coupon) {
+      if (coupon.newMemberOnly) {
+        const userOrders = orders.filter((o: any) => o.customerId === user.id);
+        if (userOrders.length > 0) {
+          toast.error("คูปองนี้สำหรับสมาชิกใหม่ที่ไม่เคยสั่งซื้อเท่านั้น");
+          return;
+        }
+      }
+      if (coupon.applicableRoles && coupon.applicableRoles.length > 0) {
+        if (!coupon.applicableRoles.includes(user.role as any)) {
+          toast.error("คุณไม่เข้าเงื่อนไขสำหรับคูปองนี้ (เฉพาะผู้ใช้งานบางประเภท)");
+          return;
+        }
+      }
+    }
+
     setClaimingId(mission.id);
     try {
       const newCoupons = [...userOwnedCodes, mission.rewardCode];
@@ -148,6 +165,22 @@ export default function VouchersPage() {
     if (userOwnedCodes.includes(code)) {
       toast.info(t.vouchers.couponAlreadyCollected);
       return;
+    }
+    const coupon = allCoupons.find(c => c.code === code);
+    if (coupon) {
+      if (coupon.newMemberOnly) {
+        const userOrders = orders.filter((o: any) => o.customerId === user.id);
+        if (userOrders.length > 0) {
+          toast.error("คูปองนี้สำหรับสมาชิกใหม่ที่ไม่เคยสั่งซื้อเท่านั้น");
+          return;
+        }
+      }
+      if (coupon.applicableRoles && coupon.applicableRoles.length > 0) {
+        if (!coupon.applicableRoles.includes(user.role as any)) {
+          toast.error("คุณไม่เข้าเงื่อนไขสำหรับคูปองนี้ (เฉพาะผู้ใช้งานบางประเภท)");
+          return;
+        }
+      }
     }
 
     try {
