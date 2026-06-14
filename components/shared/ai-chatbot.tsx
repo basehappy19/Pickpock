@@ -208,8 +208,8 @@ export default function AIChatbot() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "h-14 w-14 rounded-full shadow-2xl flex items-center justify-center text-primary-foreground hover:scale-110 active:scale-95 transition-all cursor-pointer group relative z-10",
-          isOpen ? "hidden sm:flex bg-foreground border-2 border-background" : "flex bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 border-2 border-white/50"
+          "h-14 w-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all cursor-pointer group relative z-10",
+          isOpen ? "hidden sm:flex bg-foreground text-background border-2 border-background" : "flex bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 border-2 border-white/50 text-white"
         )}
       >
         {!isOpen && (
