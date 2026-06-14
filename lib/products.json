@@ -2199,17 +2199,23 @@
   },
   {
     "id": "p-newp0tz9o",
+    "product_id": "p-newp0tz9o",
     "name": "Pro Gaming Mouse",
-    "price": 1290,
     "category": "Electronics",
+    "price": 999,
     "stock": 5,
     "image": "https://img.advice.co.th/images_nas/pic_product4/A0130448/A0130448OK_BIG_1.jpg",
     "description": "เมาส์เกมมิ่งเซ็นเซอร์แม่นยำสูง ปรับ DPI ได้ถึง 16000 พร้อมไฟ RGB",
-    "rating": 5,
+    "rating": 0,
     "reviews": [],
     "storeId": "s-j244hxavy",
     "isOfficial": false,
-    "createdAt": "2026-06-14T05:04:57.840Z"
+    "createdAt": "2026-06-14T13:14:04.012Z",
+    "weight": "",
+    "dimensions": "",
+    "warranty": "",
+    "additionalDetails": "",
+    "aiPriceAdjusted": false
   },
   {
     "id": "p-yxdiwtedd",

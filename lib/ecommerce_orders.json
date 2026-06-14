@@ -11,14 +11,14 @@
         "price": 12000
       }
     ],
-    "original_amount": 24000,
+    "original_amount": 12000,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 24000,
+    "total_price": 12000,
     "status": "DELIVERED",
     "timestamp": "2025-09-22T23:59:59.000Z"
   },
@@ -40,14 +40,14 @@
         "price": 2500
       }
     ],
-    "original_amount": 10000,
+    "original_amount": 5000,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 10000,
+    "total_price": 5000,
     "status": "DELIVERED",
     "timestamp": "2026-02-23T23:59:59.000Z"
   },
@@ -109,14 +109,14 @@
         "price": 590
       }
     ],
-    "original_amount": 1180,
+    "original_amount": 590,
     "discounts": {
       "tier": 438,
       "bulk": 0,
       "coupon": 0,
       "total": 438
     },
-    "total_price": 742,
+    "total_price": 590,
     "status": "DELIVERED",
     "timestamp": "2025-12-20T23:59:59.000Z"
   },
@@ -162,7 +162,7 @@
       "coupon": 0,
       "total": 349
     },
-    "total_price": 2151,
+    "total_price": 2500,
     "status": "DELIVERED",
     "timestamp": "2025-10-01T23:59:59.000Z"
   },
@@ -184,14 +184,14 @@
         "price": 850
       }
     ],
-    "original_amount": 2550,
+    "original_amount": 1700,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 2550,
+    "total_price": 1700,
     "status": "DELIVERED",
     "timestamp": "2025-09-28T23:59:59.000Z"
   },
@@ -214,7 +214,7 @@
       "coupon": 0,
       "total": 1340
     },
-    "total_price": 3160,
+    "total_price": 4500,
     "status": "DELIVERED",
     "timestamp": "2026-02-19T23:59:59.000Z"
   },
@@ -259,14 +259,14 @@
         "price": 850
       }
     ],
-    "original_amount": 1700,
+    "original_amount": 850,
     "discounts": {
       "tier": 467,
       "bulk": 0,
       "coupon": 0,
       "total": 467
     },
-    "total_price": 1233,
+    "total_price": 850,
     "status": "DELIVERED",
     "timestamp": "2025-09-03T23:59:59.000Z"
   },
@@ -294,14 +294,14 @@
         "price": 850
       }
     ],
-    "original_amount": 11550,
+    "original_amount": 6200,
     "discounts": {
       "tier": 1155,
       "bulk": 0,
       "coupon": 0,
       "total": 1155
     },
-    "total_price": 10395,
+    "total_price": 6200,
     "status": "DELIVERED",
     "timestamp": "2026-01-16T23:59:59.000Z"
   },
@@ -323,14 +323,14 @@
         "price": 850
       }
     ],
-    "original_amount": 6200,
+    "original_amount": 5350,
     "discounts": {
       "tier": 809,
       "bulk": 0,
       "coupon": 0,
       "total": 809
     },
-    "total_price": 5391,
+    "total_price": 5350,
     "status": "DELIVERED",
     "timestamp": "2026-05-07T23:59:59.000Z"
   },
@@ -346,14 +346,14 @@
         "price": 4500
       }
     ],
-    "original_amount": 9000,
+    "original_amount": 4500,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 9000,
+    "total_price": 4500,
     "status": "DELIVERED",
     "timestamp": "2026-04-22T23:59:59.000Z"
   },
@@ -376,7 +376,7 @@
       "coupon": 0,
       "total": 898
     },
-    "total_price": 3602,
+    "total_price": 4500,
     "status": "DELIVERED",
     "timestamp": "2026-02-10T23:59:59.000Z"
   },
@@ -398,14 +398,14 @@
         "price": 850
       }
     ],
-    "original_amount": 6700,
+    "original_amount": 3350,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 6700,
+    "total_price": 3350,
     "status": "DELIVERED",
     "timestamp": "2026-04-14T23:59:59.000Z"
   },
@@ -421,14 +421,14 @@
         "price": 4500
       }
     ],
-    "original_amount": 9000,
+    "original_amount": 4500,
     "discounts": {
       "tier": 900,
       "bulk": 0,
       "coupon": 0,
       "total": 900
     },
-    "total_price": 8100,
+    "total_price": 4500,
     "status": "DELIVERED",
     "timestamp": "2025-09-05T23:59:59.000Z"
   },
@@ -450,14 +450,14 @@
         "price": 850
       }
     ],
-    "original_amount": 9850,
+    "original_amount": 5350,
     "discounts": {
       "tier": 1174,
       "bulk": 0,
       "coupon": 0,
       "total": 1174
     },
-    "total_price": 8676,
+    "total_price": 5350,
     "status": "DELIVERED",
     "timestamp": "2025-06-23T23:59:59.000Z"
   },
@@ -479,14 +479,14 @@
         "price": 590
       }
     ],
-    "original_amount": 2030,
+    "original_amount": 1440,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 2030,
+    "total_price": 1440,
     "status": "DELIVERED",
     "timestamp": "2025-11-24T23:59:59.000Z"
   },
@@ -508,14 +508,14 @@
         "price": 850
       }
     ],
-    "original_amount": 3400,
+    "original_amount": 1700,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 3400,
+    "total_price": 1700,
     "status": "DELIVERED",
     "timestamp": "2025-07-08T23:59:59.000Z"
   },
@@ -577,14 +577,14 @@
         "price": 850
       }
     ],
-    "original_amount": 1700,
+    "original_amount": 850,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 1700,
+    "total_price": 850,
     "status": "DELIVERED",
     "timestamp": "2025-08-16T23:59:59.000Z"
   },
@@ -623,14 +623,14 @@
         "price": 4500
       }
     ],
-    "original_amount": 9000,
+    "original_amount": 4500,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 9000,
+    "total_price": 4500,
     "status": "PROCESSING",
     "timestamp": "2026-06-10T23:59:59.000Z"
   },
@@ -653,7 +653,7 @@
       "coupon": 0,
       "total": 59
     },
-    "total_price": 531,
+    "total_price": 590,
     "status": "DELIVERED",
     "timestamp": "2026-03-30T23:59:59.000Z"
   },
@@ -669,14 +669,14 @@
         "price": 12000
       }
     ],
-    "original_amount": 24000,
+    "original_amount": 12000,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 24000,
+    "total_price": 12000,
     "status": "DELIVERED",
     "timestamp": "2026-01-31T23:59:59.000Z"
   },
@@ -704,14 +704,14 @@
         "price": 2500
       }
     ],
-    "original_amount": 27350,
+    "original_amount": 15350,
     "discounts": {
       "tier": 2735,
       "bulk": 0,
       "coupon": 0,
       "total": 2735
     },
-    "total_price": 24615,
+    "total_price": 15350,
     "status": "DELIVERED",
     "timestamp": "2025-11-03T23:59:59.000Z"
   },
@@ -727,14 +727,14 @@
         "price": 12000
       }
     ],
-    "original_amount": 24000,
+    "original_amount": 12000,
     "discounts": {
       "tier": 2679,
       "bulk": 0,
       "coupon": 0,
       "total": 2679
     },
-    "total_price": 21321,
+    "total_price": 12000,
     "status": "DELIVERED",
     "timestamp": "2025-11-02T23:59:59.000Z"
   },
@@ -750,14 +750,14 @@
         "price": 850
       }
     ],
-    "original_amount": 1700,
+    "original_amount": 850,
     "discounts": {
       "tier": 368,
       "bulk": 0,
       "coupon": 0,
       "total": 368
     },
-    "total_price": 1332,
+    "total_price": 850,
     "status": "DELIVERED",
     "timestamp": "2025-09-09T23:59:59.000Z"
   },
@@ -773,14 +773,14 @@
         "price": 4500
       }
     ],
-    "original_amount": 9000,
+    "original_amount": 4500,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 9000,
+    "total_price": 4500,
     "status": "DELIVERED",
     "timestamp": "2025-10-01T23:59:59.000Z"
   },
@@ -802,14 +802,14 @@
         "price": 590
       }
     ],
-    "original_amount": 24590,
+    "original_amount": 12590,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 24590,
+    "total_price": 12590,
     "status": "SHIPPED",
     "timestamp": "2026-06-06T23:59:59.000Z"
   },
@@ -837,14 +837,14 @@
         "price": 12000
       }
     ],
-    "original_amount": 38500,
+    "original_amount": 26500,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 38500,
+    "total_price": 26500,
     "status": "DELIVERED",
     "timestamp": "2026-02-02T23:59:59.000Z"
   },
@@ -867,7 +867,7 @@
       "coupon": 0,
       "total": 130
     },
-    "total_price": 720,
+    "total_price": 850,
     "status": "DELIVERED",
     "timestamp": "2025-08-20T23:59:59.000Z"
   },
@@ -889,14 +889,14 @@
         "price": 590
       }
     ],
-    "original_amount": 2880,
+    "original_amount": 1440,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 2880,
+    "total_price": 1440,
     "status": "DELIVERED",
     "timestamp": "2025-09-30T23:59:59.000Z"
   },
@@ -935,14 +935,14 @@
         "price": 12000
       }
     ],
-    "original_amount": 24000,
+    "original_amount": 12000,
     "discounts": {
       "tier": 2400,
       "bulk": 0,
       "coupon": 0,
       "total": 2400
     },
-    "total_price": 21600,
+    "total_price": 12000,
     "status": "DELIVERED",
     "timestamp": "2025-10-03T23:59:59.000Z"
   },
@@ -958,14 +958,14 @@
         "price": 590
       }
     ],
-    "original_amount": 1180,
+    "original_amount": 590,
     "discounts": {
       "tier": 758,
       "bulk": 0,
       "coupon": 0,
       "total": 758
     },
-    "total_price": 422,
+    "total_price": 590,
     "status": "DELIVERED",
     "timestamp": "2025-08-07T23:59:59.000Z"
   },
@@ -988,7 +988,7 @@
       "coupon": 0,
       "total": 85
     },
-    "total_price": 765,
+    "total_price": 850,
     "status": "DELIVERED",
     "timestamp": "2025-11-30T23:59:59.000Z"
   },
@@ -1027,14 +1027,14 @@
         "price": 12000
       }
     ],
-    "original_amount": 24000,
+    "original_amount": 12000,
     "discounts": {
       "tier": 2400,
       "bulk": 0,
       "coupon": 0,
       "total": 2400
     },
-    "total_price": 21600,
+    "total_price": 12000,
     "status": "DELIVERED",
     "timestamp": "2025-09-18T23:59:59.000Z"
   },
@@ -1050,14 +1050,14 @@
         "price": 850
       }
     ],
-    "original_amount": 1700,
+    "original_amount": 850,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 1700,
+    "total_price": 850,
     "status": "DELIVERED",
     "timestamp": "2026-03-19T23:59:59.000Z"
   },
@@ -1079,14 +1079,14 @@
         "price": 12000
       }
     ],
-    "original_amount": 21000,
+    "original_amount": 16500,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 21000,
+    "total_price": 16500,
     "status": "DELIVERED",
     "timestamp": "2026-02-24T23:59:59.000Z"
   },
@@ -1108,14 +1108,14 @@
         "price": 590
       }
     ],
-    "original_amount": 3680,
+    "original_amount": 3090,
     "discounts": {
       "tier": 458,
       "bulk": 0,
       "coupon": 0,
       "total": 458
     },
-    "total_price": 3222,
+    "total_price": 3090,
     "status": "DELIVERED",
     "timestamp": "2025-11-23T23:59:59.000Z"
   },
@@ -1131,14 +1131,14 @@
         "price": 4500
       }
     ],
-    "original_amount": 9000,
+    "original_amount": 4500,
     "discounts": {
       "tier": 1278,
       "bulk": 0,
       "coupon": 0,
       "total": 1278
     },
-    "total_price": 7722,
+    "total_price": 4500,
     "status": "DELIVERED",
     "timestamp": "2025-08-25T23:59:59.000Z"
   },
@@ -1161,7 +1161,7 @@
       "coupon": 0,
       "total": 250
     },
-    "total_price": 2250,
+    "total_price": 2500,
     "status": "DELIVERED",
     "timestamp": "2026-01-24T23:59:59.000Z"
   },
@@ -1177,14 +1177,14 @@
         "price": 850
       }
     ],
-    "original_amount": 1700,
+    "original_amount": 850,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 1700,
+    "total_price": 850,
     "status": "DELIVERED",
     "timestamp": "2025-09-25T23:59:59.000Z"
   },
@@ -1200,14 +1200,14 @@
         "price": 2500
       }
     ],
-    "original_amount": 5000,
+    "original_amount": 2500,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 5000,
+    "total_price": 2500,
     "status": "DELIVERED",
     "timestamp": "2026-05-04T23:59:59.000Z"
   },
@@ -1230,7 +1230,7 @@
       "coupon": 0,
       "total": 250
     },
-    "total_price": 2250,
+    "total_price": 2500,
     "status": "DELIVERED",
     "timestamp": "2025-07-12T23:59:59.000Z"
   },
@@ -1259,7 +1259,7 @@
       "coupon": 0,
       "total": 1637
     },
-    "total_price": 10953,
+    "total_price": 12590,
     "status": "DELIVERED",
     "timestamp": "2025-11-03T23:59:59.000Z"
   },
@@ -1275,14 +1275,14 @@
         "price": 2500
       }
     ],
-    "original_amount": 5000,
+    "original_amount": 2500,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 5000,
+    "total_price": 2500,
     "status": "DELIVERED",
     "timestamp": "2025-09-15T23:59:59.000Z"
   },
@@ -1311,7 +1311,7 @@
       "coupon": 0,
       "total": 713
     },
-    "total_price": 2637,
+    "total_price": 3350,
     "status": "DELIVERED",
     "timestamp": "2025-09-13T23:59:59.000Z"
   },
@@ -1327,14 +1327,14 @@
         "price": 590
       }
     ],
-    "original_amount": 1180,
+    "original_amount": 590,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 1180,
+    "total_price": 590,
     "status": "PROCESSING",
     "timestamp": "2026-06-09T23:59:59.000Z"
   },
@@ -1357,7 +1357,7 @@
       "coupon": 0,
       "total": 673
     },
-    "total_price": 1827,
+    "total_price": 2500,
     "status": "DELIVERED",
     "timestamp": "2026-05-16T23:59:59.000Z"
   },
@@ -1415,7 +1415,7 @@
       "coupon": 0,
       "total": 1535
     },
-    "total_price": 13815,
+    "total_price": 15350,
     "status": "DELIVERED",
     "timestamp": "2025-09-15T23:59:59.000Z"
   },
@@ -1444,7 +1444,7 @@
       "coupon": 0,
       "total": 698
     },
-    "total_price": 4302,
+    "total_price": 5000,
     "status": "DELIVERED",
     "timestamp": "2025-07-22T23:59:59.000Z"
   },
@@ -1460,14 +1460,14 @@
         "price": 2500
       }
     ],
-    "original_amount": 5000,
+    "original_amount": 2500,
     "discounts": {
       "tier": 500,
       "bulk": 0,
       "coupon": 0,
       "total": 500
     },
-    "total_price": 4500,
+    "total_price": 2500,
     "status": "DELIVERED",
     "timestamp": "2025-10-28T23:59:59.000Z"
   },
@@ -1489,14 +1489,14 @@
         "price": 850
       }
     ],
-    "original_amount": 13700,
+    "original_amount": 12850,
     "discounts": {
       "tier": 1460,
       "bulk": 0,
       "coupon": 0,
       "total": 1460
     },
-    "total_price": 12240,
+    "total_price": 12850,
     "status": "DELIVERED",
     "timestamp": "2026-01-27T23:59:59.000Z"
   },
@@ -1519,7 +1519,7 @@
       "coupon": 0,
       "total": 646
     },
-    "total_price": 1854,
+    "total_price": 2500,
     "status": "DELIVERED",
     "timestamp": "2026-01-08T23:59:59.000Z"
   },
@@ -1535,14 +1535,14 @@
         "price": 2500
       }
     ],
-    "original_amount": 5000,
+    "original_amount": 2500,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 5000,
+    "total_price": 2500,
     "status": "DELIVERED",
     "timestamp": "2025-12-12T23:59:59.000Z"
   },
@@ -1558,14 +1558,14 @@
         "price": 2500
       }
     ],
-    "original_amount": 5000,
+    "original_amount": 2500,
     "discounts": {
       "tier": 545,
       "bulk": 0,
       "coupon": 0,
       "total": 545
     },
-    "total_price": 4455,
+    "total_price": 2500,
     "status": "DELIVERED",
     "timestamp": "2026-01-17T23:59:59.000Z"
   },
@@ -1610,14 +1610,14 @@
         "price": 4500
       }
     ],
-    "original_amount": 18000,
+    "original_amount": 9000,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 18000,
+    "total_price": 9000,
     "status": "DELIVERED",
     "timestamp": "2025-09-21T23:59:59.000Z"
   },
@@ -1679,14 +1679,14 @@
         "price": 590
       }
     ],
-    "original_amount": 1180,
+    "original_amount": 590,
     "discounts": {
       "tier": 118,
       "bulk": 0,
       "coupon": 0,
       "total": 118
     },
-    "total_price": 1062,
+    "total_price": 590,
     "status": "DELIVERED",
     "timestamp": "2025-11-03T23:59:59.000Z"
   },
@@ -1709,7 +1709,7 @@
       "coupon": 0,
       "total": 450
     },
-    "total_price": 4050,
+    "total_price": 4500,
     "status": "DELIVERED",
     "timestamp": "2026-02-15T23:59:59.000Z"
   },
@@ -1731,14 +1731,14 @@
         "price": 12000
       }
     ],
-    "original_amount": 33000,
+    "original_amount": 16500,
     "discounts": {
       "tier": 3300,
       "bulk": 0,
       "coupon": 0,
       "total": 3300
     },
-    "total_price": 29700,
+    "total_price": 16500,
     "status": "DELIVERED",
     "timestamp": "2026-03-20T23:59:59.000Z"
   },
@@ -1789,14 +1789,14 @@
         "price": 2500
       }
     ],
-    "original_amount": 5850,
+    "original_amount": 3350,
     "discounts": {
       "tier": 1225,
       "bulk": 0,
       "coupon": 0,
       "total": 1225
     },
-    "total_price": 4625,
+    "total_price": 3350,
     "status": "DELIVERED",
     "timestamp": "2026-03-02T23:59:59.000Z"
   },
@@ -1841,14 +1841,14 @@
         "price": 12000
       }
     ],
-    "original_amount": 24000,
+    "original_amount": 12000,
     "discounts": {
       "tier": 2909,
       "bulk": 0,
       "coupon": 0,
       "total": 2909
     },
-    "total_price": 21091,
+    "total_price": 12000,
     "status": "DELIVERED",
     "timestamp": "2025-08-11T23:59:59.000Z"
   },
@@ -1864,14 +1864,14 @@
         "price": 12000
       }
     ],
-    "original_amount": 24000,
+    "original_amount": 12000,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 24000,
+    "total_price": 12000,
     "status": "DELIVERED",
     "timestamp": "2025-09-07T23:59:59.000Z"
   },
@@ -1893,14 +1893,14 @@
         "price": 850
       }
     ],
-    "original_amount": 5850,
+    "original_amount": 3350,
     "discounts": {
       "tier": 963,
       "bulk": 0,
       "coupon": 0,
       "total": 963
     },
-    "total_price": 4887,
+    "total_price": 3350,
     "status": "DELIVERED",
     "timestamp": "2025-06-17T23:59:59.000Z"
   },
@@ -1922,14 +1922,14 @@
         "price": 850
       }
     ],
-    "original_amount": 6700,
+    "original_amount": 3350,
     "discounts": {
       "tier": 1310,
       "bulk": 0,
       "coupon": 0,
       "total": 1310
     },
-    "total_price": 5390,
+    "total_price": 3350,
     "status": "DELIVERED",
     "timestamp": "2025-09-20T23:59:59.000Z"
   },
@@ -1945,14 +1945,14 @@
         "price": 590
       }
     ],
-    "original_amount": 1180,
+    "original_amount": 590,
     "discounts": {
       "tier": 0,
       "bulk": 0,
       "coupon": 0,
       "total": 0
     },
-    "total_price": 1180,
+    "total_price": 590,
     "status": "DELIVERED",
     "timestamp": "2025-10-03T23:59:59.000Z"
   },
@@ -1974,14 +1974,14 @@
         "price": 4500
       }
     ],
-    "original_amount": 28500,
+    "original_amount": 16500,
     "discounts": {
       "tier": 2850,
       "bulk": 0,
       "coupon": 0,
       "total": 2850
     },
-    "total_price": 25650,
+    "total_price": 16500,
     "status": "DELIVERED",
     "timestamp": "2025-06-23T23:59:59.000Z"
   },
@@ -1997,14 +1997,14 @@
         "price": 12000
       }
     ],
-    "original_amount": 24000,
+    "original_amount": 12000,
     "discounts": {
       "tier": 2499,
       "bulk": 0,
       "coupon": 0,
       "total": 2499
     },
-    "total_price": 21501,
+    "total_price": 12000,
     "status": "DELIVERED",
     "timestamp": "2025-07-13T23:59:59.000Z"
   },
@@ -2026,14 +2026,14 @@
         "price": 4500
       }
     ],
-    "original_amount": 9590,
+    "original_amount": 5090,
     "discounts": {
       "tier": 1157,
       "bulk": 0,
       "coupon": 0,
       "total": 1157
     },
-    "total_price": 8433,
+    "total_price": 5090,
     "status": "DELIVERED",
     "timestamp": "2025-10-06T23:59:59.000Z"
   },
@@ -3598,26 +3598,6 @@
     "timestamp": "2026-06-12T13:08:41.280Z"
   },
   {
-    "order_id": "O-BZ-5158",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 2,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-17T13:08:41.280Z"
-  },
-  {
     "order_id": "O-BZ-5159",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -3629,11 +3609,11 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 700,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 700,
     "status": "delivered",
     "timestamp": "2026-05-17T13:08:41.280Z"
   },
@@ -3649,33 +3629,13 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-05-28T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5161",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 2,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-25T13:08:41.280Z"
   },
   {
     "order_id": "O-BZ-5162",
@@ -3709,11 +3669,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-05-25T13:08:41.280Z"
   },
@@ -3729,11 +3689,11 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 1050,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 1050,
     "status": "delivered",
     "timestamp": "2026-06-09T13:08:41.280Z"
   },
@@ -3749,11 +3709,11 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 5670,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 5670,
     "status": "delivered",
     "timestamp": "2026-05-26T13:08:41.280Z"
   },
@@ -3769,11 +3729,11 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 5670,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 5670,
     "status": "delivered",
     "timestamp": "2026-05-25T13:08:41.280Z"
   },
@@ -3789,11 +3749,11 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 5670,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 5670,
     "status": "delivered",
     "timestamp": "2026-05-19T13:08:41.280Z"
   },
@@ -3829,11 +3789,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 3180,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 3180,
     "status": "delivered",
     "timestamp": "2026-05-27T13:08:41.280Z"
   },
@@ -3849,11 +3809,11 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 1050,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 1050,
     "status": "delivered",
     "timestamp": "2026-05-22T13:08:41.280Z"
   },
@@ -3869,11 +3829,11 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 1050,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 1050,
     "status": "delivered",
     "timestamp": "2026-06-09T13:08:41.280Z"
   },
@@ -3889,11 +3849,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-05-30T13:08:41.280Z"
   },
@@ -3909,11 +3869,11 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 5670,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 5670,
     "status": "delivered",
     "timestamp": "2026-06-13T13:08:41.280Z"
   },
@@ -3929,11 +3889,11 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 3780,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 3780,
     "status": "delivered",
     "timestamp": "2026-06-12T13:08:41.280Z"
   },
@@ -3989,11 +3949,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 4770,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 4770,
     "status": "delivered",
     "timestamp": "2026-06-02T13:08:41.280Z"
   },
@@ -4029,11 +3989,11 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 5670,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 5670,
     "status": "delivered",
     "timestamp": "2026-06-03T13:08:41.280Z"
   },
@@ -4049,11 +4009,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 4770,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 4770,
     "status": "delivered",
     "timestamp": "2026-05-20T13:08:41.280Z"
   },
@@ -4089,11 +4049,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 3180,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 3180,
     "status": "delivered",
     "timestamp": "2026-05-22T13:08:41.280Z"
   },
@@ -4109,11 +4069,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 3870,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 3870,
     "status": "delivered",
     "timestamp": "2026-06-14T13:08:41.280Z"
   },
@@ -4129,11 +4089,11 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 1050,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 1050,
     "status": "delivered",
     "timestamp": "2026-05-31T13:08:41.280Z"
   },
@@ -4149,11 +4109,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 4770,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 4770,
     "status": "delivered",
     "timestamp": "2026-06-13T13:08:41.280Z"
   },
@@ -4169,11 +4129,11 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 700,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 700,
     "status": "delivered",
     "timestamp": "2026-06-06T13:08:41.280Z"
   },
@@ -4209,11 +4169,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 3870,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 3870,
     "status": "delivered",
     "timestamp": "2026-05-29T13:08:41.280Z"
   },
@@ -4229,11 +4189,11 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 700,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 700,
     "status": "delivered",
     "timestamp": "2026-06-03T13:08:41.280Z"
   },
@@ -4258,26 +4218,6 @@
     "timestamp": "2026-05-29T13:08:41.280Z"
   },
   {
-    "order_id": "O-BZ-5191",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 2,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-06-05T13:08:41.280Z"
-  },
-  {
     "order_id": "O-BZ-5192",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -4289,11 +4229,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 3180,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 3180,
     "status": "delivered",
     "timestamp": "2026-05-21T13:08:41.280Z"
   },
@@ -4309,11 +4249,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-05-21T13:08:41.280Z"
   },
@@ -4349,11 +4289,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 3870,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 3870,
     "status": "delivered",
     "timestamp": "2026-06-07T13:08:41.280Z"
   },
@@ -4389,11 +4329,11 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 3780,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 3780,
     "status": "delivered",
     "timestamp": "2026-05-16T13:08:41.280Z"
   },
@@ -4409,11 +4349,11 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 5670,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 5670,
     "status": "delivered",
     "timestamp": "2026-05-16T13:08:41.280Z"
   },
@@ -4429,11 +4369,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 3180,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 3180,
     "status": "delivered",
     "timestamp": "2026-05-16T13:08:41.280Z"
   },
@@ -4469,11 +4409,11 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 5670,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 5670,
     "status": "delivered",
     "timestamp": "2026-05-27T13:08:41.280Z"
   },
@@ -4489,33 +4429,13 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 1050,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 1050,
     "status": "delivered",
     "timestamp": "2026-05-19T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5203",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 1,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-16T13:08:41.280Z"
   },
   {
     "order_id": "O-BZ-5204",
@@ -4549,11 +4469,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 3180,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 3180,
     "status": "delivered",
     "timestamp": "2026-05-28T13:08:41.280Z"
   },
@@ -4589,11 +4509,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-06-14T13:08:41.280Z"
   },
@@ -4629,11 +4549,11 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 1050,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 1050,
     "status": "delivered",
     "timestamp": "2026-05-23T13:08:41.280Z"
   },
@@ -4649,11 +4569,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 3180,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 3180,
     "status": "delivered",
     "timestamp": "2026-06-04T13:08:41.280Z"
   },
@@ -4689,53 +4609,13 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 5670,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 5670,
     "status": "delivered",
     "timestamp": "2026-05-17T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5213",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 3,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-27T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5214",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 3,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-22T13:08:41.280Z"
   },
   {
     "order_id": "O-BZ-5215",
@@ -4749,11 +4629,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 4770,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 4770,
     "status": "delivered",
     "timestamp": "2026-06-11T13:08:41.280Z"
   },
@@ -4769,33 +4649,13 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-05-23T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5217",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 1,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-22T13:08:41.280Z"
   },
   {
     "order_id": "O-BZ-5218",
@@ -4809,11 +4669,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-06-13T13:08:41.280Z"
   },
@@ -4829,11 +4689,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-06-13T13:08:41.280Z"
   },
@@ -4849,11 +4709,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 4770,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 4770,
     "status": "delivered",
     "timestamp": "2026-05-29T13:08:41.280Z"
   },
@@ -4869,11 +4729,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-06-10T13:08:41.280Z"
   },
@@ -4889,11 +4749,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-06-08T13:08:41.280Z"
   },
@@ -4909,11 +4769,11 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 5670,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 5670,
     "status": "delivered",
     "timestamp": "2026-05-28T13:08:41.280Z"
   },
@@ -4929,53 +4789,13 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 5670,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 5670,
     "status": "delivered",
     "timestamp": "2026-05-21T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5225",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 1,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-22T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5226",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 1,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-19T13:08:41.280Z"
   },
   {
     "order_id": "O-BZ-5227",
@@ -5009,11 +4829,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 4770,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 4770,
     "status": "delivered",
     "timestamp": "2026-05-23T13:08:41.280Z"
   },
@@ -5029,33 +4849,13 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 1050,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 1050,
     "status": "delivered",
     "timestamp": "2026-05-23T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5230",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 1,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-27T13:08:41.280Z"
   },
   {
     "order_id": "O-BZ-5231",
@@ -5069,11 +4869,11 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 700,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 700,
     "status": "delivered",
     "timestamp": "2026-05-26T13:08:41.280Z"
   },
@@ -5089,11 +4889,11 @@
         "price": 350
       }
     ],
-    "original_amount": 350,
+    "original_amount": 1050,
     "discounts": {
       "total": 0
     },
-    "total_price": 350,
+    "total_price": 1050,
     "status": "delivered",
     "timestamp": "2026-05-25T13:08:41.280Z"
   },
@@ -5129,11 +4929,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 3180,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 3180,
     "status": "delivered",
     "timestamp": "2026-06-04T13:08:41.280Z"
   },
@@ -5178,26 +4978,6 @@
     "timestamp": "2026-06-04T13:08:41.280Z"
   },
   {
-    "order_id": "O-BZ-5237",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 2,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-06-14T13:08:41.280Z"
-  },
-  {
     "order_id": "O-BZ-5238",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -5209,33 +4989,13 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 3780,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 3780,
     "status": "delivered",
     "timestamp": "2026-06-12T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5239",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 3,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-06-09T13:08:41.280Z"
   },
   {
     "order_id": "O-BZ-5240",
@@ -5258,26 +5018,6 @@
     "timestamp": "2026-05-16T13:08:41.280Z"
   },
   {
-    "order_id": "O-BZ-5241",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 2,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-06-08T13:08:41.280Z"
-  },
-  {
     "order_id": "O-BZ-5242",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -5289,11 +5029,11 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 3180,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 3180,
     "status": "delivered",
     "timestamp": "2026-05-28T13:08:41.280Z"
   },
@@ -5329,33 +5069,13 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 3780,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 3780,
     "status": "delivered",
     "timestamp": "2026-05-31T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5245",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 3,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-29T13:08:41.280Z"
   },
   {
     "order_id": "O-BZ-5246",
@@ -5369,33 +5089,13 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 4770,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 4770,
     "status": "delivered",
     "timestamp": "2026-05-18T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5247",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 2,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-31T13:08:41.280Z"
   },
   {
     "order_id": "O-BZ-5248",
@@ -5409,11 +5109,11 @@
         "price": 1890
       }
     ],
-    "original_amount": 1890,
+    "original_amount": 5670,
     "discounts": {
       "total": 0
     },
-    "total_price": 1890,
+    "total_price": 5670,
     "status": "delivered",
     "timestamp": "2026-06-11T13:08:41.280Z"
   },
@@ -5429,11 +5129,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 3870,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 3870,
     "status": "delivered",
     "timestamp": "2026-05-25T13:08:41.280Z"
   },
@@ -5449,33 +5149,13 @@
         "price": 1590
       }
     ],
-    "original_amount": 1590,
+    "original_amount": 4770,
     "discounts": {
       "total": 0
     },
-    "total_price": 1590,
+    "total_price": 4770,
     "status": "delivered",
     "timestamp": "2026-05-22T13:08:41.280Z"
-  },
-  {
-    "order_id": "O-BZ-5251",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 1,
-        "price": 2190
-      }
-    ],
-    "original_amount": 2190,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 2190,
-    "status": "delivered",
-    "timestamp": "2026-05-16T13:08:41.280Z"
   },
   {
     "order_id": "O-BZ-5252",
@@ -5489,11 +5169,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-06-09T13:08:41.280Z"
   },
@@ -5509,11 +5189,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 2580,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 2580,
     "status": "delivered",
     "timestamp": "2026-05-26T13:08:41.280Z"
   },
@@ -5529,11 +5209,11 @@
         "price": 1290
       }
     ],
-    "original_amount": 1290,
+    "original_amount": 3870,
     "discounts": {
       "total": 0
     },
-    "total_price": 1290,
+    "total_price": 3870,
     "status": "delivered",
     "timestamp": "2026-05-23T13:08:41.280Z"
   },
@@ -5636,46 +5316,6 @@
     "total_price": 13230,
     "status": "delivered",
     "timestamp": "2026-06-06T13:11:02.609Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10260",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 12,
-        "price": 2190
-      }
-    ],
-    "original_amount": 26280,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 26280,
-    "status": "delivered",
-    "timestamp": "2026-05-26T13:11:02.609Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10261",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 10,
-        "price": 2190
-      }
-    ],
-    "original_amount": 21900,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 21900,
-    "status": "delivered",
-    "timestamp": "2026-05-29T13:11:02.609Z"
   },
   {
     "order_id": "O-BZ-MEGA-10262",
@@ -5918,26 +5558,6 @@
     "timestamp": "2026-05-27T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10274",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-06-07T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10275",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -5958,46 +5578,6 @@
     "timestamp": "2026-06-10T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10276",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 12,
-        "price": 2190
-      }
-    ],
-    "original_amount": 26280,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 26280,
-    "status": "delivered",
-    "timestamp": "2026-06-11T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10277",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-05-19T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10278",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -6016,26 +5596,6 @@
     "total_price": 9450,
     "status": "delivered",
     "timestamp": "2026-06-03T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10279",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 8,
-        "price": 2190
-      }
-    ],
-    "original_amount": 17520,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 17520,
-    "status": "delivered",
-    "timestamp": "2026-05-23T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10280",
@@ -6076,26 +5636,6 @@
     "total_price": 20790,
     "status": "delivered",
     "timestamp": "2026-05-27T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10282",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 13,
-        "price": 2190
-      }
-    ],
-    "original_amount": 28470,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 28470,
-    "status": "delivered",
-    "timestamp": "2026-05-31T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10283",
@@ -6338,26 +5878,6 @@
     "timestamp": "2026-05-22T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10295",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 13,
-        "price": 2190
-      }
-    ],
-    "original_amount": 28470,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 28470,
-    "status": "delivered",
-    "timestamp": "2026-05-22T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10296",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -6376,66 +5896,6 @@
     "total_price": 12720,
     "status": "delivered",
     "timestamp": "2026-05-30T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10297",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 10,
-        "price": 2190
-      }
-    ],
-    "original_amount": 21900,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 21900,
-    "status": "delivered",
-    "timestamp": "2026-06-07T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10298",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 7,
-        "price": 2190
-      }
-    ],
-    "original_amount": 15330,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 15330,
-    "status": "delivered",
-    "timestamp": "2026-05-31T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10299",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 13,
-        "price": 2190
-      }
-    ],
-    "original_amount": 28470,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 28470,
-    "status": "delivered",
-    "timestamp": "2026-06-12T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10300",
@@ -6536,26 +5996,6 @@
     "total_price": 2100,
     "status": "delivered",
     "timestamp": "2026-05-29T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10305",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-06-01T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10306",
@@ -6778,26 +6218,6 @@
     "timestamp": "2026-06-05T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10317",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 14,
-        "price": 2190
-      }
-    ],
-    "original_amount": 30660,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 30660,
-    "status": "delivered",
-    "timestamp": "2026-05-21T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10318",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -6876,26 +6296,6 @@
     "total_price": 15900,
     "status": "delivered",
     "timestamp": "2026-05-19T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10322",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 13,
-        "price": 2190
-      }
-    ],
-    "original_amount": 28470,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 28470,
-    "status": "delivered",
-    "timestamp": "2026-05-22T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10323",
@@ -6978,26 +6378,6 @@
     "timestamp": "2026-05-30T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10327",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-06-04T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10328",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -7016,26 +6396,6 @@
     "total_price": 3850,
     "status": "delivered",
     "timestamp": "2026-05-25T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10329",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 14,
-        "price": 2190
-      }
-    ],
-    "original_amount": 30660,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 30660,
-    "status": "delivered",
-    "timestamp": "2026-05-22T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10330",
@@ -7078,26 +6438,6 @@
     "timestamp": "2026-06-05T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10332",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 8,
-        "price": 2190
-      }
-    ],
-    "original_amount": 17520,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 17520,
-    "status": "delivered",
-    "timestamp": "2026-06-05T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10333",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -7136,26 +6476,6 @@
     "total_price": 11610,
     "status": "delivered",
     "timestamp": "2026-06-07T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10335",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-05-16T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10336",
@@ -7256,26 +6576,6 @@
     "total_price": 9540,
     "status": "delivered",
     "timestamp": "2026-05-28T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10341",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 13,
-        "price": 2190
-      }
-    ],
-    "original_amount": 28470,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 28470,
-    "status": "delivered",
-    "timestamp": "2026-06-13T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10342",
@@ -7416,26 +6716,6 @@
     "total_price": 16770,
     "status": "delivered",
     "timestamp": "2026-06-07T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10349",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-06-01T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10350",
@@ -7618,26 +6898,6 @@
     "timestamp": "2026-05-20T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10359",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-06-04T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10360",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -7678,26 +6938,6 @@
     "timestamp": "2026-05-29T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10362",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-05-25T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10363",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -7716,86 +6956,6 @@
     "total_price": 7950,
     "status": "delivered",
     "timestamp": "2026-05-25T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10364",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-06-02T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10365",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 6,
-        "price": 2190
-      }
-    ],
-    "original_amount": 13140,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 13140,
-    "status": "delivered",
-    "timestamp": "2026-06-02T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10366",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-05-29T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10367",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 7,
-        "price": 2190
-      }
-    ],
-    "original_amount": 15330,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 15330,
-    "status": "delivered",
-    "timestamp": "2026-05-28T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10368",
@@ -7836,26 +6996,6 @@
     "total_price": 3850,
     "status": "delivered",
     "timestamp": "2026-06-09T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10370",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 7,
-        "price": 2190
-      }
-    ],
-    "original_amount": 15330,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 15330,
-    "status": "delivered",
-    "timestamp": "2026-05-17T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10371",
@@ -7976,26 +7116,6 @@
     "total_price": 15480,
     "status": "delivered",
     "timestamp": "2026-05-22T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10377",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 10,
-        "price": 2190
-      }
-    ],
-    "original_amount": 21900,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 21900,
-    "status": "delivered",
-    "timestamp": "2026-05-29T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10378",
@@ -8138,26 +7258,6 @@
     "timestamp": "2026-06-05T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10385",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 8,
-        "price": 2190
-      }
-    ],
-    "original_amount": 17520,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 17520,
-    "status": "delivered",
-    "timestamp": "2026-05-20T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10386",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -8196,26 +7296,6 @@
     "total_price": 24570,
     "status": "delivered",
     "timestamp": "2026-06-03T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10388",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-06-14T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10389",
@@ -8438,66 +7518,6 @@
     "timestamp": "2026-05-30T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10400",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 6,
-        "price": 2190
-      }
-    ],
-    "original_amount": 13140,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 13140,
-    "status": "delivered",
-    "timestamp": "2026-06-07T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10401",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 8,
-        "price": 2190
-      }
-    ],
-    "original_amount": 17520,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 17520,
-    "status": "delivered",
-    "timestamp": "2026-05-24T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10402",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 10,
-        "price": 2190
-      }
-    ],
-    "original_amount": 21900,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 21900,
-    "status": "delivered",
-    "timestamp": "2026-06-02T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10403",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -8638,46 +7658,6 @@
     "timestamp": "2026-05-26T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10410",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 11,
-        "price": 2190
-      }
-    ],
-    "original_amount": 24090,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 24090,
-    "status": "delivered",
-    "timestamp": "2026-06-03T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10411",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 13,
-        "price": 2190
-      }
-    ],
-    "original_amount": 28470,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 28470,
-    "status": "delivered",
-    "timestamp": "2026-06-09T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10412",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -8696,26 +7676,6 @@
     "total_price": 3150,
     "status": "delivered",
     "timestamp": "2026-06-03T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10413",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 12,
-        "price": 2190
-      }
-    ],
-    "original_amount": 26280,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 26280,
-    "status": "delivered",
-    "timestamp": "2026-05-23T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10414",
@@ -8836,26 +7796,6 @@
     "total_price": 11340,
     "status": "delivered",
     "timestamp": "2026-05-19T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10420",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 14,
-        "price": 2190
-      }
-    ],
-    "original_amount": 30660,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 30660,
-    "status": "delivered",
-    "timestamp": "2026-05-20T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10421",
@@ -8996,66 +7936,6 @@
     "total_price": 10320,
     "status": "delivered",
     "timestamp": "2026-06-02T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10428",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 14,
-        "price": 2190
-      }
-    ],
-    "original_amount": 30660,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 30660,
-    "status": "delivered",
-    "timestamp": "2026-05-22T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10429",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 11,
-        "price": 2190
-      }
-    ],
-    "original_amount": 24090,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 24090,
-    "status": "delivered",
-    "timestamp": "2026-06-03T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10430",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 8,
-        "price": 2190
-      }
-    ],
-    "original_amount": 17520,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 17520,
-    "status": "delivered",
-    "timestamp": "2026-05-30T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10431",
@@ -9258,26 +8138,6 @@
     "timestamp": "2026-05-27T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10441",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 12,
-        "price": 2190
-      }
-    ],
-    "original_amount": 26280,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 26280,
-    "status": "delivered",
-    "timestamp": "2026-06-12T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10442",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -9438,26 +8298,6 @@
     "timestamp": "2026-05-23T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10450",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-05-28T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10451",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -9556,26 +8396,6 @@
     "total_price": 17490,
     "status": "delivered",
     "timestamp": "2026-06-04T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10456",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 10,
-        "price": 2190
-      }
-    ],
-    "original_amount": 21900,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 21900,
-    "status": "delivered",
-    "timestamp": "2026-05-23T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10457",
@@ -9718,26 +8538,6 @@
     "timestamp": "2026-05-20T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10464",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 7,
-        "price": 2190
-      }
-    ],
-    "original_amount": 15330,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 15330,
-    "status": "delivered",
-    "timestamp": "2026-05-23T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10465",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -9858,26 +8658,6 @@
     "timestamp": "2026-05-18T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10471",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 6,
-        "price": 2190
-      }
-    ],
-    "original_amount": 13140,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 13140,
-    "status": "delivered",
-    "timestamp": "2026-05-25T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10472",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -9916,26 +8696,6 @@
     "total_price": 18060,
     "status": "delivered",
     "timestamp": "2026-05-30T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10474",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 11,
-        "price": 2190
-      }
-    ],
-    "original_amount": 24090,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 24090,
-    "status": "delivered",
-    "timestamp": "2026-05-28T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10475",
@@ -9996,46 +8756,6 @@
     "total_price": 12720,
     "status": "delivered",
     "timestamp": "2026-05-18T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10478",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 8,
-        "price": 2190
-      }
-    ],
-    "original_amount": 17520,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 17520,
-    "status": "delivered",
-    "timestamp": "2026-05-23T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10479",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-06-10T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10480",
@@ -10418,26 +9138,6 @@
     "timestamp": "2026-05-17T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10499",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 13,
-        "price": 2190
-      }
-    ],
-    "original_amount": 28470,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 28470,
-    "status": "delivered",
-    "timestamp": "2026-05-25T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10500",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -10456,86 +9156,6 @@
     "total_price": 15480,
     "status": "delivered",
     "timestamp": "2026-05-19T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10501",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 11,
-        "price": 2190
-      }
-    ],
-    "original_amount": 24090,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 24090,
-    "status": "delivered",
-    "timestamp": "2026-06-03T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10502",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 14,
-        "price": 2190
-      }
-    ],
-    "original_amount": 30660,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 30660,
-    "status": "delivered",
-    "timestamp": "2026-06-02T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10503",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 14,
-        "price": 2190
-      }
-    ],
-    "original_amount": 30660,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 30660,
-    "status": "delivered",
-    "timestamp": "2026-06-07T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10504",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-05-25T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10505",
@@ -10658,26 +9278,6 @@
     "timestamp": "2026-06-02T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10511",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-05-17T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10512",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -10736,26 +9336,6 @@
     "total_price": 1750,
     "status": "delivered",
     "timestamp": "2026-05-23T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10515",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 11,
-        "price": 2190
-      }
-    ],
-    "original_amount": 24090,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 24090,
-    "status": "delivered",
-    "timestamp": "2026-05-25T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10516",
@@ -10898,26 +9478,6 @@
     "timestamp": "2026-05-31T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10523",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-06-14T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10524",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -10978,26 +9538,6 @@
     "timestamp": "2026-06-12T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10527",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 12,
-        "price": 2190
-      }
-    ],
-    "original_amount": 26280,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 26280,
-    "status": "delivered",
-    "timestamp": "2026-05-29T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10528",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -11036,26 +9576,6 @@
     "total_price": 20790,
     "status": "delivered",
     "timestamp": "2026-06-08T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10530",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 10,
-        "price": 2190
-      }
-    ],
-    "original_amount": 21900,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 21900,
-    "status": "delivered",
-    "timestamp": "2026-05-27T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10531",
@@ -11178,26 +9698,6 @@
     "timestamp": "2026-05-28T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10537",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 13,
-        "price": 2190
-      }
-    ],
-    "original_amount": 28470,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 28470,
-    "status": "delivered",
-    "timestamp": "2026-06-01T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10538",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -11218,46 +9718,6 @@
     "timestamp": "2026-05-25T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10539",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 7,
-        "price": 2190
-      }
-    ],
-    "original_amount": 15330,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 15330,
-    "status": "delivered",
-    "timestamp": "2026-05-31T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10540",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 7,
-        "price": 2190
-      }
-    ],
-    "original_amount": 15330,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 15330,
-    "status": "delivered",
-    "timestamp": "2026-05-24T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10541",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -11276,26 +9736,6 @@
     "total_price": 26460,
     "status": "delivered",
     "timestamp": "2026-05-19T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10542",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 7,
-        "price": 2190
-      }
-    ],
-    "original_amount": 15330,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 15330,
-    "status": "delivered",
-    "timestamp": "2026-06-02T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10543",
@@ -11376,46 +9816,6 @@
     "total_price": 3500,
     "status": "delivered",
     "timestamp": "2026-06-10T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10547",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 7,
-        "price": 2190
-      }
-    ],
-    "original_amount": 15330,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 15330,
-    "status": "delivered",
-    "timestamp": "2026-05-26T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10548",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-06-05T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10549",
@@ -11678,26 +10078,6 @@
     "timestamp": "2026-06-07T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10562",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 14,
-        "price": 2190
-      }
-    ],
-    "original_amount": 30660,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 30660,
-    "status": "delivered",
-    "timestamp": "2026-05-24T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10563",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -11796,46 +10176,6 @@
     "total_price": 11610,
     "status": "delivered",
     "timestamp": "2026-05-16T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10568",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 12,
-        "price": 2190
-      }
-    ],
-    "original_amount": 26280,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 26280,
-    "status": "delivered",
-    "timestamp": "2026-05-27T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10569",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 6,
-        "price": 2190
-      }
-    ],
-    "original_amount": 13140,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 13140,
-    "status": "delivered",
-    "timestamp": "2026-06-14T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10570",
@@ -12038,26 +10378,6 @@
     "timestamp": "2026-05-27T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10580",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 6,
-        "price": 2190
-      }
-    ],
-    "original_amount": 13140,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 13140,
-    "status": "delivered",
-    "timestamp": "2026-05-25T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10581",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -12216,26 +10536,6 @@
     "total_price": 15120,
     "status": "delivered",
     "timestamp": "2026-05-23T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10589",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-05-22T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10590",
@@ -12416,26 +10716,6 @@
     "total_price": 18900,
     "status": "delivered",
     "timestamp": "2026-06-14T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10599",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 12,
-        "price": 2190
-      }
-    ],
-    "original_amount": 26280,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 26280,
-    "status": "delivered",
-    "timestamp": "2026-05-27T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10600",
@@ -12636,26 +10916,6 @@
     "total_price": 13230,
     "status": "delivered",
     "timestamp": "2026-06-01T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10610",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 8,
-        "price": 2190
-      }
-    ],
-    "original_amount": 17520,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 17520,
-    "status": "delivered",
-    "timestamp": "2026-06-10T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10611",
@@ -12898,26 +11158,6 @@
     "timestamp": "2026-06-06T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10623",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-05-18T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10624",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -13016,26 +11256,6 @@
     "total_price": 18060,
     "status": "delivered",
     "timestamp": "2026-05-19T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10629",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-06-05T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10630",
@@ -13258,26 +11478,6 @@
     "timestamp": "2026-05-29T13:11:02.610Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10641",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 10,
-        "price": 2190
-      }
-    ],
-    "original_amount": 21900,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 21900,
-    "status": "delivered",
-    "timestamp": "2026-05-16T13:11:02.610Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10642",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -13356,26 +11556,6 @@
     "total_price": 24570,
     "status": "delivered",
     "timestamp": "2026-05-31T13:11:02.610Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10646",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 12,
-        "price": 2190
-      }
-    ],
-    "original_amount": 26280,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 26280,
-    "status": "delivered",
-    "timestamp": "2026-05-17T13:11:02.610Z"
   },
   {
     "order_id": "O-BZ-MEGA-10647",
@@ -13718,26 +11898,6 @@
     "timestamp": "2026-05-16T13:11:02.611Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10664",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 12,
-        "price": 2190
-      }
-    ],
-    "original_amount": 26280,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 26280,
-    "status": "delivered",
-    "timestamp": "2026-05-23T13:11:02.611Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10665",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -13818,26 +11978,6 @@
     "timestamp": "2026-05-21T13:11:02.611Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10669",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 12,
-        "price": 2190
-      }
-    ],
-    "original_amount": 26280,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 26280,
-    "status": "delivered",
-    "timestamp": "2026-05-24T13:11:02.611Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10670",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -13878,46 +12018,6 @@
     "timestamp": "2026-05-23T13:11:02.611Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10672",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-06-14T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10673",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 11,
-        "price": 2190
-      }
-    ],
-    "original_amount": 24090,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 24090,
-    "status": "delivered",
-    "timestamp": "2026-05-28T13:11:02.611Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10674",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -13936,26 +12036,6 @@
     "total_price": 12900,
     "status": "delivered",
     "timestamp": "2026-06-04T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10675",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-05-16T13:11:02.611Z"
   },
   {
     "order_id": "O-BZ-MEGA-10676",
@@ -14016,26 +12096,6 @@
     "total_price": 14310,
     "status": "delivered",
     "timestamp": "2026-06-10T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10679",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 10,
-        "price": 2190
-      }
-    ],
-    "original_amount": 21900,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 21900,
-    "status": "delivered",
-    "timestamp": "2026-06-14T13:11:02.611Z"
   },
   {
     "order_id": "O-BZ-MEGA-10680",
@@ -14156,46 +12216,6 @@
     "total_price": 2450,
     "status": "delivered",
     "timestamp": "2026-05-27T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10686",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-06-05T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10687",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-06-03T13:11:02.611Z"
   },
   {
     "order_id": "O-BZ-MEGA-10688",
@@ -14378,26 +12398,6 @@
     "timestamp": "2026-05-17T13:11:02.611Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10697",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 10,
-        "price": 2190
-      }
-    ],
-    "original_amount": 21900,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 21900,
-    "status": "delivered",
-    "timestamp": "2026-06-13T13:11:02.611Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10698",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -14518,26 +12518,6 @@
     "timestamp": "2026-06-02T13:11:02.611Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10704",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 10,
-        "price": 2190
-      }
-    ],
-    "original_amount": 21900,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 21900,
-    "status": "delivered",
-    "timestamp": "2026-05-21T13:11:02.611Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10705",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -14554,26 +12534,6 @@
       "total": 0
     },
     "total_price": 2450,
-    "status": "delivered",
-    "timestamp": "2026-06-04T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10706",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
     "status": "delivered",
     "timestamp": "2026-06-04T13:11:02.611Z"
   },
@@ -14858,26 +12818,6 @@
     "timestamp": "2026-06-04T13:11:02.611Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10721",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 14,
-        "price": 2190
-      }
-    ],
-    "original_amount": 30660,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 30660,
-    "status": "delivered",
-    "timestamp": "2026-05-27T13:11:02.611Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10722",
     "user_id": "u004",
     "customerName": "Charlie Regular",
@@ -14896,26 +12836,6 @@
     "total_price": 20790,
     "status": "delivered",
     "timestamp": "2026-05-16T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10723",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 5,
-        "price": 2190
-      }
-    ],
-    "original_amount": 10950,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 10950,
-    "status": "delivered",
-    "timestamp": "2026-05-23T13:11:02.611Z"
   },
   {
     "order_id": "O-BZ-MEGA-10724",
@@ -15078,66 +12998,6 @@
     "timestamp": "2026-05-16T13:11:02.611Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10732",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 6,
-        "price": 2190
-      }
-    ],
-    "original_amount": 13140,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 13140,
-    "status": "delivered",
-    "timestamp": "2026-05-23T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10733",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 13,
-        "price": 2190
-      }
-    ],
-    "original_amount": 28470,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 28470,
-    "status": "delivered",
-    "timestamp": "2026-06-01T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10734",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 9,
-        "price": 2190
-      }
-    ],
-    "original_amount": 19710,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 19710,
-    "status": "delivered",
-    "timestamp": "2026-05-20T13:11:02.611Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10735",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -15156,26 +13016,6 @@
     "total_price": 9450,
     "status": "delivered",
     "timestamp": "2026-05-23T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10736",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 7,
-        "price": 2190
-      }
-    ],
-    "original_amount": 15330,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 15330,
-    "status": "delivered",
-    "timestamp": "2026-06-14T13:11:02.611Z"
   },
   {
     "order_id": "O-BZ-MEGA-10737",
@@ -15238,26 +13078,6 @@
     "timestamp": "2026-05-27T13:11:02.611Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10740",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 8,
-        "price": 2190
-      }
-    ],
-    "original_amount": 17520,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 17520,
-    "status": "delivered",
-    "timestamp": "2026-05-26T13:11:02.611Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10741",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -15318,26 +13138,6 @@
     "timestamp": "2026-05-29T13:11:02.611Z"
   },
   {
-    "order_id": "O-BZ-MEGA-10744",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 11,
-        "price": 2190
-      }
-    ],
-    "original_amount": 24090,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 24090,
-    "status": "delivered",
-    "timestamp": "2026-05-21T13:11:02.611Z"
-  },
-  {
     "order_id": "O-BZ-MEGA-10745",
     "user_id": "u003",
     "customerName": "Bob Regular",
@@ -15356,26 +13156,6 @@
     "total_price": 3850,
     "status": "delivered",
     "timestamp": "2026-05-17T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10746",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 10,
-        "price": 2190
-      }
-    ],
-    "original_amount": 21900,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 21900,
-    "status": "delivered",
-    "timestamp": "2026-05-27T13:11:02.611Z"
   },
   {
     "order_id": "O-BZ-MEGA-10747",
@@ -15496,45 +13276,5 @@
     "total_price": 14310,
     "status": "delivered",
     "timestamp": "2026-05-20T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10753",
-    "user_id": "u003",
-    "customerName": "Bob Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 8,
-        "price": 2190
-      }
-    ],
-    "original_amount": 17520,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 17520,
-    "status": "delivered",
-    "timestamp": "2026-06-14T13:11:02.611Z"
-  },
-  {
-    "order_id": "O-BZ-MEGA-10754",
-    "user_id": "u004",
-    "customerName": "Charlie Regular",
-    "items": [
-      {
-        "productId": "p-yxdiwtedd",
-        "productName": "Mechanical Keyboard (Blue Switch)",
-        "quantity": 7,
-        "price": 2190
-      }
-    ],
-    "original_amount": 15330,
-    "discounts": {
-      "total": 0
-    },
-    "total_price": 15330,
-    "status": "delivered",
-    "timestamp": "2026-06-09T13:11:02.611Z"
   }
 ]
