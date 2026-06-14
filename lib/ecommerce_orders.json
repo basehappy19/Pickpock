@@ -3536,5 +3536,2005 @@
     "total_price": 1590,
     "status": "delivered",
     "timestamp": "2026-06-14T12:57:53.825Z"
+  },
+  {
+    "order_id": "O-BZ-5155",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 1,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-06-12T13:08:41.279Z"
+  },
+  {
+    "order_id": "O-BZ-5156",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 1,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-05-25T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5157",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 1,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-06-12T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5158",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 2,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-17T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5159",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 2,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-05-17T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5160",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-05-28T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5161",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 2,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-25T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5162",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 1,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-06-07T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5163",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-05-25T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5164",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 3,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-06-09T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5165",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 3,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-26T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5166",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 3,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-25T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5167",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 3,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-19T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5168",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 1,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-05-18T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5169",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 2,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-27T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5170",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 3,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-05-22T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5171",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 3,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-06-09T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5172",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-05-30T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5173",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 3,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-06-13T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5174",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 2,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-06-12T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5175",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 1,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-18T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5176",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-06-03T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5177",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 3,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-06-02T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5178",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-19T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5179",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 3,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-06-03T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5180",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 3,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-20T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5181",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-06-04T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5182",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 2,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-22T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5183",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 3,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-06-14T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5184",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 3,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-05-31T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5185",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 3,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-06-13T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5186",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 2,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-06-06T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5187",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 1,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-06-09T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5188",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 3,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-05-29T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5189",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 2,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-06-03T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5190",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-29T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5191",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 2,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-06-05T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5192",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 2,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-21T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5193",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-05-21T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5194",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-06-02T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5195",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 3,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-06-07T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5196",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-06-14T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5197",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 2,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-16T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5198",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 3,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-16T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5199",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 2,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-16T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5200",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 1,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-06-02T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5201",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 3,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-27T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5202",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 3,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-05-19T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5203",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 1,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-16T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5204",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-24T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5205",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 2,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-28T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5206",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 1,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-23T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5207",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-06-14T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5208",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-19T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5209",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 3,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-05-23T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5210",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 2,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-06-04T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5211",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 1,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-06-11T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5212",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 3,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-17T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5213",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 3,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-27T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5214",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 3,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-22T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5215",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 3,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-06-11T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5216",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-05-23T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5217",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 1,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-22T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5218",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-06-13T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5219",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-06-13T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5220",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 3,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-29T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5221",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-06-10T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5222",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-06-08T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5223",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 3,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-28T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5224",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 3,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-21T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5225",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 1,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-22T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5226",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 1,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-19T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5227",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 1,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-06-13T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5228",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 3,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-23T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5229",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 3,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-05-23T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5230",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 1,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-27T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5231",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 2,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-05-26T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5232",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 3,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-05-25T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5233",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 1,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-16T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5234",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 2,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-06-04T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5235",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 1,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-06-11T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5236",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-06-04T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5237",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 2,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-06-14T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5238",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 2,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-06-12T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5239",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 3,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-06-09T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5240",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-lqkrdqeyb",
+        "productName": "Speed Edition Mousepad",
+        "quantity": 1,
+        "price": 350
+      }
+    ],
+    "original_amount": 350,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 350,
+    "status": "delivered",
+    "timestamp": "2026-05-16T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5241",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 2,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-06-08T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5242",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 2,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-28T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5243",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 1,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-29T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5244",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 2,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-05-31T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5245",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 3,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-29T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5246",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 3,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-18T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5247",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 2,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-31T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5248",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-j4orpd357",
+        "productName": "HD Streaming Webcam",
+        "quantity": 3,
+        "price": 1890
+      }
+    ],
+    "original_amount": 1890,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1890,
+    "status": "delivered",
+    "timestamp": "2026-06-11T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5249",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 3,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-05-25T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5250",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-7sh39dlan",
+        "productName": "7.1 Surround Headset",
+        "quantity": 3,
+        "price": 1590
+      }
+    ],
+    "original_amount": 1590,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1590,
+    "status": "delivered",
+    "timestamp": "2026-05-22T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5251",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-yxdiwtedd",
+        "productName": "Mechanical Keyboard (Blue Switch)",
+        "quantity": 1,
+        "price": 2190
+      }
+    ],
+    "original_amount": 2190,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 2190,
+    "status": "delivered",
+    "timestamp": "2026-05-16T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5252",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-06-09T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5253",
+    "user_id": "u003",
+    "customerName": "Bob Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 2,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-05-26T13:08:41.280Z"
+  },
+  {
+    "order_id": "O-BZ-5254",
+    "user_id": "u004",
+    "customerName": "Charlie Regular",
+    "items": [
+      {
+        "productId": "p-newp0tz9o",
+        "productName": "Pro Gaming Mouse",
+        "quantity": 3,
+        "price": 1290
+      }
+    ],
+    "original_amount": 1290,
+    "discounts": {
+      "total": 0
+    },
+    "total_price": 1290,
+    "status": "delivered",
+    "timestamp": "2026-05-23T13:08:41.280Z"
   }
 ]

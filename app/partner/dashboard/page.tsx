@@ -27,7 +27,8 @@ import {
   AlertTriangle,
   Lightbulb,
   ArrowUp,
-  ArrowDown
+  ArrowDown,
+  ChevronRight
 } from "lucide-react";
 import { cn, formatCurrency, getImgSrc } from "@/lib/utils";
 import { useState, useEffect, useMemo } from "react";
@@ -533,20 +534,34 @@ export default function PartnerDashboardPage() {
                           <div className="flex flex-col gap-1">
                             <span className="font-semibold text-sm">{formatCurrency(product.price)}</span>
                             {insight && (
-                              <button
-                                title={insight.reason}
-                                onClick={(e) => { e.stopPropagation(); handleApplyAISmartPrice(pId, insight.amount); }}
-                                disabled={isPriceUpdating}
-                                className={cn(
-                                  "flex items-center gap-1.5 px-2 py-1 rounded-lg text-[8px] font-semibold uppercase tracking-tighter w-fit transition-all cursor-pointer shadow-sm active:scale-95",
-                                  insight.type === 'increase' ? "bg-emerald-500 text-white hover:bg-emerald-600" : "bg-rose-500 text-white hover:bg-rose-600",
-                                  isPriceUpdating && "opacity-50 cursor-wait"
-                                )}
-                              >
-                                {isPriceUpdating ? <Loader2 className="h-2 w-2 animate-spin" /> : <img src="/brand/mascot.jpeg" className="h-3 w-3 object-cover rounded-full" alt="AI Mascot" />}
-                                {insight.type === 'increase' ? <ArrowUp className="h-2 w-2" /> : <ArrowDown className="h-2 w-2" />}
-                                AI: {formatCurrency(insight.amount)}
-                              </button>
+                              <div className="animate-in fade-in slide-in-from-left-2 duration-500 min-w-[200px]">
+                                 <div className="bg-primary/5 border border-primary/20 rounded-xl p-2 space-y-2 relative overflow-hidden group/advice">
+                                    <div className="absolute top-0 right-0 p-1">
+                                       <img src="/brand/mascot.jpeg" className="h-4 w-4 object-cover rounded-full opacity-50 animate-pulse" alt="AI Mascot" />
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                       <div className={cn("p-1.5 rounded-lg text-white shrink-0", insight.type === 'increase' ? "bg-emerald-500" : "bg-rose-500")}>
+                                          {insight.type === 'increase' ? <TrendingUp className="h-3 w-3" /> : <TrendingUp className="h-3 w-3 rotate-180" />}
+                                       </div>
+                                       <div className="space-y-0.5">
+                                          <p className="text-[9px] font-semibold uppercase text-primary/60 leading-none">{t.dashboard.aiRecommend || 'AI Recommend'}</p>
+                                          <p className="text-xs font-semibold text-foreground leading-tight">{insight.reason}</p>
+                                       </div>
+                                    </div>
+                                    <button
+                                      onClick={(e) => { e.stopPropagation(); handleApplyAISmartPrice(pId, insight.amount); }}
+                                      disabled={isPriceUpdating}
+                                      className={cn(
+                                        "w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-semibold uppercase transition-all shadow-sm active:scale-95 cursor-pointer",
+                                        insight.type === 'increase' ? "bg-emerald-500 text-white hover:bg-emerald-600" : "bg-rose-500 text-white hover:bg-rose-600",
+                                        isPriceUpdating && "opacity-50 cursor-wait"
+                                      )}
+                                    >
+                                      <span>{isPriceUpdating ? (t.dashboard.updatingPrice || 'Updating...') : ((t.dashboard.changeToPrice || 'Change to ฿') + insight.amount)}</span>
+                                      <ChevronRight className="h-3 w-3 group-hover/advice:translate-x-1 transition-transform" />
+                                    </button>
+                                 </div>
+                              </div>
                             )}
                           </div>
                         </td>
