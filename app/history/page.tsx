@@ -297,8 +297,9 @@ export default function HistoryPage() {
                     </button>
                   ))}
                 </div>
-                <p className="text-xl font-semibold text-primary uppercase tracking-tighter">{rating} / 5 STARS</p>
-              </div>
+                <p className="text-xl font-semibold text-primary uppercase tracking-tighter">
+                  {rating} / 5 {language === 'th' ? 'ดาว' : 'STARS'}
+                </p>              </div>
 
               <div className="space-y-2">
                 <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground ml-2">{t.reviews.rating}</label>

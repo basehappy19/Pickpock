@@ -238,7 +238,9 @@ export default function CartPage() {
                     <Link href={`/product/${item.id}`} className="text-lg lg:text-xl font-semibold tracking-tight leading-tight hover:text-primary transition-colors cursor-pointer block">
                       {item.name}
                     </Link>
-                    <p className="text-xs lg:text-xs text-muted-foreground font-medium uppercase tracking-widest mt-1">{item.category}</p>
+                    <p className="text-xs lg:text-xs text-muted-foreground font-medium uppercase tracking-widest mt-1">
+                      {(t.categories as Record<string, string>)?.[item.category] || item.category}
+                    </p>
                   </div>
                   <button onClick={() => removeFromCart(item.id)} className="p-2 rounded-lg border text-muted-foreground hover:text-rose-50 hover:bg-rose-50 transition-all cursor-pointer hidden sm:block">
                     <Trash2 className="h-4 w-4" />

@@ -170,7 +170,9 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                 <div className="flex items-center gap-1 text-amber-500">
                   <Star className="h-4 w-4 fill-current" />
                   <span className="text-sm font-semibold">{Number(product.rating).toFixed(1)}</span>
-                  <span className="text-muted-foreground font-medium text-xs">({product.reviews.length} รีวิว)</span>
+                  <span className="text-muted-foreground font-medium text-xs">
+                    ({product.reviews.length} {language === 'th' ? 'รีวิว' : 'Reviews'})
+                  </span>
                 </div>
               </div>
               <div className="flex items-start justify-between gap-4">
