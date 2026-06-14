@@ -244,7 +244,7 @@
       "dimensions": "ขนาด (กว้างxยาวxสูง)",
       "warranty": "การรับประกัน (ปี/เดือน)",
       "additionalDetails": "รายละเอียดเพิ่มเติม",
-      "optional": "(เลือกได้)",
+      "optional": "(ไม่บังคับ)",
       "weightPlaceholder": "เช่น 1.5 kg",
       "dimensionsPlaceholder": "เช่น 10x20x5 cm",
       "warrantyPlaceholder": "เช่น 1 ปี",

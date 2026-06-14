@@ -744,10 +744,16 @@ export default function FounderDashboardPage() {
               </div>
               <button
                 type="submit"
-                className="w-full h-16 rounded-2xl bg-primary text-primary-foreground font-black text-lg shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3 cursor-pointer"
+                disabled={isGeneratingDesc || isUploading || !newProduct.name || newProduct.price === undefined || newProduct.stock === undefined || !newProduct.category}
+                className={cn(
+                  "w-full h-16 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3",
+                  (isGeneratingDesc || isUploading || !newProduct.name || newProduct.price === undefined || newProduct.stock === undefined || !newProduct.category)
+                    ? "bg-muted text-muted-foreground cursor-not-allowed opacity-50"
+                    : "bg-primary text-primary-foreground shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 cursor-pointer"
+                )}
               >
                 {newProduct.id ? <Edit className="h-6 w-6" /> : <Plus className="h-6 w-6" />}
-                {newProduct.id ? t.dashboard.updateProduct : t.dashboard.createProduct}
+                {isGeneratingDesc ? t.dashboard.generating : (newProduct.id ? t.dashboard.updateProduct : t.dashboard.createProduct)}
               </button>
             </form>
           </div>
