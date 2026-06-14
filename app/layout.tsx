@@ -62,8 +62,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = lang === "th" ? "PickPock - แพลตฟอร์มอีคอมเมิร์ซที่ขับเคลื่อนด้วย AI" : "PickPock - AI-Powered E-commerce Platform";
   const description = lang === "th" ? "แพลตฟอร์มอีคอมเมิร์ซที่ขับเคลื่อนด้วย AI สุดล้ำ" : "State-of-the-art AI-Powered Shopping Experience";
 
+  const getBaseUrl = () => {
+    if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
+    if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+    if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+    return "http://localhost:3000";
+  };
+
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://pickpock.vercel.app"),
+    metadataBase: new URL(getBaseUrl()),
     title,
     description,
     keywords: "e-commerce, AI, shopping, Thailand, PickPock",
