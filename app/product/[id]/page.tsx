@@ -1,8 +1,8 @@
-import { notFound, useParams } from "next/navigation";
+import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import ProductInfoClient from "./product-info-client";
 import { generateProductSchema, generateBreadcrumbSchema, generateOrganizationSchema } from "@/lib/seo-utils";
-import { products as initialProducts } from "@/lib/initial-data";
+import { initialProducts } from "@/lib/initial-data";
 
 interface Props {
   params: { id: string };

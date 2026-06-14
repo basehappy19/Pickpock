@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import StoreDetailClient from "./store-detail-client";
-import { stores as initialStores } from "@/lib/stores.json";
+import initialStores from "@/lib/stores.json";
 import { generateBreadcrumbSchema, generateOrganizationSchema } from "@/lib/seo-utils";
 
 interface Props {

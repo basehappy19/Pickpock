@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
-import { products } from '@/lib/initial-data';
-import { stores } from '@/lib/stores.json';
+import { initialProducts } from '@/lib/initial-data';
+import stores from '@/lib/stores.json';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://pickpock.com';
@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Product pages
-  const productPages = products.map((product) => ({
+  const productPages = initialProducts.map((product) => ({
     url: `${baseUrl}/product/${product.id}`,
     lastModified: new Date(product.createdAt || Date.now()),
     changeFrequency: 'weekly' as const,
