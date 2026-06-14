@@ -611,12 +611,32 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           </div>
 
           {finalFilteredData.length === 0 && (
-            <div className="p-12 lg:p-20 text-center space-y-3 bg-muted/30 rounded-2xl border-2 border-dashed">
+            <div className="p-12 lg:p-20 text-center space-y-4 bg-muted/30 rounded-2xl border-2 border-dashed">
               <div className="inline-flex p-4 rounded-full bg-muted">
                 <Search className="h-8 w-8 text-muted-foreground/50" />
               </div>
-              <h3 className="text-xl font-black text-muted-foreground uppercase tracking-widest">{t.dashboard.table.noData}</h3>
-              <p className="text-xs font-bold text-muted-foreground uppercase">{t.filters.noResultsDesc}</p>
+              <div>
+                <h3 className="text-xl font-black text-muted-foreground uppercase tracking-widest">{t.dashboard.table.noData}</h3>
+                <p className="text-xs font-bold text-muted-foreground uppercase">{t.filters.noResultsDesc}</p>
+              </div>
+              <button
+                onClick={() => {
+                  router.push(pathname, { scroll: false });
+                  resetFilters();
+                  setMinPrice(0);
+                  setMaxPriceFilter(maxPrice);
+                  setInStockOnly(false);
+                  setIsOfficialFilter(false);
+                  setIsPartnerFilter(false);
+                  setSelectedStoreId("all");
+                  setAiMatchedIds(null);
+                  setAiSearchQuery("");
+                }}
+                className="mt-4 px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-black text-xs uppercase tracking-widest hover:opacity-90 transition-all cursor-pointer shadow-md inline-flex items-center gap-2"
+              >
+                <CloseIcon className="h-4 w-4" />
+                {t.filters.clearFilters || t.filters.resetFilters}
+              </button>
             </div>
           )}
 
