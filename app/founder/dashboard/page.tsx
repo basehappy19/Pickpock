@@ -57,7 +57,7 @@ import {
 
 export default function FounderDashboardPage() {
   const { role, user: currentUser } = useRole();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { orders, products, stores, updateProduct, addProduct, deleteProduct } = useGlobalData();
   const router = useRouter();
   
@@ -758,7 +758,7 @@ export default function FounderDashboardPage() {
               </div>
               <h3 className="text-2xl font-black tracking-tight">{t.dashboard.deleteConfirm}</h3>
               <p className="text-muted-foreground font-medium">
-                {t.language === 'th' ? 'คุณแน่ใจหรือไม่ที่จะลบสินค้านี้?' : 'Are you sure you want to delete this product?'}
+                {language === 'th' ? 'คุณแน่ใจหรือไม่ที่จะลบสินค้านี้?' : 'Are you sure you want to delete this product?'}
               </p>
             </div>
             <div className="flex gap-3">
