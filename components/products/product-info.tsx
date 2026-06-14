@@ -45,8 +45,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
           if (data.coupons) setUserOwnedCodes(data.coupons);
         });
     } else {
-      const guestCoupons = localStorage.getItem("guest_coupons");
-      if (guestCoupons) setUserOwnedCodes(JSON.parse(guestCoupons));
+      setUserOwnedCodes([]);
     }
   }, [user]);
 

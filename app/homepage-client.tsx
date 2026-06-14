@@ -141,8 +141,7 @@ export default function HomepageClient({
           if (data.coupons) setClaimedCodes(data.coupons);
         });
     } else {
-      const guestCoupons = localStorage.getItem("guest_coupons");
-      if (guestCoupons) setClaimedCodes(JSON.parse(guestCoupons));
+      setClaimedCodes([]);
     }
   }, [user]);
 
@@ -189,8 +188,6 @@ export default function HomepageClient({
       } catch (e) {
         console.error("Failed to save coupon to user data", e);
       }
-    } else {
-      localStorage.setItem("guest_coupons", JSON.stringify(newCoupons));
     }
 
     toast.success(`คูปอง ${code} ถูกเก็บแล้ว!`);
@@ -266,16 +263,15 @@ export default function HomepageClient({
                       ? `${coupon.discount}% OFF`
                       : `฿${coupon.discount} OFF`}
                   </p>
-                  <p className="text-xs text-muted-foreground">
-                    ขั้นต่ำ ฿0 · ไม่มีวันหมดอายุ
-                  </p>
                   <button
                     onClick={() => handleClaim(coupon.code)}
-                    disabled={claimed}
+                    disabled={claimed || !user}
                     className={cn(
                       "mt-1 h-8 w-full rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition-colors",
                       claimed
                         ? "bg-secondary text-muted-foreground cursor-default"
+                        : !user
+                        ? "bg-muted text-muted-foreground cursor-not-allowed opacity-50"
                         : "bg-secondary hover:bg-border text-foreground cursor-pointer"
                     )}
                   >
@@ -286,8 +282,8 @@ export default function HomepageClient({
                       </>
                     ) : (
                       <>
-                        <Gift className="h-3 w-3" />
-                        {t.home.claim}
+                        <Ticket className="h-3 w-3" />
+                        {!user ? "เข้าสู่ระบบเพื่อเก็บ" : t.home.claim}
                       </>
                     )}
                   </button>
