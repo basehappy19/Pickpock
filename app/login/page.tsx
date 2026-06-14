@@ -7,9 +7,12 @@ import { Box, LogIn, Mail, Lock, Loader2, ShieldCheck, User, X, KeyRound, Phone,
 import { useLanguage } from "@/hooks/use-language";
 
 export default function LoginPage() {
-  const { login } = useRole();
-  const { t } = useLanguage();
+  const { login, registerUser } = useRole();
+  const { t, language } = useLanguage();
   const router = useRouter();
+  
+  const [isLoginMode, setIsLoginMode] = useState(true);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,11 +32,20 @@ export default function LoginPage() {
     setLoading(true);
     setError("");
 
-    const success = await login(email, password);
-    if (success) {
-      router.push("/");
+    if (isLoginMode) {
+      const success = await login(email, password);
+      if (success) {
+        router.push("/");
+      } else {
+        setError(t.auth.invalidLogin || "Invalid email or password");
+      }
     } else {
-      setError(t.auth.invalidLogin);
+      const success = await registerUser(name, email, password);
+      if (success) {
+        router.push("/");
+      } else {
+        setError(language === 'th' ? "เกิดข้อผิดพลาดในการสมัคร หรืออีเมลนี้ถูกใช้งานแล้ว" : "Registration failed or email already exists");
+      }
     }
     setLoading(false);
   };
@@ -140,10 +152,27 @@ export default function LoginPage() {
              <ShieldCheck className="h-10 w-10" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 uppercase">PickPock</h1>
-          <p className="text-slate-500 font-medium text-sm">{t.auth.login}</p>
+          <p className="text-slate-500 font-medium text-sm">{isLoginMode ? t.auth.login : (language === 'th' ? "สมัครสมาชิกใหม่" : "Create an Account")}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {!isLoginMode && (
+            <div className="space-y-1.5 animate-in slide-in-from-top-2 duration-300">
+              <label className="text-xs font-bold uppercase tracking-wider text-slate-600 ml-1">{language === 'th' ? 'ชื่อ-นามสกุล' : 'Full Name'}</label>
+              <div className="relative group">
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-primary transition-colors" />
+                <input
+                  type="text"
+                  required
+                  placeholder={language === 'th' ? 'กรอกชื่อ-นามสกุล' : 'John Doe'}
+                  className="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-200 focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all font-medium text-slate-900"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+            </div>
+          )}
+
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-600 ml-1">{t.auth.email}</label>
             <div className="relative group">
@@ -172,15 +201,17 @@ export default function LoginPage() {
                 className="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-200 focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all font-medium text-slate-900"
               />
             </div>
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={() => setShowForgotPassword(true)}
-                className="text-xs text-primary font-bold hover:text-primary/80 transition-colors"
-              >
-                {t.auth.forgotPassword}
-              </button>
-            </div>
+            {isLoginMode && (
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setShowForgotPassword(true)}
+                  className="text-xs text-primary font-bold hover:text-primary/80 transition-colors cursor-pointer"
+                >
+                  {t.auth.forgotPassword}
+                </button>
+              </div>
+            )}
           </div>
 
           {error && (
@@ -195,8 +226,23 @@ export default function LoginPage() {
             className="w-full h-14 rounded-lg bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 active:scale-[0.98] transition-all flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <LogIn className="h-5 w-5" />}
-            {t.auth.loginTitle}
+            {isLoginMode ? t.auth.loginTitle : (language === 'th' ? "สมัครสมาชิก" : "Register")}
           </button>
+          
+          <div className="text-center pt-2">
+            <button
+              type="button"
+              onClick={() => {
+                setIsLoginMode(!isLoginMode);
+                setError("");
+              }}
+              className="text-sm text-slate-500 font-medium hover:text-primary transition-colors cursor-pointer"
+            >
+              {isLoginMode 
+                ? (language === 'th' ? "ยังไม่มีบัญชี? สมัครสมาชิกใหม่" : "Don't have an account? Register")
+                : (language === 'th' ? "มีบัญชีอยู่แล้ว? เข้าสู่ระบบ" : "Already have an account? Login")}
+            </button>
+          </div>
         </form>
       </div>
 

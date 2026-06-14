@@ -14,6 +14,7 @@ interface RoleContextType {
   role: Role;
   tier: Tier;
   login: (email: string, password: string) => Promise<boolean>;
+  registerUser: (name: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
   setRole: (role: Role) => void;
   updateUserStore: (store: any) => void;
@@ -66,6 +67,24 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
         
         localStorage.setItem("authUser", JSON.stringify(data.user));
         return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const registerUser = async (name: string, email: string, password: string) => {
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password, role: "customer", isVip: false })
+      });
+
+      if (res.ok) {
+        // Automatically login after successful registration
+        return await login(email, password);
       }
       return false;
     } catch (e) {
@@ -183,6 +202,7 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
       role,
       tier,
       login,
+      registerUser,
       logout,
       setRole,
       updateUserStore,
