@@ -33,7 +33,15 @@ export default function UserSessionBanner() {
         <div className="h-4 w-[1px] bg-current opacity-30" />
 
         <div className="flex items-center gap-2">
-          <span className="text-xs uppercase opacity-80">{role}</span>
+          <span className="text-xs uppercase opacity-80">
+            {role === "customer" 
+              ? (language === "th" ? "ลูกค้าทั่วไป" : "Customer")
+              : role === "partner"
+              ? (language === "th" ? "พาร์ทเนอร์ร้านค้า" : "Partner")
+              : role === "founder"
+              ? (language === "th" ? "ผู้ก่อตั้ง" : "Founder")
+              : role}
+          </span>
           {tier === "VIP" && (
             <>
               <span className="w-1 h-1 rounded-full bg-current opacity-50" />
