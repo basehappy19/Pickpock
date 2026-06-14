@@ -208,12 +208,23 @@ export default function AIChatbot() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "h-14 w-14 rounded-full bg-slate-900 shadow-2xl flex items-center justify-center text-white border-4 border-white hover:scale-110 active:scale-95 transition-all cursor-pointer group relative z-10",
-          isOpen ? "hidden sm:flex" : "flex"
+          "h-14 w-14 rounded-full shadow-2xl flex items-center justify-center text-white hover:scale-110 active:scale-95 transition-all cursor-pointer group relative z-10",
+          isOpen ? "hidden sm:flex bg-slate-900 border-2 border-white" : "flex bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 border-2 border-white/50"
         )}
       >
-        <div className="absolute -inset-1.5 bg-slate-900/10 rounded-full blur-xl group-hover:bg-slate-900/20 transition-all" />
-        {isOpen ? <X className="h-6 w-6 relative z-10" /> : <Sparkles className="h-6 w-6 relative z-10" />}
+        {!isOpen && (
+          <>
+            {/* Animated Glow Behind */}
+            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-full blur-xl opacity-60 group-hover:opacity-100 animate-pulse transition-opacity duration-500 -z-10" />
+            {/* Inner Shimmer */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-full" />
+          </>
+        )}
+        {isOpen ? (
+          <X className="h-6 w-6 relative z-10" />
+        ) : (
+          <Sparkles className="h-6 w-6 relative z-10 drop-shadow-md" />
+        )}
       </button>
     </div>
   );
