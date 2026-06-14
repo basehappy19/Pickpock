@@ -133,7 +133,8 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50/50 animate-in fade-in duration-700">
-      <div className="w-full max-w-xl space-y-10 bg-white border border-slate-200 rounded-xl p-8 lg:p-12 shadow-sm">
+      <div className="w-full max-w-5xl flex flex-col lg:flex-row gap-6">
+        <div className="flex-1 space-y-10 bg-white border border-slate-200 rounded-xl p-8 lg:p-12 shadow-sm">
         <div className="text-center space-y-3">
           <div className="inline-flex p-3 rounded-lg bg-primary/10 text-primary mb-2">
              <ShieldCheck className="h-10 w-10" />
@@ -197,8 +198,10 @@ export default function LoginPage() {
             {t.auth.loginTitle}
           </button>
         </form>
+      </div>
 
-        <div className="pt-8 border-t border-slate-100 text-center space-y-4">
+      <div className="w-full lg:w-[400px] h-fit bg-white border border-slate-200 rounded-xl p-6 lg:p-8 shadow-sm">
+        <div className="text-center space-y-4">
            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
              <div className="flex items-center justify-center gap-2 mb-2">
                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -274,8 +277,9 @@ export default function LoginPage() {
            </div>
         </div>
       </div>
+    </div>
 
-      {/* Forgot Password Modal */}
+    {/* Forgot Password Modal */}
       {showForgotPassword && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-white w-full max-w-md rounded-xl border border-slate-200 shadow-xl overflow-hidden animate-in zoom-in-95 duration-300">
