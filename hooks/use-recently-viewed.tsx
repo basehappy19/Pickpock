@@ -58,6 +58,9 @@ export function RecentlyViewedProvider({ children }: { children: React.ReactNode
     if (isInitialLoad.current) return;
 
     const syncRecentlyViewed = async () => {
+      // Always store recently viewed locally to persist across guest/logged-in states
+      localStorage.setItem("recentlyViewed", JSON.stringify(recentlyViewed));
+      
       if (user) {
         try {
           await fetch(`/api/user-data/${user.id}`, {
@@ -68,8 +71,6 @@ export function RecentlyViewedProvider({ children }: { children: React.ReactNode
         } catch (e) {
           console.error("Failed to sync recently viewed to server", e);
         }
-      } else {
-        localStorage.setItem("recentlyViewed", JSON.stringify(recentlyViewed));
       }
     };
 

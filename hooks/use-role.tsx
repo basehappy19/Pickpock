@@ -56,6 +56,14 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
         setUser(data.user);
         setRoleState(data.user.role);
         setTierState(data.user.tier || 'MEMBER');
+        
+        // Clear all localStorage except recentlyViewed to prevent data leaking to guest session
+        const recentlyViewed = localStorage.getItem("recentlyViewed");
+        localStorage.clear();
+        if (recentlyViewed) {
+          localStorage.setItem("recentlyViewed", recentlyViewed);
+        }
+        
         localStorage.setItem("authUser", JSON.stringify(data.user));
         return true;
       }
@@ -69,7 +77,14 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
     setRoleState("customer");
     setTierState("MEMBER");
-    localStorage.removeItem("authUser");
+    
+    // Clear all localStorage except recentlyViewed for a clean slate
+    const recentlyViewed = localStorage.getItem("recentlyViewed");
+    localStorage.clear();
+    if (recentlyViewed) {
+      localStorage.setItem("recentlyViewed", recentlyViewed);
+    }
+    
     router.push("/");
   };
 
