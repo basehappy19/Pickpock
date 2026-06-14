@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/hooks/use-language";
-import { formatCurrency, cn, getImgSrc } from "@/lib/utils";
+import { formatCurrency, formatDate, cn, getImgSrc } from "@/lib/utils";
 import { Star, ShieldCheck, ShoppingCart, Heart, Truck, MessageSquare, Store as StoreIcon, ArrowRight, Share2, CheckCircle2, GitCompare, Info, Edit, Ticket } from "lucide-react";
 import { useState, useEffect } from "react";
 import NextImage from "next/image";
@@ -426,7 +426,7 @@ export default function ProductInfo({ product, allProducts }: { product: Product
                         </div>
                         <div>
                           <p className="font-black text-sm">{review.user}</p>
-                          <p className="text-xs font-bold text-muted-foreground">{t.products.reviewDetails.verified}{review.date}</p>
+                          <p className="text-xs font-bold text-muted-foreground">{t.products.reviewDetails.verified}{formatDate(review.date, language)}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-1 text-amber-500">

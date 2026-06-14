@@ -209,7 +209,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
                     <Package className="h-4 w-4" /> {storeProducts.length} {t.nav.products}
                  </span>
                  <span className="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-xl backdrop-blur-md">
-                    <Calendar className="h-4 w-4" /> {t.store.joined} {new Date(displayStore.joined_at).getFullYear()}
+                    <Calendar className="h-4 w-4" /> {t.store.joined} {language === 'th' ? new Date(displayStore.joined_at).getFullYear() + 543 : new Date(displayStore.joined_at).getFullYear()}
                  </span>
               </div>
            </div>
