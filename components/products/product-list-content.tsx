@@ -30,6 +30,8 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     return prices.length > 0 ? Math.max(...prices) : 10000;
   }, [allProducts]);
   
+  const ITEMS_PER_PAGE = 12;
+  const [currentPage, setCurrentPage] = useState(1);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPriceFilter, setMaxPriceFilter] = useState(10000);
@@ -97,6 +99,14 @@ export default function ProductListContent({ initialProducts }: { initialProduct
       return priceMatch && stockMatch;
     });
   }, [aiMatchedIds, allProducts, filteredData, minPrice, maxPriceFilter, inStockOnly]);
+
+  const totalPages = Math.max(1, Math.ceil(finalFilteredData.length / ITEMS_PER_PAGE));
+  const paginatedProducts = finalFilteredData.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, minPrice, maxPriceFilter, inStockOnly, aiMatchedIds]);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700 pb-20">
@@ -376,7 +386,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             "grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 transition-all duration-700",
             isSearching ? "opacity-30 blur-sm scale-95" : "opacity-100 blur-0 scale-100"
           )}>
-            {finalFilteredData.map((product, idx) => {
+            {paginatedProducts.map((product, idx) => {
               const inWishlist = isInWishlist(product.id);
 
               return (
@@ -486,6 +496,52 @@ export default function ProductListContent({ initialProducts }: { initialProduct
               </div>
               <h3 className="text-xl font-black text-muted-foreground uppercase tracking-widest">{t.dashboard.table.noData}</h3>
               <p className="text-xs font-bold text-muted-foreground uppercase">{t.filters.noResultsDesc}</p>
+            </div>
+          )}
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 pt-4">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-xl border-2 font-black text-xs uppercase tracking-widest bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+              >
+                ← Prev
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1)
+                .filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 2)
+                .reduce<(number | string)[]>((acc, p, idx, arr) => {
+                  if (idx > 0 && (p as number) - (arr[idx - 1] as number) > 1) acc.push('...');
+                  acc.push(p);
+                  return acc;
+                }, [])
+                .map((item, i) =>
+                  item === '...' ? (
+                    <span key={`ellipsis-${i}`} className="px-2 text-muted-foreground font-black text-xs">…</span>
+                  ) : (
+                    <button
+                      key={item}
+                      onClick={() => setCurrentPage(item as number)}
+                      className={cn(
+                        "w-9 h-9 rounded-xl border-2 font-black text-xs transition-all cursor-pointer",
+                        currentPage === item
+                          ? "bg-primary border-primary text-primary-foreground"
+                          : "bg-card border-transparent hover:border-primary/20 hover:bg-muted"
+                      )}
+                    >
+                      {item}
+                    </button>
+                  )
+                )
+              }
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-xl border-2 font-black text-xs uppercase tracking-widest bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+              >
+                Next →
+              </button>
             </div>
           )}
         </div>
