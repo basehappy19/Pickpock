@@ -55,25 +55,55 @@ const promptFont = localFont({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "PickPock - AI-Powered E-commerce Platform",
-  description: "แพลตฟอร์มอีคอมเมิร์ซที่ขับเคลื่อนด้วย AI | AI-Powered Shopping Experience",
-  keywords: "e-commerce, AI, shopping, Thailand, PickPock",
-  authors: [{ name: "PickPock Team" }],
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-      { url: "/apple-icon.png", sizes: "120x120", type: "image/png" },
-    ],
-  },
-  manifest: "/site.webmanifest",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const lang = cookieStore.get("language")?.value || "th";
+
+  const title = lang === "th" ? "PickPock - แพลตฟอร์มอีคอมเมิร์ซที่ขับเคลื่อนด้วย AI" : "PickPock - AI-Powered E-commerce Platform";
+  const description = lang === "th" ? "แพลตฟอร์มอีคอมเมิร์ซที่ขับเคลื่อนด้วย AI สุดล้ำ" : "State-of-the-art AI-Powered Shopping Experience";
+
+  return {
+    title,
+    description,
+    keywords: "e-commerce, AI, shopping, Thailand, PickPock",
+    authors: [{ name: "PickPock Team" }],
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+        { url: "/favicon.svg", type: "image/svg+xml" },
+      ],
+      apple: [
+        { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+        { url: "/apple-icon.png", sizes: "120x120", type: "image/png" },
+      ],
+    },
+    manifest: "/site.webmanifest",
+    openGraph: {
+      title,
+      description,
+      url: "https://pickpock.com",
+      siteName: "PickPock",
+      images: [
+        {
+          url: "/banner.png",
+          width: 1200,
+          height: 630,
+          alt: "PickPock Banner",
+        },
+      ],
+      locale: lang === "th" ? "th_TH" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/banner.png"],
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
