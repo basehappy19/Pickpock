@@ -69,6 +69,7 @@ export interface Store {
   products?: string[];
   joined_at?: string;
   views?: number;
+  image?: string;
 }
 
 export interface FilterOptions {
