@@ -307,9 +307,19 @@ export default function FounderDashboardPage() {
         const orderDate = order.createdAt.split('T')[0];
         const orderTime = new Date(order.createdAt);
         const total = order.totalAmount || 0;
+        
+        let isMall = true;
+        (order.items || []).forEach(item => {
+          const product = productMap[item.productId || item.product_id];
+          if (product && product.storeId && product.storeId !== 'mall') isMall = false;
+        });
+
         if (salesByLabel[orderDate] !== undefined) salesByLabel[orderDate] += total;
-        if (orderTime >= comparisonStartDate && orderTime <= now) currentPeriodRevenue += total;
-        else if (orderTime >= prev30DaysStart && orderTime <= comparisonStartDate) prevPeriodRevenue += total;
+        if (orderTime >= comparisonStartDate && orderTime <= now) {
+          currentPeriodRevenue += total;
+        } else if (orderTime >= prev30DaysStart && orderTime <= comparisonStartDate) {
+          prevPeriodRevenue += total;
+        }
       });
     }
 
@@ -317,14 +327,23 @@ export default function FounderDashboardPage() {
     const percentChange = prevPeriodRevenue > 0 ? Math.round(((currentPeriodRevenue - prevPeriodRevenue) / prevPeriodRevenue) * 100) : (currentPeriodRevenue > 0 ? 100 : 0);
 
     const productSalesStats: Record<string, { id: string, image: string, name: string, sales: number, revenue: number }> = {};
-    const storeSalesStats: Record<string, { name: string, sales: number, revenue: number }> = {};
+    const storeSalesStats: Record<string, { name: string, sales: number, revenue: number }> = {
+      "mall": { name: t.dashboard.officialMall || "Official Mall", sales: 0, revenue: 0 }
+    };
+    let currentMallRevenue = 0;
+    let prevMallRevenue = 0;
 
     orders.forEach((order) => {
       const orderTime = new Date(order.createdAt);
-      if (orderTime < comparisonStartDate || orderTime > now) return;
+      const isCurrent = orderTime >= comparisonStartDate && orderTime <= now;
+      const isPrev = orderTime >= prev30DaysStart && orderTime < comparisonStartDate;
+      
+      if (!isCurrent && !isPrev) return;
+      
       const netTotal = order.totalAmount || 0;
       const originalTotal = order.originalAmount || netTotal || 1;
       let remainingNet = netTotal;
+
       (order.items || []).forEach((item, idx) => {
         const product = productMap[item.productId];
         const sId = product?.storeId || "mall";
@@ -335,13 +354,19 @@ export default function FounderDashboardPage() {
         let itemNet = (idx === (order.items?.length || 1) - 1) ? remainingNet : Math.round((itemSubtotal / originalTotal) * netTotal);
         remainingNet -= itemNet;
 
-        if (!productSalesStats[item.productId]) productSalesStats[item.productId] = { id: item.productId, image: product?.image || "", name: item.productName || product?.name || "Product", sales: 0, revenue: 0 };
-        productSalesStats[item.productId].sales += itemQty;
-        productSalesStats[item.productId].revenue += itemNet;
+        if (isCurrent) {
+          if (!productSalesStats[item.productId]) productSalesStats[item.productId] = { id: item.productId, image: product?.image || "", name: item.productName || product?.name || "Product", sales: 0, revenue: 0 };
+          productSalesStats[item.productId].sales += itemQty;
+          productSalesStats[item.productId].revenue += itemNet;
 
-        if (!storeSalesStats[sId]) storeSalesStats[sId] = { name: storeName, sales: 0, revenue: 0 };
-        storeSalesStats[sId].sales += itemQty;
-        storeSalesStats[sId].revenue += itemNet;
+          if (!storeSalesStats[sId]) storeSalesStats[sId] = { name: storeName, sales: 0, revenue: 0 };
+          storeSalesStats[sId].sales += itemQty;
+          storeSalesStats[sId].revenue += itemNet;
+
+          if (sId === "mall") currentMallRevenue += itemNet;
+        } else if (isPrev) {
+          if (sId === "mall") prevMallRevenue += itemNet;
+        }
       });
     });
 
@@ -393,7 +418,7 @@ export default function FounderDashboardPage() {
       return acc;
     }, {} as Record<string, { type: 'increase' | 'decrease', amount: number, reason: string, totalSold: number }>);
 
-    return { salesTrend, percentChange, topProducts, topStores, categoryDistribution, currentPeriodRevenue, prevPeriodRevenue, pricingInsights };
+    return { salesTrend, percentChange, topProducts, topStores, categoryDistribution, currentPeriodRevenue, prevPeriodRevenue, pricingInsights, currentMallRevenue, prevMallRevenue };
   }, [orders, products, stores, timeRange, t, now]);
 
   const statCards = useMemo(() => {
@@ -404,8 +429,8 @@ export default function FounderDashboardPage() {
     };
 
     return [
-      { label: t.dashboard.stats.globalRevenue || "Global Revenue", value: formatCurrency(analyticsData.currentPeriodRevenue), change: getChange(analyticsData.currentPeriodRevenue, analyticsData.prevPeriodRevenue), trend: analyticsData.currentPeriodRevenue >= analyticsData.prevPeriodRevenue ? "up" : "down", icon: TrendingUp, color: "text-emerald-500" },
-      { label: t.dashboard.stats.mallRevenue || "Mall Revenue", value: formatCurrency(analyticsData.currentPeriodRevenue), change: getChange(analyticsData.currentPeriodRevenue, analyticsData.prevPeriodRevenue), trend: analyticsData.currentPeriodRevenue >= analyticsData.prevPeriodRevenue ? "up" : "down", icon: ShoppingBag, color: "text-amber-500" },
+      { label: (t.dashboard.stats.globalRevenue || "Global Revenue") + " (Mall + Partner)", value: formatCurrency(analyticsData.currentPeriodRevenue), change: getChange(analyticsData.currentPeriodRevenue, analyticsData.prevPeriodRevenue), trend: analyticsData.currentPeriodRevenue >= analyticsData.prevPeriodRevenue ? "up" : "down", icon: TrendingUp, color: "text-emerald-500" },
+      { label: t.dashboard.stats.mallRevenue || "Mall Revenue", value: formatCurrency(analyticsData.currentMallRevenue), change: getChange(analyticsData.currentMallRevenue, analyticsData.prevMallRevenue), trend: analyticsData.currentMallRevenue >= analyticsData.prevMallRevenue ? "up" : "down", icon: ShoppingBag, color: "text-amber-500" },
       { label: t.dashboard.stats.users, value: users.length.toLocaleString(), change: "+5.2%", trend: "up", icon: Users, color: "text-blue-500" },
       { label: t.dashboard.stats.products, value: products.length.toLocaleString(), change: products.length > 20 ? "+2.5%" : "0%", trend: "up", icon: Package, color: "text-purple-500" },
     ];

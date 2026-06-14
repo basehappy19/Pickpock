@@ -167,6 +167,24 @@
     ],
     "recentlyViewed": [
       {
+        "id": "p-newp0tz9o",
+        "name": "Pro Gaming Mouse",
+        "category": "Electronics",
+        "price": 999,
+        "stock": 5,
+        "image": "https://img.advice.co.th/images_nas/pic_product4/A0130448/A0130448OK_BIG_1.jpg",
+        "description": "เมาส์เกมมิ่งเซ็นเซอร์แม่นยำสูง ปรับ DPI ได้ถึง 16000 พร้อมไฟ RGB",
+        "rating": 0,
+        "reviews": [],
+        "storeId": "s-j244hxavy",
+        "isOfficial": false,
+        "createdAt": "2026-06-14T13:14:04.012Z",
+        "weight": "",
+        "dimensions": "",
+        "warranty": "",
+        "additionalDetails": ""
+      },
+      {
         "id": "p-807",
         "name": "Refreshing Face Toner",
         "category": "Beauty",
@@ -261,6 +279,20 @@
     ],
     "recentlyViewed": [
       {
+        "id": "p-901",
+        "name": "Learning Card Set",
+        "category": "Toys",
+        "price": 450,
+        "stock": 140,
+        "image": "https://cdn.schoolspecialty.com/fd6cc363-f7d8-4807-b689-b0f10088b063/2096698_A_JPG%20Output.jpg",
+        "description": "Educational cards for early development.",
+        "rating": 4.5,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-30T00:00:00Z"
+      },
+      {
         "id": "p-j4orpd357",
         "name": "HD Streaming Webcam",
         "category": "Electronics",
@@ -287,20 +319,6 @@
         "storeId": "s-j244hxavy",
         "isOfficial": false,
         "createdAt": "2026-06-14T05:04:57.840Z"
-      },
-      {
-        "id": "p-901",
-        "name": "Learning Card Set",
-        "category": "Toys",
-        "price": 450,
-        "stock": 140,
-        "image": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=800",
-        "description": "Educational cards for early development.",
-        "rating": 4.5,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-06-30T00:00:00Z"
       },
       {
         "id": "p-902",

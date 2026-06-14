@@ -13276,5 +13276,21 @@
     "total_price": 14310,
     "status": "delivered",
     "timestamp": "2026-05-20T13:11:02.611Z"
+  },
+  {
+    "order_id": "ORD-02280",
+    "user_id": "u003",
+    "items": [
+      {
+        "product_id": "p-newp0tz9o",
+        "qty": 1
+      }
+    ],
+    "total_price": 999,
+    "status": "PENDING",
+    "timestamp": "2026-06-14T13:19:37.666Z",
+    "reviewed_items": [
+      "p-newp0tz9o"
+    ]
   }
 ]
