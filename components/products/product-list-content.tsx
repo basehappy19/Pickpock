@@ -305,7 +305,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.home.officialStores}</h3>
+              <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.dashboard.storeTitle}</h3>
               <div className="flex flex-col gap-2">
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <div 
