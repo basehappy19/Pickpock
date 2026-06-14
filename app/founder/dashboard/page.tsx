@@ -266,6 +266,7 @@ export default function FounderDashboardPage() {
     let trendLabels: string[] = [];
     let salesByLabel: Record<string, number> = {};
     let comparisonStartDate: Date;
+    let prevPeriodStart: Date;
     let currentPeriodRevenue = 0;
     let prevPeriodRevenue = 0;
 
@@ -279,8 +280,8 @@ export default function FounderDashboardPage() {
       }
       comparisonStartDate = new Date(now);
       comparisonStartDate.setFullYear(comparisonStartDate.getFullYear() - 1);
-      const prevYearStart = new Date(comparisonStartDate);
-      prevYearStart.setFullYear(prevYearStart.getFullYear() - 1);
+      prevPeriodStart = new Date(comparisonStartDate);
+      prevPeriodStart.setFullYear(prevPeriodStart.getFullYear() - 1);
 
       orders.forEach((order) => {
         const orderTime = new Date(order.createdAt);
@@ -288,7 +289,7 @@ export default function FounderDashboardPage() {
         const label = orderTime.toLocaleString('th-TH', { month: 'short', year: '2-digit' });
         if (salesByLabel[label] !== undefined) salesByLabel[label] += total;
         if (orderTime >= comparisonStartDate && orderTime <= now) currentPeriodRevenue += total;
-        else if (orderTime >= prevYearStart && orderTime <= comparisonStartDate) prevPeriodRevenue += total;
+        else if (orderTime >= prevPeriodStart && orderTime <= comparisonStartDate) prevPeriodRevenue += total;
       });
     } else {
       for (let i = 29; i >= 0; i--) {
@@ -300,8 +301,8 @@ export default function FounderDashboardPage() {
       }
       comparisonStartDate = new Date(now);
       comparisonStartDate.setDate(comparisonStartDate.getDate() - 29);
-      const prev30DaysStart = new Date(comparisonStartDate);
-      prev30DaysStart.setDate(prev30DaysStart.getDate() - 30);
+      prevPeriodStart = new Date(comparisonStartDate);
+      prevPeriodStart.setDate(prevPeriodStart.getDate() - 30);
 
       orders.forEach((order) => {
         const orderDate = order.createdAt.split('T')[0];
@@ -310,14 +311,14 @@ export default function FounderDashboardPage() {
         
         let isMall = true;
         (order.items || []).forEach(item => {
-          const product = productMap[item.productId || item.product_id];
+          const product = productMap[item.productId || (item as any).product_id];
           if (product && product.storeId && product.storeId !== 'mall') isMall = false;
         });
 
         if (salesByLabel[orderDate] !== undefined) salesByLabel[orderDate] += total;
         if (orderTime >= comparisonStartDate && orderTime <= now) {
           currentPeriodRevenue += total;
-        } else if (orderTime >= prev30DaysStart && orderTime <= comparisonStartDate) {
+        } else if (orderTime >= prevPeriodStart && orderTime <= comparisonStartDate) {
           prevPeriodRevenue += total;
         }
       });
@@ -336,7 +337,7 @@ export default function FounderDashboardPage() {
     orders.forEach((order) => {
       const orderTime = new Date(order.createdAt);
       const isCurrent = orderTime >= comparisonStartDate && orderTime <= now;
-      const isPrev = orderTime >= prev30DaysStart && orderTime < comparisonStartDate;
+      const isPrev = orderTime >= prevPeriodStart && orderTime < comparisonStartDate;
       
       if (!isCurrent && !isPrev) return;
       
