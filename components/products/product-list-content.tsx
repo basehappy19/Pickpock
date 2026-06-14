@@ -428,7 +428,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 setAiMatchedIds(null);
                 setAiSearchQuery("");
               }}
-              className="w-full py-4 rounded-xl border-2 border-dashed border-muted-foreground/20 text-muted-foreground font-black text-xs uppercase tracking-widest hover:border-rose-500/50 hover:text-rose-500 transition-all"
+              className="w-full py-4 rounded-xl border-2 border-dashed border-muted-foreground/20 text-muted-foreground font-black text-xs uppercase tracking-widest hover:border-rose-500/50 hover:text-rose-500 transition-all cursor-pointer"
             >
               {t.filters.resetFilters}
             </button>
