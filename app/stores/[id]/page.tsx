@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   // Handle 'mall' as special case
   const storeId = id === 'mall' ? 'mall' : id;
-  const store = initialStores.find((s: any) => s.store_id === storeId || s.store_id === 'mall');
+  const store = initialStores.find((s: any) => s.store_id === storeId);
 
   if (!store) {
     return {
@@ -90,7 +90,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function StoreDetailPage({ params }: Props) {
   const { id } = await params;
   const storeId = id === 'mall' ? 'mall' : id;
-  const store = initialStores.find((s: any) => s.store_id === storeId || s.store_id === 'mall');
+  const store = initialStores.find((s: any) => s.store_id === storeId);
 
   if (!store) {
     return <StoreDetailClient storeId={id} storeNotFound={true} />;
