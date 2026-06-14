@@ -37,6 +37,18 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     params.set('page', String(page));
     router.push(`?${params.toString()}`, { scroll: true });
   };
+
+  const handleCategoryChange = (cat: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (cat === "all") {
+      params.delete("category");
+    } else {
+      params.set("category", cat);
+    }
+    params.set("page", "1");
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPriceFilter, setMaxPriceFilter] = useState(10000);
@@ -58,9 +70,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
   // Sync URL category param with filter
   useEffect(() => {
     const cat = searchParams.get("category");
-    if (cat) {
-      stableUpdateFilter({ category: cat });
-    }
+    stableUpdateFilter({ category: cat || "all" });
   }, [searchParams, stableUpdateFilter]);
   
   const [aiSearchQuery, setAiSearchQuery] = useState("");
@@ -189,7 +199,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
               <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t.home.categories}</h3>
               <div className="flex flex-wrap gap-2">
                 <button
-                  onClick={() => stableUpdateFilter({ category: "all" })}
+                  onClick={() => handleCategoryChange("all")}
                   className={cn(
                     "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-tighter border-2 transition-all cursor-pointer hover:-translate-y-1",
                     filters.category === "all" ? "bg-primary border-primary text-primary-foreground" : "bg-card border-transparent hover:border-primary/20 hover:bg-muted"
@@ -200,7 +210,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 {categories.map((cat, i) => (
                   <button
                     key={`cat-filter-${cat}-${i}`}
-                    onClick={() => stableUpdateFilter({ category: cat })}
+                    onClick={() => handleCategoryChange(cat)}
                     className={cn(
                       "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-tighter border-2 transition-all cursor-pointer hover:-translate-y-1",
                       filters.category === cat ? "bg-primary border-primary text-primary-foreground" : "bg-card border-transparent hover:border-primary/20 hover:bg-muted"
