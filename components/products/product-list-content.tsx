@@ -139,9 +139,15 @@ export default function ProductListContent({ initialProducts }: { initialProduct
       return;
     }
 
-    // Clear all filters when doing AI Search
+    // Clear all filters when doing AI Search but keep the AI query
     router.push(pathname, { scroll: false });
     resetFilters();
+    setMinPrice(0);
+    setMaxPriceFilter(maxPrice);
+    setInStockOnly(false);
+    setIsOfficialFilter(false);
+    setIsPartnerFilter(false);
+    setSelectedStoreId("all");
     
     setIsSearching(true);
     try {
@@ -161,6 +167,19 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     }
   };
 
+  const handleClearAllFilters = useCallback(() => {
+    router.push(pathname, { scroll: false });
+    resetFilters();
+    setMinPrice(0);
+    setMaxPriceFilter(maxPrice);
+    setInStockOnly(false);
+    setIsOfficialFilter(false);
+    setIsPartnerFilter(false);
+    setSelectedStoreId("all");
+    setAiMatchedIds(null);
+    setAiSearchQuery("");
+  }, [router, pathname, resetFilters, maxPrice]);
+
   const finalFilteredData = useMemo(() => {
     const data = aiMatchedIds 
       ? allProducts.filter(p => aiMatchedIds.includes(p.id))
@@ -176,13 +195,6 @@ export default function ProductListContent({ initialProducts }: { initialProduct
 
   const totalPages = Math.max(1, Math.ceil(finalFilteredData.length / ITEMS_PER_PAGE));
   const paginatedProducts = finalFilteredData.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-
-  // Reset to page 1 when filters change
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('page', '1');
-    router.replace(`?${params.toString()}`, { scroll: false });
-  }, [filters, minPrice, maxPriceFilter, inStockOnly, aiMatchedIds]);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700 pb-20">
