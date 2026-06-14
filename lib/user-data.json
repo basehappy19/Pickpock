@@ -153,18 +153,18 @@
     ],
     "recentlyViewed": [
       {
-        "id": "p-104",
-        "name": "Ergonomic Desk Chair",
-        "category": "Home",
-        "price": 5480,
-        "stock": 15,
-        "image": "https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=800",
-        "description": "Comfortable office chair with lumbar support.",
-        "rating": 4.7,
+        "id": "p-807",
+        "name": "Refreshing Face Toner",
+        "category": "Beauty",
+        "price": 450,
+        "stock": 160,
+        "image": "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=800",
+        "description": "Balance your skin after cleansing.",
+        "rating": 4.5,
         "reviews": [],
         "storeId": "mall",
         "isOfficial": true,
-        "createdAt": "2026-01-01T00:00:00Z"
+        "createdAt": "2026-06-29T00:00:00Z"
       },
       {
         "id": "p-901",
@@ -179,6 +179,20 @@
         "storeId": "mall",
         "isOfficial": true,
         "createdAt": "2026-06-30T00:00:00Z"
+      },
+      {
+        "id": "p-104",
+        "name": "Ergonomic Desk Chair",
+        "category": "Home",
+        "price": 5480,
+        "stock": 15,
+        "image": "https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=800",
+        "description": "Comfortable office chair with lumbar support.",
+        "rating": 4.7,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-01-01T00:00:00Z"
       },
       {
         "id": "p-804",
