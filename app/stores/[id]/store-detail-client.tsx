@@ -120,7 +120,7 @@ export default function StoreDetailClient({ storeId, initialStore, storeNotFound
 
   const openContactModal = () => {
     if (!user) {
-      router.push("/auth");
+      router.push("/login");
       return;
     }
     setIsContactOpen(true);
