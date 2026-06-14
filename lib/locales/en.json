@@ -327,6 +327,8 @@
   "products": {
     "listTitle": "All Products",
     "listSubtitle": "Explore our AI-curated premium collection",
+    "aiSearchPlaceholder": "Ask AI to find what you need...",
+    "aiSearchBtn": "AI Search",
     "allStores": "All Stores",
     "soldBy": "Sold by",
     "reviews": "Reviews",

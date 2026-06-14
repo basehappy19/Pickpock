@@ -327,6 +327,8 @@
   "products": {
     "listTitle": "สินค้าทั้งหมด",
     "listSubtitle": "สำรวจคอลเลกชันสินค้าพรีเมียมที่ขับเคลื่อนด้วย AI",
+    "aiSearchPlaceholder": "ให้ AI ช่วยหาสินค้าที่คุณต้องการ...",
+    "aiSearchBtn": "ค้นหาด้วย AI",
     "allStores": "ร้านค้าทั้งหมด",
     "soldBy": "จัดจำหน่ายโดย",
     "reviews": "รีวิว",

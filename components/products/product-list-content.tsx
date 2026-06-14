@@ -112,13 +112,13 @@ export default function ProductListContent({ initialProducts }: { initialProduct
       {/* AI Smart Search Bar */}
       <div className="relative group z-30">
         <div className="absolute -inset-1 bg-rainbow-gradient rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200 -z-10"></div>
-        <form onSubmit={handleAISearch} className="relative flex flex-col md:flex-row gap-2 bg-card p-2 lg:p-3 rounded-2xl border shadow-xl">
+        <form onSubmit={handleAISearch} className="relative flex flex-col md:flex-row gap-2 p-2 lg:p-3">
           <div className="flex-1 relative flex items-center">
             <Sparkles className="absolute left-4 h-5 w-5 text-rainbow animate-pulse pointer-events-none z-10" />
             <input
               type="text"
               placeholder={t.products.aiSearchPlaceholder}
-              className="w-full pl-12 pr-6 py-4 rounded-xl bg-background border-2 border-transparent focus:border-primary/30 focus:bg-accent/50 outline-none text-base font-bold placeholder:text-muted-foreground/60 transition-all z-20"
+              className="w-full pl-12 pr-6 py-4 rounded-xl border-2 border-primary/30 bg-accent/50 outline-none text-base font-bold placeholder:text-muted-foreground/60 transition-all z-20"
               value={aiSearchQuery}
               onChange={(e) => setAiSearchQuery(e.target.value)}
               autoComplete="off"
@@ -131,7 +131,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           >
             <div className="absolute inset-0 bg-rainbow-gradient opacity-0 group-hover/btn:opacity-20 transition-opacity" />
             {isSearching ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
-            <span className="relative uppercase tracking-widest text-xs">{isSearching ? "..." : "AI Search"}</span>
+            <span className="relative uppercase tracking-widest text-xs">{isSearching ? "..." : t.products.aiSearchBtn}</span>
           </button>
         </form>
       </div>
@@ -174,8 +174,8 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                 <button
                   onClick={() => stableUpdateFilter({ category: "all" })}
                   className={cn(
-                    "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-tighter border-2 transition-all",
-                    filters.category === "all" ? "bg-primary border-primary text-primary-foreground" : "bg-card border-transparent hover:border-primary/20"
+                    "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-tighter border-2 transition-all cursor-pointer hover:-translate-y-1",
+                    filters.category === "all" ? "bg-primary border-primary text-primary-foreground" : "bg-card border-transparent hover:border-primary/20 hover:bg-muted"
                   )}
                 >
                   {t.common.all}
@@ -185,8 +185,8 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                     key={`cat-filter-${cat}-${i}`}
                     onClick={() => stableUpdateFilter({ category: cat })}
                     className={cn(
-                      "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-tighter border-2 transition-all",
-                      filters.category === cat ? "bg-primary border-primary text-primary-foreground" : "bg-card border-transparent hover:border-primary/20"
+                      "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-tighter border-2 transition-all cursor-pointer hover:-translate-y-1",
+                      filters.category === cat ? "bg-primary border-primary text-primary-foreground" : "bg-card border-transparent hover:border-primary/20 hover:bg-muted"
                     )}
                   >
                     {(t.categories as Record<string, string>)[cat] || cat}
@@ -372,14 +372,18 @@ export default function ProductListContent({ initialProducts }: { initialProduct
           )}
 
           {/* Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
-            {finalFilteredData.map((product) => {
+          <div className={cn(
+            "grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 transition-all duration-700",
+            isSearching ? "opacity-30 blur-sm scale-95" : "opacity-100 blur-0 scale-100"
+          )}>
+            {finalFilteredData.map((product, idx) => {
               const inWishlist = isInWishlist(product.id);
 
               return (
                 <div
                   key={product.id}
-                  className="group bg-card rounded-2xl border overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col"
+                  className="group bg-card rounded-2xl border overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col animate-in fade-in slide-in-from-bottom-8 zoom-in-95 fill-mode-both"
+                  style={{ animationDelay: `${(idx % 12) * 75}ms`, animationDuration: '700ms' }}
                 >
                   <div className="aspect-square relative bg-muted overflow-hidden">
                     <NextImage

@@ -224,8 +224,42 @@
     "wishlist": [],
     "history": [],
     "compare": [],
-    "coupons": [],
+    "coupons": [
+      "WELCOME100",
+      "FOUNDER10",
+      "MSU500",
+      "GADGET15",
+      "FREESHIP"
+    ],
     "recentlyViewed": [
+      {
+        "id": "p-901",
+        "name": "Learning Card Set",
+        "category": "Toys",
+        "price": 450,
+        "stock": 140,
+        "image": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=800",
+        "description": "Educational cards for early development.",
+        "rating": 4.5,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-30T00:00:00Z"
+      },
+      {
+        "id": "p-509",
+        "name": "Velvet Hair Bow",
+        "category": "Fashion",
+        "price": 250,
+        "stock": 150,
+        "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=800",
+        "description": "Add a touch of charm with this velvet bow.",
+        "rating": 4.2,
+        "reviews": [],
+        "storeId": "mall",
+        "isOfficial": true,
+        "createdAt": "2026-06-23T00:00:00Z"
+      },
       {
         "id": "p-1gp2tm71e",
         "name": "Adjustable Phone Stand",
@@ -267,20 +301,6 @@
         "storeId": "s-j244hxavy",
         "isOfficial": false,
         "createdAt": "2026-06-14T05:04:57.840Z"
-      },
-      {
-        "id": "p-901",
-        "name": "Learning Card Set",
-        "category": "Toys",
-        "price": 450,
-        "stock": 140,
-        "image": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=800",
-        "description": "Educational cards for early development.",
-        "rating": 4.5,
-        "reviews": [],
-        "storeId": "mall",
-        "isOfficial": true,
-        "createdAt": "2026-06-30T00:00:00Z"
       },
       {
         "id": "p-806",

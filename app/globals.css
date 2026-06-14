@@ -171,7 +171,7 @@
     rgba(99, 102, 241, 0.1),
     rgba(168, 85, 247, 0.1)
   );
-  background-size: 300% 300%;
+  background-size: 155% 155%;
   animation: gradient-shift 8s ease infinite;
 }
 
