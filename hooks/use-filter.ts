@@ -15,11 +15,11 @@ export function useFilter(initialData: Product[]) {
 
     // Search
     if (filters.search) {
-      const searchLower = filters.search.toLowerCase();
+      const searchLower = filters.search.toLowerCase().replace(/\s+/g, '');
       result = result.filter(
         (item) =>
-          item.name.toLowerCase().includes(searchLower) ||
-          item.description.toLowerCase().includes(searchLower)
+          item.name.toLowerCase().replace(/\s+/g, '').includes(searchLower) ||
+          item.description.toLowerCase().replace(/\s+/g, '').includes(searchLower)
       );
     }
 
