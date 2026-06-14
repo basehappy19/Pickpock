@@ -377,13 +377,13 @@ export default function FounderDashboardPage() {
         const cappedIncrease = Math.min(rawIncrease, 500);
         suggestedAmount = Math.round((p.price + cappedIncrease) / 10) * 10;
         type = 'increase';
-        reason = 'สินค้าขายดีและสต็อกเหลือน้อย แนะนำให้เพิ่มราคาเพื่อทำกำไร (สูงสุด 500 บาท)';
+        reason = language === 'th' ? 'สินค้าขายดีและสต็อกเหลือน้อย แนะนำให้เพิ่มราคาเพื่อทำกำไร (สูงสุด 500 บาท)' : 'High demand with low stock. Recommend price increase (max 500 ฿)';
       } else if (sales === 0 && p.stock > 50) {
         const rawDecrease = p.price * 0.05;
         const cappedDecrease = Math.min(rawDecrease, 500);
         suggestedAmount = Math.round((p.price - cappedDecrease) / 10) * 10;
         type = 'decrease';
-        reason = 'สินค้ายังขายไม่ได้และมีสต็อกมาก แนะนำให้ลดราคาเพื่อกระตุ้นยอดขาย (สูงสุด 500 บาท)';
+        reason = language === 'th' ? 'สินค้ายังขายไม่ได้และมีสต็อกมาก แนะนำให้ลดราคาเพื่อกระตุ้นยอดขาย (สูงสุด 500 บาท)' : 'Low sales with high stock. Recommend price decrease (max 500 ฿)';
       }
       
       if (suggestedAmount > 0 && Math.abs(suggestedAmount - p.price) >= 20) {
