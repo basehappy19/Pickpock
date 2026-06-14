@@ -87,7 +87,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "PickPock",
       images: [
         {
-          url: "/banner.png",
+          url: "/brand/banner.png",
           width: 1200,
           height: 630,
           alt: "PickPock Banner",
@@ -100,7 +100,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: ["/banner.png"],
+      images: ["/brand/banner.png"],
     },
   };
 }
