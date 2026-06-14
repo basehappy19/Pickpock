@@ -532,7 +532,7 @@ export default function FounderDashboardPage() {
           <h3 className="text-xl font-semibold tracking-tight uppercase">{t.dashboard.categoryDistribution}</h3>
           <div className="space-y-5">
             {analyticsData.categoryDistribution.length > 0 ? (
-              analyticsData.categoryDistribution.slice(0, 5).map((cat) => (
+              analyticsData.categoryDistribution.map((cat) => (
                 <div key={cat.label} className="space-y-2">
                   <div className="flex justify-between items-center text-xs font-semibold uppercase tracking-widest">
                     <span>{(t.categories as Record<string, string>)[cat.label] || cat.label} ({cat.count} {t.dashboard.units})</span>

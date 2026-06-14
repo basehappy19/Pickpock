@@ -176,7 +176,7 @@ export function KPIDashboard({ orders, products, stores, users = [], storeId }: 
         <div className="bg-card border-2 border-primary/5 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 space-y-6">
           <h3 className="text-xl font-semibold tracking-tight uppercase">{t.dashboard.categoryDistribution}</h3>
           <BarChart
-            data={categoryData.slice(0, 5).map(cat => ({
+            data={categoryData.map(cat => ({
               label: cat.category,
               value: cat.count
             }))}
