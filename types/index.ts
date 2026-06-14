@@ -80,6 +80,7 @@ export interface FilterOptions {
   sortBy?: 'price-asc' | 'price-desc' | 'rating' | 'newest';
   isOfficial?: boolean;
   isPartner?: boolean;
+  storeId?: string;
 }
 
 export interface Coupon {

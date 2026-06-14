@@ -51,6 +51,11 @@ export function useFilter(initialData: Product[]) {
       result = result.filter(item => !item.isOfficial && item.storeId !== "mall");
     }
 
+    // Store ID Filter
+    if (filters.storeId && filters.storeId !== "all") {
+      result = result.filter(item => item.storeId === filters.storeId);
+    }
+
     return result;
   }, [initialData, filters]);
 

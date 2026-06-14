@@ -73,6 +73,25 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
+  const handleStoreChange = (sid: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (sid === "all") {
+      params.delete("storeId");
+    } else {
+      params.set("storeId", sid);
+      // If picking a specific store, it's likely a partner unless it's the mall
+      if (sid !== "mall") {
+        params.set("partner", "true");
+        params.delete("official");
+      } else {
+        params.set("official", "true");
+        params.delete("partner");
+      }
+    }
+    params.set("page", "1");
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPriceFilter, setMaxPriceFilter] = useState(10000);
@@ -80,6 +99,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
   const [inStockOnly, setInStockOnly] = useState(false);
   const [isOfficialFilter, setIsOfficialFilter] = useState(false);
   const [isPartnerFilter, setIsPartnerFilter] = useState(false);
+  const [selectedStoreId, setSelectedStoreId] = useState("all");
 
   // Sync state with URL params
   useEffect(() => {
@@ -89,6 +109,7 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     const inStock = searchParams.get("inStock") === "true";
     const official = searchParams.get("official") === "true";
     const partner = searchParams.get("partner") === "true";
+    const sid = searchParams.get("storeId") || "all";
     const sortBy = (searchParams.get("sort") as FilterOptions['sortBy']) || "newest";
 
     setMinPrice(min);
@@ -96,11 +117,13 @@ export default function ProductListContent({ initialProducts }: { initialProduct
     setInStockOnly(inStock);
     setIsOfficialFilter(official);
     setIsPartnerFilter(partner);
+    setSelectedStoreId(sid);
 
     updateFilter({ 
       category: cat,
       isOfficial: official,
       isPartner: partner,
+      storeId: sid,
       sortBy: sortBy
     });
   }, [searchParams, updateFilter, maxPrice]);
@@ -337,6 +360,27 @@ export default function ProductListContent({ initialProducts }: { initialProduct
                   </div>
                   <span className="text-sm font-bold uppercase tracking-tight group-hover:text-blue-600 transition-colors">{t.filters.partnerOnly}</span>
                 </label>
+              </div>
+
+              {/* Specific Store Selection */}
+              <div className="pt-2">
+                <select
+                  value={selectedStoreId}
+                  onChange={(e) => handleStoreChange(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-muted/50 border-2 border-transparent focus:border-primary/20 outline-none text-xs font-black uppercase tracking-widest cursor-pointer appearance-none"
+                >
+                  <option value="all">--- {t.common.all} {t.dashboard.storeTitle} ---</option>
+                  <optgroup label={t.dashboard.officialMall}>
+                    <option value="mall">{t.dashboard.officialMall}</option>
+                  </optgroup>
+                  <optgroup label={t.dashboard.partnerStore}>
+                    {stores.filter(s => s.store_id !== "mall").map(store => (
+                      <option key={store.store_id} value={store.store_id}>
+                        {store.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                </select>
               </div>
             </div>
 
