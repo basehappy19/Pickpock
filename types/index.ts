@@ -19,6 +19,7 @@ export interface Product {
   dimensions?: string;
   warranty?: string;
   additionalDetails?: string;
+  aiPriceAdjusted?: boolean;
 }
 
 export interface Review {

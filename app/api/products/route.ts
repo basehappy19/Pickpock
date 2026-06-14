@@ -34,7 +34,8 @@ const toJSON = (p: Product) => ({
   weight: p.weight,
   dimensions: p.dimensions,
   warranty: p.warranty,
-  additionalDetails: p.additionalDetails
+  additionalDetails: p.additionalDetails,
+  aiPriceAdjusted: (p as any).aiPriceAdjusted || false
 });
 
 export async function GET() {

@@ -370,18 +370,24 @@ export default function FounderDashboardPage() {
 
       let suggestedAmount = 0;
       let type: 'increase' | 'decrease' = 'increase';
+      let reason = '';
 
       if (sales > 10 && p.stock < 20) {
-        suggestedAmount = Math.round(p.price * 1.05 / 10) * 10;
+        const rawIncrease = p.price * 0.05;
+        const cappedIncrease = Math.min(rawIncrease, 500);
+        suggestedAmount = Math.round((p.price + cappedIncrease) / 10) * 10;
         type = 'increase';
+        reason = 'สินค้าขายดีและสต็อกเหลือน้อย แนะนำให้เพิ่มราคาเพื่อทำกำไร (สูงสุด 500 บาท)';
       } else if (sales === 0 && p.stock > 50) {
-        // Only suggest decrease if never analyzed before
-        suggestedAmount = Math.round(p.price * 0.95 / 10) * 10;
+        const rawDecrease = p.price * 0.05;
+        const cappedDecrease = Math.min(rawDecrease, 500);
+        suggestedAmount = Math.round((p.price - cappedDecrease) / 10) * 10;
         type = 'decrease';
+        reason = 'สินค้ายังขายไม่ได้และมีสต็อกมาก แนะนำให้ลดราคาเพื่อกระตุ้นยอดขาย (สูงสุด 500 บาท)';
       }
       
       if (suggestedAmount > 0 && Math.abs(suggestedAmount - p.price) >= 20) {
-        acc[p.id] = { type, amount: suggestedAmount, reason: type === 'increase' ? t.dashboard.founderInsights.reasonIncrease : t.dashboard.founderInsights.reasonDecrease, totalSold: sales };
+        acc[p.id] = { type, amount: suggestedAmount, reason, totalSold: sales };
       }
       
       return acc;

@@ -338,7 +338,7 @@ export default function PartnerDashboardPage() {
   );
 
   const pricingInsights = useMemo(() => {
-    const insights: Record<string, { type: 'increase' | 'decrease', amount: number }> = {};
+    const insights: Record<string, { type: 'increase' | 'decrease', amount: number, reason: string }> = {};
     
     myProducts.forEach((p: any) => {
       const pId = p.product_id || p.id;
@@ -346,18 +346,25 @@ export default function PartnerDashboardPage() {
       
       let suggestedAmount = 0;
       let type: 'increase' | 'decrease' = 'increase';
+      let reason = '';
 
       if (sales > 5 && p.stock < 10) {
-        suggestedAmount = Math.round(p.price * 1.05 / 10) * 10;
+        const rawIncrease = p.price * 0.05;
+        const cappedIncrease = Math.min(rawIncrease, 500);
+        suggestedAmount = Math.round((p.price + cappedIncrease) / 10) * 10;
         type = 'increase';
-      } else if (sales === 0 && p.stock > 30) {
-        suggestedAmount = Math.round(p.price * 0.95 / 10) * 10;
+        reason = language === 'th' ? 'สินค้าขายดีและสต็อกเหลือน้อย แนะนำให้เพิ่มราคาเพื่อทำกำไร (สูงสุด 500 บาท)' : 'High demand with low stock. Recommend price increase (max 500 ฿)';
+      } else if (sales === 0 && p.stock > 20) {
+        const rawDecrease = p.price * 0.05;
+        const cappedDecrease = Math.min(rawDecrease, 500);
+        suggestedAmount = Math.round((p.price - cappedDecrease) / 10) * 10;
         type = 'decrease';
+        reason = language === 'th' ? 'สินค้ายังขายไม่ได้และมีสต็อกมาก แนะนำให้ลดราคาเพื่อกระตุ้นยอดขาย (สูงสุด 500 บาท)' : 'Low sales with high stock. Recommend price decrease (max 500 ฿)';
       }
 
       // Only suggest if the price difference is significant and hasn't been adjusted before
       if (suggestedAmount > 0 && Math.abs(suggestedAmount - p.price) >= 20 && !p.aiPriceAdjusted) {
-        insights[pId] = { type, amount: suggestedAmount };
+        insights[pId] = { type, amount: suggestedAmount, reason };
       }
     });
     
@@ -527,6 +534,7 @@ export default function PartnerDashboardPage() {
                             <span className="font-semibold text-sm">{formatCurrency(product.price)}</span>
                             {insight && (
                               <button
+                                title={insight.reason}
                                 onClick={(e) => { e.stopPropagation(); handleApplyAISmartPrice(pId, insight.amount); }}
                                 disabled={isPriceUpdating}
                                 className={cn(
