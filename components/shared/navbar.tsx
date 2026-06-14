@@ -154,71 +154,92 @@ export default function Navbar() {
 
       {/* Bottom Navbar (Mobile only) */}
       <nav className="lg:hidden fixed bottom-0 left-0 z-50 w-full bg-background/95 backdrop-blur-lg border-t border-border px-4 py-2 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
-        <div className="flex justify-around items-center h-14">
-          {navLinks.slice(0, 3).map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "flex flex-col items-center justify-center gap-1 min-w-[56px] transition-all",
-                pathname === link.href ? "text-primary scale-110" : "text-muted-foreground"
-              )}
-            >
-              <link.icon className="h-6 w-6" />
-              <span className="text-xs font-semibold uppercase tracking-tighter">{link.label}</span>
-            </Link>
-          ))}
+        <div className="flex justify-between items-center h-14 px-2 pb-1 relative">
+          
+          <Link
+            href="/products"
+            className={cn(
+              "flex flex-col items-center justify-end h-full gap-1 flex-1 transition-all",
+              pathname === "/products" ? "text-primary scale-105" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            <Package className="h-5 w-5" />
+            <span className="text-[9px] font-semibold uppercase tracking-tighter">{t.nav.products}</span>
+          </Link>
+
           <Link
             href="/wishlist"
             className={cn(
-              "relative flex flex-col items-center justify-center gap-1 min-w-[56px] transition-all",
-              pathname === "/wishlist" ? "text-primary scale-110" : "text-muted-foreground"
+              "relative flex flex-col items-center justify-end h-full gap-1 flex-1 transition-all",
+              pathname === "/wishlist" ? "text-primary scale-105" : "text-muted-foreground hover:text-foreground"
             )}
           >
             <div className="relative">
-              <Heart className="h-6 w-6" />
+              <Heart className="h-5 w-5" />
               {wishlist.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-xs font-semibold text-white shadow-sm">
+                <span className="absolute -top-1.5 -right-2 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-rose-500 text-[9px] font-bold text-white shadow-sm ring-1 ring-background">
                   {wishlist.length}
                 </span>
               )}
             </div>
-            <span className="text-xs font-semibold uppercase tracking-tighter">{t.nav.wishlist}</span>
+            <span className="text-[9px] font-semibold uppercase tracking-tighter">{t.nav.wishlist}</span>
           </Link>
+
+          {/* HOME BUTTON (CENTER, PROMINENT) */}
           <Link
-            href="/compare"
-            className={cn(
-              "relative flex flex-col items-center justify-center gap-1 min-w-[56px] transition-all",
-              pathname === "/compare" ? "text-primary scale-110" : "text-muted-foreground"
-            )}
+            href="/"
+            className="group relative flex flex-col items-center justify-center flex-1 z-10 -mt-6"
           >
-            <div className="relative">
-              <GitCompare className="h-6 w-6" />
-              {compareList.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-semibold text-white shadow-sm">
-                  {compareList.length}
-                </span>
-              )}
+            <div className={cn(
+              "flex items-center justify-center h-14 w-14 rounded-full shadow-lg transition-all duration-300 group-hover:scale-105 group-active:scale-95 ring-4 ring-background",
+              pathname === "/" 
+                ? "bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-primary/40" 
+                : "bg-background border shadow-md text-foreground hover:border-primary"
+            )}>
+              <Home className={cn("h-6 w-6", pathname === "/" ? "animate-pulse" : "")} />
             </div>
-            <span className="text-xs font-semibold uppercase tracking-tighter">{t.nav.compare}</span>
+            <span className={cn(
+              "text-[9px] font-bold uppercase tracking-tighter mt-1 transition-colors",
+              pathname === "/" ? "text-primary" : "text-muted-foreground"
+            )}>{t.nav.home}</span>
           </Link>
+
           <Link
             href="/cart"
             className={cn(
-              "relative flex flex-col items-center justify-center gap-1 min-w-[56px] transition-all",
-              pathname === "/cart" ? "text-primary scale-110" : "text-muted-foreground"
+              "relative flex flex-col items-center justify-end h-full gap-1 flex-1 transition-all",
+              pathname === "/cart" ? "text-primary scale-105" : "text-muted-foreground hover:text-foreground"
             )}
           >
             <div className="relative">
-              <ShoppingCart className="h-6 w-6" />
+              <ShoppingCart className="h-5 w-5" />
               {totalCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground shadow-sm">
+                <span className="absolute -top-1.5 -right-2 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground shadow-sm ring-1 ring-background">
                   {totalCount}
                 </span>
               )}
             </div>
-            <span className="text-xs font-semibold uppercase tracking-tighter">{t.nav.cart}</span>
+            <span className="text-[9px] font-semibold uppercase tracking-tighter">{t.nav.cart}</span>
           </Link>
+
+          {navLinks[2] ? (
+            <Link
+              href={navLinks[2].href}
+              className={cn(
+                "flex flex-col items-center justify-end h-full gap-1 flex-1 transition-all",
+                pathname === navLinks[2].href ? "text-primary scale-105" : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {(() => {
+                const Icon = navLinks[2].icon;
+                return <Icon className="h-5 w-5" />;
+              })()}
+              <span className="text-[9px] font-semibold uppercase tracking-tighter truncate max-w-[60px] text-center w-full">{navLinks[2].label}</span>
+            </Link>
+          ) : (
+            <div className="flex-1" />
+          )}
+
         </div>
       </nav>
 
