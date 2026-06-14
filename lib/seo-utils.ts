@@ -111,12 +111,13 @@ export function generateBreadcrumbSchema(items: { name: string; item: string }[]
 }
 
 export function generateOrganizationSchema() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pickpock.com";
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "PickPock",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "https://pickpock.com",
-    logo: `${process.env.NEXT_PUBLIC_SITE_URL}/logo.png`,
+    url: siteUrl,
+    logo: `${siteUrl}/brand/logo_full.png`,
     description: defaultDescription,
     sameAs: [
       "https://facebook.com/pickpock",
